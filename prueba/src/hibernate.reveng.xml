@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.org/dtd/hibernate-reverse-engineering-3.0.dtd" >
+
+<hibernate-reverse-engineering>
+  <table-filter match-catalog="anima_sheets_data" match-name="arma"/>
+  <table-filter match-catalog="anima_sheets_data" match-name="arma_personaje"/>
+  <table-filter match-catalog="anima_sheets_data" match-name="armadura"/>
+  <table-filter match-catalog="anima_sheets_data" match-name="armadura_personaje"/>
+  <table-filter match-catalog="anima_sheets_data" match-name="arte_marcial"/>
+  <table-filter match-catalog="anima_sheets_data" match-name="caracteristicas"/>
+  <table-filter match-catalog="anima_sheets_data" match-name="categoria"/>
+  <table-filter match-catalog="anima_sheets_data" match-name="desventaja"/>
+  <table-filter match-catalog="anima_sheets_data" match-name="idioma"/>
+  <table-filter match-catalog="anima_sheets_data" match-name="jugador"/>
+  <table-filter match-catalog="anima_sheets_data" match-name="lv"/>
+  <table-filter match-catalog="anima_sheets_data" match-name="pds_categoria"/>
+  <table-filter match-catalog="anima_sheets_data" match-name="pds_primarias_comunes"/>
+  <table-filter match-catalog="anima_sheets_data" match-name="pds_primarias_ki"/>
+  <table-filter match-catalog="anima_sheets_data" match-name="pds_primarias_misticas"/>
+  <table-filter match-catalog="anima_sheets_data" match-name="pds_primarias_patrones_psiquicos"/>
+  <table-filter match-catalog="anima_sheets_data" match-name="pds_primarias_psiquicas"/>
+  <table-filter match-catalog="anima_sheets_data" match-name="pds_primarias_tablas_comunes"/>
+  <table-filter match-catalog="anima_sheets_data" match-name="pds_secundarias_atleticas"/>
+  <table-filter match-catalog="anima_sheets_data" match-name="pds_secundarias_creativas"/>
+  <table-filter match-catalog="anima_sheets_data" match-name="pds_secundarias_intelectuales"/>
+  <table-filter match-catalog="anima_sheets_data" match-name="pds_secundarias_perceptivas"/>
+  <table-filter match-catalog="anima_sheets_data" match-name="pds_secundarias_sociales"/>
+  <table-filter match-catalog="anima_sheets_data" match-name="pds_secundarias_subterfugio"/>
+  <table-filter match-catalog="anima_sheets_data" match-name="pds_secundarias_vigor"/>
+  <table-filter match-catalog="anima_sheets_data" match-name="personaje"/>
+  <table-filter match-catalog="anima_sheets_data" match-name="raza"/>
+  <table-filter match-catalog="anima_sheets_data" match-name="tabla_arma"/>
+  <table-filter match-catalog="anima_sheets_data" match-name="tabla_arma_personaje"/>
+  <table-filter match-catalog="anima_sheets_data" match-name="tabla_arte_marcial_personaje"/>
+  <table-filter match-catalog="anima_sheets_data" match-name="tabla_desventaja_personaje"/>
+  <table-filter match-catalog="anima_sheets_data" match-name="tabla_estilo"/>
+  <table-filter match-catalog="anima_sheets_data" match-name="tabla_estilo_personaje"/>
+  <table-filter match-catalog="anima_sheets_data" match-name="tabla_idioma_personaje"/>
+  <table-filter match-catalog="anima_sheets_data" match-name="tabla_magia"/>
+  <table-filter match-catalog="anima_sheets_data" match-name="tabla_magia_personaje"/>
+  <table-filter match-catalog="anima_sheets_data" match-name="tabla_patron_mental"/>
+  <table-filter match-catalog="anima_sheets_data" match-name="tabla_patron_mental_personaje"/>
+  <table-filter match-catalog="anima_sheets_data" match-name="tabla_psiquico"/>
+  <table-filter match-catalog="anima_sheets_data" match-name="tabla_psiquico_personaje"/>
+  <table-filter match-catalog="anima_sheets_data" match-name="tabla_ventaja_personaje"/>
+  <table-filter match-catalog="anima_sheets_data" match-name="tamano"/>
+  <table-filter match-catalog="anima_sheets_data" match-name="ventaja"/>
+</hibernate-reverse-engineering>

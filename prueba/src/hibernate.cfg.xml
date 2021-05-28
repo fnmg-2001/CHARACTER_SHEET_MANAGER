@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.bytecode.use_reflection_optimizer">false</property>
+        <property name="hibernate.connection.autocommit">false</property>
+        <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+        <property name="hibernate.connection.password">1234</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/anima_sheets_data?serverTimezone=UTC</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.current_session_context_class">thread</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="hibernate.search.autoregister_listeners">true</property>
+        <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.validator.apply_to_ddl">false</property>
+        <mapping class="modelo.TablaPatronMental"/>
+        <mapping class="modelo.Lv"/>
+        <mapping class="modelo.PdsSecundariasVigor"/>
+        <mapping class="modelo.PdsCategoria"/>
+        <mapping class="modelo.PdsSecundariasPerceptivas"/>
+        <mapping class="modelo.Tamano"/>
+        <mapping class="modelo.ArmaPersonaje"/>
+        <mapping class="modelo.TablaArma"/>
+        <mapping class="modelo.Desventaja"/>
+        <mapping class="modelo.PdsPrimariasPsiquicas"/>
+        <mapping class="modelo.Arma"/>
+        <mapping class="modelo.Jugador"/>
+        <mapping class="modelo.Personaje"/>
+        <mapping class="modelo.TablaMagia"/>
+        <mapping class="modelo.TablaPsiquico"/>
+        <mapping class="modelo.Armadura"/>
+        <mapping class="modelo.TablaEstilo"/>
+        <mapping class="modelo.Caracteristicas"/>
+        <mapping class="modelo.PdsSecundariasSociales"/>
+        <mapping class="modelo.PdsPrimariasTablasComunes"/>
+        <mapping class="modelo.PdsSecundariasCreativas"/>
+        <mapping class="modelo.PdsPrimariasKi"/>
+        <mapping class="modelo.Ventaja"/>
+        <mapping class="modelo.Categoria"/>
+        <mapping class="modelo.PdsPrimariasMisticas"/>
+        <mapping class="modelo.PdsSecundariasSubterfugio"/>
+        <mapping class="modelo.ArteMarcial"/>
+        <mapping class="modelo.PdsPrimariasPatronesPsiquicos"/>
+        <mapping class="modelo.PdsSecundariasIntelectuales"/>
+        <mapping class="modelo.PdsPrimariasComunes"/>
+        <mapping class="modelo.PdsSecundariasAtleticas"/>
+        <mapping class="modelo.Idioma"/>
+        <mapping class="modelo.Raza"/>
+    </session-factory>
+</hibernate-configuration>

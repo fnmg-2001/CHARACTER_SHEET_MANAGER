@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.effect.DisplacementMap?>
+<?import javafx.scene.effect.FloatMap?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" stylesheets="@../application/application.css" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+  <tabs>
+    <Tab text="GENERAL">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="422.0" prefWidth="1200.0">
+               <children>
+                  <ImageView fx:id="imagenChar" fitHeight="437.0" fitWidth="370.0" layoutX="121.0" layoutY="61.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                     <effect>
+                        <DisplacementMap wrap="true">
+                           <mapData>
+                              <FloatMap />
+                           </mapData>
+                        </DisplacementMap>
+                     </effect>
+                     <image>
+                        <Image url="@../../img/addImage.png" />
+                     </image></ImageView>
+                  <Label alignment="CENTER" layoutX="121.0" layoutY="21.0" prefHeight="35.0" prefWidth="369.0" styleClass="labelPersonaje" text="RETRATO" />
+                  <Label alignment="CENTER" layoutX="64.0" layoutY="546.0" prefHeight="35.0" prefWidth="481.0" styleClass="labelPersonaje" text="NOMBRE" />
+                  <TextField alignment="CENTER" layoutX="64.0" layoutY="581.0" prefHeight="31.0" prefWidth="480.0" />
+                  <Label alignment="CENTER" layoutX="648.0" layoutY="211.0" prefHeight="35.0" prefWidth="494.0" styleClass="labelPersonaje" text="PARTICULARIDADES" />
+                  <TextArea layoutX="648.0" layoutY="246.0" prefHeight="140.0" prefWidth="494.0" styleClass="tAreaPersonaje" wrapText="true" />
+                  <Label alignment="CENTER" layoutX="650.0" layoutY="393.0" prefHeight="35.0" prefWidth="490.0" styleClass="labelPersonaje" text="OBJETIVOS" />
+                  <TextArea layoutX="650.0" layoutY="428.0" prefHeight="140.0" prefWidth="490.0" styleClass="tAreaPersonaje" wrapText="true" />
+                  <Label alignment="CENTER" layoutX="651.0" layoutY="579.0" prefHeight="35.0" prefWidth="489.0" styleClass="labelPersonaje" text="HISTORIA" />
+                  <TextArea layoutX="651.0" layoutY="614.0" prefHeight="140.0" prefWidth="489.0" styleClass="tAreaPersonaje" wrapText="true" />
+                  <Label alignment="CENTER" layoutX="649.0" layoutY="27.0" prefHeight="35.0" prefWidth="492.0" styleClass="labelPersonaje" text="PERSONALIDAD" />
+                  <TextArea layoutX="649.0" layoutY="61.0" prefHeight="140.0" prefWidth="492.0" styleClass="tAreaPersonaje" wrapText="true" />
+                  <Label alignment="CENTER" layoutX="64.0" layoutY="620.0" prefHeight="35.0" prefWidth="160.0" styleClass="labelPersonaje" text="RAZA" />
+                  <TextField alignment="CENTER" layoutX="64.0" layoutY="656.0" prefHeight="31.0" prefWidth="158.0" />
+                  <Label alignment="CENTER" layoutX="391.0" layoutY="620.0" prefHeight="35.0" prefWidth="156.0" styleClass="labelPersonaje" text="SEXO" />
+                  <TextField alignment="CENTER" layoutX="391.0" layoutY="656.0" prefHeight="31.0" prefWidth="156.0" />
+                  <Label alignment="CENTER" layoutX="64.0" layoutY="688.0" prefHeight="35.0" prefWidth="158.0" styleClass="labelPersonaje" text="EDAD" />
+                  <TextField alignment="CENTER" layoutX="64.0" layoutY="723.0" prefHeight="31.0" prefWidth="158.0" />
+                  <Label alignment="CENTER" layoutX="224.0" layoutY="688.0" prefHeight="35.0" prefWidth="163.0" styleClass="labelPersonaje" text="REGION" />
+                  <TextField alignment="CENTER" layoutX="225.0" layoutY="723.0" prefHeight="31.0" prefWidth="160.0" />
+                  <Label alignment="CENTER" layoutX="389.0" layoutY="688.0" prefHeight="35.0" prefWidth="160.0" styleClass="labelPersonaje" text="ETNIA" />
+                  <TextField alignment="CENTER" layoutX="390.0" layoutY="723.0" prefHeight="31.0" prefWidth="158.0" />
+                  <Label alignment="CENTER" layoutX="225.0" layoutY="620.0" prefHeight="35.0" prefWidth="164.0" styleClass="labelPersonaje" text="APARIENCIA" />
+                  <TextField fx:id="tApariencia" alignment="CENTER" layoutX="226.0" layoutY="656.0" prefHeight="31.0" prefWidth="162.0" />
+                  <Pane fx:id="pPersonajeChar" layoutX="121.0" layoutY="57.0" onMouseClicked="#seleccionarImagenPersonaje" onMouseEntered="#PaneImagenPersonaje" onMouseExited="#sinPaneImagenPersonaje" opacity="0.5" prefHeight="442.0" prefWidth="370.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Pane>
+                  <Pane fx:id="pD10Apariencia" layoutX="360.0" layoutY="657.0" opacity="0.5" prefHeight="29.0" prefWidth="31.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Pane>
+                  <ImageView fx:id="iD10Apariencia" fitHeight="29.0" fitWidth="32.0" layoutX="360.0" layoutY="657.0" nodeOrientation="INHERIT" onMouseClicked="#tirarApariencia" onMouseEntered="#paneImagenApariencia" onMouseExited="#sinPaneImagenApariencia" onMousePressed="#paneImagenApariencia2" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../img/d10.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+               </children></AnchorPane>
+      </content>
+    </Tab>
+    <Tab text="PRINCIPAL">
+         <content>
+            <ScrollPane prefHeight="200.0" prefWidth="200.0">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1100.0" prefWidth="1185.0">
+                     <children>
+                        <Pane fx:id="pCaracteristicas" layoutX="31.0" layoutY="16.0" prefHeight="254.0" prefWidth="408.0">
+                           <children>
+                              <TableView fx:id="tableViewCaracteristicas" editable="true" layoutY="35.0" prefHeight="223.0" prefWidth="407.0">
+                                 <columns>
+                                    <TableColumn fx:id="colPuntos" maxWidth="105.0" prefWidth="89.0" resizable="false" text="0.pts" />
+                                    <TableColumn fx:id="colBase" onEditCommit="#cambiarBase" prefWidth="87.0" resizable="false" text="BASE" />
+                                    <TableColumn fx:id="colTemp" onEditCommit="#cambiarTemporal" prefWidth="89.0" resizable="false" text="TEMPORAL" />
+                                    <TableColumn fx:id="colTotal" prefWidth="68.0" resizable="false" text="TOTAL" />
+                                    <TableColumn fx:id="colBono" prefWidth="72.0" resizable="false" text="BONO" />
+                                 </columns>
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
+                              </TableView>
+                              <Label alignment="CENTER" layoutX="1.0" prefHeight="35.0" prefWidth="407.0" styleClass="labelPersonaje" text="CARACTERISTICAS" />
+                           </children>
+                        </Pane>
+                        <Pane fx:id="pPuntosVida" layoutX="495.0" layoutY="16.0" prefHeight="291.0" prefWidth="356.0">
+                           <children>
+                              <Label alignment="CENTER" prefHeight="35.0" prefWidth="355.0" styleClass="labelPersonaje" text="PUNTOS DE VIDA" />
+                              <Label alignment="CENTER" layoutX="1.0" layoutY="170.0" prefHeight="27.0" prefWidth="172.0" styleClass="labelSubPersonaje" text="REGENERACION" />
+                              <Label alignment="CENTER" layoutX="184.0" layoutY="170.0" prefHeight="27.0" prefWidth="171.0" styleClass="labelSubPersonaje" text="CURACION/DIA" />
+                              <Label alignment="CENTER" layoutX="1.0" layoutY="234.0" prefHeight="27.0" prefWidth="172.0" styleClass="labelSubPersonaje" text="NEGATIVO/DIA" />
+                              <Label alignment="CENTER" layoutX="183.0" layoutY="234.0" prefHeight="27.0" prefWidth="172.0" styleClass="labelSubPersonaje" text="ESPECIAL" />
+                              <Label alignment="CENTER" layoutX="2.0" layoutY="42.0" prefHeight="27.0" prefWidth="171.0" styleClass="labelSubPersonaje" text="BASE" />
+                              <TextField fx:id="tPuntosVidaBase" alignment="CENTER" layoutX="2.0" layoutY="69.0" prefHeight="31.0" prefWidth="170.0" />
+                              <Label alignment="CENTER" layoutX="184.0" layoutY="42.0" prefHeight="27.0" prefWidth="170.0" styleClass="labelSubPersonaje" text="CATEGORIA" />
+                              <Label alignment="CENTER" layoutX="2.0" layoutY="105.0" prefHeight="27.0" prefWidth="353.0" styleClass="labelSubPersonaje" text="PUNTOS DE VIDA TOTALES" />
+                              <TextField fx:id="tPuntosVidaTotales" alignment="CENTER" layoutX="3.0" layoutY="132.0" prefHeight="31.0" prefWidth="351.0" />
+                              <TextField fx:id="tRegeneracion" alignment="CENTER" layoutX="2.0" layoutY="197.0" prefHeight="31.0" prefWidth="170.0" />
+                              <TextField fx:id="tCuracionDia" alignment="CENTER" layoutX="185.0" layoutY="197.0" prefHeight="31.0" prefWidth="170.0" />
+                              <TextField fx:id="tPuntosVidaCategoria" alignment="CENTER" layoutX="184.0" layoutY="69.0" prefHeight="31.0" prefWidth="170.0" text="10" />
+                              <TextField fx:id="tNegativoDia" alignment="CENTER" layoutX="2.0" layoutY="262.0" prefHeight="31.0" prefWidth="170.0" />
+                              <TextField fx:id="tPuntosVidaEspecial" alignment="CENTER" layoutX="184.0" layoutY="262.0" prefHeight="31.0" prefWidth="170.0" />
+                           </children>
+                        </Pane>
+                        <Pane fx:id="pTurno" layoutX="918.0" layoutY="16.0" prefHeight="291.0" prefWidth="226.0">
+                           <children>
+                              <Label alignment="CENTER" prefHeight="35.0" prefWidth="225.0" styleClass="labelPersonaje" text="TURNO" />
+                              <Label alignment="CENTER" layoutX="-1.0" layoutY="170.0" prefHeight="27.0" prefWidth="110.0" styleClass="labelSubPersonaje" text="ARMADURA" />
+                              <TextField fx:id="tTurnoBase" alignment="CENTER" layoutY="69.0" prefHeight="31.0" prefWidth="108.0" />
+                              <TextField fx:id="tTurnoAgilidad" alignment="CENTER" layoutX="116.0" layoutY="69.0" prefHeight="31.0" prefWidth="108.0" />
+                              <Label alignment="CENTER" layoutY="104.0" prefHeight="27.0" prefWidth="109.0" styleClass="labelSubPersonaje" text="DESTREZA" />
+                              <TextField fx:id="tTurnoDestreza" alignment="CENTER" layoutY="133.0" prefHeight="31.0" prefWidth="108.0" />
+                              <Label alignment="CENTER" layoutX="116.0" layoutY="104.0" prefHeight="27.0" prefWidth="109.0" styleClass="labelSubPersonaje" text="CATEGORIA" />
+                              <TextField fx:id="tTurnoCategoria" alignment="CENTER" layoutX="116.0" layoutY="133.0" prefHeight="31.0" prefWidth="108.0" />
+                              <TextField fx:id="tTurnoArmadura" alignment="CENTER" layoutY="197.0" prefHeight="31.0" prefWidth="108.0" />
+                              <Label alignment="CENTER" layoutX="115.0" layoutY="170.0" prefHeight="27.0" prefWidth="110.0" styleClass="labelSubPersonaje" text="DESARMADO" />
+                              <TextField fx:id="tTurnoDesarmado" alignment="CENTER" layoutX="116.0" layoutY="197.0" prefHeight="31.0" prefWidth="108.0" />
+                              <Label alignment="CENTER" layoutX="117.0" layoutY="234.0" prefHeight="27.0" prefWidth="108.0" styleClass="labelSubPersonaje" text="TOTAL" />
+                              <TextField fx:id="tTurnoTotal" alignment="CENTER" layoutX="117.0" layoutY="261.0" prefHeight="31.0" prefWidth="108.0" />
+                              <Label alignment="CENTER" layoutY="234.0" prefHeight="27.0" prefWidth="109.0" styleClass="labelSubPersonaje" text="ESPECIAL" />
+                              <TextField fx:id="tTurnoEspecial" alignment="CENTER" layoutX="1.0" layoutY="261.0" prefHeight="31.0" prefWidth="108.0" />
+                              <Label alignment="CENTER" layoutX="1.0" layoutY="42.0" prefHeight="27.0" prefWidth="107.0" styleClass="labelSubPersonaje" text="BASE" />
+                              <Label alignment="CENTER" layoutX="116.0" layoutY="42.0" prefHeight="27.0" prefWidth="108.0" styleClass="labelSubPersonaje" text="AGILIDAD" />
+                           </children>
+                        </Pane>
+                        <Pane fx:id="pHabilidadesCombate" layoutX="34.0" layoutY="329.0" prefHeight="290.0" prefWidth="405.0">
+                           <children>
+                              <Label alignment="CENTER" prefHeight="35.0" prefWidth="405.0" styleClass="labelPersonaje" text="HABILIDADES DE COMBATE" />
+                              <Label alignment="CENTER" layoutX="1.0" layoutY="41.0" prefHeight="27.0" prefWidth="161.0" styleClass="labelSubPersonaje" text="HA. DE ATAQUE" />
+                              <TextField alignment="CENTER" layoutX="1.0" layoutY="68.0" prefHeight="31.0" prefWidth="160.0" />
+                              <Label alignment="CENTER" layoutX="1.0" layoutY="103.0" prefHeight="27.0" prefWidth="161.0" styleClass="labelSubPersonaje" text="HA. DE DEFENSA" />
+                              <TextField alignment="CENTER" layoutX="2.0" layoutY="130.0" prefHeight="31.0" prefWidth="160.0" />
+                              <Label alignment="CENTER" layoutY="167.0" prefHeight="27.0" prefWidth="160.0" styleClass="labelSubPersonaje" text="LL. ARMADURA" />
+                              <TextField alignment="CENTER" layoutY="194.0" prefHeight="31.0" prefWidth="160.0" />
+                              <Label alignment="CENTER" layoutY="233.0" prefHeight="27.0" prefWidth="404.0" styleClass="labelSubPersonaje" text="ARMA DESARROLLADA" />
+                              <TextField alignment="CENTER" layoutY="260.0" prefHeight="31.0" prefWidth="404.0" />
+                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="242.0" layoutY="58.0" prefHeight="27.0" prefWidth="162.0" styleClass="labelSubPersonaje" text=" MODIFICADORES" />
+                              <TextField alignment="CENTER" layoutX="243.0" layoutY="85.0" prefHeight="31.0" prefWidth="162.0" />
+                              <Label alignment="CENTER" layoutX="245.0" layoutY="128.0" prefHeight="27.0" prefWidth="159.0" styleClass="labelSubPersonaje" text="ACCIONES/TURNO" />
+                              <TextField fx:id="tAccionesTurno" alignment="CENTER" layoutX="245.0" layoutY="155.0" prefHeight="31.0" prefWidth="160.0" />
+                           </children>
+                        </Pane>
+                        <Pane fx:id="pCansancio" layoutX="34.0" layoutY="637.0" prefHeight="161.0" prefWidth="405.0">
+                           <children>
+                              <Label alignment="CENTER" prefHeight="35.0" prefWidth="404.0" styleClass="labelPersonaje" text="CANSANCIO" />
+                              <Label alignment="CENTER" layoutX="1.0" layoutY="41.0" prefHeight="27.0" prefWidth="190.0" styleClass="labelSubPersonaje" text="BASE" />
+                              <TextField fx:id="tCansancioBase" alignment="CENTER" editable="false" layoutX="1.0" layoutY="68.0" prefHeight="31.0" prefWidth="189.0" />
+                              <Label alignment="CENTER" layoutX="1.0" layoutY="105.0" prefHeight="27.0" prefWidth="188.0" styleClass="labelSubPersonaje" text="ESPECIAL" />
+                              <TextField fx:id="tCansancioEspecial" alignment="CENTER" layoutX="2.0" layoutY="132.0" onKeyReleased="#cambiarValorCansancio" prefHeight="31.0" prefWidth="187.0" />
+                              <Label alignment="CENTER" layoutX="214.0" layoutY="68.0" prefHeight="27.0" prefWidth="190.0" styleClass="labelSubPersonaje" text="TOTAL" />
+                              <TextField fx:id="tCansancioTotal" alignment="CENTER" editable="false" layoutX="214.0" layoutY="95.0" prefHeight="31.0" prefWidth="190.0" />
+                           </children>
+                        </Pane>
+                        <Pane fx:id="pResistencias" layoutX="33.0" layoutY="824.0" prefHeight="251.0" prefWidth="407.0">
+                           <children>
+                              <Label alignment="CENTER" prefHeight="35.0" prefWidth="406.0" styleClass="labelPersonaje" text="RESISTENCIAS" />
+                              <TableView fx:id="tableViewResistencias" layoutY="35.0" prefHeight="217.0" prefWidth="406.0">
+                                <columns>
+                                  <TableColumn prefWidth="101.0" />
+                                  <TableColumn prefWidth="47.0" text="BASE" />
+                                    <TableColumn prefWidth="62.0" text="BONO" />
+                                    <TableColumn prefWidth="64.0" text="RAZA" />
+                                    <TableColumn prefWidth="72.0" text="ESPECIAL" />
+                                    <TableColumn prefWidth="62.0" text="TOTAL" />
+                                </columns>
+                              </TableView>
+                           </children>
+                        </Pane>
+                        <Pane fx:id="pPuntosCreacion" layoutX="495.0" layoutY="329.0" prefHeight="290.0" prefWidth="652.0">
+                           <children>
+                              <Label alignment="CENTER" prefHeight="35.0" prefWidth="648.0" styleClass="labelPersonaje" text="PUNTOS DE CREACION" />
+                              <TableView fx:id="tableViewVentaja" layoutY="38.0" prefHeight="253.0" prefWidth="326.0">
+                                <columns>
+                                  <TableColumn fx:id="ventajaNombre" prefWidth="240.0" text="VENTAJA" />
+                                  <TableColumn fx:id="ventajaCoste" prefWidth="88.0" text="COSTE" />
+                                </columns>
+                              </TableView>
+                              <TableView fx:id="tableViewDesventaja" layoutX="326.0" layoutY="38.0" prefHeight="196.0" prefWidth="323.0">
+                                <columns>
+                                  <TableColumn prefWidth="232.0" text="DESVENTAJA" />
+                                  <TableColumn prefWidth="92.0" text="BENEFICIO" />
+                                </columns>
+                              </TableView>
+                              <Label alignment="CENTER" layoutX="326.0" layoutY="233.0" prefHeight="27.0" prefWidth="324.0" styleClass="labelSubPersonaje" text="PUNTOS RESTANTES" />
+                              <TextField alignment="CENTER" layoutX="326.0" layoutY="260.0" prefHeight="31.0" prefWidth="324.0" />
+                           </children>
+                        </Pane>
+                        <Pane fx:id="pHabilidadesSecundarias" layoutX="496.0" layoutY="636.0" prefHeight="439.0" prefWidth="649.0">
+                           <children>
+                              <Label alignment="CENTER" layoutX="1.0" prefHeight="35.0" prefWidth="648.0" styleClass="labelPersonaje" text="HABILIDADES SECUNDARIAS" />
+                              <Accordion fx:id="acPrincipalHabilidadesSecundarias" layoutX="1.0" layoutY="35.0" prefHeight="403.0" prefWidth="648.0">
+                                <panes>
+                                    <TitledPane fx:id="tpAtleticas" expanded="true" text="ATLETICAS">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <TableView layoutY="1.0" prefHeight="200.0" prefWidth="647.0">
+                                                   <columns>
+                                                      <TableColumn prefWidth="329.0" text="HABILIDAD" />
+                                                      <TableColumn prefWidth="112.0" text="PEN.NATURAL" />
+                                                      <TableColumn prefWidth="205.0" text="TOTAL" />
+                                                   </columns>
+                                                </TableView>
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </TitledPane>
+                                  <TitledPane expanded="false" text="SOCIALES">
+                                    <content>
+                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <TableView layoutY="1.0" prefHeight="200.0" prefWidth="647.0">
+                                                  <columns>
+                                                    <TableColumn prefWidth="329.0" text="HABILIDAD" />
+                                                    <TableColumn prefWidth="112.0" text="PEN.NATURAL" />
+                                                      <TableColumn prefWidth="205.0" text="TOTAL" />
+                                                  </columns>
+                                                </TableView>
+                                             </children>
+                                          </AnchorPane>
+                                    </content>
+                                  </TitledPane>
+                                    <TitledPane expanded="false" text="PERCEPTIVAS">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <TableView layoutY="1.0" prefHeight="200.0" prefWidth="647.0">
+                                                   <columns>
+                                                      <TableColumn prefWidth="329.0" text="HABILIDAD" />
+                                                      <TableColumn prefWidth="112.0" text="PEN.NATURAL" />
+                                                      <TableColumn prefWidth="205.0" text="TOTAL" />
+                                                   </columns>
+                                                </TableView>
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </TitledPane>
+                                    <TitledPane expanded="false" text="INTELECTUALES">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <TableView layoutY="1.0" prefHeight="200.0" prefWidth="647.0">
+                                                   <columns>
+                                                      <TableColumn prefWidth="329.0" text="HABILIDAD" />
+                                                      <TableColumn prefWidth="112.0" text="PEN.NATURAL" />
+                                                      <TableColumn prefWidth="205.0" text="TOTAL" />
+                                                   </columns>
+                                                </TableView>
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </TitledPane>
+                                    <TitledPane expanded="false" text="VIGOR">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <TableView layoutY="1.0" prefHeight="200.0" prefWidth="647.0">
+                                                   <columns>
+                                                      <TableColumn prefWidth="329.0" text="HABILIDAD" />
+                                                      <TableColumn prefWidth="112.0" text="PEN.NATURAL" />
+                                                      <TableColumn prefWidth="205.0" text="TOTAL" />
+                                                   </columns>
+                                                </TableView>
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </TitledPane>
+                                    <TitledPane expanded="false" text="SUBTERFUGIO">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <TableView layoutY="1.0" prefHeight="200.0" prefWidth="647.0">
+                                                   <columns>
+                                                      <TableColumn prefWidth="329.0" text="HABILIDAD" />
+                                                      <TableColumn prefWidth="112.0" text="PEN.NATURAL" />
+                                                      <TableColumn prefWidth="205.0" text="TOTAL" />
+                                                   </columns>
+                                                </TableView>
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </TitledPane>
+                                    <TitledPane expanded="false" text="CREATIVAS">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <TableView layoutY="1.0" prefHeight="200.0" prefWidth="647.0">
+                                                   <columns>
+                                                      <TableColumn prefWidth="329.0" text="HABILIDAD" />
+                                                      <TableColumn prefWidth="112.0" text="PEN.NATURAL" />
+                                                      <TableColumn prefWidth="205.0" text="TOTAL" />
+                                                   </columns>
+                                                </TableView>
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </TitledPane>
+                                    <TitledPane expanded="false" text="ESPECIAL">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <TableView layoutY="1.0" prefHeight="200.0" prefWidth="647.0">
+                                                   <columns>
+                                                      <TableColumn prefWidth="329.0" text="HABILIDAD" />
+                                                      <TableColumn prefWidth="112.0" text="PEN.NATURAL" />
+                                                      <TableColumn prefWidth="205.0" text="TOTAL" />
+                                                   </columns>
+                                                </TableView>
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </TitledPane>
+                                </panes>
+                              </Accordion>
+                           </children>
+                        </Pane>
+                        <Label layoutX="33.0" layoutY="273.0" prefHeight="0.0" prefWidth="405.0" styleClass="button" text="GENERACION CARACTERISTICAS" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </ScrollPane>
+         </content>
+    </Tab>
+    <Tab text="PDS">
+         <content>
+            <ScrollPane prefHeight="200.0" prefWidth="200.0">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="888.0" prefWidth="1185.0" />
+              </content>
+            </ScrollPane>
+         </content>
+    </Tab>
+    <Tab text="EQUIPO">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+      </content>
+    </Tab>
+    <Tab text="COMBATE">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+      </content>
+    </Tab>
+    <Tab text="MISTICO">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+      </content>
+    </Tab>
+    <Tab text="PSIQUICO">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+      </content>
+    </Tab>
+    <Tab text="KI">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+      </content>
+    </Tab>
+    <Tab text="ELAN">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+      </content>
+    </Tab>
+    <Tab text="EQUIPO">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+      </content>
+    </Tab>
+  </tabs>
+</TabPane>

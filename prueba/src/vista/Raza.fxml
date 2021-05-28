@@ -1,0 +1,903 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" stylesheets="@../application/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ScrollPane fx:id="pCategoriaSeleccionada" layoutY="49.0" prefHeight="751.0" prefWidth="1200.0" visible="false">
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="749.0" prefWidth="1174.0">
+               <children>
+                  <TextArea fx:id="tAreaDescripcionCategoria" editable="false" layoutX="14.0" layoutY="44.0" prefHeight="126.0" prefWidth="374.0" wrapText="true" />
+                  <Label layoutX="14.0" layoutY="14.0" prefHeight="30.0" prefWidth="374.0" styleClass="labelPersonaje" text="DESCRIPCION" />
+                  <Label fx:id="lRasgos1" layoutX="428.0" layoutY="265.0" prefHeight="30.0" prefWidth="753.0" styleClass="labelPersonaje" text="RASGOS" visible="false" />
+                  <Accordion fx:id="acRasgos1" layoutX="428.0" layoutY="295.0" prefHeight="389.0" prefWidth="754.0" visible="false" />
+                  <Button accessibleRole="COMBO_BOX" layoutX="14.0" layoutY="691.0" mnemonicParsing="false" onAction="#selectCategoriaAceptar" prefHeight="50.0" prefWidth="1168.0" text="SELECCIONAR">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <ComboBox fx:id="cPaladinAlter" accessibleRole="BUTTON" layoutX="15.0" layoutY="170.0" onAction="#selectPaladinAlter" prefHeight="26.0" prefWidth="373.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ComboBox>
+                  <Pane layoutX="17.0" layoutY="226.0" prefHeight="188.0" prefWidth="373.0">
+                     <children>
+                        <TextField fx:id="txtArquetipo" alignment="CENTER_RIGHT" editable="false" layoutX="-1.0" prefHeight="31.0" prefWidth="374.0" />
+                        <Label layoutX="-1.0" layoutY="1.0" prefHeight="30.0" prefWidth="94.0" styleClass="labelRasgoCategoria" text="ARQUETIPO" />
+                        <TextField fx:id="txtMultiploVida" alignment="CENTER_RIGHT" editable="false" layoutX="-1.0" layoutY="31.0" prefHeight="31.0" prefWidth="374.0" />
+                        <Label layoutY="32.0" prefHeight="30.0" prefWidth="149.0" styleClass="labelRasgoCategoria" text="MULTIPLO DE VIDA" />
+                        <TextField fx:id="txtPuntosVida" alignment="CENTER_RIGHT" editable="false" layoutX="-1.0" layoutY="62.0" prefHeight="31.0" prefWidth="374.0" />
+                        <Label layoutX="-1.0" layoutY="63.0" prefHeight="30.0" prefWidth="134.0" styleClass="labelRasgoCategoria" text="PUNTOS DE VIDA" />
+                        <TextField fx:id="txtTurno" alignment="CENTER_RIGHT" editable="false" layoutX="-1.0" layoutY="93.0" prefHeight="31.0" prefWidth="374.0" />
+                        <Label layoutY="94.0" prefHeight="30.0" prefWidth="66.0" styleClass="labelRasgoCategoria" text="TURNOS" />
+                        <TextField fx:id="txtConocimientoMarcial" alignment="CENTER_RIGHT" editable="false" layoutX="-1.0" layoutY="124.0" prefHeight="31.0" prefWidth="374.0" />
+                        <Label layoutY="125.0" prefHeight="30.0" prefWidth="201.0" styleClass="labelRasgoCategoria" text="CONOCIMIENTO MARCIAL" />
+                        <TextField fx:id="txtCvInnatos" alignment="CENTER_RIGHT" editable="false" layoutX="-1.0" layoutY="155.0" prefHeight="31.0" prefWidth="374.0" />
+                        <Label layoutY="156.0" prefHeight="30.0" prefWidth="98.0" styleClass="labelRasgoCategoria" text="CV INNATOS" />
+                     </children>
+                  </Pane>
+                  <Label layoutX="16.0" layoutY="196.0" prefHeight="30.0" prefWidth="373.0" styleClass="labelPersonaje" text="BONO/LV BASICOS" />
+                  <Pane layoutX="18.0" layoutY="442.0" prefHeight="224.0" prefWidth="373.0">
+                     <children>
+                        <TextField fx:id="txtHa" alignment="CENTER_RIGHT" editable="false" layoutX="-1.0" prefHeight="31.0" prefWidth="374.0" />
+                        <Label layoutX="-1.0" layoutY="1.0" prefHeight="30.0" prefWidth="96.0" styleClass="labelRasgoCategoria" text="H. ATAQUE" />
+                        <TextField fx:id="txtHp" alignment="CENTER_RIGHT" editable="false" layoutX="-1.0" layoutY="31.0" prefHeight="31.0" prefWidth="374.0" />
+                        <TextField fx:id="txtHe" alignment="CENTER_RIGHT" editable="false" layoutX="-1.0" layoutY="62.0" prefHeight="31.0" prefWidth="374.0" />
+                        <TextField fx:id="txtLlevarArmadura" alignment="CENTER_RIGHT" editable="false" layoutX="-1.0" layoutY="93.0" prefHeight="31.0" prefWidth="374.0" />
+                        <Label layoutY="94.0" prefHeight="30.0" prefWidth="160.0" styleClass="labelRasgoCategoria" text="LLEVAR ARMADURA" />
+                        <TextField fx:id="txtCosteConocimientoMarcial" alignment="CENTER_RIGHT" editable="false" layoutX="-1.0" layoutY="124.0" prefHeight="31.0" prefWidth="374.0" />
+                        <Label layoutY="125.0" prefHeight="30.0" prefWidth="202.0" styleClass="labelRasgoCategoria" text="CONOCIMIENTO MARCIAL" />
+                        <Label layoutX="-1.0" layoutY="32.0" prefHeight="30.0" prefWidth="95.0" styleClass="labelRasgoCategoria" text="H. PARADA" />
+                        <Label layoutX="-1.0" layoutY="63.0" prefHeight="30.0" prefWidth="96.0" styleClass="labelRasgoCategoria" text="H. ESQUIVA" />
+                        <TextField fx:id="txtKi" alignment="CENTER_RIGHT" editable="false" layoutX="-1.0" layoutY="155.0" prefHeight="31.0" prefWidth="374.0" />
+                        <Label layoutY="156.0" prefHeight="30.0" prefWidth="17.0" styleClass="labelRasgoCategoria" text="KI" />
+                        <TextField fx:id="txtMultiploAcumulacion" alignment="CENTER_RIGHT" editable="false" layoutX="-1.0" layoutY="187.0" prefHeight="31.0" prefWidth="374.0" />
+                        <Label layoutY="188.0" prefHeight="30.0" prefWidth="228.0" styleClass="labelRasgoCategoria" text="MULTIPLO DE ACUMULACION" />
+                     </children>
+                  </Pane>
+                  <Label layoutX="17.0" layoutY="412.0" prefHeight="30.0" prefWidth="373.0" styleClass="labelPersonaje" text="COSTES PRIMARIAS COMUNES" />
+                  <Pane layoutX="809.0" layoutY="44.0" prefHeight="218.0" prefWidth="373.0">
+                     <children>
+                        <TextField fx:id="txtZeon" alignment="CENTER_RIGHT" editable="false" layoutX="-1.0" prefHeight="31.0" prefWidth="374.0" />
+                        <Label layoutX="-1.0" layoutY="1.0" prefHeight="30.0" prefWidth="45.0" styleClass="labelRasgoCategoria" text="ZEON" />
+                        <TextField fx:id="txtMultiploAct" alignment="CENTER_RIGHT" editable="false" layoutY="31.0" prefHeight="31.0" prefWidth="374.0" />
+                        <TextField fx:id="txtProyeccionMagica" alignment="CENTER_RIGHT" editable="false" layoutX="-1.0" layoutY="62.0" prefHeight="31.0" prefWidth="374.0" />
+                        <TextField fx:id="txtConvocar" alignment="CENTER_RIGHT" editable="false" layoutY="93.0" prefHeight="31.0" prefWidth="374.0" />
+                        <Label layoutY="94.0" prefHeight="30.0" prefWidth="90.0" styleClass="labelRasgoCategoria" text="CONVOCAR" />
+                        <TextField fx:id="txtControlar" alignment="CENTER_RIGHT" editable="false" layoutY="124.0" prefHeight="31.0" prefWidth="374.0" />
+                        <Label layoutY="125.0" prefHeight="30.0" prefWidth="98.0" styleClass="labelRasgoCategoria" text="CONTROLAR" />
+                        <Label layoutX="-1.0" layoutY="32.0" prefHeight="30.0" prefWidth="140.0" styleClass="labelRasgoCategoria" text="MULTIPLO DE ACT" />
+                        <Label layoutX="-1.0" layoutY="63.0" prefHeight="30.0" prefWidth="171.0" styleClass="labelRasgoCategoria" text="PROYECCION MAGICA" />
+                        <TextField fx:id="txtAtar" alignment="CENTER_RIGHT" editable="false" layoutY="155.0" prefHeight="31.0" prefWidth="374.0" />
+                        <Label layoutY="156.0" prefHeight="30.0" prefWidth="47.0" styleClass="labelRasgoCategoria" text="ATAR" />
+                        <TextField fx:id="txtDesconvocar" alignment="CENTER_RIGHT" editable="false" layoutY="186.0" prefHeight="31.0" prefWidth="374.0" />
+                        <Label layoutY="187.0" prefHeight="30.0" prefWidth="119.0" styleClass="labelRasgoCategoria" text="DESCONVOCAR" />
+                     </children>
+                  </Pane>
+                  <Label layoutX="808.0" layoutY="14.0" prefHeight="30.0" prefWidth="373.0" styleClass="labelPersonaje" text="COSTES PRIMARIAS MISTICAS" />
+                  <Pane layoutX="807.0" layoutY="317.0" prefHeight="64.0" prefWidth="373.0">
+                     <children>
+                        <TextField fx:id="txtCv" alignment="CENTER_RIGHT" editable="false" layoutX="-1.0" prefHeight="31.0" prefWidth="374.0" />
+                        <Label layoutX="-1.0" layoutY="1.0" prefHeight="30.0" prefWidth="23.0" styleClass="labelRasgoCategoria" text="CV" />
+                        <TextField fx:id="txtProyeccionPsiquica" alignment="CENTER_RIGHT" editable="false" layoutY="31.0" prefHeight="31.0" prefWidth="374.0" />
+                        <Label layoutX="-1.0" layoutY="32.0" prefHeight="30.0" prefWidth="179.0" styleClass="labelRasgoCategoria" text="PROYECCION PSIQUICA" />
+                     </children>
+                  </Pane>
+                  <Label layoutX="806.0" layoutY="287.0" prefHeight="30.0" prefWidth="373.0" styleClass="labelPersonaje" text="COSTES PRIMARIAS PSIQUICO" />
+                  <Pane layoutX="807.0" layoutY="442.0" prefHeight="218.0" prefWidth="373.0">
+                     <children>
+                        <TextField fx:id="txtAtleticas" alignment="CENTER_RIGHT" editable="false" layoutX="-1.0" prefHeight="31.0" prefWidth="374.0" />
+                        <Label layoutX="-1.0" layoutY="1.0" prefHeight="30.0" prefWidth="82.0" styleClass="labelRasgoCategoria" text="ATLETICAS" />
+                        <TextField fx:id="txtSociales" alignment="CENTER_RIGHT" editable="false" layoutY="31.0" prefHeight="31.0" prefWidth="374.0" />
+                        <TextField fx:id="txtPerceptivas" alignment="CENTER_RIGHT" editable="false" layoutX="-1.0" layoutY="62.0" prefHeight="31.0" prefWidth="374.0" />
+                        <TextField fx:id="txtIntelectuales" alignment="CENTER_RIGHT" editable="false" layoutY="93.0" prefHeight="31.0" prefWidth="374.0" />
+                        <Label layoutY="94.0" prefHeight="30.0" prefWidth="121.0" styleClass="labelRasgoCategoria" text="INTELECTUALES" />
+                        <TextField fx:id="txtVigor" alignment="CENTER_RIGHT" editable="false" layoutY="124.0" prefHeight="31.0" prefWidth="374.0" />
+                        <Label layoutY="125.0" prefHeight="30.0" prefWidth="52.0" styleClass="labelRasgoCategoria" text="VIGOR" />
+                        <Label layoutX="-1.0" layoutY="32.0" prefHeight="30.0" prefWidth="76.0" styleClass="labelRasgoCategoria" text="SOCIALES" />
+                        <Label layoutX="-1.0" layoutY="63.0" prefHeight="30.0" prefWidth="103.0" styleClass="labelRasgoCategoria" text="PERCEPTIVAS" />
+                        <TextField fx:id="txtSubterfugio" alignment="CENTER_RIGHT" editable="false" layoutY="155.0" prefHeight="31.0" prefWidth="374.0" />
+                        <Label layoutY="156.0" prefHeight="30.0" prefWidth="108.0" styleClass="labelRasgoCategoria" text="SUBTERFUGIO" />
+                        <TextField fx:id="txtCreativas" alignment="CENTER_RIGHT" editable="false" layoutY="186.0" prefHeight="31.0" prefWidth="374.0" />
+                        <Label layoutY="187.0" prefHeight="30.0" prefWidth="87.0" styleClass="labelRasgoCategoria" text="CREATIVAS" />
+                     </children>
+                  </Pane>
+                  <Label layoutX="806.0" layoutY="412.0" prefHeight="30.0" prefWidth="373.0" styleClass="labelPersonaje" text="COSTES SECUNDARIAS" />
+                  <Label layoutX="415.0" layoutY="14.0" prefHeight="30.0" prefWidth="366.0" styleClass="labelPersonaje" text="BONOS/COSTES CATEGORIA" />
+                  <ImageView fx:id="imgCategoria" fitHeight="617.0" fitWidth="368.0" layoutX="415.0" layoutY="45.0" opacity="0.3" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../OneDrive/Desktop/Clases%20Cuerpo%20Completo/Sombra.PNG" />
+                     </image>
+                  </ImageView>
+                  <Pane fx:id="pBonosCostes" layoutX="415.0" layoutY="44.0" prefHeight="618.0" prefWidth="366.0" />
+               </children>
+            </AnchorPane>
+         </content>
+      </ScrollPane>
+      <ScrollPane fx:id="pCategoria" layoutY="49.0" prefHeight="751.0" prefWidth="1200.0">
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1480.0" prefWidth="1180.0">
+               <children>
+                  <Pane layoutX="-2.0" prefHeight="750.0" prefWidth="1190.0">
+                     <children>
+                        <Pane layoutX="11.0" layoutY="11.0" prefHeight="280.0" prefWidth="280.0" style="-fx-background-color: #D5D5D5;">
+                           <children>
+                              <Circle fill="#9e9e9e" layoutX="141.0" layoutY="114.0" radius="100.0" stroke="BLACK" strokeType="INSIDE" />
+                              <ImageView fitHeight="185.0" fitWidth="172.0" layoutX="55.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../img/categorias%20iconos/Guerrero.png" />
+                                 </image>
+                              </ImageView>
+                              <Button layoutX="81.0" layoutY="218.0" mnemonicParsing="false" onAction="#selectCategoria" prefHeight="48.0" prefWidth="121.0" text="GUERRERO" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                           </children>
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                        </Pane>
+                        <Pane layoutX="305.0" layoutY="11.0" prefHeight="280.0" prefWidth="280.0" style="-fx-background-color: #D5D5D5;">
+                           <children>
+                              <Circle fill="#9e9e9e" layoutX="141.0" layoutY="114.0" radius="100.0" stroke="BLACK" strokeType="INSIDE" />
+                              <ImageView fitHeight="185.0" fitWidth="172.0" layoutX="55.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../img/categorias%20iconos/Guerrero%20Acrobata.png" />
+                                 </image>
+                              </ImageView>
+                              <Button layoutX="27.0" layoutY="218.0" mnemonicParsing="false" onAction="#selectCategoria" prefHeight="48.0" prefWidth="229.0" text="GUERRERO ACROBATA" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                           </children>
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                        </Pane>
+                        <Pane layoutX="598.0" layoutY="11.0" prefHeight="280.0" prefWidth="280.0" style="-fx-background-color: #D5D5D5;">
+                           <children>
+                              <Circle fill="#9e9e9e" layoutX="141.0" layoutY="114.0" radius="100.0" stroke="BLACK" strokeType="INSIDE" />
+                              <ImageView fitHeight="185.0" fitWidth="172.0" layoutX="80.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../img/categorias%20iconos/Paladin.png" />
+                                 </image>
+                              </ImageView>
+                              <Button layoutX="81.0" layoutY="218.0" mnemonicParsing="false" onAction="#selectCategoria" prefHeight="48.0" prefWidth="121.0" text="PALADIN" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                           </children>
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                        </Pane>
+                        <Pane layoutX="893.0" layoutY="11.0" prefHeight="280.0" prefWidth="280.0" style="-fx-background-color: #D5D5D5;">
+                           <children>
+                              <Circle fill="#9e9e9e" layoutX="141.0" layoutY="114.0" radius="100.0" stroke="BLACK" strokeType="INSIDE" />
+                              <ImageView fitHeight="199.0" fitWidth="202.0" layoutX="42.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../img/categorias%20iconos/Paladin%20Oscura.png" />
+                                 </image>
+                              </ImageView>
+                              <Button layoutX="43.0" layoutY="218.0" mnemonicParsing="false" onAction="#selectCategoria" prefHeight="48.0" prefWidth="195.0" text="PALADIN OSCURO" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                           </children>
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                        </Pane>
+                        <Pane layoutX="11.0" layoutY="304.0" prefHeight="280.0" prefWidth="280.0" style="-fx-background-color: #D5D5D5;">
+                           <children>
+                              <Circle fill="#9e9e9e" layoutX="141.0" layoutY="114.0" radius="100.0" stroke="BLACK" strokeType="INSIDE" />
+                              <ImageView fitHeight="163.0" fitWidth="157.0" layoutX="67.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../img/categorias%20iconos/Maestro%20de%20Armas.png" />
+                                 </image>
+                              </ImageView>
+                              <Button layoutX="41.0" layoutY="218.0" mnemonicParsing="false" onAction="#selectCategoria" prefHeight="48.0" prefWidth="209.0" text="MAESTRO DE ARMAS" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                           </children>
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                        </Pane>
+                        <Pane layoutX="305.0" layoutY="304.0" prefHeight="280.0" prefWidth="280.0" style="-fx-background-color: #D5D5D5;">
+                           <children>
+                              <Circle fill="#9e9e9e" layoutX="141.0" layoutY="114.0" radius="100.0" stroke="BLACK" strokeType="INSIDE" />
+                              <ImageView fitHeight="185.0" fitWidth="172.0" layoutX="55.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../img/categorias%20iconos/Tecnicista.png" />
+                                 </image>
+                              </ImageView>
+                              <Button layoutX="70.0" layoutY="218.0" mnemonicParsing="false" onAction="#selectCategoria" prefHeight="48.0" prefWidth="143.0" text="TECNICISTA" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                           </children>
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                        </Pane>
+                        <Pane layoutX="598.0" layoutY="304.0" prefHeight="280.0" prefWidth="280.0" style="-fx-background-color: #D5D5D5;">
+                           <children>
+                              <Circle fill="#9e9e9e" layoutX="141.0" layoutY="114.0" radius="100.0" stroke="BLACK" strokeType="INSIDE" />
+                              <ImageView fitHeight="185.0" fitWidth="172.0" layoutX="55.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../img/categorias%20iconos/Tao.png" />
+                                 </image>
+                              </ImageView>
+                              <Button layoutX="81.0" layoutY="218.0" mnemonicParsing="false" onAction="#selectCategoria" prefHeight="48.0" prefWidth="121.0" text="TAO" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                           </children>
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                        </Pane>
+                        <Pane layoutX="893.0" layoutY="304.0" prefHeight="280.0" prefWidth="280.0" style="-fx-background-color: #D5D5D5;">
+                           <children>
+                              <Circle fill="#9e9e9e" layoutX="141.0" layoutY="114.0" radius="100.0" stroke="BLACK" strokeType="INSIDE" />
+                              <ImageView fitHeight="191.0" fitWidth="192.0" layoutX="46.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../img/categorias%20iconos/Explorador.png" />
+                                 </image>
+                              </ImageView>
+                              <Button layoutX="43.0" layoutY="218.0" mnemonicParsing="false" onAction="#selectCategoria" prefHeight="48.0" prefWidth="195.0" text="EXPLORADOR" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                           </children>
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                        </Pane>
+                        <Pane layoutX="11.0" layoutY="597.0" prefHeight="280.0" prefWidth="280.0" style="-fx-background-color: #D5D5D5;">
+                           <children>
+                              <Circle fill="#9e9e9e" layoutX="141.0" layoutY="114.0" radius="100.0" stroke="BLACK" strokeType="INSIDE" />
+                              <ImageView fitHeight="185.0" fitWidth="172.0" layoutX="55.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../img/categorias%20iconos/Sombra.png" />
+                                 </image>
+                              </ImageView>
+                              <Button layoutX="81.0" layoutY="218.0" mnemonicParsing="false" onAction="#selectCategoria" prefHeight="48.0" prefWidth="121.0" text="SOMBRA" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                           </children>
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                        </Pane>
+                        <Pane layoutX="305.0" layoutY="597.0" prefHeight="280.0" prefWidth="280.0" style="-fx-background-color: #D5D5D5;">
+                           <children>
+                              <Circle fill="#9e9e9e" layoutX="141.0" layoutY="114.0" radius="100.0" stroke="BLACK" strokeType="INSIDE" />
+                              <ImageView fitHeight="185.0" fitWidth="172.0" layoutX="55.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../img/categorias%20iconos/Ladron.png" />
+                                 </image>
+                              </ImageView>
+                              <Button layoutX="80.0" layoutY="218.0" mnemonicParsing="false" onAction="#selectCategoria" prefHeight="48.0" prefWidth="120.0" text="LADRON" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                           </children>
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                        </Pane>
+                        <Pane layoutX="598.0" layoutY="597.0" prefHeight="280.0" prefWidth="280.0" style="-fx-background-color: #D5D5D5;">
+                           <children>
+                              <Circle fill="#9e9e9e" layoutX="141.0" layoutY="114.0" radius="100.0" stroke="BLACK" strokeType="INSIDE" />
+                              <ImageView fitHeight="185.0" fitWidth="172.0" layoutX="56.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../img/categorias%20iconos/Asesino.png" />
+                                 </image>
+                              </ImageView>
+                              <Button layoutX="81.0" layoutY="218.0" mnemonicParsing="false" onAction="#selectCategoria" prefHeight="48.0" prefWidth="121.0" text="ASESINO" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                           </children>
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                        </Pane>
+                        <Pane layoutX="893.0" layoutY="597.0" prefHeight="280.0" prefWidth="280.0" style="-fx-background-color: #D5D5D5;">
+                           <children>
+                              <Circle fill="#9e9e9e" layoutX="141.0" layoutY="114.0" radius="100.0" stroke="BLACK" strokeType="INSIDE" />
+                              <ImageView fitHeight="199.0" fitWidth="202.0" layoutX="42.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../img/categorias%20iconos/Hechicero.png" />
+                                 </image>
+                              </ImageView>
+                              <Button layoutX="65.0" layoutY="218.0" mnemonicParsing="false" onAction="#selectCategoria" prefHeight="48.0" prefWidth="151.0" text="HECHICERO" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                           </children>
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                        </Pane>
+                        <Pane layoutX="11.0" layoutY="890.0" prefHeight="280.0" prefWidth="280.0" style="-fx-background-color: #D5D5D5;">
+                           <children>
+                              <Circle fill="#9e9e9e" layoutX="141.0" layoutY="114.0" radius="100.0" stroke="BLACK" strokeType="INSIDE" />
+                              <ImageView fitHeight="184.0" fitWidth="196.0" layoutX="48.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../img/categorias%20iconos/Warlock.png" />
+                                 </image>
+                              </ImageView>
+                              <Button layoutX="72.0" layoutY="218.0" mnemonicParsing="false" onAction="#selectCategoria" prefHeight="48.0" prefWidth="139.0" text="WARLOCK" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                           </children>
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                        </Pane>
+                        <Pane layoutX="305.0" layoutY="890.0" prefHeight="280.0" prefWidth="280.0" style="-fx-background-color: #D5D5D5;">
+                           <children>
+                              <Circle fill="#9e9e9e" layoutX="141.0" layoutY="114.0" radius="100.0" stroke="BLACK" strokeType="INSIDE" />
+                              <ImageView fitHeight="185.0" fitWidth="172.0" layoutX="55.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../img/categorias%20iconos/Ilusionista.png" />
+                                 </image>
+                              </ImageView>
+                              <Button layoutX="64.0" layoutY="218.0" mnemonicParsing="false" onAction="#selectCategoria" prefHeight="48.0" prefWidth="154.0" text="ILUSIONISTA" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                           </children>
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                        </Pane>
+                        <Pane layoutX="598.0" layoutY="890.0" prefHeight="280.0" prefWidth="280.0" style="-fx-background-color: #D5D5D5;">
+                           <children>
+                              <Circle fill="#9e9e9e" layoutX="141.0" layoutY="114.0" radius="100.0" stroke="BLACK" strokeType="INSIDE" />
+                              <ImageView fitHeight="185.0" fitWidth="172.0" layoutX="55.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../img/categorias%20iconos/Hechicero%20Mentalista.png" />
+                                 </image>
+                              </ImageView>
+                              <Button layoutX="17.0" layoutY="218.0" mnemonicParsing="false" onAction="#selectCategoria" prefHeight="48.0" prefWidth="248.0" text="HECHICERO MENTALISTA" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                           </children>
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                        </Pane>
+                        <Pane layoutX="893.0" layoutY="890.0" prefHeight="280.0" prefWidth="280.0" style="-fx-background-color: #D5D5D5;">
+                           <children>
+                              <Circle fill="#9e9e9e" layoutX="141.0" layoutY="114.0" radius="100.0" stroke="BLACK" strokeType="INSIDE" />
+                              <ImageView fitHeight="191.0" fitWidth="192.0" layoutX="46.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../img/categorias%20iconos/Conjurador.png" />
+                                 </image>
+                              </ImageView>
+                              <Button layoutX="61.0" layoutY="218.0" mnemonicParsing="false" onAction="#selectCategoria" prefHeight="48.0" prefWidth="160.0" text="CONJURADOR" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                           </children>
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                        </Pane>
+                        <Pane layoutX="11.0" layoutY="1182.0" prefHeight="280.0" prefWidth="280.0" style="-fx-background-color: #D5D5D5;">
+                           <children>
+                              <Circle fill="#9e9e9e" layoutX="141.0" layoutY="114.0" radius="100.0" stroke="BLACK" strokeType="INSIDE" />
+                              <ImageView fitHeight="163.0" fitWidth="157.0" layoutX="67.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../img/categorias%20iconos/Guerrero%20Conjurador.png" />
+                                 </image>
+                              </ImageView>
+                              <Button layoutX="6.0" layoutY="218.0" mnemonicParsing="false" onAction="#selectCategoria" prefHeight="48.0" prefWidth="268.0" text="GUERRERO CONJURADOR" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                           </children>
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                        </Pane>
+                        <Pane layoutX="305.0" layoutY="1182.0" prefHeight="280.0" prefWidth="280.0" style="-fx-background-color: #D5D5D5;">
+                           <children>
+                              <Circle fill="#9e9e9e" layoutX="141.0" layoutY="114.0" radius="100.0" stroke="BLACK" strokeType="INSIDE" />
+                              <ImageView fitHeight="191.0" fitWidth="185.0" layoutX="49.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../img/categorias%20iconos/Mentalista.png" />
+                                 </image>
+                              </ImageView>
+                              <Button layoutX="59.0" layoutY="218.0" mnemonicParsing="false" onAction="#selectCategoria" prefHeight="48.0" prefWidth="165.0" text="MENTALISTA" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                           </children>
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                        </Pane>
+                        <Pane layoutX="598.0" layoutY="1182.0" prefHeight="280.0" prefWidth="280.0" style="-fx-background-color: #D5D5D5;">
+                           <children>
+                              <Circle fill="#9e9e9e" layoutX="141.0" layoutY="114.0" radius="100.0" stroke="BLACK" strokeType="INSIDE" />
+                              <ImageView fitHeight="185.0" fitWidth="172.0" layoutX="55.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../img/categorias%20iconos/Guerrero%20Mentalista.png" />
+                                 </image>
+                              </ImageView>
+                              <Button layoutX="17.0" layoutY="218.0" mnemonicParsing="false" onAction="#selectCategoria" prefHeight="48.0" prefWidth="249.0" text="GUERRERO MENTALISTA" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                           </children>
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                        </Pane>
+                        <Pane layoutX="893.0" layoutY="1182.0" prefHeight="280.0" prefWidth="280.0" style="-fx-background-color: #D5D5D5;">
+                           <children>
+                              <Circle fill="#9e9e9e" layoutX="141.0" layoutY="114.0" radius="100.0" stroke="BLACK" strokeType="INSIDE" />
+                              <ImageView fitHeight="191.0" fitWidth="192.0" layoutX="46.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../img/categorias%20iconos/Novel.png" />
+                                 </image>
+                              </ImageView>
+                              <Button layoutX="43.0" layoutY="218.0" mnemonicParsing="false" onAction="#selectCategoria" prefHeight="48.0" prefWidth="195.0" text="NOVEL" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                           </children>
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                        </Pane>
+                     </children>
+                  </Pane>
+               </children>
+            </AnchorPane>
+         </content>
+      </ScrollPane>
+      <ScrollPane fx:id="pRazaSeleccionada" layoutY="49.0" prefHeight="751.0" prefWidth="1200.0">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="749.0" prefWidth="1174.0">
+               <children>
+                  <TextArea fx:id="tAreaDescripcion" editable="false" layoutX="426.0" layoutY="44.0" prefHeight="190.0" prefWidth="756.0" wrapText="true" />
+                  <Label layoutX="14.0" layoutY="14.0" prefHeight="30.0" prefWidth="380.0" styleClass="labelPersonaje" text="IMAGEN" />
+                  <Label layoutX="426.0" layoutY="14.0" prefHeight="30.0" prefWidth="756.0" styleClass="labelPersonaje" text="DESCRIPCION" />
+                  <Label fx:id="lRasgos" layoutX="428.0" layoutY="265.0" prefHeight="30.0" prefWidth="753.0" styleClass="labelPersonaje" text="RASGOS" visible="false" />
+                  <Accordion fx:id="acRasgos" layoutX="428.0" layoutY="295.0" prefHeight="389.0" prefWidth="754.0" visible="false" />
+                  <ImageView fx:id="imgRaza" fitHeight="640.0" fitWidth="380.0" layoutX="14.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../img/Razas/Humano.png" />
+                     </image>
+                  </ImageView>
+                  <Button layoutX="14.0" layoutY="691.0" mnemonicParsing="false" onAction="#selectRazaAceptar" prefHeight="50.0" prefWidth="1168.0" text="SELECCIONAR">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <ComboBox fx:id="cNephilim" layoutX="427.0" layoutY="234.0" onAction="#selectNephilim" prefHeight="26.0" prefWidth="754.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></ComboBox>
+               </children>
+            </AnchorPane>
+        </content>
+      </ScrollPane>
+      <ScrollPane fx:id="pRazas" layoutY="49.0" prefHeight="751.0" prefWidth="1200.0">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1340.0" prefWidth="1180.0">
+               <children>
+                  <Pane layoutX="-2.0" prefHeight="751.0" prefWidth="1190.0">
+                     <children>
+                        <Pane layoutX="11.0" layoutY="11.0" prefHeight="325.0" prefWidth="375.0" style="-fx-background-color: #D5D5D5;">
+                           <children>
+                              <Circle fill="#9e9e9e" layoutX="188.0" layoutY="124.0" radius="100.0" stroke="BLACK" strokeType="INSIDE" />
+                              <ImageView fitHeight="164.0" fitWidth="121.0" layoutX="128.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../img/razas%20iconos/humano.png" />
+                                 </image>
+                              </ImageView>
+                              <Button layoutX="128.0" layoutY="263.0" mnemonicParsing="false" onAction="#selectRaza" prefHeight="48.0" prefWidth="121.0" text="HUMANO" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                           </children>
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                        </Pane>
+                        <Pane layoutX="408.0" layoutY="11.0" prefHeight="325.0" prefWidth="375.0" style="-fx-background-color: #D5D5D5;">
+                           <children>
+                              <Circle fill="#9e9e9e" layoutX="188.0" layoutY="124.0" radius="100.0" stroke="BLACK" strokeType="INSIDE" />
+                              <ImageView fitHeight="141.0" fitWidth="156.0" layoutX="112.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../../../OneDrive/Desktop/razas%20iconos/sylvain.png" />
+                                 </image>
+                              </ImageView>
+                              <Button layoutX="128.0" layoutY="263.0" mnemonicParsing="false" onAction="#selectRaza" prefHeight="48.0" prefWidth="121.0" text="SYLVAIN" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                           </children>
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                        </Pane>
+                        <Pane layoutX="804.0" layoutY="11.0" prefHeight="325.0" prefWidth="375.0" style="-fx-background-color: #D5D5D5;">
+                           <children>
+                              <Circle fill="#9e9e9e" layoutX="188.0" layoutY="124.0" radius="100.0" stroke="BLACK" strokeType="INSIDE" />
+                              <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="121.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../img/razas%20iconos/duk'zarist%20icon.png" />
+                                 </image>
+                              </ImageView>
+                              <Button layoutX="116.0" layoutY="263.0" mnemonicParsing="false" onAction="#selectRaza" prefHeight="48.0" prefWidth="145.0" text="DUK´ZARIST" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                           </children>
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                        </Pane>
+                        <Pane layoutX="804.0" layoutY="357.0" prefHeight="301.0" prefWidth="375.0" style="-fx-background-color: #D5D5D5;">
+                           <children>
+                              <Circle fill="#9e9e9e" layoutX="188.0" layoutY="124.0" radius="100.0" stroke="BLACK" strokeType="INSIDE" />
+                              <ImageView fitHeight="133.0" fitWidth="180.0" layoutX="98.0" layoutY="59.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../img/razas%20iconos/jayán.png" />
+                                 </image>
+                              </ImageView>
+                              <Button layoutX="127.0" layoutY="239.0" mnemonicParsing="false" onAction="#selectRaza" prefHeight="48.0" prefWidth="121.0" text="JAYÁN" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                           </children>
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                        </Pane>
+                        <Pane layoutX="408.0" layoutY="357.0" prefHeight="301.0" prefWidth="375.0" style="-fx-background-color: #D5D5D5;">
+                           <children>
+                              <Circle fill="#9e9e9e" layoutX="188.0" layoutY="124.0" radius="100.0" stroke="BLACK" strokeType="INSIDE" />
+                              <ImageView fitHeight="141.0" fitWidth="145.0" layoutX="118.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../img/razas%20iconos/ebudan.png" />
+                                 </image>
+                              </ImageView>
+                              <Button layoutX="128.0" layoutY="237.0" mnemonicParsing="false" onAction="#selectRaza" prefHeight="48.0" prefWidth="121.0" text="EBUDAN" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                           </children>
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                        </Pane>
+                        <Pane layoutX="11.0" layoutY="357.0" prefHeight="301.0" prefWidth="375.0" style="-fx-background-color: #D5D5D5;">
+                           <children>
+                              <Circle fill="#9e9e9e" layoutX="188.0" layoutY="124.0" radius="100.0" stroke="BLACK" strokeType="INSIDE" />
+                              <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="128.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../img/razas%20iconos/d'anjayni.png" />
+                                 </image>
+                              </ImageView>
+                              <Button layoutX="115.0" layoutY="240.0" mnemonicParsing="false" onAction="#selectRaza" prefHeight="48.0" prefWidth="145.0" text="D´ANJAYNI" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                           </children>
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                        </Pane>
+                        <Pane layoutX="11.0" layoutY="679.0" prefHeight="325.0" prefWidth="375.0" style="-fx-background-color: #D5D5D5;">
+                           <children>
+                              <Circle fill="#9e9e9e" layoutX="188.0" layoutY="124.0" radius="100.0" stroke="BLACK" strokeType="INSIDE" />
+                              <ImageView fitHeight="189.0" fitWidth="200.0" layoutX="90.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../img/razas%20iconos/devah.png" />
+                                 </image>
+                              </ImageView>
+                              <Button layoutX="128.0" layoutY="263.0" mnemonicParsing="false" onAction="#selectRaza" prefHeight="48.0" prefWidth="121.0" text="DEVAH" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                           </children>
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                        </Pane>
+                        <Pane layoutX="408.0" layoutY="679.0" prefHeight="325.0" prefWidth="375.0" style="-fx-background-color: #D5D5D5;">
+                           <children>
+                              <Circle fill="#9e9e9e" layoutX="188.0" layoutY="124.0" radius="100.0" stroke="BLACK" strokeType="INSIDE" />
+                              <ImageView fitHeight="158.0" fitWidth="133.0" layoutX="122.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../img/razas%20iconos/tuan%20dalyr.png" />
+                                 </image>
+                              </ImageView>
+                              <Button layoutX="118.0" layoutY="263.0" mnemonicParsing="false" onAction="#selectRaza" prefHeight="48.0" prefWidth="141.0" text="TUAN DALYR" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                           </children>
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                        </Pane>
+                        <Pane layoutX="804.0" layoutY="679.0" prefHeight="325.0" prefWidth="375.0" style="-fx-background-color: #D5D5D5;">
+                           <children>
+                              <Circle fill="#9e9e9e" layoutX="188.0" layoutY="124.0" radius="100.0" stroke="BLACK" strokeType="INSIDE" />
+                              <ImageView fitHeight="264.0" fitWidth="120.0" layoutX="128.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../img/razas%20iconos/turak.png" />
+                                 </image>
+                              </ImageView>
+                              <Button layoutX="116.0" layoutY="263.0" mnemonicParsing="false" onAction="#selectRaza" prefHeight="48.0" prefWidth="145.0" text="TURAK" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                           </children>
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                        </Pane>
+                        <Pane layoutX="804.0" layoutY="1025.0" prefHeight="301.0" prefWidth="375.0" style="-fx-background-color: #D5D5D5;">
+                           <children>
+                              <Circle fill="#9e9e9e" layoutX="188.0" layoutY="124.0" radius="100.0" stroke="BLACK" strokeType="INSIDE" />
+                              <ImageView fitHeight="133.0" fitWidth="180.0" layoutX="121.0" layoutY="58.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../img/razas%20iconos/criatura.png" />
+                                 </image>
+                              </ImageView>
+                              <Button layoutX="127.0" layoutY="239.0" mnemonicParsing="false" onAction="#selectRaza" prefHeight="48.0" prefWidth="121.0" text="CRIATURA" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                           </children>
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                        </Pane>
+                        <Pane layoutX="408.0" layoutY="1025.0" prefHeight="301.0" prefWidth="375.0" style="-fx-background-color: #D5D5D5;">
+                           <children>
+                              <Circle fill="#9e9e9e" layoutX="188.0" layoutY="124.0" radius="100.0" stroke="BLACK" strokeType="INSIDE" />
+                              <ImageView fitHeight="176.0" fitWidth="104.0" layoutX="148.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../img/razas%20iconos/vetala.png" />
+                                 </image>
+                              </ImageView>
+                              <Button layoutX="128.0" layoutY="237.0" mnemonicParsing="false" onAction="#selectRaza" prefHeight="48.0" prefWidth="121.0" text="VETALA" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                           </children>
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                        </Pane>
+                        <Pane layoutX="11.0" layoutY="1025.0" prefHeight="301.0" prefWidth="375.0" style="-fx-background-color: #D5D5D5;">
+                           <children>
+                              <Circle fill="#9e9e9e" layoutX="188.0" layoutY="124.0" radius="100.0" stroke="BLACK" strokeType="INSIDE" />
+                              <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="115.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../img/razas%20iconos/daimah.png" />
+                                 </image>
+                              </ImageView>
+                              <Button layoutX="115.0" layoutY="240.0" mnemonicParsing="false" onAction="#selectRaza" prefHeight="48.0" prefWidth="145.0" text="DAIMAH" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                           </children>
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                        </Pane>
+                     </children>
+                  </Pane>
+               </children>
+            </AnchorPane>
+        </content>
+      </ScrollPane>
+      <Label fx:id="lCategoria2" layoutX="6.0" layoutY="11.0" prefHeight="36.0" prefWidth="1188.0" styleClass="labelRaza" textAlignment="CENTER" visible="false">
+         <effect>
+            <DropShadow />
+         </effect>
+      </Label>
+      <Label fx:id="lCategoria1" layoutX="6.0" layoutY="12.0" prefHeight="36.0" prefWidth="1188.0" styleClass="labelRaza" text="ELIJA UNA CATEGORIA" textAlignment="CENTER" visible="false">
+         <effect>
+            <DropShadow />
+         </effect>
+      </Label>
+      <Label fx:id="lRaza1" layoutX="6.0" layoutY="11.0" prefHeight="36.0" prefWidth="1188.0" styleClass="labelRaza" text="ELIJA UNA RAZA" textAlignment="CENTER">
+         <effect>
+            <DropShadow />
+         </effect>
+      </Label>
+      <Label fx:id="lRaza2" layoutX="6.0" layoutY="11.0" prefHeight="36.0" prefWidth="1188.0" styleClass="labelRaza" textAlignment="CENTER" visible="false">
+         <effect>
+            <DropShadow />
+         </effect>
+      </Label>
+      <Label fx:id="lHome" layoutX="14.0" layoutY="12.0" prefHeight="37.0" prefWidth="37.0" />
+      <ImageView fx:id="imgHome" fitHeight="38.0" fitWidth="37.0" layoutX="14.0" layoutY="11.0" onMouseClicked="#home" onMouseEntered="#homeEfecto" onMouseExited="#homeSinEfecto" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../img/home.jpg" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <Label fx:id="lBack" layoutX="66.0" layoutY="12.0" prefHeight="37.0" prefWidth="37.0" />
+      <ImageView fx:id="imgBack" fitHeight="38.0" fitWidth="37.0" layoutX="73.0" layoutY="11.0" onMouseClicked="#backSelectRaza" onMouseEntered="#backEfecto" onMouseExited="#backSinEfecto" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../../img/flechaSalida.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView fx:id="imgBack2" fitHeight="38.0" fitWidth="37.0" layoutX="73.0" layoutY="11.0" onMouseClicked="#backCategoria" onMouseEntered="#backEfecto" onMouseExited="#backSinEfecto" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../../img/flechaSalida.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+   </children>
+</Pane>
