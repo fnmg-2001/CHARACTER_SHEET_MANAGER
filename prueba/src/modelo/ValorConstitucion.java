@@ -78,7 +78,7 @@ public class ValorConstitucion {
 		}
 		
 		/*Recuperacion al dia por nivel de regeneracion*/
-		if (Integer.parseInt(this.regeneracionBase)==0) {
+		if (this.regeneracionBase=="-") {
 			this.curacionDia="-";
 			this.negativoDia="-";
 		} else if (Integer.parseInt(this.regeneracionBase)==1) {

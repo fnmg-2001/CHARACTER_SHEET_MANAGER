@@ -429,11 +429,11 @@ public class RazaController {
 		ConsultasHibernate ch = new ConsultasHibernate();
 		Categoria categoria;
 		
-		if (cPaladinAlter.getSelectionModel().getSelectedItem().equals("PALADIN")) {
+		if ("PALADIN".equals(cPaladinAlter.getSelectionModel().getSelectedItem())) {
 			categoria = ch.obtenerCategoria("PALADIN", sessionFactory);
-		} else if (cPaladinAlter.getSelectionModel().getSelectedItem().equals("PALADIN(ESP)")) {
+		} else if ("PALADIN(ESP)".equals(cPaladinAlter.getSelectionModel().getSelectedItem())) {
 			categoria = ch.obtenerCategoria("PALADIN(ESP)", sessionFactory);
-		} else if (cPaladinAlter.getSelectionModel().getSelectedItem().equals("PALADIN OSCURO")) {
+		} else if ("PALADIN OSCURO".equals(cPaladinAlter.getSelectionModel().getSelectedItem())) {
 			categoria = ch.obtenerCategoria("PALADIN OSCURO", sessionFactory);
 		} else {
 			categoria = ch.obtenerCategoria("PALADIN OSCURO(ESP)", sessionFactory);
@@ -570,7 +570,7 @@ public class RazaController {
 	
 	public void selectCategoriaAceptar(ActionEvent ev) throws IOException {
 		Stage stage = new Stage();
-		PersonajeController personajeController = new PersonajeController(sessionFactory);
+		PersonajeController personajeController = new PersonajeController(sessionFactory, lCategoria2.getText(), lRaza2.getText());
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Personaje.fxml"));
 		loader.setController(personajeController);
 		TabPane pane = (TabPane)loader.load();

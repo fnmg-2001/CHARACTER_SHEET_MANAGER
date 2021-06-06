@@ -163,6 +163,59 @@ public class ConsultasHibernate {
 		return coste;
 	}
 	
+	public ObservableList<String> obtenerNombresDesventaja(SessionFactory sessionFactory) {
+		Session session = null;
+		ObservableList<String> nombreListaVentaja = FXCollections.observableArrayList();
+		try {
+			session = sessionFactory.getCurrentSession();
+			session.beginTransaction();
+			
+			Query query = session.createQuery("FROM Desventaja");
+			List<Desventaja> listaVentaja = query.list();
+			String nombreVentaja;
+			
+			for (Desventaja ventaja : listaVentaja) {
+				nombreVentaja = ventaja.getNombre();
+				nombreListaVentaja.add(nombreVentaja);
+			}
+			
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			throw e;
+		}
+		finally {
+			if (session != null) {
+				session.close();
+			}
+		}
+		return nombreListaVentaja;
+	}
+	
+	public int obtenerBeneficioDesventajaSeleccionada(SessionFactory sessionFactory, String nombreDesventaja) {
+		Session session = null;
+		Desventaja desventaja;
+		int coste;
+		try {
+			session = sessionFactory.getCurrentSession();
+			session.beginTransaction();
+			
+			Query query = session.createQuery("FROM Desventaja d WHERE d.nombre = :nombreDesventaja");
+			query.setParameter("nombreDesventaja", nombreDesventaja);
+			desventaja = (Desventaja)query.getSingleResult();
+			coste = desventaja.getBeneficio();
+			
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			throw e;
+		}
+		finally {
+			if (session != null) {
+				session.close();
+			}
+		}
+		return coste;
+	}
+	
 	public static void main(String[] args) {
 		ConsultasHibernate ch = new ConsultasHibernate();
 		SessionFactory sf = ch.obtenerSessionFactory();
@@ -170,6 +223,6 @@ public class ConsultasHibernate {
 		System.out.println(ch.obtenerRaza("DAIMAH", sf).toString());
 		System.out.println(ch.obtenerListaNombreNephilim(sf));
 		System.out.println(ch.obtenerNombresVentaja(sf).toString());
-		System.out.println(ch.obtenerCosteVentajaSeleccionada(sf, "ELAN(2)"));
+		System.out.println(ch.obtenerBeneficioDesventajaSeleccionada(sf, "MIOPIA"));
 	}
 }
