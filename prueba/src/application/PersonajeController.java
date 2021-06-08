@@ -91,6 +91,10 @@ public class PersonajeController {
 	TableView<PdsHabilidadesSecundarias> tableViewSecundarias;
 	
 	@FXML
+	TableView<PdsHabilidadesSecundariasResumen> tableViewResumenAtleticas, tableViewResumenSociales, tableViewResumenPerceptivas, tableViewResumenIntelectuales, tableViewResumenVigor,
+	tableViewResumenSubterfugio, tableViewResumenCreativas;
+	
+	@FXML
 	TableColumn<CaracteristicaSeleccionada, String> colBase, colTemp, colTotal, colBono;
 	
 	@FXML
@@ -126,6 +130,15 @@ public class PersonajeController {
 	@FXML
 	TableColumn<PdsHabilidadesSecundarias, String> colPdsSecundariasNombreHabilidad, colPdsSecundariasCosteHabilidad, colPdsSecundariasPdsHabilidad, colPdsSecundariasBaseHabilidad, colPdsSecundariasBonoHabilidad, colPdsSecundariasCategoriaHabilidad,
 	colPdsSecundariasEspecialHabilidad, colPdsSecundariasTotalHabilidad, colPdsSecundariasBonoNatural, colPdsSecundariasHabilidadNatural, colPdsSecundariasBonoNovel;
+
+	@FXML
+	TableColumn<PdsHabilidadesSecundariasResumen, String> colNombreSecundariaAtleticas, colPenalizadorSecundariaAtleticas, colTotalSecundariaAtleticas, 
+	colNombreSecundariaSociales, colPenalizadorSecundariaSociales, colTotalSecundariaSociales,
+	colNombreSecundariaPerceptivas, colPenalizadorSecundariaPerceptivas, colTotalSecundariaPerceptivas,
+	colNombreSecundariaIntelectuales, colPenalizadorSecundariaIntelectuales, colTotalSecundariaIntelectuales, 
+	colNombreSecundariaVigor, colPenalizadorSecundariaVigor, colTotalSecundariaVigor,
+	colNombreSecundariaSubterfugio, colPenalizadorSecundariaSubterfugio, colTotalSecundariaSubterfugio,
+	colNombreSecundariaCreativas, colPenalizadorSecundariaCreativas, colTotalSecundariaCreativas;
 	
 	
 	
@@ -481,8 +494,134 @@ public class PersonajeController {
 		tableViewPsiquicas.setItems(pdsInvertidosPsiquicos);
 
 		/*------------------------------------------------------Tabla Habilidades Secundarias Pestaña Pds ------------------------------------------------------*/
+		if ("null" == String.valueOf(categoriaSeleccionada.getBonoAcrobacias())) {
+			categoriaSeleccionada.setBonoAcrobacias(0);
+		}
+		if ("null" == String.valueOf(categoriaSeleccionada.getBonoAtletismo())) {
+			categoriaSeleccionada.setBonoAtletismo(0);
+		}
+		if ("null" == String.valueOf(categoriaSeleccionada.getBonoBuscar())) {
+			categoriaSeleccionada.setBonoBuscar(0);
+		}
+		if ("null" == String.valueOf(categoriaSeleccionada.getBonoRastrear())) {
+			categoriaSeleccionada.setBonoRastrear(0);
+		}
+		if ("null" == String.valueOf(categoriaSeleccionada.getBonoTramperia())) {
+			categoriaSeleccionada.setBonoTramperia(0);
+		}
+		if ("null" == String.valueOf(categoriaSeleccionada.getBonoAnimales())) {
+			categoriaSeleccionada.setBonoAnimales(0);
+		}
+		if ("null" == String.valueOf(categoriaSeleccionada.getBonoHerbolaria())) {
+			categoriaSeleccionada.setBonoHerbolaria(0);
+		}
+		if ("null" == String.valueOf(categoriaSeleccionada.getBonoOcultarse())) {
+			categoriaSeleccionada.setBonoOcultarse(0);
+		}
+		if ("null" == String.valueOf(categoriaSeleccionada.getBonoSigilo())) {
+			categoriaSeleccionada.setBonoSigilo(0);
+		}
+		if ("null" == String.valueOf(categoriaSeleccionada.getBonoRobo())) {
+			categoriaSeleccionada.setBonoRobo(0);
+		} 
+		if ("null" == String.valueOf(categoriaSeleccionada.getBonoValoracionMagica())) {
+			categoriaSeleccionada.setBonoValoracionMagica(0);
+		}
+		if ("null" == String.valueOf(categoriaSeleccionada.getBonoOcultismo())) {
+			categoriaSeleccionada.setBonoOcultismo(0);
+		} 
+		if ("null" == String.valueOf(categoriaSeleccionada.getBonoDisfraz())) {
+			categoriaSeleccionada.setBonoDisfraz(0);
+		}
+		if ("null" == String.valueOf(categoriaSeleccionada.getBonoProezaFuerza())) {
+			categoriaSeleccionada.setBonoProezaFuerza(0);
+		}
+		if ("null" == String.valueOf(categoriaSeleccionada.getBonoSaltar())) {
+			categoriaSeleccionada.setBonoSaltar(0);
+		}
+		if ("null" == String.valueOf(categoriaSeleccionada.getBonoTrucoManos())) {
+			categoriaSeleccionada.setBonoTrucoManos(0);
+		}
+		if ("null" == String.valueOf(categoriaSeleccionada.getBonoEstilo())) {
+			categoriaSeleccionada.setBonoEstilo(0);
+		}
+		if ("null" == String.valueOf(categoriaSeleccionada.getBonoLiderazgo())) {
+			categoriaSeleccionada.setBonoLiderazgo(0);
+		} 
+		if ("null" == String.valueOf(categoriaSeleccionada.getBonoIntimidar())) {
+			categoriaSeleccionada.setBonoIntimidar(0);
+		}
+		if ("null" == String.valueOf(categoriaSeleccionada.getBonoPersuasion())) {
+			categoriaSeleccionada.setBonoPersuasion(0);
+		}
+		if ("null" == String.valueOf(categoriaSeleccionada.getBonoResistirDolor())) {
+			categoriaSeleccionada.setBonoResistirDolor(0);
+		}
+		if ("null" == String.valueOf(categoriaSeleccionada.getBonoFrialdad())) {
+			categoriaSeleccionada.setBonoFrialdad(0);
+		}
+		if ("null" == String.valueOf(categoriaSeleccionada.getBonoVeneno())) {
+			categoriaSeleccionada.setBonoVeneno(0);
+		}
+		if ("null" == String.valueOf(categoriaSeleccionada.getBonoAdvertir())) {
+			categoriaSeleccionada.setBonoAdvertir(0);
+		}
 		ObservableList<PdsHabilidadesSecundarias> pdsInvertidosSecundarias = FXCollections.observableArrayList(
-				new PdsHabilidadesSecundarias("Atletismo",String.valueOf(categoriaSeleccionada.getCosteAtleticas()),null,"0","0",null,null,null,null));
+				new PdsHabilidadesSecundarias("Acrobacias",String.valueOf(categoriaSeleccionada.getCosteAtleticas()),null,"0",String.valueOf(categoriaSeleccionada.getBonoAcrobacias()),null,null,null,null),
+				new PdsHabilidadesSecundarias("Atletismo",String.valueOf(categoriaSeleccionada.getCosteAtleticas()),null,"0",String.valueOf(categoriaSeleccionada.getBonoAtletismo()),null,null,null,null),
+				new PdsHabilidadesSecundarias("Montar",String.valueOf(categoriaSeleccionada.getCosteAtleticas()),null,"0","0",null,null,null,null),
+				new PdsHabilidadesSecundarias("Nadar",String.valueOf(categoriaSeleccionada.getCosteAtleticas()),null,"0","0",null,null,null,null),
+				new PdsHabilidadesSecundarias("Trepar",String.valueOf(categoriaSeleccionada.getCosteAtleticas()),null,"0","0",null,null,null,null),
+				new PdsHabilidadesSecundarias("Saltar",String.valueOf(categoriaSeleccionada.getCosteAtleticas()),null,"0",String.valueOf(categoriaSeleccionada.getBonoSaltar()),null,null,null,null),
+				
+				new PdsHabilidadesSecundarias("Estilo",String.valueOf(categoriaSeleccionada.getCosteSociales()),null,"0",String.valueOf(categoriaSeleccionada.getBonoEstilo()),null,null,null,null),
+				new PdsHabilidadesSecundarias("Intimidar",String.valueOf(categoriaSeleccionada.getCosteSociales()),null,"0",String.valueOf(categoriaSeleccionada.getBonoIntimidar()),null,null,null,null),
+				new PdsHabilidadesSecundarias("Liderazgo",String.valueOf(categoriaSeleccionada.getCosteSociales()),null,"0",String.valueOf(categoriaSeleccionada.getBonoLiderazgo()),null,null,null,null),
+				new PdsHabilidadesSecundarias("Persuasion",String.valueOf(categoriaSeleccionada.getCosteSociales()),null,"0",String.valueOf(categoriaSeleccionada.getBonoPersuasion()),null,null,null,null),
+				new PdsHabilidadesSecundarias("Comercio",String.valueOf(categoriaSeleccionada.getCosteSociales()),null,"0","0",null,null,null,null),
+				new PdsHabilidadesSecundarias("Callejeo",String.valueOf(categoriaSeleccionada.getCosteSociales()),null,"0","0",null,null,null,null),
+				new PdsHabilidadesSecundarias("Etiqueta",String.valueOf(categoriaSeleccionada.getCosteSociales()),null,"0","0",null,null,null,null),
+				
+				new PdsHabilidadesSecundarias("Advertir",String.valueOf(categoriaSeleccionada.getCostePerceptivas()),null,"0",String.valueOf(categoriaSeleccionada.getBonoAdvertir()),null,null,null,null),
+				new PdsHabilidadesSecundarias("Buscar",String.valueOf(categoriaSeleccionada.getCostePerceptivas()),null,"0",String.valueOf(categoriaSeleccionada.getBonoBuscar()),null,null,null,null),
+				new PdsHabilidadesSecundarias("Rastrear",String.valueOf(categoriaSeleccionada.getCostePerceptivas()),null,"0",String.valueOf(categoriaSeleccionada.getBonoRastrear()),null,null,null,null),
+				
+				new PdsHabilidadesSecundarias("Animales",String.valueOf(categoriaSeleccionada.getCosteIntelectuales()),null,"0",String.valueOf(categoriaSeleccionada.getBonoAnimales()),null,null,null,null),
+				new PdsHabilidadesSecundarias("Ciencia",String.valueOf(categoriaSeleccionada.getCosteIntelectuales()),null,"0","0",null,null,null,null),
+				new PdsHabilidadesSecundarias("Ley",String.valueOf(categoriaSeleccionada.getCosteIntelectuales()),null,"0","0",null,null,null,null),
+				new PdsHabilidadesSecundarias("Herbolaria",String.valueOf(categoriaSeleccionada.getCosteIntelectuales()),null,"0",String.valueOf(categoriaSeleccionada.getBonoHerbolaria()),null,null,null,null),
+				new PdsHabilidadesSecundarias("Historia",String.valueOf(categoriaSeleccionada.getCosteIntelectuales()),null,"0","0",null,null,null,null),
+				new PdsHabilidadesSecundarias("Tactica",String.valueOf(categoriaSeleccionada.getCosteIntelectuales()),null,"0","0",null,null,null,null),
+				new PdsHabilidadesSecundarias("Medicina",String.valueOf(categoriaSeleccionada.getCosteIntelectuales()),null,"0","0",null,null,null,null),
+				new PdsHabilidadesSecundarias("Memorizar",String.valueOf(categoriaSeleccionada.getCosteIntelectuales()),null,"0","0",null,null,null,null),
+				new PdsHabilidadesSecundarias("Navegacion",String.valueOf(categoriaSeleccionada.getCosteIntelectuales()),null,"0","0",null,null,null,null),
+				new PdsHabilidadesSecundarias("Ocultismo",String.valueOf(categoriaSeleccionada.getCosteIntelectuales()),null,"0",String.valueOf(categoriaSeleccionada.getBonoOcultismo()),null,null,null,null),
+				new PdsHabilidadesSecundarias("Tasacion",String.valueOf(categoriaSeleccionada.getCosteIntelectuales()),null,"0","0",null,null,null,null),
+				new PdsHabilidadesSecundarias("V.Magica",String.valueOf(categoriaSeleccionada.getCosteIntelectuales()),null,"0",String.valueOf(categoriaSeleccionada.getBonoValoracionMagica()),null,null,null,null),
+				
+				new PdsHabilidadesSecundarias("Frialdad",String.valueOf(categoriaSeleccionada.getCosteVigor()),null,"0",String.valueOf(categoriaSeleccionada.getBonoFrialdad()),null,null,null,null),
+				new PdsHabilidadesSecundarias("P.Fuerza",String.valueOf(categoriaSeleccionada.getCosteVigor()),null,"0",String.valueOf(categoriaSeleccionada.getBonoProezaFuerza()),null,null,null,null),
+				new PdsHabilidadesSecundarias("Res.Dolor",String.valueOf(categoriaSeleccionada.getCosteVigor()),null,"0",String.valueOf(categoriaSeleccionada.getBonoResistirDolor()),null,null,null,null),
+				
+				new PdsHabilidadesSecundarias("Cerrajeria",String.valueOf(categoriaSeleccionada.getCosteSubterfugio()),null,"0","0",null,null,null,null),
+				new PdsHabilidadesSecundarias("Disfraz",String.valueOf(categoriaSeleccionada.getCosteSubterfugio()),null,"0",String.valueOf(categoriaSeleccionada.getBonoDisfraz()),null,null,null,null),
+				new PdsHabilidadesSecundarias("Ocultarse",String.valueOf(categoriaSeleccionada.getCosteSubterfugio()),null,"0",String.valueOf(categoriaSeleccionada.getBonoOcultarse()),null,null,null,null),
+				new PdsHabilidadesSecundarias("Robo",String.valueOf(categoriaSeleccionada.getCosteSubterfugio()),null,"0",String.valueOf(categoriaSeleccionada.getBonoRobo()),null,null,null,null),
+				new PdsHabilidadesSecundarias("Sigilo",String.valueOf(categoriaSeleccionada.getCosteSubterfugio()),null,"0",String.valueOf(categoriaSeleccionada.getBonoSigilo()),null,null,null,null),
+				new PdsHabilidadesSecundarias("Tramperia",String.valueOf(categoriaSeleccionada.getCosteSubterfugio()),null,"0",String.valueOf(categoriaSeleccionada.getBonoTramperia()),null,null,null,null),
+				new PdsHabilidadesSecundarias("Venenos",String.valueOf(categoriaSeleccionada.getCosteSubterfugio()),null,"0",String.valueOf(categoriaSeleccionada.getBonoVeneno()),null,null,null,null),
+				
+				new PdsHabilidadesSecundarias("Arte",String.valueOf(categoriaSeleccionada.getCosteCreativas()),null,"0","0",null,null,null,null),
+				new PdsHabilidadesSecundarias("Baile",String.valueOf(categoriaSeleccionada.getCosteCreativas()),null,"0","0",null,null,null,null),
+				new PdsHabilidadesSecundarias("Forja",String.valueOf(categoriaSeleccionada.getCosteCreativas()),null,"0","0",null,null,null,null),
+				new PdsHabilidadesSecundarias("Runas",String.valueOf(categoriaSeleccionada.getCosteCreativas()),null,"0","0",null,null,null,null),
+				new PdsHabilidadesSecundarias("Alquimia",String.valueOf(categoriaSeleccionada.getCosteCreativas()),null,"0","0",null,null,null,null),
+				new PdsHabilidadesSecundarias("Animismo",String.valueOf(categoriaSeleccionada.getCosteCreativas()),null,"0","0",null,null,null,null),
+				new PdsHabilidadesSecundarias("Musica",String.valueOf(categoriaSeleccionada.getCosteCreativas()),null,"0","0",null,null,null,null),
+				new PdsHabilidadesSecundarias("T.Manos",String.valueOf(categoriaSeleccionada.getCosteCreativas()),null,"0",String.valueOf(categoriaSeleccionada.getBonoTrucoManos()),null,null,null,null),
+				new PdsHabilidadesSecundarias("Caligrafia Ritual",String.valueOf(categoriaSeleccionada.getCosteCreativas()),null,"0","0",null,null,null,null),
+				new PdsHabilidadesSecundarias("Orfebreria",String.valueOf(categoriaSeleccionada.getCosteCreativas()),null,"0","0",null,null,null,null),
+				new PdsHabilidadesSecundarias("Confeccion",String.valueOf(categoriaSeleccionada.getCosteCreativas()),null,"0","0",null,null,null,null));
 		
 		colPdsSecundariasNombreHabilidad.setCellValueFactory(new PropertyValueFactory<PdsHabilidadesSecundarias, String>("nombreHabilidad"));
 		colPdsSecundariasCosteHabilidad.setCellValueFactory(new PropertyValueFactory<PdsHabilidadesSecundarias, String>("costeHabilidad"));
@@ -504,6 +643,21 @@ public class PersonajeController {
 		
 		tableViewSecundarias.setItems(pdsInvertidosSecundarias);
 		
+		/*------------------------------------------------------Tabla Pds Resumen Secundarias Pestaña Principal------------------------------------------------------*/
+		ObservableList<PdsHabilidadesSecundariasResumen> resumenSecundarias = FXCollections.observableArrayList(
+				new PdsHabilidadesSecundariasResumen("Acrobacias","0",tableViewSecundarias.getItems().get(0).getTotalHabilidad()),
+				new PdsHabilidadesSecundariasResumen("Atletismo","0",tableViewSecundarias.getItems().get(1).getTotalHabilidad()),
+				new PdsHabilidadesSecundariasResumen("Montar","0",tableViewSecundarias.getItems().get(2).getTotalHabilidad()),
+				new PdsHabilidadesSecundariasResumen("Nadar","0",tableViewSecundarias.getItems().get(3).getTotalHabilidad()),
+				new PdsHabilidadesSecundariasResumen("Trepar","0",tableViewSecundarias.getItems().get(4).getTotalHabilidad()),
+				new PdsHabilidadesSecundariasResumen("Saltar","0",tableViewSecundarias.getItems().get(5).getTotalHabilidad()));
+		
+		colNombreSecundariaAtleticas.setCellValueFactory(new PropertyValueFactory<PdsHabilidadesSecundariasResumen, String>("nombreHabilidad"));
+		colPenalizadorSecundariaAtleticas.setCellValueFactory(new PropertyValueFactory<PdsHabilidadesSecundariasResumen, String>("penalizadorNaturalHabilidad"));
+		colTotalSecundariaAtleticas.setCellValueFactory(new PropertyValueFactory<PdsHabilidadesSecundariasResumen, String>("totalHabilidad"));
+		
+		tableViewResumenAtleticas.setItems(resumenSecundarias);
+
 		/*------------------------------------------------------Valores TextField Pestaña Principal------------------------------------------------------*/
 		
 		if (tableViewCaracteristicas.getItems().get(0).getBonoCaracteristica()=="-") {
@@ -541,6 +695,7 @@ public class PersonajeController {
 //			tEtniaGeneral.setEditable(false);
 //			tEtniaGeneral.setText("-");
 //		}
+		
 		tPuntosVidaCategoria.setText(String.valueOf(categoriaSeleccionada.getPuntosVida()));
 		tPuntosVidaBase.setText(valorConstitucion.getPuntosVidaBase());
 		tPuntosVidaBase.setText(valorConstitucion.getPuntosVidaBase());
@@ -730,6 +885,9 @@ public class PersonajeController {
 		tableViewCaracteristicas.refresh();
 		tableViewResistencias.refresh();
 		tableViewCombate.refresh();
+		tableViewMisticas.refresh();
+		tableViewPsiquicas.refresh();
+		tableViewSecundarias.refresh();
 		System.out.println(caracteristica.getBonoCaracteristica());
 	}
 	
@@ -899,6 +1057,9 @@ public class PersonajeController {
 		tableViewCaracteristicas.refresh();
 		tableViewResistencias.refresh();
 		tableViewCombate.refresh();
+		tableViewMisticas.refresh();
+		tableViewPsiquicas.refresh();
+		tableViewSecundarias.refresh();
 		System.out.println(caracteristica.getBonoCaracteristica());
 	}
 	
@@ -949,11 +1110,6 @@ public class PersonajeController {
 	public void cambiarPdsEspecialCombate (TableColumn.CellEditEvent<PdsCombate, String> cellEditEvent) {
 		PdsCombate pds = tableViewCombate.getSelectionModel().getSelectedItem();
 		pds.setEspecialHabilidad(cellEditEvent.getNewValue());
-//		if (cellEditEvent.getNewValue()=="") {
-//			pds.setEspecialHabilidad("0");
-//		} else {
-//			pds.setEspecialHabilidad(cellEditEvent.getNewValue());
-//		}
 		
 		if (tableViewCombate.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("H.Ataque")) {
 			tHabilidadAtaque.setText(pds.getTotalHabilidad());
@@ -981,11 +1137,6 @@ public class PersonajeController {
 	public void cambiarPdsMisticos (TableColumn.CellEditEvent<PdsMisticos, String> cellEditEvent) {
 		PdsMisticos pds = tableViewMisticas.getSelectionModel().getSelectedItem();
 		pds.setPdsHabilidad(cellEditEvent.getNewValue());
-//		if (cellEditEvent.getNewValue()=="") {
-//			pds.setPdsHabilidad("0");
-//		} else {
-//			pds.setPdsHabilidad(cellEditEvent.getNewValue());
-//		}
 		
 		if (tableViewMisticas.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("Zeon")) {
 			
@@ -1013,11 +1164,6 @@ public class PersonajeController {
 	public void cambiarPdsEspecialMisticos (TableColumn.CellEditEvent<PdsMisticos, String> cellEditEvent) {
 		PdsMisticos pds = tableViewMisticas.getSelectionModel().getSelectedItem();
 		pds.setEspecialHabilidad(cellEditEvent.getNewValue());
-//		if (cellEditEvent.getNewValue()=="") {
-//			pds.setEspecialHabilidad("0");
-//		} else {
-//			pds.setEspecialHabilidad(cellEditEvent.getNewValue());
-//		}
 		
 		if (tableViewMisticas.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("Zeon")) {
 			
@@ -1042,14 +1188,9 @@ public class PersonajeController {
 		tableViewMisticas.refresh();
 	}
 	
-	public void cambiarPdsPsiquicos (TableColumn.CellEditEvent<PdsMisticos, String> cellEditEvent) {
+	public void cambiarPdsPsiquicos (TableColumn.CellEditEvent<PdsPsiquicos, String> cellEditEvent) {
 		PdsPsiquicos pds = tableViewPsiquicas.getSelectionModel().getSelectedItem();
 		pds.setPdsHabilidad(cellEditEvent.getNewValue());
-//		if (cellEditEvent.getNewValue()=="") {
-//			pds.setPdsHabilidad("0");
-//		} else {
-//			pds.setPdsHabilidad(cellEditEvent.getNewValue());
-//		}
 		
 		if (tableViewPsiquicas.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("CV")) {
 			
@@ -1060,14 +1201,9 @@ public class PersonajeController {
 		tableViewPsiquicas.refresh();
 	}
 	
-	public void cambiarPdsEspecialPsiquicos (TableColumn.CellEditEvent<PdsMisticos, String> cellEditEvent) {
+	public void cambiarPdsEspecialPsiquicos (TableColumn.CellEditEvent<PdsPsiquicos, String> cellEditEvent) {
 		PdsPsiquicos pds = tableViewPsiquicas.getSelectionModel().getSelectedItem();
 		pds.setEspecialHabilidad(cellEditEvent.getNewValue());
-//		if (cellEditEvent.getNewValue()=="") {
-//			pds.setEspecialHabilidad("0");
-//		} else {
-//			pds.setEspecialHabilidad(cellEditEvent.getNewValue());
-//		}
 		
 		if (tableViewPsiquicas.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("CV")) {
 			
@@ -1078,6 +1214,116 @@ public class PersonajeController {
 	tableViewPsiquicas.refresh();
 	}
 	
+	public void cambiarPdsHabilidadesSecundarias (TableColumn.CellEditEvent<PdsHabilidadesSecundarias, String> cellEditEvent) {
+		PdsHabilidadesSecundarias pds = tableViewSecundarias.getSelectionModel().getSelectedItem();
+		pds.setPdsHabilidad(cellEditEvent.getNewValue());
+		
+		if (tableViewSecundarias.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("Acrobacias")) {
+			tableViewResumenAtleticas.getItems().get(0).setTotalHabilidad(pds.getTotalHabilidad());
+		} else if (tableViewSecundarias.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("Atletismo")) {
+			tableViewResumenAtleticas.getItems().get(1).setTotalHabilidad(pds.getTotalHabilidad());
+		} else if (tableViewSecundarias.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("Montar")) {
+			tableViewResumenAtleticas.getItems().get(2).setTotalHabilidad(pds.getTotalHabilidad());
+		} else if (tableViewSecundarias.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("Nadar")) {
+			tableViewResumenAtleticas.getItems().get(3).setTotalHabilidad(pds.getTotalHabilidad());
+		} else if (tableViewSecundarias.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("Trepar")) {
+			tableViewResumenAtleticas.getItems().get(4).setTotalHabilidad(pds.getTotalHabilidad());
+		} else if (tableViewSecundarias.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("Saltar")) {
+			tableViewResumenAtleticas.getItems().get(5).setTotalHabilidad(pds.getTotalHabilidad());
+		}
+		
+		tableViewSecundarias.refresh();
+		tableViewResumenAtleticas.refresh();
+	}
+
+	public void cambiarPdsEspecialHabilidadesSecundarias (TableColumn.CellEditEvent<PdsHabilidadesSecundarias, String> cellEditEvent) {
+		PdsHabilidadesSecundarias pds = tableViewSecundarias.getSelectionModel().getSelectedItem();
+		pds.setEspecialHabilidad(cellEditEvent.getNewValue());
+		
+		if (tableViewSecundarias.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("Acrobacias")) {
+			tableViewResumenAtleticas.getItems().get(0).setTotalHabilidad(pds.getTotalHabilidad());
+		} else if (tableViewSecundarias.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("Atletismo")) {
+			tableViewResumenAtleticas.getItems().get(1).setTotalHabilidad(pds.getTotalHabilidad());
+		} else if (tableViewSecundarias.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("Montar")) {
+			tableViewResumenAtleticas.getItems().get(2).setTotalHabilidad(pds.getTotalHabilidad());
+		} else if (tableViewSecundarias.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("Nadar")) {
+			tableViewResumenAtleticas.getItems().get(3).setTotalHabilidad(pds.getTotalHabilidad());
+		} else if (tableViewSecundarias.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("Trepar")) {
+			tableViewResumenAtleticas.getItems().get(4).setTotalHabilidad(pds.getTotalHabilidad());
+		} else if (tableViewSecundarias.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("Saltar")) {
+			tableViewResumenAtleticas.getItems().get(5).setTotalHabilidad(pds.getTotalHabilidad());
+		}
+		
+		tableViewSecundarias.refresh();
+		tableViewResumenAtleticas.refresh();
+	}
+
+	public void cambiarPdsBonoNaturalHabilidadesSecundarias (TableColumn.CellEditEvent<PdsHabilidadesSecundarias, String> cellEditEvent) {
+		PdsHabilidadesSecundarias pds = tableViewSecundarias.getSelectionModel().getSelectedItem();
+		pds.setBonoNatural(cellEditEvent.getNewValue());
+		
+		if (tableViewSecundarias.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("Acrobacias")) {
+			tableViewResumenAtleticas.getItems().get(0).setTotalHabilidad(pds.getTotalHabilidad());
+		} else if (tableViewSecundarias.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("Atletismo")) {
+			tableViewResumenAtleticas.getItems().get(1).setTotalHabilidad(pds.getTotalHabilidad());
+		} else if (tableViewSecundarias.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("Montar")) {
+			tableViewResumenAtleticas.getItems().get(2).setTotalHabilidad(pds.getTotalHabilidad());
+		} else if (tableViewSecundarias.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("Nadar")) {
+			tableViewResumenAtleticas.getItems().get(3).setTotalHabilidad(pds.getTotalHabilidad());
+		} else if (tableViewSecundarias.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("Trepar")) {
+			tableViewResumenAtleticas.getItems().get(4).setTotalHabilidad(pds.getTotalHabilidad());
+		} else if (tableViewSecundarias.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("Saltar")) {
+			tableViewResumenAtleticas.getItems().get(5).setTotalHabilidad(pds.getTotalHabilidad());
+		}
+		
+		tableViewSecundarias.refresh();
+		tableViewResumenAtleticas.refresh();
+	}
+
+	public void cambiarPdsHabilidadNaturalHabilidadesSecundarias (TableColumn.CellEditEvent<PdsHabilidadesSecundarias, String> cellEditEvent) {
+		PdsHabilidadesSecundarias pds = tableViewSecundarias.getSelectionModel().getSelectedItem();
+		pds.setHabilidadNatural(cellEditEvent.getNewValue());
+		
+		if (tableViewSecundarias.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("Acrobacias")) {
+			tableViewResumenAtleticas.getItems().get(0).setTotalHabilidad(pds.getTotalHabilidad());
+		} else if (tableViewSecundarias.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("Atletismo")) {
+			tableViewResumenAtleticas.getItems().get(1).setTotalHabilidad(pds.getTotalHabilidad());
+		} else if (tableViewSecundarias.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("Montar")) {
+			tableViewResumenAtleticas.getItems().get(2).setTotalHabilidad(pds.getTotalHabilidad());
+		} else if (tableViewSecundarias.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("Nadar")) {
+			tableViewResumenAtleticas.getItems().get(3).setTotalHabilidad(pds.getTotalHabilidad());
+		} else if (tableViewSecundarias.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("Trepar")) {
+			tableViewResumenAtleticas.getItems().get(4).setTotalHabilidad(pds.getTotalHabilidad());
+		} else if (tableViewSecundarias.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("Saltar")) {
+			tableViewResumenAtleticas.getItems().get(5).setTotalHabilidad(pds.getTotalHabilidad());
+		}
+		
+		tableViewSecundarias.refresh();
+		tableViewResumenAtleticas.refresh();
+	}
+
+	public void cambiarPdsBonoNovelHabilidadesSecundarias (TableColumn.CellEditEvent<PdsHabilidadesSecundarias, String> cellEditEvent) {
+		PdsHabilidadesSecundarias pds = tableViewSecundarias.getSelectionModel().getSelectedItem();
+		pds.setBonoNovel(cellEditEvent.getNewValue());
+		
+		if (tableViewSecundarias.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("Acrobacias")) {
+			tableViewResumenAtleticas.getItems().get(0).setTotalHabilidad(pds.getTotalHabilidad());
+		} else if (tableViewSecundarias.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("Atletismo")) {
+			tableViewResumenAtleticas.getItems().get(1).setTotalHabilidad(pds.getTotalHabilidad());
+		} else if (tableViewSecundarias.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("Montar")) {
+			tableViewResumenAtleticas.getItems().get(2).setTotalHabilidad(pds.getTotalHabilidad());
+		} else if (tableViewSecundarias.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("Nadar")) {
+			tableViewResumenAtleticas.getItems().get(3).setTotalHabilidad(pds.getTotalHabilidad());
+		} else if (tableViewSecundarias.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("Trepar")) {
+			tableViewResumenAtleticas.getItems().get(4).setTotalHabilidad(pds.getTotalHabilidad());
+		} else if (tableViewSecundarias.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("Saltar")) {
+			tableViewResumenAtleticas.getItems().get(5).setTotalHabilidad(pds.getTotalHabilidad());
+		}
+		
+		tableViewSecundarias.refresh();
+		tableViewResumenAtleticas.refresh();
+	}
+
 	public void cambiarValorCansancio(KeyEvent ev){
 		System.out.println(ev.getCode()+" "+ev.getText());
 		
@@ -1196,13 +1442,13 @@ public class PersonajeController {
 				
 			}
 				
-			} else {
-				Alert alerta = new Alert(Alert.AlertType.WARNING);
-				alerta.setHeaderText(null);
-			    alerta.setTitle("Info");
-			    alerta.setContentText("No se pueden escribir caracteres diferentes a un numero");
-			    alerta.showAndWait();
-			}
+		} else {
+			Alert alerta = new Alert(Alert.AlertType.WARNING);
+			alerta.setHeaderText(null);
+			   alerta.setTitle("Info");
+			   alerta.setContentText("No se pueden escribir caracteres diferentes a un numero");
+			   alerta.showAndWait();
+		}
 	}
 	
 	public void seleccionarImagenPersonaje(MouseEvent ev) {

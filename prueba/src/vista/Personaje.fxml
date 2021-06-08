@@ -175,7 +175,7 @@
                         <Pane fx:id="pResistencias" layoutX="33.0" layoutY="824.0" prefHeight="251.0" prefWidth="407.0">
                            <children>
                               <Label alignment="CENTER" prefHeight="35.0" prefWidth="406.0" styleClass="labelPersonaje" text="RESISTENCIAS" />
-                              <TableView fx:id="tableViewResistencias" editable="true" layoutY="35.0" prefHeight="220.0" prefWidth="406.0">
+                              <TableView fx:id="tableViewResistencias" editable="true" layoutY="35.0" prefHeight="192.0" prefWidth="408.0">
                                 <columns>
                                   <TableColumn fx:id="colNombreResistencias" prefWidth="98.0" sortable="false" />
                                   <TableColumn fx:id="colResistenciasBase" prefWidth="47.0" sortable="false" text="BASE" />
@@ -215,11 +215,11 @@
                                        <content>
                                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                              <children>
-                                                <TableView layoutY="1.0" prefHeight="200.0" prefWidth="647.0">
+                                                <TableView fx:id="tableViewResumenAtleticas" layoutY="1.0" prefHeight="200.0" prefWidth="647.0">
                                                    <columns>
-                                                      <TableColumn prefWidth="329.0" text="HABILIDAD" />
-                                                      <TableColumn prefWidth="112.0" text="PEN.NATURAL" />
-                                                      <TableColumn prefWidth="205.0" text="TOTAL" />
+                                                      <TableColumn fx:id="colNombreSecundariaAtleticas" prefWidth="329.0" text="HABILIDAD" />
+                                                      <TableColumn fx:id="colPenalizadorSecundariaAtleticas" prefWidth="112.0" text="PEN.NATURAL" />
+                                                      <TableColumn fx:id="colTotalSecundariaAtleticas" prefWidth="205.0" text="TOTAL" />
                                                    </columns>
                                                 </TableView>
                                              </children>
@@ -316,7 +316,7 @@
                                           </AnchorPane>
                                        </content>
                                     </TitledPane>
-                                    <TitledPane expanded="false" text="ESPECIAL">
+                                    <TitledPane expanded="false" text="ESPECIAL" visible="false">
                                        <content>
                                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                              <children>
@@ -413,19 +413,19 @@
                                 <content>
                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
-                                          <TableView fx:id="tableViewSecundarias" prefHeight="448.0" prefWidth="1164.0">
+                                          <TableView fx:id="tableViewSecundarias" editable="true" prefHeight="448.0" prefWidth="1159.0">
                                             <columns>
                                               <TableColumn fx:id="colPdsSecundariasNombreHabilidad" prefWidth="227.0" sortable="false" text="HABILIDAD" />
-                                              <TableColumn fx:id="colPdsSecundariasCosteHabilidad" prefWidth="106.0" sortable="false" text="COSTE" />
-                                                <TableColumn fx:id="colPdsSecundariasPdsHabilidad" prefWidth="106.0" sortable="false" text="PDS" />
-                                                <TableColumn fx:id="colPdsSecundariasBaseHabilidad" prefWidth="111.0" sortable="false" text="BASE" />
-                                                <TableColumn fx:id="colPdsSecundariasBonoHabilidad" prefWidth="95.0" sortable="false" text="BONO" />
-                                                <TableColumn fx:id="colPdsSecundariasCategoriaHabilidad" prefWidth="103.0" sortable="false" text="CATEGORIA" />
-                                                <TableColumn fx:id="colPdsSecundariasEspecialHabilidad" prefWidth="90.0" sortable="false" text="ESPECIAL" />
-                                                <TableColumn fx:id="colPdsSecundariasBonoNatural" prefWidth="84.0" sortable="false" text="BONO NAT." />
-                                                <TableColumn fx:id="colPdsSecundariasHabilidadNatural" prefWidth="105.0" sortable="false" text="HABILIDAD NAT." />
-                                                <TableColumn fx:id="colPdsSecundariasBonoNovel" sortable="false" text="NOVEL" />
-                                                <TableColumn fx:id="colPdsSecundariasTotalHabilidad" prefWidth="54.0" sortable="false" text="TOTAL" />
+                                              <TableColumn fx:id="colPdsSecundariasCosteHabilidad" prefWidth="88.0" sortable="false" text="COSTE" />
+                                                <TableColumn fx:id="colPdsSecundariasPdsHabilidad" onEditCommit="#cambiarPdsHabilidadesSecundarias" prefWidth="115.0" sortable="false" text="PDS" />
+                                                <TableColumn fx:id="colPdsSecundariasBaseHabilidad" prefWidth="120.0" sortable="false" text="BASE" />
+                                                <TableColumn fx:id="colPdsSecundariasBonoHabilidad" prefWidth="84.0" sortable="false" text="BONO" />
+                                                <TableColumn fx:id="colPdsSecundariasCategoriaHabilidad" prefWidth="104.0" sortable="false" text="CATEGORIA" />
+                                                <TableColumn fx:id="colPdsSecundariasEspecialHabilidad" onEditCommit="#cambiarPdsEspecialHabilidadesSecundarias" prefWidth="89.0" sortable="false" text="ESPECIAL" />
+                                                <TableColumn fx:id="colPdsSecundariasBonoNatural" onEditCommit="#cambiarPdsBonoNaturalHabilidadesSecundarias" prefWidth="85.0" sortable="false" text="BONO NAT." />
+                                                <TableColumn fx:id="colPdsSecundariasHabilidadNatural" onEditCommit="#cambiarPdsHabilidadNaturalHabilidadesSecundarias" prefWidth="115.0" sortable="false" text="HABILIDAD NAT." />
+                                                <TableColumn fx:id="colPdsSecundariasBonoNovel" onEditCommit="#cambiarPdsBonoNovelHabilidadesSecundarias" prefWidth="68.0" sortable="false" text="NOVEL" />
+                                                <TableColumn fx:id="colPdsSecundariasTotalHabilidad" prefWidth="60.0" sortable="false" text="TOTAL" />
                                             </columns>
                                           </TableView>
                                        </children>

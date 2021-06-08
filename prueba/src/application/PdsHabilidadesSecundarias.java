@@ -12,6 +12,10 @@ public class PdsHabilidadesSecundarias {
 	private String habilidadNatural;
 	private String bonoNovel;
 	private String totalHabilidad;
+	private int bonoNaturalValor;
+	private int habilidadNaturalValor;
+	private int bonoNovelValor;
+	
 	
 	public PdsHabilidadesSecundarias(String nombreHabilidad, String costeHabilidad, String pdsHabilidad,
 			String bonoHabilidad, String categoriaHabilidad, String especialHabilidad, String bonoNatural, String habilidadNatural, String bonoNovel) {
@@ -19,11 +23,8 @@ public class PdsHabilidadesSecundarias {
 		this.costeHabilidad = costeHabilidad;
 		this.pdsHabilidad = pdsHabilidad;
 		
-		if (null!=this.pdsHabilidad && null!=this.costeHabilidad && this.nombreHabilidad == "Conocimiento Marcial") {
-			this.baseHabilidad = String.valueOf(Integer.parseInt(pdsHabilidad)/1);
-			
-		} else if (null!=this.pdsHabilidad && null!=this.costeHabilidad && this.nombreHabilidad != "Conocimiento Marcial") {
-			this.baseHabilidad = String.valueOf(Integer.parseInt(pdsHabilidad)/Integer.parseInt(costeHabilidad));
+		if (null!=this.pdsHabilidad && null!=this.costeHabilidad) {
+			this.baseHabilidad = String.valueOf((Integer.parseInt(pdsHabilidad)/Integer.parseInt(this.costeHabilidad)));
 			
 		} else {
 			this.baseHabilidad = "0";
@@ -51,38 +52,49 @@ public class PdsHabilidadesSecundarias {
 		this.bonoNatural = bonoNatural;
 		if (null==this.bonoNatural) {
 			this.bonoNatural = "0";
-		}
-		int bonoNaturalValor = 0;
-		for (int i = 0; i < Integer.parseInt(this.bonoNatural); i++) {
-			bonoNaturalValor = bonoNaturalValor+Integer.parseInt(this.bonoHabilidad);
+		} else {
+			this.bonoNatural = bonoNatural;
 		}
 		
+		this.bonoNaturalValor = 0;
+		for (int i = 0; i < Integer.parseInt(this.bonoNatural); i++) {
+			this.bonoNaturalValor = this.bonoNaturalValor+Integer.parseInt(this.bonoHabilidad);
+		}
 
 		this.habilidadNatural = habilidadNatural;
 		if (null==this.habilidadNatural) {
 			this.habilidadNatural = "0";
+		} else {
+			this.habilidadNatural = habilidadNatural;
 		}
-		int habilidadNaturalValor = 0;
+			
+		this.habilidadNaturalValor = 0;
 		for (int i = 0; i < Integer.parseInt(this.habilidadNatural); i++) {
-			habilidadNaturalValor = habilidadNaturalValor+10;
+			this.habilidadNaturalValor = this.habilidadNaturalValor+10;
 		}
 		
 		this.bonoNovel = bonoNovel;
 		if (null==this.bonoNovel) {
 			this.bonoNovel = "0";
+		} else {
+			this.bonoNovel = bonoNovel;
 		}
-		int bonoNovelValor = 0;
+		
+		this.bonoNovelValor = 0;
 		for (int i = 0; i < Integer.parseInt(this.bonoNovel); i++) {
-			bonoNovelValor = bonoNovelValor+10;
+			this.bonoNovelValor = this.bonoNovelValor+10;
 		}
 		
 		if (null!=this.baseHabilidad && null!=this.especialHabilidad) {
 			this.totalHabilidad = String.valueOf(Integer.parseInt(this.baseHabilidad)+Integer.parseInt(this.especialHabilidad)+Integer.parseInt(this.categoriaHabilidad)+Integer.parseInt(this.bonoHabilidad)+
-					bonoNaturalValor+habilidadNaturalValor+bonoNovelValor);
+					this.bonoNaturalValor+this.habilidadNaturalValor+this.bonoNovelValor);
+			
 		} else if (null!=this.baseHabilidad && null==this.especialHabilidad) {
-			this.totalHabilidad = String.valueOf(Integer.parseInt(this.baseHabilidad)+0+Integer.parseInt(this.categoriaHabilidad)+Integer.parseInt(this.bonoHabilidad));
-		}  else if (null==this.baseHabilidad && null!=this.especialHabilidad) {
-			this.totalHabilidad = String.valueOf(0+Integer.parseInt(this.especialHabilidad)+Integer.parseInt(this.categoriaHabilidad)+Integer.parseInt(this.bonoHabilidad));
+			this.totalHabilidad = String.valueOf(Integer.parseInt(this.baseHabilidad)+0+Integer.parseInt(this.categoriaHabilidad)+Integer.parseInt(this.bonoHabilidad)+this.bonoNaturalValor+this.habilidadNaturalValor+this.bonoNovelValor);
+			
+		} else if (null==this.baseHabilidad && null!=this.especialHabilidad) {
+			this.totalHabilidad = String.valueOf(0+Integer.parseInt(this.especialHabilidad)+Integer.parseInt(this.categoriaHabilidad)+Integer.parseInt(this.bonoHabilidad)+this.bonoNaturalValor+this.habilidadNaturalValor+this.bonoNovelValor);
+			
 			
 		} else {
 			this.totalHabilidad = "0";
@@ -113,22 +125,23 @@ public class PdsHabilidadesSecundarias {
 
 	public void setPdsHabilidad(String pdsHabilidad) {
 		this.pdsHabilidad = pdsHabilidad;
-		if (null!=this.pdsHabilidad && null!=this.costeHabilidad && this.nombreHabilidad == "Conocimiento Marcial") {
-			this.baseHabilidad = String.valueOf(Integer.parseInt(pdsHabilidad)/1);
-			
-		} else if (null!=this.pdsHabilidad && null!=this.costeHabilidad && this.nombreHabilidad != "Conocimiento Marcial") {
-			this.baseHabilidad = String.valueOf(Integer.parseInt(pdsHabilidad)/Integer.parseInt(costeHabilidad));
+
+		if (null!=this.pdsHabilidad && null!=this.costeHabilidad) {
+			this.baseHabilidad = String.valueOf((Integer.parseInt(pdsHabilidad)/Integer.parseInt(this.costeHabilidad)));
 			
 		} else {
 			this.baseHabilidad = "0";
 			
 		}
+		
 		if (null!=this.baseHabilidad && null!=this.especialHabilidad) {
-			this.totalHabilidad = String.valueOf(Integer.parseInt(this.baseHabilidad)+Integer.parseInt(this.especialHabilidad)+Integer.parseInt(categoriaHabilidad)+Integer.parseInt(bonoHabilidad));
+			this.totalHabilidad = String.valueOf(Integer.parseInt(this.baseHabilidad)+Integer.parseInt(this.especialHabilidad)+Integer.parseInt(this.categoriaHabilidad)+Integer.parseInt(this.bonoHabilidad)+
+					this.bonoNaturalValor+this.habilidadNaturalValor+this.bonoNovelValor);
 		} else if (null!=this.baseHabilidad && null==this.especialHabilidad) {
-			this.totalHabilidad = String.valueOf(Integer.parseInt(this.baseHabilidad)+0+Integer.parseInt(categoriaHabilidad)+Integer.parseInt(bonoHabilidad));
+			this.totalHabilidad = String.valueOf(Integer.parseInt(this.baseHabilidad)+0+Integer.parseInt(this.categoriaHabilidad)+Integer.parseInt(this.bonoHabilidad)+this.bonoNaturalValor+this.habilidadNaturalValor+this.bonoNovelValor);
+			
 		}  else if (null==this.baseHabilidad && null!=this.especialHabilidad) {
-			this.totalHabilidad = String.valueOf(0+Integer.parseInt(this.especialHabilidad)+Integer.parseInt(categoriaHabilidad)+Integer.parseInt(bonoHabilidad));
+			this.totalHabilidad = String.valueOf(0+Integer.parseInt(this.especialHabilidad)+Integer.parseInt(this.categoriaHabilidad)+Integer.parseInt(this.bonoHabilidad)+this.bonoNaturalValor+this.habilidadNaturalValor+this.bonoNovelValor);
 			
 		} else {
 			this.totalHabilidad = "0";
@@ -150,6 +163,23 @@ public class PdsHabilidadesSecundarias {
 
 	public void setBonoHabilidad(String bonoHabilidad) {
 		this.bonoHabilidad = bonoHabilidad;
+		
+		if (null!=this.pdsHabilidad && null!=this.costeHabilidad) {
+			this.baseHabilidad = String.valueOf((Integer.parseInt(pdsHabilidad)/Integer.parseInt(this.costeHabilidad)));
+			
+		} else {
+			this.baseHabilidad = "0";
+			
+		}
+		
+		if (null!=this.pdsHabilidad && null!=this.costeHabilidad) {
+			this.baseHabilidad = String.valueOf((Integer.parseInt(pdsHabilidad)/Integer.parseInt(this.costeHabilidad)));
+			
+		} else {
+			this.baseHabilidad = "0";
+			
+		}
+		
 		if (null!=this.pdsHabilidad && null!=this.costeHabilidad && this.nombreHabilidad == "Conocimiento Marcial") {
 			this.baseHabilidad = String.valueOf(Integer.parseInt(pdsHabilidad)/1);
 			
@@ -160,12 +190,14 @@ public class PdsHabilidadesSecundarias {
 			this.baseHabilidad = "0";
 			
 		}
+		
 		if (null!=this.baseHabilidad && null!=this.especialHabilidad) {
-			this.totalHabilidad = String.valueOf(Integer.parseInt(this.baseHabilidad)+Integer.parseInt(this.especialHabilidad)+Integer.parseInt(categoriaHabilidad)+Integer.parseInt(bonoHabilidad));
+			this.totalHabilidad = String.valueOf(Integer.parseInt(this.baseHabilidad)+Integer.parseInt(this.especialHabilidad)+Integer.parseInt(this.categoriaHabilidad)+Integer.parseInt(this.bonoHabilidad)+
+					this.bonoNaturalValor+this.habilidadNaturalValor+this.bonoNovelValor);
 		} else if (null!=this.baseHabilidad && null==this.especialHabilidad) {
-			this.totalHabilidad = String.valueOf(Integer.parseInt(this.baseHabilidad)+0+Integer.parseInt(categoriaHabilidad)+Integer.parseInt(bonoHabilidad));
+			this.totalHabilidad = String.valueOf(Integer.parseInt(this.baseHabilidad)+0+Integer.parseInt(this.categoriaHabilidad)+Integer.parseInt(this.bonoHabilidad)+this.bonoNaturalValor+this.habilidadNaturalValor+this.bonoNovelValor);
 		}  else if (null==this.baseHabilidad && null!=this.especialHabilidad) {
-			this.totalHabilidad = String.valueOf(0+Integer.parseInt(this.especialHabilidad)+Integer.parseInt(categoriaHabilidad)+Integer.parseInt(bonoHabilidad));
+			this.totalHabilidad = String.valueOf(0+Integer.parseInt(this.especialHabilidad)+Integer.parseInt(this.categoriaHabilidad)+Integer.parseInt(this.bonoHabilidad)+this.bonoNaturalValor+this.habilidadNaturalValor+this.bonoNovelValor);
 			
 		} else {
 			this.totalHabilidad = "0";
@@ -197,12 +229,14 @@ public class PdsHabilidadesSecundarias {
 			this.baseHabilidad = "0";
 			
 		}
+		
 		if (null!=this.baseHabilidad && null!=this.especialHabilidad) {
-			this.totalHabilidad = String.valueOf(Integer.parseInt(this.baseHabilidad)+Integer.parseInt(this.especialHabilidad)+Integer.parseInt(categoriaHabilidad)+Integer.parseInt(bonoHabilidad));
+			this.totalHabilidad = String.valueOf(Integer.parseInt(this.baseHabilidad)+Integer.parseInt(this.especialHabilidad)+Integer.parseInt(this.categoriaHabilidad)+Integer.parseInt(this.bonoHabilidad)+
+					this.bonoNaturalValor+this.habilidadNaturalValor+this.bonoNovelValor);
 		} else if (null!=this.baseHabilidad && null==this.especialHabilidad) {
-			this.totalHabilidad = String.valueOf(Integer.parseInt(this.baseHabilidad)+0+Integer.parseInt(categoriaHabilidad)+Integer.parseInt(bonoHabilidad));
+			this.totalHabilidad = String.valueOf(Integer.parseInt(this.baseHabilidad)+0+Integer.parseInt(this.categoriaHabilidad)+Integer.parseInt(this.bonoHabilidad)+this.bonoNaturalValor+this.habilidadNaturalValor+this.bonoNovelValor);
 		}  else if (null==this.baseHabilidad && null!=this.especialHabilidad) {
-			this.totalHabilidad = String.valueOf(0+Integer.parseInt(this.especialHabilidad)+Integer.parseInt(categoriaHabilidad)+Integer.parseInt(bonoHabilidad));
+			this.totalHabilidad = String.valueOf(0+Integer.parseInt(this.especialHabilidad)+Integer.parseInt(this.categoriaHabilidad)+Integer.parseInt(this.bonoHabilidad)+this.bonoNaturalValor+this.habilidadNaturalValor+this.bonoNovelValor);
 			
 		} else {
 			this.totalHabilidad = "0";
@@ -218,4 +252,121 @@ public class PdsHabilidadesSecundarias {
 	public void setTotalHabilidad(String totalHabilidad) {
 		this.totalHabilidad = totalHabilidad;
 	}
+
+	public String getBonoNatural() {
+		return bonoNatural;
+	}
+
+	public void setBonoNatural(String bonoNatural) {
+		this.bonoNatural = bonoNatural;
+		if (null==this.bonoNatural) {
+			this.bonoNatural = "0";
+		} else {
+			this.bonoNatural = bonoNatural;
+		}
+		
+		this.bonoNaturalValor = 0;
+		for (int i = 0; i < Integer.parseInt(this.bonoNatural); i++) {
+			this.bonoNaturalValor = this.bonoNaturalValor+Integer.parseInt(this.bonoHabilidad);
+		}
+		
+		if (null!=this.pdsHabilidad && null!=this.costeHabilidad) {
+			this.baseHabilidad = String.valueOf((Integer.parseInt(pdsHabilidad)/Integer.parseInt(this.costeHabilidad)));
+			
+		} else {
+			this.baseHabilidad = "0";
+			
+		}
+		
+		if (null!=this.baseHabilidad && null!=this.especialHabilidad) {
+			this.totalHabilidad = String.valueOf(Integer.parseInt(this.baseHabilidad)+Integer.parseInt(this.especialHabilidad)+Integer.parseInt(this.categoriaHabilidad)+Integer.parseInt(this.bonoHabilidad)+
+					this.bonoNaturalValor+this.habilidadNaturalValor+this.bonoNovelValor);
+		} else if (null!=this.baseHabilidad && null==this.especialHabilidad) {
+			this.totalHabilidad = String.valueOf(Integer.parseInt(this.baseHabilidad)+0+Integer.parseInt(this.categoriaHabilidad)+Integer.parseInt(this.bonoHabilidad)+this.bonoNaturalValor+this.habilidadNaturalValor+this.bonoNovelValor);
+		}  else if (null==this.baseHabilidad && null!=this.especialHabilidad) {
+			this.totalHabilidad = String.valueOf(0+Integer.parseInt(this.especialHabilidad)+Integer.parseInt(this.categoriaHabilidad)+Integer.parseInt(this.bonoHabilidad)+this.bonoNaturalValor+this.habilidadNaturalValor+this.bonoNovelValor);
+			
+		} else {
+			this.totalHabilidad = "0";
+			
+		}
+	}
+
+	public String getHabilidadNatural() {
+		return habilidadNatural;
+	}
+
+	public void setHabilidadNatural(String habilidadNatural) {
+		this.habilidadNatural = habilidadNatural;
+		if (null==this.habilidadNatural) {
+			this.habilidadNatural = "0";
+		} else {
+			this.habilidadNatural = habilidadNatural;
+		}
+		
+		if (null!=this.pdsHabilidad && null!=this.costeHabilidad) {
+			this.baseHabilidad = String.valueOf((Integer.parseInt(pdsHabilidad)/Integer.parseInt(this.costeHabilidad)));
+			
+		} else {
+			this.baseHabilidad = "0";
+			
+		}
+		
+		if (null==this.habilidadNatural) {
+			this.habilidadNatural = "0";
+		} else {
+			this.habilidadNatural = habilidadNatural;
+		}
+			
+		this.habilidadNaturalValor = 0;
+		for (int i = 0; i < Integer.parseInt(this.habilidadNatural); i++) {
+			this.habilidadNaturalValor = this.habilidadNaturalValor+10;
+		}
+		
+		if (null!=this.baseHabilidad && null!=this.especialHabilidad) {
+			this.totalHabilidad = String.valueOf(Integer.parseInt(this.baseHabilidad)+Integer.parseInt(this.especialHabilidad)+Integer.parseInt(this.categoriaHabilidad)+Integer.parseInt(this.bonoHabilidad)+
+					this.bonoNaturalValor+this.habilidadNaturalValor+this.bonoNovelValor);
+		} else if (null!=this.baseHabilidad && null==this.especialHabilidad) {
+			this.totalHabilidad = String.valueOf(Integer.parseInt(this.baseHabilidad)+0+Integer.parseInt(this.categoriaHabilidad)+Integer.parseInt(this.bonoHabilidad)+this.bonoNaturalValor+this.habilidadNaturalValor+this.bonoNovelValor);
+		}  else if (null==this.baseHabilidad && null!=this.especialHabilidad) {
+			this.totalHabilidad = String.valueOf(0+Integer.parseInt(this.especialHabilidad)+Integer.parseInt(this.categoriaHabilidad)+Integer.parseInt(this.bonoHabilidad)+this.bonoNaturalValor+this.habilidadNaturalValor+this.bonoNovelValor);
+			
+		} else {
+			this.totalHabilidad = "0";
+			
+		}
+	}
+
+	public String getBonoNovel() {
+		return bonoNovel;
+	}
+
+	public void setBonoNovel(String bonoNovel) {
+		this.bonoNovel = bonoNovel;
+		if (null==this.bonoNovel) {
+			this.bonoNovel = "0";
+		} else {
+			this.bonoNovel = bonoNovel;
+		}
+		
+		this.bonoNovelValor = 0;
+		for (int i = 0; i < Integer.parseInt(this.bonoNovel); i++) {
+			this.bonoNovelValor = this.bonoNovelValor+10;
+		}
+		
+		if (null!=this.baseHabilidad && null!=this.especialHabilidad) {
+			this.totalHabilidad = String.valueOf(Integer.parseInt(this.baseHabilidad)+Integer.parseInt(this.especialHabilidad)+Integer.parseInt(this.categoriaHabilidad)+Integer.parseInt(this.bonoHabilidad)+
+					this.bonoNaturalValor+this.habilidadNaturalValor+this.bonoNovelValor);
+		} else if (null!=this.baseHabilidad && null==this.especialHabilidad) {
+			this.totalHabilidad = String.valueOf(Integer.parseInt(this.baseHabilidad)+0+Integer.parseInt(this.categoriaHabilidad)+Integer.parseInt(this.bonoHabilidad)+this.bonoNaturalValor+this.habilidadNaturalValor+this.bonoNovelValor);
+		}  else if (null==this.baseHabilidad && null!=this.especialHabilidad) {
+			this.totalHabilidad = String.valueOf(0+Integer.parseInt(this.especialHabilidad)+Integer.parseInt(this.categoriaHabilidad)+Integer.parseInt(this.bonoHabilidad)+this.bonoNaturalValor+this.habilidadNaturalValor+this.bonoNovelValor);
+			
+		} else {
+			this.totalHabilidad = "0";
+			
+		}
+	}
+	
+	
 }
