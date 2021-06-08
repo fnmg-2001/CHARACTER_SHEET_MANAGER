@@ -47,7 +47,7 @@
                   <Label alignment="CENTER" layoutX="649.0" layoutY="27.0" prefHeight="35.0" prefWidth="492.0" styleClass="labelPersonaje" text="PERSONALIDAD" />
                   <TextArea layoutX="649.0" layoutY="61.0" prefHeight="140.0" prefWidth="492.0" styleClass="tAreaPersonaje" wrapText="true" />
                   <Label alignment="CENTER" layoutX="64.0" layoutY="620.0" prefHeight="35.0" prefWidth="160.0" styleClass="labelPersonaje" text="RAZA" />
-                  <TextField alignment="CENTER" layoutX="64.0" layoutY="656.0" prefHeight="31.0" prefWidth="158.0" />
+                  <TextField fx:id="tRazaGeneral" alignment="CENTER" layoutX="64.0" layoutY="656.0" prefHeight="31.0" prefWidth="158.0" />
                   <Label alignment="CENTER" layoutX="391.0" layoutY="620.0" prefHeight="35.0" prefWidth="156.0" styleClass="labelPersonaje" text="SEXO" />
                   <TextField alignment="CENTER" layoutX="391.0" layoutY="656.0" prefHeight="31.0" prefWidth="156.0" />
                   <Label alignment="CENTER" layoutX="64.0" layoutY="688.0" prefHeight="35.0" prefWidth="158.0" styleClass="labelPersonaje" text="EDAD" />
@@ -55,7 +55,7 @@
                   <Label alignment="CENTER" layoutX="224.0" layoutY="688.0" prefHeight="35.0" prefWidth="163.0" styleClass="labelPersonaje" text="REGION" />
                   <TextField alignment="CENTER" layoutX="225.0" layoutY="723.0" prefHeight="31.0" prefWidth="160.0" />
                   <Label alignment="CENTER" layoutX="389.0" layoutY="688.0" prefHeight="35.0" prefWidth="160.0" styleClass="labelPersonaje" text="ETNIA" />
-                  <TextField alignment="CENTER" layoutX="390.0" layoutY="723.0" prefHeight="31.0" prefWidth="158.0" />
+                  <TextField fx:id="tEtniaGeneral" alignment="CENTER" layoutX="390.0" layoutY="723.0" prefHeight="31.0" prefWidth="158.0" />
                   <Label alignment="CENTER" layoutX="225.0" layoutY="620.0" prefHeight="35.0" prefWidth="164.0" styleClass="labelPersonaje" text="APARIENCIA" />
                   <TextField fx:id="tApariencia" alignment="CENTER" layoutX="226.0" layoutY="656.0" prefHeight="31.0" prefWidth="162.0" />
                   <Pane fx:id="pPersonajeChar" layoutX="121.0" layoutY="57.0" onMouseClicked="#seleccionarImagenPersonaje" onMouseEntered="#PaneImagenPersonaje" onMouseExited="#sinPaneImagenPersonaje" opacity="0.5" prefHeight="442.0" prefWidth="370.0">
@@ -118,9 +118,9 @@
                               <TextField fx:id="tCuracionDia" alignment="CENTER" editable="false" layoutX="185.0" layoutY="197.0" prefHeight="31.0" prefWidth="170.0" />
                               <TextField fx:id="tPuntosVidaCategoria" alignment="CENTER" editable="false" layoutX="184.0" layoutY="69.0" prefHeight="31.0" prefWidth="170.0" />
                               <TextField fx:id="tNegativoDia" alignment="CENTER" editable="false" layoutX="2.0" layoutY="262.0" prefHeight="31.0" prefWidth="170.0" />
-                              <TextField fx:id="tPuntosVidaEspecial" alignment="CENTER" layoutX="185.0" layoutY="131.0" onKeyReleased="#cambiarValorVidaEspecial" prefHeight="31.0" prefWidth="170.0" />
+                              <TextField fx:id="tPuntosVidaEspecial" alignment="CENTER" layoutX="185.0" layoutY="131.0" onKeyReleased="#cambiarValorVidaEspecial" prefHeight="31.0" prefWidth="170.0" text="0" />
                               <Label alignment="CENTER" layoutX="184.0" layoutY="234.0" prefHeight="27.0" prefWidth="172.0" styleClass="labelSubPersonaje" text="REGENERACION ESP." />
-                              <TextField fx:id="tPuntosRegeneracionEspecial" alignment="CENTER" layoutX="185.0" layoutY="262.0" onKeyReleased="#cambiarValorRegeneracionEspecial" prefHeight="31.0" prefWidth="170.0" />
+                              <TextField fx:id="tPuntosRegeneracionEspecial" alignment="CENTER" layoutX="185.0" layoutY="262.0" onKeyReleased="#cambiarValorRegeneracionEspecial" prefHeight="31.0" prefWidth="170.0" text="0" />
                            </children>
                         </Pane>
                         <Pane fx:id="pTurno" layoutX="918.0" layoutY="16.0" prefHeight="291.0" prefWidth="226.0">
@@ -139,7 +139,7 @@
                               <Label alignment="CENTER" layoutX="117.0" layoutY="234.0" prefHeight="27.0" prefWidth="108.0" styleClass="labelSubPersonaje" text="TOTAL" />
                               <TextField fx:id="tTurnoTotal" alignment="CENTER" editable="false" layoutX="117.0" layoutY="261.0" prefHeight="31.0" prefWidth="108.0" />
                               <Label alignment="CENTER" layoutY="234.0" prefHeight="27.0" prefWidth="109.0" styleClass="labelSubPersonaje" text="ESPECIAL" />
-                              <TextField fx:id="tTurnoEspecial" alignment="CENTER" layoutX="1.0" layoutY="261.0" prefHeight="31.0" prefWidth="108.0" text="0" />
+                              <TextField fx:id="tTurnoEspecial" alignment="CENTER" layoutX="1.0" layoutY="261.0" onKeyReleased="#cambiarValorTurnoEspecial" prefHeight="31.0" prefWidth="108.0" text="0" />
                               <Label alignment="CENTER" layoutX="1.0" layoutY="42.0" prefHeight="27.0" prefWidth="107.0" styleClass="labelSubPersonaje" text="BASE" />
                               <Label alignment="CENTER" layoutX="116.0" layoutY="42.0" prefHeight="27.0" prefWidth="108.0" styleClass="labelSubPersonaje" text="AGILIDAD" />
                            </children>
@@ -158,7 +158,7 @@
                               <Label alignment="CENTER" contentDisplay="CENTER" layoutX="242.0" layoutY="58.0" prefHeight="27.0" prefWidth="162.0" styleClass="labelSubPersonaje" text=" MODIFICADORES" />
                               <TextField alignment="CENTER" layoutX="243.0" layoutY="85.0" prefHeight="31.0" prefWidth="162.0" />
                               <Label alignment="CENTER" layoutX="245.0" layoutY="128.0" prefHeight="27.0" prefWidth="159.0" styleClass="labelSubPersonaje" text="ACCIONES/TURNO" />
-                              <TextField fx:id="tAccionesTurno" alignment="CENTER" editable="false" layoutX="245.0" layoutY="155.0" prefHeight="31.0" prefWidth="160.0" />
+                              <TextField fx:id="tAccionesTurno" alignment="CENTER" editable="false" layoutX="245.0" layoutY="155.0" prefHeight="31.0" prefWidth="160.0" text="0" />
                            </children>
                         </Pane>
                         <Pane fx:id="pCansancio" layoutX="34.0" layoutY="637.0" prefHeight="161.0" prefWidth="405.0">
@@ -167,7 +167,7 @@
                               <Label alignment="CENTER" layoutX="1.0" layoutY="41.0" prefHeight="27.0" prefWidth="190.0" styleClass="labelSubPersonaje" text="BASE" />
                               <TextField fx:id="tCansancioBase" alignment="CENTER" layoutX="1.0" layoutY="68.0" prefHeight="31.0" prefWidth="189.0" />
                               <Label alignment="CENTER" layoutX="1.0" layoutY="105.0" prefHeight="27.0" prefWidth="188.0" styleClass="labelSubPersonaje" text="ESPECIAL" />
-                              <TextField fx:id="tCansancioEspecial" alignment="CENTER" layoutX="2.0" layoutY="132.0" onKeyReleased="#cambiarValorCansancio" prefHeight="31.0" prefWidth="187.0" />
+                              <TextField fx:id="tCansancioEspecial" alignment="CENTER" layoutX="2.0" layoutY="132.0" onKeyReleased="#cambiarValorCansancio" prefHeight="31.0" prefWidth="187.0" text="0" />
                               <Label alignment="CENTER" layoutX="214.0" layoutY="68.0" prefHeight="27.0" prefWidth="190.0" styleClass="labelSubPersonaje" text="TOTAL" />
                               <TextField fx:id="tCansancioTotal" alignment="CENTER" layoutX="214.0" layoutY="95.0" prefHeight="31.0" prefWidth="190.0" />
                            </children>
@@ -393,16 +393,16 @@
                                 <content>
                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
-                                          <TableView fx:id="tableViewPsiquicas" prefHeight="448.0" prefWidth="1160.0">
+                                          <TableView fx:id="tableViewPsiquicas" editable="true" prefHeight="448.0" prefWidth="1160.0">
                                             <columns>
-                                              <TableColumn prefWidth="227.0" sortable="false" text="HABILIDAD" />
-                                              <TableColumn prefWidth="125.0" sortable="false" text="COSTE" />
-                                                <TableColumn prefWidth="97.0" sortable="false" text="PDS" />
-                                                <TableColumn prefWidth="115.0" sortable="false" text="BASE" />
-                                                <TableColumn prefWidth="98.0" sortable="false" text="BONO" />
-                                                <TableColumn prefWidth="131.0" sortable="false" text="CATEGORIA" />
-                                                <TableColumn prefWidth="93.0" sortable="false" text="ESPECIAL" />
-                                                <TableColumn prefWidth="270.0" sortable="false" text="TOTAL" />
+                                              <TableColumn fx:id="colPdsPsiquicoNombreHabilidad" prefWidth="227.0" sortable="false" text="HABILIDAD" />
+                                              <TableColumn fx:id="colPdsPsiquicoCosteHabilidad" prefWidth="125.0" sortable="false" text="COSTE" />
+                                                <TableColumn fx:id="colPdsPsiquicoPdsHabilidad" onEditCommit="#cambiarPdsPsiquicos" prefWidth="97.0" sortable="false" text="PDS" />
+                                                <TableColumn fx:id="colPdsPsiquicoBaseHabilidad" prefWidth="115.0" sortable="false" text="BASE" />
+                                                <TableColumn fx:id="colPdsPsiquicoBonoHabilidad" prefWidth="98.0" sortable="false" text="BONO" />
+                                                <TableColumn fx:id="colPdsPsiquicoCategoriaHabilidad" prefWidth="131.0" sortable="false" text="CATEGORIA" />
+                                                <TableColumn fx:id="colPdsPsiquicoEspecialHabilidad" onEditCommit="#cambiarPdsEspecialPsiquicos" prefWidth="93.0" sortable="false" text="ESPECIAL" />
+                                                <TableColumn fx:id="colPdsPsiquicoTotalHabilidad" prefWidth="270.0" sortable="false" text="TOTAL" />
                                             </columns>
                                           </TableView>
                                        </children>
@@ -413,19 +413,19 @@
                                 <content>
                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
-                                          <TableView fx:id="tableViewSecundarias" prefHeight="536.0" prefWidth="1164.0">
+                                          <TableView fx:id="tableViewSecundarias" prefHeight="448.0" prefWidth="1164.0">
                                             <columns>
-                                              <TableColumn prefWidth="227.0" sortable="false" text="HABILIDAD" />
-                                              <TableColumn prefWidth="106.0" sortable="false" text="COSTE" />
-                                                <TableColumn prefWidth="106.0" sortable="false" text="PDS" />
-                                                <TableColumn prefWidth="111.0" sortable="false" text="BASE" />
-                                                <TableColumn prefWidth="95.0" sortable="false" text="BONO" />
-                                                <TableColumn prefWidth="103.0" sortable="false" text="CATEGORIA" />
-                                                <TableColumn prefWidth="90.0" sortable="false" text="ESPECIAL" />
-                                                <TableColumn prefWidth="84.0" sortable="false" text="BONO NAT." />
-                                                <TableColumn prefWidth="105.0" sortable="false" text="HABILIDAD NAT." />
-                                                <TableColumn sortable="false" text="NOVEL" />
-                                                <TableColumn prefWidth="54.0" sortable="false" text="TOTAL" />
+                                              <TableColumn fx:id="colPdsSecundariasNombreHabilidad" prefWidth="227.0" sortable="false" text="HABILIDAD" />
+                                              <TableColumn fx:id="colPdsSecundariasCosteHabilidad" prefWidth="106.0" sortable="false" text="COSTE" />
+                                                <TableColumn fx:id="colPdsSecundariasPdsHabilidad" prefWidth="106.0" sortable="false" text="PDS" />
+                                                <TableColumn fx:id="colPdsSecundariasBaseHabilidad" prefWidth="111.0" sortable="false" text="BASE" />
+                                                <TableColumn fx:id="colPdsSecundariasBonoHabilidad" prefWidth="95.0" sortable="false" text="BONO" />
+                                                <TableColumn fx:id="colPdsSecundariasCategoriaHabilidad" prefWidth="103.0" sortable="false" text="CATEGORIA" />
+                                                <TableColumn fx:id="colPdsSecundariasEspecialHabilidad" prefWidth="90.0" sortable="false" text="ESPECIAL" />
+                                                <TableColumn fx:id="colPdsSecundariasBonoNatural" prefWidth="84.0" sortable="false" text="BONO NAT." />
+                                                <TableColumn fx:id="colPdsSecundariasHabilidadNatural" prefWidth="105.0" sortable="false" text="HABILIDAD NAT." />
+                                                <TableColumn fx:id="colPdsSecundariasBonoNovel" sortable="false" text="NOVEL" />
+                                                <TableColumn fx:id="colPdsSecundariasTotalHabilidad" prefWidth="54.0" sortable="false" text="TOTAL" />
                                             </columns>
                                           </TableView>
                                        </children>

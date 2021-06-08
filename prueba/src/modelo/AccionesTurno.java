@@ -40,6 +40,9 @@ public class AccionesTurno {
 		} else if (Integer.parseInt(this.valorDestreza)+Integer.parseInt(this.valorAgilidad)>=32) {
 			this.numeroAcciones = "10";
 		}
+		else {
+			this.numeroAcciones = "0";
+		}
 		
 	}
 

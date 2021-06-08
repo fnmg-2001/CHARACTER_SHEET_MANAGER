@@ -60,7 +60,8 @@ public class PersonajeController {
 	@FXML
 	TextField tApariencia, tCansancioBase, tCansancioEspecial, tCansancioTotal, tTurnoBase, tTurnoAgilidad, tTurnoDestreza, tTurnoCategoria, tTurnoArmadura,
 	tTurnoDesarmado, tTurnoEspecial, tTurnoTotal, tPuntosVidaBase, tPuntosVidaCategoria, tPuntosVidaTotales, tRegeneracion, tCuracionDia, tNegativoDia, tPuntosVidaEspecial,
-	tAccionesTurno, tPuntosCreacion, tCategoriaPrimerLv, tNivelTotal, tPdsRestantes, tLlevarArmadura, tHabilidadDefensa, tHabilidadAtaque, tPuntosRegeneracionEspecial;
+	tAccionesTurno, tPuntosCreacion, tCategoriaPrimerLv, tNivelTotal, tPdsRestantes, tLlevarArmadura, tHabilidadDefensa, tHabilidadAtaque, tPuntosRegeneracionEspecial,
+	tRazaGeneral, tEtniaGeneral;
 	
 	@FXML
 	TableView<CaracteristicaSeleccionada> tableViewCaracteristicas;
@@ -82,6 +83,12 @@ public class PersonajeController {
 
 	@FXML
 	TableView<PdsMisticos> tableViewMisticas;
+
+	@FXML
+	TableView<PdsPsiquicos> tableViewPsiquicas;
+	
+	@FXML
+	TableView<PdsHabilidadesSecundarias> tableViewSecundarias;
 	
 	@FXML
 	TableColumn<CaracteristicaSeleccionada, String> colBase, colTemp, colTotal, colBono;
@@ -111,6 +118,14 @@ public class PersonajeController {
 	@FXML
 	TableColumn<PdsMisticos, String> colPdsMisticoNombreHabilidad, colPdsMisticoCosteHabilidad, colPdsMisticoPdsHabilidad, colPdsMisticoBaseHabilidad, colPdsMisticoBonoHabilidad, colPdsMisticoCategoriaHabilidad,
 	colPdsMisticoEspecialHabilidad, colPdsMisticoTotalHabilidad;
+	
+	@FXML
+	TableColumn<PdsPsiquicos, String> colPdsPsiquicoNombreHabilidad, colPdsPsiquicoCosteHabilidad, colPdsPsiquicoPdsHabilidad, colPdsPsiquicoBaseHabilidad, colPdsPsiquicoBonoHabilidad, colPdsPsiquicoCategoriaHabilidad,
+	colPdsPsiquicoEspecialHabilidad, colPdsPsiquicoTotalHabilidad;
+
+	@FXML
+	TableColumn<PdsHabilidadesSecundarias, String> colPdsSecundariasNombreHabilidad, colPdsSecundariasCosteHabilidad, colPdsSecundariasPdsHabilidad, colPdsSecundariasBaseHabilidad, colPdsSecundariasBonoHabilidad, colPdsSecundariasCategoriaHabilidad,
+	colPdsSecundariasEspecialHabilidad, colPdsSecundariasTotalHabilidad, colPdsSecundariasBonoNatural, colPdsSecundariasHabilidadNatural, colPdsSecundariasBonoNovel;
 	
 	
 	
@@ -445,10 +460,50 @@ public class PersonajeController {
 		colPdsMisticoEspecialHabilidad.setCellFactory(TextFieldTableCell.forTableColumn());
 		
 		tableViewMisticas.setItems(pdsInvertidosMisticos);
+
+		/*------------------------------------------------------Tabla Pds Psiquicos Pestaña Pds------------------------------------------------------*/
+		ObservableList<PdsPsiquicos> pdsInvertidosPsiquicos = FXCollections.observableArrayList(
+				new PdsPsiquicos("CV",String.valueOf(categoriaSeleccionada.getCostePuntosCv()),null,"0",String.valueOf(categoriaSeleccionada.getCvInnato()),null),
+				new PdsPsiquicos("Proyeccion Psiquica",String.valueOf(categoriaSeleccionada.getCosteProyeccionPsiquica()),null,"0","-",null));
 		
-//		tableViewMisticas.getSelectionModel().getSelectedItems().get(2).setTotalHabilidad(String.valueOf(tableViewMisticas.getSelectionModel().getSelectedItems().get(1).getTotalHabilidad())+
-//																									  String.valueOf(tableViewMisticas.getSelectionModel().getSelectedItems().get(2).getTotalHabilidad())+
-//																									  String.valueOf(tableViewMisticas.getSelectionModel().getSelectedItems().get(2).getEspecialHabilidad()));
+		colPdsPsiquicoNombreHabilidad.setCellValueFactory(new PropertyValueFactory<PdsPsiquicos, String>("nombreHabilidad"));
+		colPdsPsiquicoCosteHabilidad.setCellValueFactory(new PropertyValueFactory<PdsPsiquicos, String>("costeHabilidad"));
+		colPdsPsiquicoPdsHabilidad.setCellValueFactory(new PropertyValueFactory<PdsPsiquicos, String>("pdsHabilidad"));
+		colPdsPsiquicoBaseHabilidad.setCellValueFactory(new PropertyValueFactory<PdsPsiquicos, String>("baseHabilidad"));
+		colPdsPsiquicoBonoHabilidad.setCellValueFactory(new PropertyValueFactory<PdsPsiquicos, String>("bonoHabilidad"));
+		colPdsPsiquicoCategoriaHabilidad.setCellValueFactory(new PropertyValueFactory<PdsPsiquicos, String>("categoriaHabilidad"));
+		colPdsPsiquicoEspecialHabilidad.setCellValueFactory(new PropertyValueFactory<PdsPsiquicos, String>("especialHabilidad"));
+		colPdsPsiquicoTotalHabilidad.setCellValueFactory(new PropertyValueFactory<PdsPsiquicos, String>("totalHabilidad"));
+		
+		colPdsPsiquicoPdsHabilidad.setCellFactory(TextFieldTableCell.forTableColumn());
+		colPdsPsiquicoEspecialHabilidad.setCellFactory(TextFieldTableCell.forTableColumn());
+		
+		tableViewPsiquicas.setItems(pdsInvertidosPsiquicos);
+
+		/*------------------------------------------------------Tabla Habilidades Secundarias Pestaña Pds ------------------------------------------------------*/
+		ObservableList<PdsHabilidadesSecundarias> pdsInvertidosSecundarias = FXCollections.observableArrayList(
+				new PdsHabilidadesSecundarias("Atletismo",String.valueOf(categoriaSeleccionada.getCosteAtleticas()),null,"0","0",null,null,null,null));
+		
+		colPdsSecundariasNombreHabilidad.setCellValueFactory(new PropertyValueFactory<PdsHabilidadesSecundarias, String>("nombreHabilidad"));
+		colPdsSecundariasCosteHabilidad.setCellValueFactory(new PropertyValueFactory<PdsHabilidadesSecundarias, String>("costeHabilidad"));
+		colPdsSecundariasPdsHabilidad.setCellValueFactory(new PropertyValueFactory<PdsHabilidadesSecundarias, String>("pdsHabilidad"));
+		colPdsSecundariasBaseHabilidad.setCellValueFactory(new PropertyValueFactory<PdsHabilidadesSecundarias, String>("baseHabilidad"));
+		colPdsSecundariasBonoHabilidad.setCellValueFactory(new PropertyValueFactory<PdsHabilidadesSecundarias, String>("bonoHabilidad"));
+		colPdsSecundariasCategoriaHabilidad.setCellValueFactory(new PropertyValueFactory<PdsHabilidadesSecundarias, String>("categoriaHabilidad"));
+		colPdsSecundariasEspecialHabilidad.setCellValueFactory(new PropertyValueFactory<PdsHabilidadesSecundarias, String>("especialHabilidad"));
+		colPdsSecundariasBonoNatural.setCellValueFactory(new PropertyValueFactory<PdsHabilidadesSecundarias, String>("bonoNatural"));
+		colPdsSecundariasHabilidadNatural.setCellValueFactory(new PropertyValueFactory<PdsHabilidadesSecundarias, String>("habilidadNatural"));
+		colPdsSecundariasBonoNovel.setCellValueFactory(new PropertyValueFactory<PdsHabilidadesSecundarias, String>("bonoNovel"));
+		colPdsSecundariasTotalHabilidad.setCellValueFactory(new PropertyValueFactory<PdsHabilidadesSecundarias, String>("totalHabilidad"));
+		
+		colPdsSecundariasPdsHabilidad.setCellFactory(TextFieldTableCell.forTableColumn());
+		colPdsSecundariasEspecialHabilidad.setCellFactory(TextFieldTableCell.forTableColumn());
+		colPdsSecundariasBonoNatural.setCellFactory(TextFieldTableCell.forTableColumn());
+		colPdsSecundariasHabilidadNatural.setCellFactory(TextFieldTableCell.forTableColumn());
+		colPdsSecundariasBonoNovel.setCellFactory(TextFieldTableCell.forTableColumn());
+		
+		tableViewSecundarias.setItems(pdsInvertidosSecundarias);
+		
 		/*------------------------------------------------------Valores TextField Pestaña Principal------------------------------------------------------*/
 		
 		if (tableViewCaracteristicas.getItems().get(0).getBonoCaracteristica()=="-") {
@@ -475,6 +530,17 @@ public class PersonajeController {
 			
 		}
 
+		tRazaGeneral.setText(razaSeleccionada.getNombre());
+		
+//		if ("HUMANO"==razaSeleccionada.getNombre()||"NEPHILIM VETALA"==razaSeleccionada.getNombre()||"NEPHILIM DEVAH"==razaSeleccionada.getNombre()||"NEPHILIM TURAK"==razaSeleccionada.getNombre()
+//				||"NEPHILIM DUK´ZARIST"==razaSeleccionada.getNombre()||"NEPHILIM DAIMAH"==razaSeleccionada.getNombre()||"NEPHILIM EBUDAN"==razaSeleccionada.getNombre()||"NEPHILIM D´ANJAYNI"==razaSeleccionada.getNombre()
+//				||"NEPHILIM JAYÁN"==razaSeleccionada.getNombre()||"NEPHILIM SYLVAIN"==razaSeleccionada.getNombre()) {
+//			tEtniaGeneral.setEditable(true);
+//			tEtniaGeneral.setText("");
+//		} else {
+//			tEtniaGeneral.setEditable(false);
+//			tEtniaGeneral.setText("-");
+//		}
 		tPuntosVidaCategoria.setText(String.valueOf(categoriaSeleccionada.getPuntosVida()));
 		tPuntosVidaBase.setText(valorConstitucion.getPuntosVidaBase());
 		tPuntosVidaBase.setText(valorConstitucion.getPuntosVidaBase());
@@ -509,7 +575,25 @@ public class PersonajeController {
 			tTurnoAgilidad.setText(caracteristica.getBonoCaracteristica());
 			tableViewCombate.getItems().get(2).setBonoHabilidad(caracteristica.getBonoCaracteristica());
 			tAccionesTurno.setText(accionesTurno.getNumeroAcciones());
-			tableViewCombate.getItems().get(4).setBonoHabilidad(caracteristica.getBonoCaracteristica());
+			tableViewCombate.getItems().get(4).setBonoHabilidad(caracteristica.getTotalCaracteristica());
+			tTurnoTotal.setText(String.valueOf(Integer.parseInt(tTurnoBase.getText())+Integer.parseInt(tTurnoAgilidad.getText())+
+					Integer.parseInt(tTurnoDestreza.getText())+Integer.parseInt(tTurnoCategoria.getText())+Integer.parseInt(tTurnoArmadura.getText())+Integer.parseInt(tTurnoDesarmado.getText())+
+					Integer.parseInt(tTurnoEspecial.getText())));
+			
+			if (Integer.parseInt(caracteristica.getTotalCaracteristica())>=1&&Integer.parseInt(caracteristica.getTotalCaracteristica())<=9) {
+				tableViewCombate.getItems().get(10).setBonoHabilidad("1");
+				
+			} else if (Integer.parseInt(caracteristica.getTotalCaracteristica())>=10&&Integer.parseInt(caracteristica.getTotalCaracteristica())<=12) {
+				tableViewCombate.getItems().get(10).setBonoHabilidad("2");
+				
+			} else if (Integer.parseInt(caracteristica.getTotalCaracteristica())>=13&&Integer.parseInt(caracteristica.getTotalCaracteristica())<=15) {
+				tableViewCombate.getItems().get(10).setBonoHabilidad("3");
+				
+			} else if (Integer.parseInt(caracteristica.getTotalCaracteristica())>=16) {
+				tableViewCombate.getItems().get(10).setBonoHabilidad("4");
+				
+			}
+			
 			
 		} else if (tableViewCaracteristicas.getSelectionModel().getSelectedItem().getNombreCaracteristica().equals("CON")) {
 			valorConstitucion.setConstitucion(caracteristica.getTotalCaracteristica());
@@ -539,18 +623,64 @@ public class PersonajeController {
 			tableViewResistencias.getItems().get(1).setBonoCaracteristica(caracteristica.getBonoCaracteristica());
 			tableViewResistencias.getItems().get(2).setBonoCaracteristica(caracteristica.getBonoCaracteristica());
 			tableViewResistencias.getItems().get(3).setBonoCaracteristica(caracteristica.getBonoCaracteristica());
-			tableViewCombate.getItems().get(5).setBonoHabilidad(caracteristica.getBonoCaracteristica());
+			tableViewCombate.getItems().get(5).setBonoHabilidad(caracteristica.getTotalCaracteristica());
+			
+			if (Integer.parseInt(caracteristica.getTotalCaracteristica())>=1&&Integer.parseInt(caracteristica.getTotalCaracteristica())<=9) {
+				tableViewCombate.getItems().get(11).setBonoHabilidad("1");
+				
+			} else if (Integer.parseInt(caracteristica.getTotalCaracteristica())>=10&&Integer.parseInt(caracteristica.getTotalCaracteristica())<=12) {
+				tableViewCombate.getItems().get(11).setBonoHabilidad("2");
+				
+			} else if (Integer.parseInt(caracteristica.getTotalCaracteristica())>=13&&Integer.parseInt(caracteristica.getTotalCaracteristica())<=15) {
+				tableViewCombate.getItems().get(11).setBonoHabilidad("3");
+				
+			} else if (Integer.parseInt(caracteristica.getTotalCaracteristica())>=16) {
+				tableViewCombate.getItems().get(11).setBonoHabilidad("4");
+				
+			}
 			
 		} else if (tableViewCaracteristicas.getSelectionModel().getSelectedItem().getNombreCaracteristica().equals("FUE")) {
 			tableViewResistencias.getItems().get(4).setBonoCaracteristica(caracteristica.getBonoCaracteristica());
-			tableViewCombate.getItems().get(7).setBonoHabilidad(caracteristica.getBonoCaracteristica());
+			tableViewCombate.getItems().get(7).setBonoHabilidad(caracteristica.getTotalCaracteristica());
+			
+			if (Integer.parseInt(caracteristica.getTotalCaracteristica())>=1&&Integer.parseInt(caracteristica.getTotalCaracteristica())<=9) {
+				tableViewCombate.getItems().get(13).setBonoHabilidad("1");
+				
+			} else if (Integer.parseInt(caracteristica.getTotalCaracteristica())>=10&&Integer.parseInt(caracteristica.getTotalCaracteristica())<=12) {
+				tableViewCombate.getItems().get(13).setBonoHabilidad("2");
+				
+			} else if (Integer.parseInt(caracteristica.getTotalCaracteristica())>=13&&Integer.parseInt(caracteristica.getTotalCaracteristica())<=15) {
+				tableViewCombate.getItems().get(13).setBonoHabilidad("3");
+				
+			} else if (Integer.parseInt(caracteristica.getTotalCaracteristica())>=16) {
+				tableViewCombate.getItems().get(13).setBonoHabilidad("4");
+				
+			}
 			
 		} else if (tableViewCaracteristicas.getSelectionModel().getSelectedItem().getNombreCaracteristica().equals("DES")) {
 			AccionesTurno accionesTurno = new AccionesTurno(caracteristica.getTotalCaracteristica(),tableViewCaracteristicas.getItems().get(0).getTotalCaracteristica());
 			tTurnoDestreza.setText(caracteristica.getBonoCaracteristica());
 			tableViewCombate.getItems().get(0).setBonoHabilidad(caracteristica.getBonoCaracteristica());
 			tableViewCombate.getItems().get(1).setBonoHabilidad(caracteristica.getBonoCaracteristica());
-			tableViewCombate.getItems().get(6).setBonoHabilidad(caracteristica.getBonoCaracteristica());
+			tableViewCombate.getItems().get(6).setBonoHabilidad(caracteristica.getTotalCaracteristica());
+			tTurnoTotal.setText(String.valueOf(Integer.parseInt(tTurnoBase.getText())+Integer.parseInt(tTurnoAgilidad.getText())+
+					Integer.parseInt(tTurnoDestreza.getText())+Integer.parseInt(tTurnoCategoria.getText())+Integer.parseInt(tTurnoArmadura.getText())+Integer.parseInt(tTurnoDesarmado.getText())+
+					Integer.parseInt(tTurnoEspecial.getText())));
+			
+			if (Integer.parseInt(caracteristica.getTotalCaracteristica())>=1&&Integer.parseInt(caracteristica.getTotalCaracteristica())<=9) {
+				tableViewCombate.getItems().get(12).setBonoHabilidad("1");
+				
+			} else if (Integer.parseInt(caracteristica.getTotalCaracteristica())>=10&&Integer.parseInt(caracteristica.getTotalCaracteristica())<=12) {
+				tableViewCombate.getItems().get(12).setBonoHabilidad("2");
+				
+			} else if (Integer.parseInt(caracteristica.getTotalCaracteristica())>=13&&Integer.parseInt(caracteristica.getTotalCaracteristica())<=15) {
+				tableViewCombate.getItems().get(12).setBonoHabilidad("3");
+				
+			} else if (Integer.parseInt(caracteristica.getTotalCaracteristica())>=16) {
+				tableViewCombate.getItems().get(12).setBonoHabilidad("4");
+				
+			}
+			
 			tAccionesTurno.setText(accionesTurno.getNumeroAcciones());
 			
 		} else if (tableViewCaracteristicas.getSelectionModel().getSelectedItem().getNombreCaracteristica().equals("INT")) {
@@ -561,11 +691,39 @@ public class PersonajeController {
 			
 		} else if (tableViewCaracteristicas.getSelectionModel().getSelectedItem().getNombreCaracteristica().equals("POD")) {
 			tableViewResistencias.getItems().get(4).setBonoCaracteristica(caracteristica.getBonoCaracteristica());
-			tableViewCombate.getItems().get(8).setBonoHabilidad(caracteristica.getBonoCaracteristica());
+			tableViewCombate.getItems().get(8).setBonoHabilidad(caracteristica.getTotalCaracteristica());
+			
+			if (Integer.parseInt(caracteristica.getTotalCaracteristica())>=1&&Integer.parseInt(caracteristica.getTotalCaracteristica())<=9) {
+				tableViewCombate.getItems().get(14).setBonoHabilidad("1");
+				
+			} else if (Integer.parseInt(caracteristica.getTotalCaracteristica())>=10&&Integer.parseInt(caracteristica.getTotalCaracteristica())<=12) {
+				tableViewCombate.getItems().get(14).setBonoHabilidad("2");
+				
+			} else if (Integer.parseInt(caracteristica.getTotalCaracteristica())>=13&&Integer.parseInt(caracteristica.getTotalCaracteristica())<=15) {
+				tableViewCombate.getItems().get(14).setBonoHabilidad("3");
+				
+			} else if (Integer.parseInt(caracteristica.getTotalCaracteristica())>=16) {
+				tableViewCombate.getItems().get(14).setBonoHabilidad("4");
+				
+			}
 			
 		} else if (tableViewCaracteristicas.getSelectionModel().getSelectedItem().getNombreCaracteristica().equals("VOL")) {
 			tableViewResistencias.getItems().get(5).setBonoCaracteristica(caracteristica.getBonoCaracteristica());
-			tableViewCombate.getItems().get(9).setBonoHabilidad(caracteristica.getBonoCaracteristica());
+			tableViewCombate.getItems().get(9).setBonoHabilidad(caracteristica.getTotalCaracteristica());
+			
+			if (Integer.parseInt(caracteristica.getTotalCaracteristica())>=1&&Integer.parseInt(caracteristica.getTotalCaracteristica())<=9) {
+				tableViewCombate.getItems().get(15).setBonoHabilidad("1");
+				
+			} else if (Integer.parseInt(caracteristica.getTotalCaracteristica())>=10&&Integer.parseInt(caracteristica.getTotalCaracteristica())<=12) {
+				tableViewCombate.getItems().get(15).setBonoHabilidad("2");
+				
+			} else if (Integer.parseInt(caracteristica.getTotalCaracteristica())>=13&&Integer.parseInt(caracteristica.getTotalCaracteristica())<=15) {
+				tableViewCombate.getItems().get(15).setBonoHabilidad("3");
+				
+			} else if (Integer.parseInt(caracteristica.getTotalCaracteristica())>=16) {
+				tableViewCombate.getItems().get(15).setBonoHabilidad("4");
+				
+			}
 			
 		}
 		
@@ -581,38 +739,117 @@ public class PersonajeController {
 		caracteristica.setTotalCaracteristica(String.valueOf(Integer.parseInt(caracteristica.getBaseCaracteristica())+Integer.parseInt(caracteristica.getTempCaracteristica())));
 		caracteristica.setBonoCaracteristica(caracteristica.getTotalCaracteristica());
 		
-		
 		if (tableViewCaracteristicas.getSelectionModel().getSelectedItem().getNombreCaracteristica().equals("AGI")) {
 			AccionesTurno accionesTurno = new AccionesTurno(tableViewCaracteristicas.getItems().get(3).getTotalCaracteristica(),caracteristica.getTotalCaracteristica());
 			tTurnoAgilidad.setText(caracteristica.getBonoCaracteristica());
 			tableViewCombate.getItems().get(2).setBonoHabilidad(caracteristica.getBonoCaracteristica());
 			tAccionesTurno.setText(accionesTurno.getNumeroAcciones());
-			tableViewCombate.getItems().get(4).setBonoHabilidad(caracteristica.getBonoCaracteristica());
+			tableViewCombate.getItems().get(4).setBonoHabilidad(caracteristica.getTotalCaracteristica());
+			tTurnoTotal.setText(String.valueOf(Integer.parseInt(tTurnoBase.getText())+Integer.parseInt(tTurnoAgilidad.getText())+
+					Integer.parseInt(tTurnoDestreza.getText())+Integer.parseInt(tTurnoCategoria.getText())+Integer.parseInt(tTurnoArmadura.getText())+Integer.parseInt(tTurnoDesarmado.getText())+
+					Integer.parseInt(tTurnoEspecial.getText())));
+			
+			if (Integer.parseInt(caracteristica.getTotalCaracteristica())>=1&&Integer.parseInt(caracteristica.getTotalCaracteristica())<=9) {
+				tableViewCombate.getItems().get(10).setBonoHabilidad("1");
+				
+			} else if (Integer.parseInt(caracteristica.getTotalCaracteristica())>=10&&Integer.parseInt(caracteristica.getTotalCaracteristica())<=12) {
+				tableViewCombate.getItems().get(10).setBonoHabilidad("2");
+				
+			} else if (Integer.parseInt(caracteristica.getTotalCaracteristica())>=13&&Integer.parseInt(caracteristica.getTotalCaracteristica())<=15) {
+				tableViewCombate.getItems().get(10).setBonoHabilidad("3");
+				
+			} else if (Integer.parseInt(caracteristica.getTotalCaracteristica())>=16) {
+				tableViewCombate.getItems().get(10).setBonoHabilidad("4");
+				
+			}
+			
 			
 		} else if (tableViewCaracteristicas.getSelectionModel().getSelectedItem().getNombreCaracteristica().equals("CON")) {
-			ValorConstitucion valorConstitucion = new ValorConstitucion(caracteristica.getTotalCaracteristica());
+			valorConstitucion.setConstitucion(caracteristica.getTotalCaracteristica());
 			tCansancioBase.setText(caracteristica.getTotalCaracteristica());
 			tCansancioTotal.setText(String.valueOf(Integer.parseInt(caracteristica.getTotalCaracteristica())+Integer.parseInt(tCansancioEspecial.getText())));
 			tPuntosVidaBase.setText(valorConstitucion.getPuntosVidaBase());
-			tPuntosVidaTotales.setText(String.valueOf(Integer.parseInt(valorConstitucion.getPuntosVidaBase())+Integer.parseInt(tPuntosVidaCategoria.getText())));
-			tRegeneracion.setText(valorConstitucion.getRegeneracionBase());
-			tCuracionDia.setText(valorConstitucion.getCuracionDia());
-			tNegativoDia.setText(valorConstitucion.getNegativoDia());
+			if (tPuntosVidaEspecial.getText().isEmpty()||tPuntosVidaEspecial.getText().equals(null)||null==tPuntosVidaEspecial.getText()||tPuntosVidaEspecial.getText()=="") {
+				tPuntosVidaTotales.setText(String.valueOf(Integer.parseInt(valorConstitucion.getPuntosVidaBase())+Integer.parseInt(tPuntosVidaCategoria.getText())+Integer.parseInt("0")));
+				
+			} else {
+				tPuntosVidaTotales.setText(String.valueOf(Integer.parseInt(valorConstitucion.getPuntosVidaBase())+Integer.parseInt(tPuntosVidaCategoria.getText())+Integer.parseInt(tPuntosVidaEspecial.getText())));
+				
+			}
+			
+			if (tPuntosRegeneracionEspecial.getText().isEmpty()||tPuntosRegeneracionEspecial.getText().equals(null)||null==tPuntosRegeneracionEspecial.getText()||tPuntosRegeneracionEspecial.getText()=="") {
+				valorConstitucion.setRegeneracionBase(String.valueOf(Integer.parseInt(valorConstitucion.getRegeneracionBase())+Integer.parseInt("0")));
+				tRegeneracion.setText(valorConstitucion.getRegeneracionBase());
+				tCuracionDia.setText(valorConstitucion.getCuracionDia());
+				tNegativoDia.setText(valorConstitucion.getNegativoDia());
+			} else {
+				valorConstitucion.setRegeneracionBase(String.valueOf(Integer.parseInt(valorConstitucion.getRegeneracionBase())+Integer.parseInt(tPuntosRegeneracionEspecial.getText())));
+				tRegeneracion.setText(valorConstitucion.getRegeneracionBase());
+				tCuracionDia.setText(valorConstitucion.getCuracionDia());
+				tNegativoDia.setText(valorConstitucion.getNegativoDia());
+			}
+			
 			tableViewResistencias.getItems().get(1).setBonoCaracteristica(caracteristica.getBonoCaracteristica());
 			tableViewResistencias.getItems().get(2).setBonoCaracteristica(caracteristica.getBonoCaracteristica());
 			tableViewResistencias.getItems().get(3).setBonoCaracteristica(caracteristica.getBonoCaracteristica());
-			tableViewCombate.getItems().get(5).setBonoHabilidad(caracteristica.getBonoCaracteristica());
+			tableViewCombate.getItems().get(5).setBonoHabilidad(caracteristica.getTotalCaracteristica());
+			
+			if (Integer.parseInt(caracteristica.getTotalCaracteristica())>=1&&Integer.parseInt(caracteristica.getTotalCaracteristica())<=9) {
+				tableViewCombate.getItems().get(11).setBonoHabilidad("1");
+				
+			} else if (Integer.parseInt(caracteristica.getTotalCaracteristica())>=10&&Integer.parseInt(caracteristica.getTotalCaracteristica())<=12) {
+				tableViewCombate.getItems().get(11).setBonoHabilidad("2");
+				
+			} else if (Integer.parseInt(caracteristica.getTotalCaracteristica())>=13&&Integer.parseInt(caracteristica.getTotalCaracteristica())<=15) {
+				tableViewCombate.getItems().get(11).setBonoHabilidad("3");
+				
+			} else if (Integer.parseInt(caracteristica.getTotalCaracteristica())>=16) {
+				tableViewCombate.getItems().get(11).setBonoHabilidad("4");
+				
+			}
 			
 		} else if (tableViewCaracteristicas.getSelectionModel().getSelectedItem().getNombreCaracteristica().equals("FUE")) {
 			tableViewResistencias.getItems().get(4).setBonoCaracteristica(caracteristica.getBonoCaracteristica());
-			tableViewCombate.getItems().get(7).setBonoHabilidad(caracteristica.getBonoCaracteristica());
+			tableViewCombate.getItems().get(7).setBonoHabilidad(caracteristica.getTotalCaracteristica());
+			
+			if (Integer.parseInt(caracteristica.getTotalCaracteristica())>=1&&Integer.parseInt(caracteristica.getTotalCaracteristica())<=9) {
+				tableViewCombate.getItems().get(13).setBonoHabilidad("1");
+				
+			} else if (Integer.parseInt(caracteristica.getTotalCaracteristica())>=10&&Integer.parseInt(caracteristica.getTotalCaracteristica())<=12) {
+				tableViewCombate.getItems().get(13).setBonoHabilidad("2");
+				
+			} else if (Integer.parseInt(caracteristica.getTotalCaracteristica())>=13&&Integer.parseInt(caracteristica.getTotalCaracteristica())<=15) {
+				tableViewCombate.getItems().get(13).setBonoHabilidad("3");
+				
+			} else if (Integer.parseInt(caracteristica.getTotalCaracteristica())>=16) {
+				tableViewCombate.getItems().get(13).setBonoHabilidad("4");
+				
+			}
 			
 		} else if (tableViewCaracteristicas.getSelectionModel().getSelectedItem().getNombreCaracteristica().equals("DES")) {
 			AccionesTurno accionesTurno = new AccionesTurno(caracteristica.getTotalCaracteristica(),tableViewCaracteristicas.getItems().get(0).getTotalCaracteristica());
 			tTurnoDestreza.setText(caracteristica.getBonoCaracteristica());
 			tableViewCombate.getItems().get(0).setBonoHabilidad(caracteristica.getBonoCaracteristica());
 			tableViewCombate.getItems().get(1).setBonoHabilidad(caracteristica.getBonoCaracteristica());
-			tableViewCombate.getItems().get(6).setBonoHabilidad(caracteristica.getBonoCaracteristica());
+			tableViewCombate.getItems().get(6).setBonoHabilidad(caracteristica.getTotalCaracteristica());
+			tTurnoTotal.setText(String.valueOf(Integer.parseInt(tTurnoBase.getText())+Integer.parseInt(tTurnoAgilidad.getText())+
+					Integer.parseInt(tTurnoDestreza.getText())+Integer.parseInt(tTurnoCategoria.getText())+Integer.parseInt(tTurnoArmadura.getText())+Integer.parseInt(tTurnoDesarmado.getText())+
+					Integer.parseInt(tTurnoEspecial.getText())));
+			
+			if (Integer.parseInt(caracteristica.getTotalCaracteristica())>=1&&Integer.parseInt(caracteristica.getTotalCaracteristica())<=9) {
+				tableViewCombate.getItems().get(12).setBonoHabilidad("1");
+				
+			} else if (Integer.parseInt(caracteristica.getTotalCaracteristica())>=10&&Integer.parseInt(caracteristica.getTotalCaracteristica())<=12) {
+				tableViewCombate.getItems().get(12).setBonoHabilidad("2");
+				
+			} else if (Integer.parseInt(caracteristica.getTotalCaracteristica())>=13&&Integer.parseInt(caracteristica.getTotalCaracteristica())<=15) {
+				tableViewCombate.getItems().get(12).setBonoHabilidad("3");
+				
+			} else if (Integer.parseInt(caracteristica.getTotalCaracteristica())>=16) {
+				tableViewCombate.getItems().get(12).setBonoHabilidad("4");
+				
+			}
+			
 			tAccionesTurno.setText(accionesTurno.getNumeroAcciones());
 			
 		} else if (tableViewCaracteristicas.getSelectionModel().getSelectedItem().getNombreCaracteristica().equals("INT")) {
@@ -623,11 +860,39 @@ public class PersonajeController {
 			
 		} else if (tableViewCaracteristicas.getSelectionModel().getSelectedItem().getNombreCaracteristica().equals("POD")) {
 			tableViewResistencias.getItems().get(4).setBonoCaracteristica(caracteristica.getBonoCaracteristica());
-			tableViewCombate.getItems().get(8).setBonoHabilidad(caracteristica.getBonoCaracteristica());
+			tableViewCombate.getItems().get(8).setBonoHabilidad(caracteristica.getTotalCaracteristica());
+			
+			if (Integer.parseInt(caracteristica.getTotalCaracteristica())>=1&&Integer.parseInt(caracteristica.getTotalCaracteristica())<=9) {
+				tableViewCombate.getItems().get(14).setBonoHabilidad("1");
+				
+			} else if (Integer.parseInt(caracteristica.getTotalCaracteristica())>=10&&Integer.parseInt(caracteristica.getTotalCaracteristica())<=12) {
+				tableViewCombate.getItems().get(14).setBonoHabilidad("2");
+				
+			} else if (Integer.parseInt(caracteristica.getTotalCaracteristica())>=13&&Integer.parseInt(caracteristica.getTotalCaracteristica())<=15) {
+				tableViewCombate.getItems().get(14).setBonoHabilidad("3");
+				
+			} else if (Integer.parseInt(caracteristica.getTotalCaracteristica())>=16) {
+				tableViewCombate.getItems().get(14).setBonoHabilidad("4");
+				
+			}
 			
 		} else if (tableViewCaracteristicas.getSelectionModel().getSelectedItem().getNombreCaracteristica().equals("VOL")) {
 			tableViewResistencias.getItems().get(5).setBonoCaracteristica(caracteristica.getBonoCaracteristica());
-			tableViewCombate.getItems().get(9).setBonoHabilidad(caracteristica.getBonoCaracteristica());
+			tableViewCombate.getItems().get(9).setBonoHabilidad(caracteristica.getTotalCaracteristica());
+			
+			if (Integer.parseInt(caracteristica.getTotalCaracteristica())>=1&&Integer.parseInt(caracteristica.getTotalCaracteristica())<=9) {
+				tableViewCombate.getItems().get(15).setBonoHabilidad("1");
+				
+			} else if (Integer.parseInt(caracteristica.getTotalCaracteristica())>=10&&Integer.parseInt(caracteristica.getTotalCaracteristica())<=12) {
+				tableViewCombate.getItems().get(15).setBonoHabilidad("2");
+				
+			} else if (Integer.parseInt(caracteristica.getTotalCaracteristica())>=13&&Integer.parseInt(caracteristica.getTotalCaracteristica())<=15) {
+				tableViewCombate.getItems().get(15).setBonoHabilidad("3");
+				
+			} else if (Integer.parseInt(caracteristica.getTotalCaracteristica())>=16) {
+				tableViewCombate.getItems().get(15).setBonoHabilidad("4");
+				
+			}
 			
 		}
 		
@@ -747,7 +1012,7 @@ public class PersonajeController {
 	
 	public void cambiarPdsEspecialMisticos (TableColumn.CellEditEvent<PdsMisticos, String> cellEditEvent) {
 		PdsMisticos pds = tableViewMisticas.getSelectionModel().getSelectedItem();
-		pds.setPdsHabilidad(cellEditEvent.getNewValue());
+		pds.setEspecialHabilidad(cellEditEvent.getNewValue());
 //		if (cellEditEvent.getNewValue()=="") {
 //			pds.setEspecialHabilidad("0");
 //		} else {
@@ -755,20 +1020,10 @@ public class PersonajeController {
 //		}
 		
 		if (tableViewMisticas.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("Zeon")) {
-			tHabilidadAtaque.setText(pds.getTotalHabilidad());
+			
 		} else if (tableViewMisticas.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("ACT")) {
-			if (Integer.parseInt(pds.getTotalHabilidad())>Integer.parseInt(tableViewMisticas.getItems().get(1).getTotalHabilidad())) {
-				tHabilidadDefensa.setText(pds.getTotalHabilidad());
-			} else {
-				tHabilidadDefensa.setText(tableViewMisticas.getItems().get(1).getTotalHabilidad());
-			}
 			
 		} else if (tableViewMisticas.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("Multiplo de Regeneracion")) {
-			if (Integer.parseInt(pds.getTotalHabilidad())>Integer.parseInt(tableViewMisticas.getItems().get(1).getTotalHabilidad())) {
-				tHabilidadDefensa.setText(pds.getTotalHabilidad());
-			} else {
-				tHabilidadDefensa.setText(tableViewMisticas.getItems().get(1).getTotalHabilidad());
-			}
 			
 		} else if (tableViewMisticas.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("Proyeccion Magia")) {
 			
@@ -787,6 +1042,42 @@ public class PersonajeController {
 		tableViewMisticas.refresh();
 	}
 	
+	public void cambiarPdsPsiquicos (TableColumn.CellEditEvent<PdsMisticos, String> cellEditEvent) {
+		PdsPsiquicos pds = tableViewPsiquicas.getSelectionModel().getSelectedItem();
+		pds.setPdsHabilidad(cellEditEvent.getNewValue());
+//		if (cellEditEvent.getNewValue()=="") {
+//			pds.setPdsHabilidad("0");
+//		} else {
+//			pds.setPdsHabilidad(cellEditEvent.getNewValue());
+//		}
+		
+		if (tableViewPsiquicas.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("CV")) {
+			
+		} else if (tableViewPsiquicas.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("Proyeccion Psiquica")) {
+			
+		}
+		
+		tableViewPsiquicas.refresh();
+	}
+	
+	public void cambiarPdsEspecialPsiquicos (TableColumn.CellEditEvent<PdsMisticos, String> cellEditEvent) {
+		PdsPsiquicos pds = tableViewPsiquicas.getSelectionModel().getSelectedItem();
+		pds.setEspecialHabilidad(cellEditEvent.getNewValue());
+//		if (cellEditEvent.getNewValue()=="") {
+//			pds.setEspecialHabilidad("0");
+//		} else {
+//			pds.setEspecialHabilidad(cellEditEvent.getNewValue());
+//		}
+		
+		if (tableViewPsiquicas.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("CV")) {
+			
+		} else if (tableViewPsiquicas.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("Proyeccion Psiquica")) {
+			
+		}
+		
+	tableViewPsiquicas.refresh();
+	}
+	
 	public void cambiarValorCansancio(KeyEvent ev){
 		System.out.println(ev.getCode()+" "+ev.getText());
 		
@@ -797,7 +1088,9 @@ public class PersonajeController {
 				ev.getCode() == KeyCode.NUMPAD7||ev.getCode() == KeyCode.NUMPAD8||ev.getCode() == KeyCode.NUMPAD9||ev.getCode() == KeyCode.NUMPAD0||
 				ev.getCode() == KeyCode.MINUS || ev.getCode() == KeyCode.BACK_SPACE) {
 				
-			if (tCansancioEspecial.getText().isEmpty()) {
+			if (tCansancioEspecial.getText().isEmpty()||tCansancioEspecial.getText().equals(null)||null==tCansancioEspecial.getText()||tCansancioEspecial.getText()==""
+					||tCansancioEspecial.getText()=="0") {
+				tCansancioEspecial.setText("0");
 				tCansancioTotal.setText(String.valueOf(tableViewCaracteristicas.getItems().get(2).getTotalCaracteristica()+Integer.parseInt("0")));
 			}
 			else {
@@ -823,8 +1116,10 @@ public class PersonajeController {
 				ev.getCode() == KeyCode.NUMPAD7||ev.getCode() == KeyCode.NUMPAD8||ev.getCode() == KeyCode.NUMPAD9||ev.getCode() == KeyCode.NUMPAD0||
 				ev.getCode() == KeyCode.MINUS || ev.getCode() == KeyCode.BACK_SPACE) {
 				
-			if (tPuntosVidaEspecial.getText().isEmpty()) {
-				tPuntosVidaTotales.setText(String.valueOf(Integer.parseInt(tPuntosVidaBase.getText())+Integer.parseInt("0")+Integer.parseInt(tPuntosVidaCategoria.getText())));
+			if (tPuntosVidaEspecial.getText().isEmpty()||tPuntosVidaEspecial.getText().equals(null)||null==tPuntosVidaEspecial.getText()||tPuntosVidaEspecial.getText()==""
+					||tPuntosVidaEspecial.getText()=="0") {
+				tPuntosVidaEspecial.setText("0");
+				tPuntosVidaTotales.setText(String.valueOf(Integer.parseInt(tPuntosVidaBase.getText())+Integer.parseInt(tPuntosVidaEspecial.getText())+Integer.parseInt(tPuntosVidaCategoria.getText())));
 			}
 			else {
 				tPuntosVidaTotales.setText(String.valueOf(Integer.parseInt(tPuntosVidaBase.getText())+Integer.parseInt(tPuntosVidaEspecial.getText())+Integer.parseInt(tPuntosVidaCategoria.getText())));
@@ -864,6 +1159,41 @@ public class PersonajeController {
 				tRegeneracion.setText(valorConstitucion.getRegeneracionBase());
 				tCuracionDia.setText(valorConstitucion.getCuracionDia());
 				tNegativoDia.setText(valorConstitucion.getNegativoDia());
+			}
+				
+			} else {
+				Alert alerta = new Alert(Alert.AlertType.WARNING);
+				alerta.setHeaderText(null);
+			    alerta.setTitle("Info");
+			    alerta.setContentText("No se pueden escribir caracteres diferentes a un numero");
+			    alerta.showAndWait();
+			}
+	}
+	
+	public void cambiarValorTurnoEspecial(KeyEvent ev){
+		System.out.println(ev.getCode()+" "+ev.getText());
+		
+		if (ev.getCode() == KeyCode.DIGIT1||ev.getCode() == KeyCode.DIGIT2||ev.getCode() == KeyCode.DIGIT3||ev.getCode() == KeyCode.DIGIT4||
+				ev.getCode() == KeyCode.DIGIT5||ev.getCode() == KeyCode.DIGIT6||ev.getCode() == KeyCode.DIGIT7||ev.getCode() == KeyCode.DIGIT8||
+				ev.getCode() == KeyCode.DIGIT9||ev.getCode() == KeyCode.DIGIT0||ev.getCode() == KeyCode.NUMPAD1||ev.getCode() == KeyCode.NUMPAD2||
+				ev.getCode() == KeyCode.NUMPAD3||ev.getCode() == KeyCode.NUMPAD4||ev.getCode() == KeyCode.NUMPAD5||ev.getCode() == KeyCode.NUMPAD6||
+				ev.getCode() == KeyCode.NUMPAD7||ev.getCode() == KeyCode.NUMPAD8||ev.getCode() == KeyCode.NUMPAD9||ev.getCode() == KeyCode.NUMPAD0||
+				ev.getCode() == KeyCode.MINUS || ev.getCode() == KeyCode.BACK_SPACE) {
+			
+			
+			if (tTurnoEspecial.getText().isEmpty()||tTurnoEspecial.getText().equals(null)||null==tTurnoEspecial.getText()||tTurnoEspecial.getText()==""
+					||tTurnoEspecial.getText()=="0") {
+				tTurnoEspecial.setText("0");
+				tTurnoTotal.setText(String.valueOf(Integer.parseInt(tTurnoBase.getText())+Integer.parseInt(tTurnoAgilidad.getText())+
+						Integer.parseInt(tTurnoDestreza.getText())+Integer.parseInt(tTurnoCategoria.getText())+Integer.parseInt(tTurnoArmadura.getText())+Integer.parseInt(tTurnoDesarmado.getText())+
+						Integer.parseInt(tTurnoEspecial.getText())));
+				
+			} else {
+//				valorConstitucion.setRegeneracionBase(String.valueOf(Integer.parseInt(valorConstitucion.getRegeneracionBase())+Integer.parseInt(tPuntosRegeneracionEspecial.getText())));
+				tTurnoTotal.setText(String.valueOf(Integer.parseInt(tTurnoBase.getText())+Integer.parseInt(tTurnoAgilidad.getText())+
+						Integer.parseInt(tTurnoDestreza.getText())+Integer.parseInt(tTurnoCategoria.getText())+Integer.parseInt(tTurnoArmadura.getText())+Integer.parseInt(tTurnoDesarmado.getText())+
+						Integer.parseInt(tTurnoEspecial.getText())));
+				
 			}
 				
 			} else {

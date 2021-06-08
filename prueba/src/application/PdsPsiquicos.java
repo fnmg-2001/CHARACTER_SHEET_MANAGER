@@ -1,6 +1,7 @@
-package modelo;
+package application;
 
-public class PdsMisticos {
+public class PdsPsiquicos {
+
 	private String nombreHabilidad;
 	private String costeHabilidad;
 	private String pdsHabilidad;
@@ -10,22 +11,13 @@ public class PdsMisticos {
 	private String especialHabilidad;
 	private String totalHabilidad;
 	
-	public PdsMisticos(String nombreHabilidad, String costeHabilidad, String pdsHabilidad,
+	public PdsPsiquicos(String nombreHabilidad, String costeHabilidad, String pdsHabilidad,
 			String bonoHabilidad, String categoriaHabilidad, String especialHabilidad) {
 		this.nombreHabilidad = nombreHabilidad;
 		this.costeHabilidad = costeHabilidad;
 		this.pdsHabilidad = pdsHabilidad;
 		
-		if (null!=this.pdsHabilidad && this.nombreHabilidad == "ACT") {
-			this.baseHabilidad = String.valueOf((Integer.parseInt(pdsHabilidad)/Integer.parseInt(this.costeHabilidad))*10);
-			
-		} else if (null!=this.pdsHabilidad && this.nombreHabilidad == "Multiplo de regeneracion") {
-			this.baseHabilidad = String.valueOf(((Integer.parseInt(pdsHabilidad)/Integer.parseInt(this.costeHabilidad))*10));
-			
-		} else if (null!=this.pdsHabilidad && this.nombreHabilidad == "Nivel de Magia") {
-			this.baseHabilidad = String.valueOf((Integer.parseInt(pdsHabilidad)/Integer.parseInt(this.costeHabilidad))*5);
-			
-		} else if (null!=this.pdsHabilidad && null!=this.costeHabilidad) {
+		if (null!=this.pdsHabilidad && null!=this.costeHabilidad) {
 			this.baseHabilidad = String.valueOf((Integer.parseInt(pdsHabilidad)/Integer.parseInt(this.costeHabilidad)));
 			
 		} else if (null==this.pdsHabilidad && null==this.especialHabilidad) {
@@ -87,16 +79,7 @@ public class PdsMisticos {
 
 	public void setPdsHabilidad(String pdsHabilidad) {
 		this.pdsHabilidad = pdsHabilidad;
-		if (null!=this.pdsHabilidad && this.nombreHabilidad == "ACT") {
-			this.baseHabilidad = String.valueOf((Integer.parseInt(pdsHabilidad)/Integer.parseInt(this.costeHabilidad))*10);
-			
-		} else if (null!=this.pdsHabilidad && this.nombreHabilidad == "Multiplo de regeneracion") {
-			this.baseHabilidad = String.valueOf(((Integer.parseInt(pdsHabilidad)/Integer.parseInt(this.costeHabilidad))*10));
-			
-		} else if (null!=this.pdsHabilidad && this.nombreHabilidad == "Nivel de Magia") {
-			this.baseHabilidad = String.valueOf((Integer.parseInt(pdsHabilidad)/Integer.parseInt(this.costeHabilidad))*5);
-			
-		} else if (null!=this.pdsHabilidad && null!=this.costeHabilidad) {
+		if (null!=this.pdsHabilidad && null!=this.costeHabilidad) {
 			this.baseHabilidad = String.valueOf((Integer.parseInt(pdsHabilidad)/Integer.parseInt(this.costeHabilidad)));
 			
 		} else if (null==this.pdsHabilidad && null==this.especialHabilidad) {
@@ -131,16 +114,7 @@ public class PdsMisticos {
 
 	public void setBonoHabilidad(String bonoHabilidad) {
 		this.bonoHabilidad = bonoHabilidad;
-		if (null!=this.pdsHabilidad && this.nombreHabilidad == "ACT") {
-			this.baseHabilidad = String.valueOf((Integer.parseInt(pdsHabilidad)/Integer.parseInt(this.costeHabilidad))*10);
-			
-		} else if (null!=this.pdsHabilidad && this.nombreHabilidad == "Multiplo de regeneracion") {
-			this.baseHabilidad = String.valueOf(((Integer.parseInt(pdsHabilidad)/Integer.parseInt(this.costeHabilidad))*10));
-			
-		} else if (null!=this.pdsHabilidad && this.nombreHabilidad == "Nivel de Magia") {
-			this.baseHabilidad = String.valueOf((Integer.parseInt(pdsHabilidad)/Integer.parseInt(this.costeHabilidad))*5);
-			
-		} else if (null!=this.pdsHabilidad && null!=this.costeHabilidad) {
+		if (null!=this.pdsHabilidad && null!=this.costeHabilidad) {
 			this.baseHabilidad = String.valueOf((Integer.parseInt(pdsHabilidad)/Integer.parseInt(this.costeHabilidad)));
 			
 		} else if (null==this.pdsHabilidad && null==this.especialHabilidad) {
@@ -175,16 +149,7 @@ public class PdsMisticos {
 
 	public void setEspecialHabilidad(String especialHabilidad) {
 		this.especialHabilidad = especialHabilidad;
-		if (null!=this.pdsHabilidad && this.nombreHabilidad == "ACT") {
-			this.baseHabilidad = String.valueOf((Integer.parseInt(pdsHabilidad)/Integer.parseInt(this.costeHabilidad))*10);
-			
-		} else if (null!=this.pdsHabilidad && this.nombreHabilidad == "Multiplo de regeneracion") {
-			this.baseHabilidad = String.valueOf(((Integer.parseInt(pdsHabilidad)/Integer.parseInt(this.costeHabilidad))*10));
-			
-		} else if (null!=this.pdsHabilidad && this.nombreHabilidad == "Nivel de Magia") {
-			this.baseHabilidad = String.valueOf((Integer.parseInt(pdsHabilidad)/Integer.parseInt(this.costeHabilidad))*5);
-			
-		} else if (null!=this.pdsHabilidad && null!=this.costeHabilidad) {
+		if (null!=this.pdsHabilidad && null!=this.costeHabilidad) {
 			this.baseHabilidad = String.valueOf((Integer.parseInt(pdsHabilidad)/Integer.parseInt(this.costeHabilidad)));
 			
 		} else if (null==this.pdsHabilidad && null==this.especialHabilidad) {
@@ -213,8 +178,5 @@ public class PdsMisticos {
 	public void setTotalHabilidad(String totalHabilidad) {
 		this.totalHabilidad = totalHabilidad;
 	}
-	
-	
-	
 	
 }
