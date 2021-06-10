@@ -440,7 +440,7 @@
                               <Label prefHeight="30.0" prefWidth="291.0" styleClass="labelPersonaje" text="CLASE INICIAL" />
                               <TextField fx:id="tCategoriaPrimerLv" alignment="CENTER" editable="false" layoutY="30.0" prefHeight="31.0" prefWidth="290.0" />
                               <Label layoutY="61.0" prefHeight="30.0" prefWidth="292.0" styleClass="labelPersonaje" text="NIVEL TOTAL" />
-                              <TextField fx:id="tNivelTotal" alignment="CENTER" editable="false" layoutY="91.0" prefHeight="31.0" prefWidth="292.0" />
+                              <TextField fx:id="tNivelTotal" alignment="CENTER" editable="false" layoutY="91.0" prefHeight="31.0" prefWidth="292.0" text="1" />
                               <Label layoutY="122.0" prefHeight="30.0" prefWidth="294.0" styleClass="labelPersonaje" text="PDS RESTANTES" />
                               <TextField fx:id="tPdsRestantes" alignment="CENTER" editable="false" layoutY="152.0" prefHeight="31.0" prefWidth="293.0" />
                               <Label layoutX="836.0" prefHeight="30.0" prefWidth="322.0" styleClass="labelPersonaje" text="CAMBIO CATEGORIA" visible="false" />
@@ -498,12 +498,12 @@
                     </columns>
                   </TableView>
                   <Label layoutX="14.0" layoutY="11.0" prefHeight="30.0" prefWidth="1172.0" styleClass="labelPersonaje" text="ARMADURAS" />
-                  <Label layoutX="14.0" layoutY="262.0" prefHeight="30.0" prefWidth="481.0" styleClass="labelPersonaje" text="ARMA 1" />
-                  <Pane layoutX="14.0" layoutY="291.0" prefHeight="121.0" prefWidth="481.0">
+                  <Label layoutX="14.0" layoutY="262.0" prefHeight="30.0" prefWidth="555.0" styleClass="labelPersonaje" text="ARMA 1" />
+                  <Pane layoutX="14.0" layoutY="291.0" prefHeight="121.0" prefWidth="556.0">
                      <children>
                         <ComboBox fx:id="cBoxDosUnaMano1" layoutX="1.0" layoutY="2.0" prefWidth="150.0" promptText="A Una o Dos Manos" />
-                        <ComboBox fx:id="cBoxNombreArma1" layoutX="277.0" layoutY="2.0" prefHeight="25.0" prefWidth="203.0" promptText="Arma" />
-                        <TableView fx:id="tArmaSeleccionada1" layoutY="27.0" prefHeight="68.0" prefWidth="480.0">
+                        <ComboBox fx:id="cBoxNombreArma1" layoutX="277.0" layoutY="2.0" prefHeight="25.0" prefWidth="277.0" promptText="Arma" />
+                        <TableView fx:id="tArmaSeleccionada1" layoutY="27.0" prefHeight="68.0" prefWidth="553.0">
                           <columns>
                             <TableColumn fx:id="colCritico1Arma1" prefWidth="78.0" text="CRIT.1" />
                             <TableColumn fx:id="colCritico2Arma1" prefWidth="72.0" text="CRIT.2" />
@@ -514,14 +514,13 @@
                               <TableColumn fx:id="colDañoArma1" prefWidth="75.0" text="DAÑO" />
                           </columns>
                         </TableView>
-                        <ComboBox fx:id="cBoxTamañoArma1" layoutY="95.0" prefHeight="25.0" prefWidth="235.0" promptText="Tamaño" />
-                        <ComboBox fx:id="cBoxCalidadArma1" layoutX="235.0" layoutY="95.0" prefHeight="25.0" prefWidth="245.0" promptText="Calidad" />
+                        <ComboBox fx:id="cBoxTamañoArma1" layoutY="95.0" prefHeight="25.0" prefWidth="268.0" promptText="Tamaño" />
                         <ComboBox fx:id="cBoxTipoArma1" layoutX="151.0" layoutY="2.0" prefHeight="25.0" prefWidth="126.0" promptText="Tipo" />
                      </children>
                   </Pane>
-                  <Accordion layoutX="627.0" layoutY="291.0" prefHeight="458.0" prefWidth="560.0">
+                  <Accordion fx:id="acTablasCombate" layoutX="627.0" layoutY="291.0" prefHeight="458.0" prefWidth="560.0">
                     <panes>
-                      <TitledPane animated="false" prefHeight="421.0" prefWidth="562.0" text="TABLAS ARMAS">
+                      <TitledPane fx:id="tpTablasArmas" prefHeight="421.0" prefWidth="562.0" text="TABLAS ARMAS">
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
@@ -536,7 +535,7 @@
                               </AnchorPane>
                         </content>
                       </TitledPane>
-                      <TitledPane animated="false" text="TABLAS ESTILOS">
+                      <TitledPane text="TABLAS ESTILOS">
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
@@ -551,7 +550,7 @@
                               </AnchorPane>
                         </content>
                       </TitledPane>
-                      <TitledPane animated="false" prefHeight="407.0" prefWidth="553.0" text="ARTES MARCIALES">
+                      <TitledPane prefHeight="407.0" prefWidth="553.0" text="ARTES MARCIALES">
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
@@ -569,6 +568,49 @@
                     </panes>
                   </Accordion>
                   <Label layoutX="627.0" layoutY="261.0" prefHeight="30.0" prefWidth="560.0" styleClass="labelPersonaje" text="TABLAS COMBATE" />
+                  <Label layoutX="14.0" layoutY="599.0" prefHeight="30.0" prefWidth="555.0" styleClass="labelPersonaje" text="ARMA 3" />
+                  <Pane layoutX="14.0" layoutY="628.0" prefHeight="121.0" prefWidth="555.0">
+                     <children>
+                        <ComboBox fx:id="cBoxDosUnaMano3" layoutX="1.0" layoutY="2.0" prefWidth="150.0" promptText="A Una o Dos Manos" />
+                        <ComboBox fx:id="cBoxNombreArma3" layoutX="277.0" layoutY="2.0" prefHeight="25.0" prefWidth="277.0" promptText="Arma" />
+                        <TableView fx:id="tArmaSeleccionada3" layoutY="27.0" prefHeight="68.0" prefWidth="554.0">
+                           <columns>
+                              <TableColumn fx:id="colCritico1Arma3" prefWidth="78.0" text="CRIT.1" />
+                              <TableColumn fx:id="colCritico2Arma3" prefWidth="72.0" text="CRIT.2" />
+                              <TableColumn fx:id="colEnterezaArma3" prefWidth="66.0" text="ENTEREZA" />
+                              <TableColumn fx:id="colRoturaArma11" prefWidth="57.0" text="ROTURA" />
+                              <TableColumn fx:id="colTurnoArma3" prefWidth="63.0" text="TURNO" />
+                              <TableColumn fx:id="colAtaqueArma3" prefWidth="68.0" text="ATAQUE" />
+                              <TableColumn fx:id="colDañoArma3" prefWidth="75.0" text="DAÑO" />
+                           </columns>
+                        </TableView>
+                        <ComboBox fx:id="cBoxTamañoArma3" layoutY="95.0" prefHeight="25.0" prefWidth="273.0" promptText="Tamaño" />
+                        <ComboBox fx:id="cBoxTipoArma3" layoutX="151.0" layoutY="2.0" prefHeight="25.0" prefWidth="126.0" promptText="Tipo" />
+                        <ComboBox fx:id="cBoxCalidadArma3" layoutX="274.0" layoutY="96.0" prefHeight="25.0" prefWidth="280.0" promptText="Calidad" />
+                     </children>
+                  </Pane>
+                  <Label layoutX="14.0" layoutY="431.0" prefHeight="30.0" prefWidth="555.0" styleClass="labelPersonaje" text="ARMA 2" />
+                  <Pane layoutX="14.0" layoutY="460.0" prefHeight="121.0" prefWidth="555.0">
+                     <children>
+                        <ComboBox fx:id="cBoxDosUnaMano2" layoutX="1.0" layoutY="2.0" prefWidth="150.0" promptText="A Una o Dos Manos" />
+                        <ComboBox fx:id="cBoxNombreArma2" layoutX="277.0" layoutY="2.0" prefHeight="25.0" prefWidth="277.0" promptText="Arma" />
+                        <TableView fx:id="tArmaSeleccionada2" layoutY="27.0" prefHeight="68.0" prefWidth="554.0">
+                           <columns>
+                              <TableColumn fx:id="colCritico1Arma2" prefWidth="78.0" text="CRIT.1" />
+                              <TableColumn fx:id="colCritico2Arma2" prefWidth="72.0" text="CRIT.2" />
+                              <TableColumn fx:id="colEnterezaArma2" prefWidth="66.0" text="ENTEREZA" />
+                              <TableColumn fx:id="colRoturaArma2" prefWidth="57.0" text="ROTURA" />
+                              <TableColumn fx:id="colTurnoArma2" prefWidth="63.0" text="TURNO" />
+                              <TableColumn fx:id="colAtaqueArma2" prefWidth="68.0" text="ATAQUE" />
+                              <TableColumn fx:id="colDañoArma2" prefWidth="75.0" text="DAÑO" />
+                           </columns>
+                        </TableView>
+                        <ComboBox fx:id="cBoxTamañoArma2" layoutY="95.0" prefHeight="25.0" prefWidth="276.0" promptText="Tamaño" />
+                        <ComboBox fx:id="cBoxTipoArma2" layoutX="151.0" layoutY="2.0" prefHeight="25.0" prefWidth="126.0" promptText="Tipo" />
+                        <ComboBox fx:id="cBoxCalidadArma2" layoutX="277.0" layoutY="95.0" prefHeight="25.0" prefWidth="277.0" promptText="Calidad" />
+                     </children>
+                  </Pane>
+                  <ComboBox fx:id="cBoxCalidadArma1" layoutX="283.0" layoutY="386.0" prefHeight="25.0" prefWidth="284.0" promptText="Calidad" />
                </children></AnchorPane>
       </content>
     </Tab>

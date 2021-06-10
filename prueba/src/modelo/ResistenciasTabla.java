@@ -15,7 +15,7 @@ public class ResistenciasTabla {
 		this.bonoCaracteristica = bonoCaracteristica;
 		this.bonoEspecial = bonoEspecial;
 		this.bonoRaza = bonoRaza;
-		this.resistenciaTotal = String.valueOf(Integer.parseInt(presenciaBase)+Integer.parseInt(bonoCaracteristica)+Integer.parseInt(bonoEspecial)+Integer.parseInt(bonoRaza));
+		this.resistenciaTotal = String.valueOf(Integer.parseInt(presenciaBase)+Integer.parseInt(bonoCaracteristica)+Integer.parseInt(bonoEspecial)+Integer.parseInt(this.bonoRaza));
 	}
 
 	public String getNombreResistencia() {
@@ -32,7 +32,7 @@ public class ResistenciasTabla {
 
 	public void setPresenciaBase(String presenciaBase) {
 		this.presenciaBase = presenciaBase;
-		this.resistenciaTotal = String.valueOf(Integer.parseInt(presenciaBase)+Integer.parseInt(bonoCaracteristica)+Integer.parseInt(bonoEspecial)+Integer.parseInt(bonoRaza));
+		this.resistenciaTotal = String.valueOf(Integer.parseInt(presenciaBase)+Integer.parseInt(bonoCaracteristica)+Integer.parseInt(bonoEspecial)+Integer.parseInt(this.bonoRaza));
 	}
 
 	public String getBonoCaracteristica() {
@@ -41,7 +41,7 @@ public class ResistenciasTabla {
 
 	public void setBonoCaracteristica(String bonoCaracteristica) {
 		this.bonoCaracteristica = bonoCaracteristica;
-		this.resistenciaTotal = String.valueOf(Integer.parseInt(presenciaBase)+Integer.parseInt(bonoCaracteristica)+Integer.parseInt(bonoEspecial)+Integer.parseInt(bonoRaza));
+		this.resistenciaTotal = String.valueOf(Integer.parseInt(presenciaBase)+Integer.parseInt(bonoCaracteristica)+Integer.parseInt(bonoEspecial)+Integer.parseInt(this.bonoRaza));
 	}
 
 	public String getBonoEspecial() {
@@ -50,7 +50,7 @@ public class ResistenciasTabla {
 
 	public void setBonoEspecial(String bonoEspecial) {
 		this.bonoEspecial = bonoEspecial;
-		this.resistenciaTotal = String.valueOf(Integer.parseInt(presenciaBase)+Integer.parseInt(bonoCaracteristica)+Integer.parseInt(bonoEspecial)+Integer.parseInt(bonoRaza));
+		this.resistenciaTotal = String.valueOf(Integer.parseInt(presenciaBase)+Integer.parseInt(bonoCaracteristica)+Integer.parseInt(bonoEspecial)+Integer.parseInt(this.bonoRaza));
 	}
 
 	public String getBonoRaza() {
@@ -59,7 +59,7 @@ public class ResistenciasTabla {
 
 	public void setBonoRaza(String bonoRaza) {
 		this.bonoRaza = bonoRaza;
-		this.resistenciaTotal = String.valueOf(Integer.parseInt(presenciaBase)+Integer.parseInt(bonoCaracteristica)+Integer.parseInt(bonoEspecial)+Integer.parseInt(bonoRaza));
+		this.resistenciaTotal = String.valueOf(Integer.parseInt(presenciaBase)+Integer.parseInt(bonoCaracteristica)+Integer.parseInt(bonoEspecial)+Integer.parseInt(this.bonoRaza));
 	}
 
 	public String getResistenciaTotal() {

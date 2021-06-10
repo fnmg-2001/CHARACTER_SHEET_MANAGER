@@ -1,5 +1,5 @@
 package modelo;
-// Generated 24 may. 2021 13:40:54 by Hibernate Tools 5.2.12.Final
+// Generated 11 jun. 2021 0:33:09 by Hibernate Tools 5.2.12.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -35,6 +35,21 @@ public class Raza implements java.io.Serializable {
 	private String rasgo11;
 	private Integer modificadorNivel;
 	private String imagen;
+	private String bonoAgilidad;
+	private String bonoConstitucion;
+	private String bonoDestreza;
+	private String bonoFuerza;
+	private String bonoPercepcion;
+	private String bonoInteligencia;
+	private String bonoPoder;
+	private String bonoVoluntad;
+	private String bonoResistenciaFisica;
+	private String bonoResistenciaEnfermedades;
+	private String bonoResistenciaVenenos;
+	private String bonoResistenciaMagica;
+	private String bonoResistenciaPsiquica;
+	private String bonoRegeneracion;
+	private String bonoCansancio;
 	private Set<Personaje> personajes = new HashSet<Personaje>(0);
 
 	public Raza() {
@@ -47,7 +62,11 @@ public class Raza implements java.io.Serializable {
 
 	public Raza(String nombre, String descripcion, String rasgo1, String rasgo2, String rasgo3, String rasgo4,
 			String rasgo5, String rasgo6, String rasgo7, String rasgo8, String rasgo9, String rasgo10, String rasgo11,
-			Integer modificadorNivel, String imagen, Set<Personaje> personajes) {
+			Integer modificadorNivel, String imagen, String bonoAgilidad, String bonoConstitucion, String bonoDestreza,
+			String bonoFuerza, String bonoPercepcion, String bonoInteligencia, String bonoPoder, String bonoVoluntad,
+			String bonoResistenciaFisica, String bonoResistenciaEnfermedades, String bonoResistenciaVenenos,
+			String bonoResistenciaMagica, String bonoResistenciaPsiquica, String bonoRegeneracion, String bonoCansancio,
+			Set<Personaje> personajes) {
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.rasgo1 = rasgo1;
@@ -63,6 +82,21 @@ public class Raza implements java.io.Serializable {
 		this.rasgo11 = rasgo11;
 		this.modificadorNivel = modificadorNivel;
 		this.imagen = imagen;
+		this.bonoAgilidad = bonoAgilidad;
+		this.bonoConstitucion = bonoConstitucion;
+		this.bonoDestreza = bonoDestreza;
+		this.bonoFuerza = bonoFuerza;
+		this.bonoPercepcion = bonoPercepcion;
+		this.bonoInteligencia = bonoInteligencia;
+		this.bonoPoder = bonoPoder;
+		this.bonoVoluntad = bonoVoluntad;
+		this.bonoResistenciaFisica = bonoResistenciaFisica;
+		this.bonoResistenciaEnfermedades = bonoResistenciaEnfermedades;
+		this.bonoResistenciaVenenos = bonoResistenciaVenenos;
+		this.bonoResistenciaMagica = bonoResistenciaMagica;
+		this.bonoResistenciaPsiquica = bonoResistenciaPsiquica;
+		this.bonoRegeneracion = bonoRegeneracion;
+		this.bonoCansancio = bonoCansancio;
 		this.personajes = personajes;
 	}
 
@@ -211,6 +245,141 @@ public class Raza implements java.io.Serializable {
 
 	public void setImagen(String imagen) {
 		this.imagen = imagen;
+	}
+
+	@Column(name = "BONO_AGILIDAD", length = 25)
+	public String getBonoAgilidad() {
+		return this.bonoAgilidad;
+	}
+
+	public void setBonoAgilidad(String bonoAgilidad) {
+		this.bonoAgilidad = bonoAgilidad;
+	}
+
+	@Column(name = "BONO_CONSTITUCION", length = 25)
+	public String getBonoConstitucion() {
+		return this.bonoConstitucion;
+	}
+
+	public void setBonoConstitucion(String bonoConstitucion) {
+		this.bonoConstitucion = bonoConstitucion;
+	}
+
+	@Column(name = "BONO_DESTREZA", length = 25)
+	public String getBonoDestreza() {
+		return this.bonoDestreza;
+	}
+
+	public void setBonoDestreza(String bonoDestreza) {
+		this.bonoDestreza = bonoDestreza;
+	}
+
+	@Column(name = "BONO_FUERZA", length = 25)
+	public String getBonoFuerza() {
+		return this.bonoFuerza;
+	}
+
+	public void setBonoFuerza(String bonoFuerza) {
+		this.bonoFuerza = bonoFuerza;
+	}
+
+	@Column(name = "BONO_PERCEPCION", length = 25)
+	public String getBonoPercepcion() {
+		return this.bonoPercepcion;
+	}
+
+	public void setBonoPercepcion(String bonoPercepcion) {
+		this.bonoPercepcion = bonoPercepcion;
+	}
+
+	@Column(name = "BONO_INTELIGENCIA", length = 25)
+	public String getBonoInteligencia() {
+		return this.bonoInteligencia;
+	}
+
+	public void setBonoInteligencia(String bonoInteligencia) {
+		this.bonoInteligencia = bonoInteligencia;
+	}
+
+	@Column(name = "BONO_PODER", length = 25)
+	public String getBonoPoder() {
+		return this.bonoPoder;
+	}
+
+	public void setBonoPoder(String bonoPoder) {
+		this.bonoPoder = bonoPoder;
+	}
+
+	@Column(name = "BONO_VOLUNTAD", length = 25)
+	public String getBonoVoluntad() {
+		return this.bonoVoluntad;
+	}
+
+	public void setBonoVoluntad(String bonoVoluntad) {
+		this.bonoVoluntad = bonoVoluntad;
+	}
+
+	@Column(name = "BONO_RESISTENCIA_FISICA", length = 25)
+	public String getBonoResistenciaFisica() {
+		return this.bonoResistenciaFisica;
+	}
+
+	public void setBonoResistenciaFisica(String bonoResistenciaFisica) {
+		this.bonoResistenciaFisica = bonoResistenciaFisica;
+	}
+
+	@Column(name = "BONO_RESISTENCIA_ENFERMEDADES", length = 25)
+	public String getBonoResistenciaEnfermedades() {
+		return this.bonoResistenciaEnfermedades;
+	}
+
+	public void setBonoResistenciaEnfermedades(String bonoResistenciaEnfermedades) {
+		this.bonoResistenciaEnfermedades = bonoResistenciaEnfermedades;
+	}
+
+	@Column(name = "BONO_RESISTENCIA_VENENOS", length = 25)
+	public String getBonoResistenciaVenenos() {
+		return this.bonoResistenciaVenenos;
+	}
+
+	public void setBonoResistenciaVenenos(String bonoResistenciaVenenos) {
+		this.bonoResistenciaVenenos = bonoResistenciaVenenos;
+	}
+
+	@Column(name = "BONO_RESISTENCIA_MAGICA", length = 25)
+	public String getBonoResistenciaMagica() {
+		return this.bonoResistenciaMagica;
+	}
+
+	public void setBonoResistenciaMagica(String bonoResistenciaMagica) {
+		this.bonoResistenciaMagica = bonoResistenciaMagica;
+	}
+
+	@Column(name = "BONO_RESISTENCIA_PSIQUICA", length = 25)
+	public String getBonoResistenciaPsiquica() {
+		return this.bonoResistenciaPsiquica;
+	}
+
+	public void setBonoResistenciaPsiquica(String bonoResistenciaPsiquica) {
+		this.bonoResistenciaPsiquica = bonoResistenciaPsiquica;
+	}
+
+	@Column(name = "BONO_REGENERACION", length = 25)
+	public String getBonoRegeneracion() {
+		return this.bonoRegeneracion;
+	}
+
+	public void setBonoRegeneracion(String bonoRegeneracion) {
+		this.bonoRegeneracion = bonoRegeneracion;
+	}
+
+	@Column(name = "BONO_CANSANCIO", length = 25)
+	public String getBonoCansancio() {
+		return this.bonoCansancio;
+	}
+
+	public void setBonoCansancio(String bonoCansancio) {
+		this.bonoCansancio = bonoCansancio;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "raza")

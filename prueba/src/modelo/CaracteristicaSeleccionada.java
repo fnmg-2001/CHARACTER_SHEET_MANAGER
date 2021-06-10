@@ -6,13 +6,15 @@ public class CaracteristicaSeleccionada {
 	private String tempCaracteristica;
 	private String totalCaracteristica;
 	private String bonoCaracteristica;
+	private String bonoRaza;
 	
-	public CaracteristicaSeleccionada(String nombreCaracteristica, String baseCaracteristica, String tempCaracteristica) {
+	public CaracteristicaSeleccionada(String nombreCaracteristica, String baseCaracteristica, String tempCaracteristica, String bonoRaza) {
 		this.nombreCaracteristica = nombreCaracteristica;
 		this.baseCaracteristica = baseCaracteristica;
 		this.tempCaracteristica = tempCaracteristica;
-		this.totalCaracteristica = String.valueOf(Integer.parseInt(this.baseCaracteristica)+Integer.parseInt(this.tempCaracteristica));
-		if (Integer.parseInt(this.totalCaracteristica)==0) {
+		this.bonoRaza = bonoRaza;
+		this.totalCaracteristica = String.valueOf(Integer.parseInt(this.baseCaracteristica)+Integer.parseInt(this.tempCaracteristica)+Integer.parseInt(this.bonoRaza));
+		if (Integer.parseInt(this.totalCaracteristica)<=0) {
 			this.bonoCaracteristica="-";
 		}
 		else if (Integer.parseInt(this.totalCaracteristica)==1) {
@@ -54,7 +56,7 @@ public class CaracteristicaSeleccionada {
 		else if (Integer.parseInt(this.totalCaracteristica)==18||Integer.parseInt(this.totalCaracteristica)==19) {
 			this.bonoCaracteristica="40";
 		}
-		else if (Integer.parseInt(this.totalCaracteristica)==20) {
+		else if (Integer.parseInt(this.totalCaracteristica)>=20) {
 			this.bonoCaracteristica="45";
 		}
 	}
@@ -96,7 +98,7 @@ public class CaracteristicaSeleccionada {
 	}
 
 	public void setBonoCaracteristica(String totalCaracteristica) {
-		if (Integer.parseInt(this.totalCaracteristica)==0) {
+		if (Integer.parseInt(this.totalCaracteristica)<=0) {
 			this.bonoCaracteristica="-";
 		}
 		else if (Integer.parseInt(this.totalCaracteristica)==1) {
@@ -138,7 +140,7 @@ public class CaracteristicaSeleccionada {
 		else if (Integer.parseInt(this.totalCaracteristica)==18||Integer.parseInt(this.totalCaracteristica)==19) {
 			this.bonoCaracteristica="40";
 		}
-		else if (Integer.parseInt(this.totalCaracteristica)==20) {
+		else if (Integer.parseInt(this.totalCaracteristica)>=20) {
 			this.bonoCaracteristica="45";
 		}
 	}

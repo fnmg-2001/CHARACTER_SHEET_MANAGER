@@ -1,11 +1,13 @@
 package modelo;
-// Generated 24 may. 2021 13:40:54 by Hibernate Tools 5.2.12.Final
+// Generated 11 jun. 2021 0:33:09 by Hibernate Tools 5.2.12.Final
 
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -17,7 +19,7 @@ import javax.persistence.Table;
 @Table(name = "arma", catalog = "anima_sheets_data")
 public class Arma implements java.io.Serializable {
 
-	private int idArma;
+	private Integer idArma;
 	private String nombre;
 	private int fuerzaRequeridaMinima;
 	private int fuerzaRequeridaMaxima;
@@ -37,9 +39,8 @@ public class Arma implements java.io.Serializable {
 	public Arma() {
 	}
 
-	public Arma(int idArma, String nombre, int fuerzaRequeridaMinima, int fuerzaRequeridaMaxima, String tipo, int turno,
+	public Arma(String nombre, int fuerzaRequeridaMinima, int fuerzaRequeridaMaxima, String tipo, int turno,
 			int dañoBase, int AUnaODosManos, int ADosManos, int rotura, int entereza, int presencia) {
-		this.idArma = idArma;
 		this.nombre = nombre;
 		this.fuerzaRequeridaMinima = fuerzaRequeridaMinima;
 		this.fuerzaRequeridaMaxima = fuerzaRequeridaMaxima;
@@ -53,10 +54,9 @@ public class Arma implements java.io.Serializable {
 		this.presencia = presencia;
 	}
 
-	public Arma(int idArma, String nombre, int fuerzaRequeridaMinima, int fuerzaRequeridaMaxima, String tipo, int turno,
+	public Arma(String nombre, int fuerzaRequeridaMinima, int fuerzaRequeridaMaxima, String tipo, int turno,
 			int dañoBase, String critico1, String critico2, int AUnaODosManos, int ADosManos, int rotura, int entereza,
 			int presencia, String rasgo, Set<ArmaPersonaje> armaPersonajes) {
-		this.idArma = idArma;
 		this.nombre = nombre;
 		this.fuerzaRequeridaMinima = fuerzaRequeridaMinima;
 		this.fuerzaRequeridaMaxima = fuerzaRequeridaMaxima;
@@ -75,13 +75,14 @@ public class Arma implements java.io.Serializable {
 	}
 
 	@Id
+	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "ID_ARMA", unique = true, nullable = false)
-	public int getIdArma() {
+	public Integer getIdArma() {
 		return this.idArma;
 	}
 
-	public void setIdArma(int idArma) {
+	public void setIdArma(Integer idArma) {
 		this.idArma = idArma;
 	}
 

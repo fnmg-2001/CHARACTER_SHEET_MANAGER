@@ -1,5 +1,5 @@
 package modelo;
-// Generated 24 may. 2021 13:40:54 by Hibernate Tools 5.2.12.Final
+// Generated 11 jun. 2021 0:33:09 by Hibernate Tools 5.2.12.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -31,7 +31,6 @@ public class Armadura implements java.io.Serializable {
 	private int tipoArmaduraEnergia;
 	private int entereza;
 	private int presencia;
-	private int calidad;
 	private Set<Personaje> personajes = new HashSet<Personaje>(0);
 
 	public Armadura() {
@@ -39,7 +38,7 @@ public class Armadura implements java.io.Serializable {
 
 	public Armadura(int idArmadura, int requisitoNecesario, int restriccionMovimiento, int tipoArmaduraFilo,
 			int tipoArmaduraContundente, int tipoArmaduraPenetrante, int tipoArmaduraCalor, int tipoArmaduraElectrico,
-			int tipoArmaduraFrio, int tipoArmaduraEnergia, int entereza, int presencia, int calidad) {
+			int tipoArmaduraFrio, int tipoArmaduraEnergia, int entereza, int presencia) {
 		this.idArmadura = idArmadura;
 		this.requisitoNecesario = requisitoNecesario;
 		this.restriccionMovimiento = restriccionMovimiento;
@@ -52,13 +51,11 @@ public class Armadura implements java.io.Serializable {
 		this.tipoArmaduraEnergia = tipoArmaduraEnergia;
 		this.entereza = entereza;
 		this.presencia = presencia;
-		this.calidad = calidad;
 	}
 
 	public Armadura(int idArmadura, int requisitoNecesario, int restriccionMovimiento, int tipoArmaduraFilo,
 			int tipoArmaduraContundente, int tipoArmaduraPenetrante, int tipoArmaduraCalor, int tipoArmaduraElectrico,
-			int tipoArmaduraFrio, int tipoArmaduraEnergia, int entereza, int presencia, int calidad,
-			Set<Personaje> personajes) {
+			int tipoArmaduraFrio, int tipoArmaduraEnergia, int entereza, int presencia, Set<Personaje> personajes) {
 		this.idArmadura = idArmadura;
 		this.requisitoNecesario = requisitoNecesario;
 		this.restriccionMovimiento = restriccionMovimiento;
@@ -71,7 +68,6 @@ public class Armadura implements java.io.Serializable {
 		this.tipoArmaduraEnergia = tipoArmaduraEnergia;
 		this.entereza = entereza;
 		this.presencia = presencia;
-		this.calidad = calidad;
 		this.personajes = personajes;
 	}
 
@@ -183,15 +179,6 @@ public class Armadura implements java.io.Serializable {
 
 	public void setPresencia(int presencia) {
 		this.presencia = presencia;
-	}
-
-	@Column(name = "CALIDAD", nullable = false)
-	public int getCalidad() {
-		return this.calidad;
-	}
-
-	public void setCalidad(int calidad) {
-		this.calidad = calidad;
 	}
 
 	@ManyToMany(fetch = FetchType.LAZY)
