@@ -15,7 +15,7 @@ public class CaracteristicaSeleccionada {
 		this.bonoRaza = bonoRaza;
 		this.totalCaracteristica = String.valueOf(Integer.parseInt(this.baseCaracteristica)+Integer.parseInt(this.tempCaracteristica)+Integer.parseInt(this.bonoRaza));
 		if (Integer.parseInt(this.totalCaracteristica)<=0) {
-			this.bonoCaracteristica="-";
+			this.bonoCaracteristica="-30";
 		}
 		else if (Integer.parseInt(this.totalCaracteristica)==1) {
 			this.bonoCaracteristica="-30";
@@ -99,7 +99,7 @@ public class CaracteristicaSeleccionada {
 
 	public void setBonoCaracteristica(String totalCaracteristica) {
 		if (Integer.parseInt(this.totalCaracteristica)<=0) {
-			this.bonoCaracteristica="-";
+			this.bonoCaracteristica="-30";
 		}
 		else if (Integer.parseInt(this.totalCaracteristica)==1) {
 			this.bonoCaracteristica="-30";
