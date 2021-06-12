@@ -7,14 +7,19 @@ public class ResistenciasTabla {
 	private String bonoEspecial;
 	private String bonoRaza;
 	private String resistenciaTotal;
+	private String nivel;
 	
-	public ResistenciasTabla(String nombreResistencia, String presenciaBase, String bonoCaracteristica,  String bonoRaza, String bonoEspecial) {
+	public ResistenciasTabla(String nombreResistencia, String bonoCaracteristica, String bonoRaza, String bonoEspecial, String nivel) {
 		
 		this.nombreResistencia = nombreResistencia;
-		this.presenciaBase = presenciaBase;
+		this.presenciaBase = "30";
+		for (int i = 1; i < Integer.parseInt(nivel); i++) {
+			this.presenciaBase = String.valueOf(Integer.parseInt(this.presenciaBase)+Integer.parseInt("5"));
+		}
 		this.bonoCaracteristica = bonoCaracteristica;
 		this.bonoEspecial = bonoEspecial;
 		this.bonoRaza = bonoRaza;
+		this.nivel = nivel;
 		this.resistenciaTotal = String.valueOf(Integer.parseInt(presenciaBase)+Integer.parseInt(bonoCaracteristica)+Integer.parseInt(bonoEspecial)+Integer.parseInt(this.bonoRaza));
 	}
 
@@ -68,6 +73,19 @@ public class ResistenciasTabla {
 
 	public void setResistenciaTotal(String resistenciaTotal) {
 		this.resistenciaTotal = resistenciaTotal;
+	}
+
+	public String getNivel() {
+		return nivel;
+	}
+
+	public void setNivel(String nivel) {
+		this.nivel = nivel;
+		this.presenciaBase = "30";
+		for (int i = 1; i < Integer.parseInt(nivel); i++) {
+			this.presenciaBase = String.valueOf(Integer.parseInt(this.presenciaBase)+Integer.parseInt("5"));
+		}
+		this.resistenciaTotal = String.valueOf(Integer.parseInt(this.presenciaBase)+Integer.parseInt(this.bonoCaracteristica)+Integer.parseInt(this.bonoEspecial)+Integer.parseInt(this.bonoRaza));
 	}
 	
 	

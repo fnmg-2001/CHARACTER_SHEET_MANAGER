@@ -88,6 +88,119 @@ public class ConsultasHibernate {
 		
 	}
 	
+	public ObservableList<String> obtenerListaArmas(SessionFactory sessionFactory){
+		ObservableList<String> nombreListaArmas = FXCollections.observableArrayList();
+		Session session = null;
+		try {
+			session = sessionFactory.getCurrentSession();
+			session.beginTransaction();
+			
+			Query query = session.createQuery("FROM Arma a WHERE a.tipo not in (:municiones)");
+			query.setParameter("municiones", "Municion");
+			List<Arma> listaArma = query.list();
+			String nombresArmas;
+			
+			for (Arma arma : listaArma) {
+				nombresArmas = arma.getNombre();
+				nombreListaArmas.add(nombresArmas);
+			}
+			
+			
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			throw e;
+		}
+		finally {
+			if (session != null) {
+				session.close();
+			}
+		}
+		return nombreListaArmas;
+		
+	}
+	
+	public Arma obtenerArma(SessionFactory sessionFactory, String nombreArma){
+		Arma arma;
+		Session session = null;
+		try {
+			session = sessionFactory.getCurrentSession();
+			session.beginTransaction();
+			
+			Query query = session.createQuery("FROM Arma a WHERE a.nombre = :nombreArma");
+			query.setParameter("nombreArma", nombreArma);
+			arma = (Arma)query.getSingleResult();
+			
+			
+			
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			throw e;
+		}
+		finally {
+			if (session != null) {
+				session.close();
+			}
+		}
+		return arma;
+		
+	}
+	
+	public ObservableList<String> obtenerListaArmaduras(SessionFactory sessionFactory){
+		ObservableList<String> nombreListasArmaduras = FXCollections.observableArrayList();
+		Session session = null;
+		try {
+			session = sessionFactory.getCurrentSession();
+			session.beginTransaction();
+			
+			Query query = session.createQuery("FROM Armadura");
+			List<Armadura> listaArmadura = query.list();
+			String nombresArmaduras;
+			
+			for (Armadura armadura : listaArmadura) {
+				nombresArmaduras = armadura.getNombre();
+				nombreListasArmaduras.add(nombresArmaduras);
+			}
+			
+			
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			throw e;
+		}
+		finally {
+			if (session != null) {
+				session.close();
+			}
+		}
+		return nombreListasArmaduras;
+		
+	}
+	
+	public Armadura obtenerArmamadura(SessionFactory sessionFactory, String nombreArmadura){
+		Armadura armadura;
+		Session session = null;
+		try {
+			session = sessionFactory.getCurrentSession();
+			session.beginTransaction();
+			
+			Query query = session.createQuery("FROM Armadura a WHERE a.nombre = :nombreArmadura");
+			query.setParameter("nombreArmadura", nombreArmadura);
+			armadura = (Armadura)query.getSingleResult();
+			
+			
+			
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			throw e;
+		}
+		finally {
+			if (session != null) {
+				session.close();
+			}
+		}
+		return armadura;
+		
+	}
+	
 	public Categoria obtenerCategoria(String categoriaSeleccionada, SessionFactory sessionFactory) {
 		Session session = null;
 		Categoria categoria;

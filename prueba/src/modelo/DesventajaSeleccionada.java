@@ -1,4 +1,4 @@
-package application;
+package modelo;
 
 
 import javafx.scene.control.ComboBox;

@@ -1,4 +1,4 @@
-package application;
+package modelo;
 
 public class PdsHabilidadesSecundariasResumen {
 	private String nombreHabilidad;

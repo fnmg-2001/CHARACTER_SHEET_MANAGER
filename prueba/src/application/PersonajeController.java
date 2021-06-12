@@ -27,12 +27,19 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import modelo.AccionesTurno;
+import modelo.ArmaSeleccionada;
+import modelo.Armadura;
+import modelo.ArmaduraSeleccionada;
 import modelo.CaracteristicaSeleccionada;
 import modelo.Categoria;
 import modelo.ConsultasHibernate;
+import modelo.DesventajaSeleccionada;
 import modelo.NivelClase;
 import modelo.PdsCombate;
+import modelo.PdsHabilidadesSecundarias;
+import modelo.PdsHabilidadesSecundariasResumen;
 import modelo.PdsMisticos;
+import modelo.PdsPsiquicos;
 import modelo.Raza;
 import modelo.ResistenciasTabla;
 import modelo.ValorConstitucion;
@@ -63,7 +70,7 @@ public class PersonajeController {
 	TextField tApariencia, tCansancioBase, tCansancioEspecial, tCansancioTotal, tTurnoBase, tTurnoAgilidad, tTurnoDestreza, tTurnoCategoria, tTurnoArmadura,
 	tTurnoDesarmado, tTurnoEspecial, tTurnoTotal, tPuntosVidaBase, tPuntosVidaCategoria, tPuntosVidaTotales, tRegeneracion, tCuracionDia, tNegativoDia, tPuntosVidaEspecial,
 	tAccionesTurno, tPuntosCreacion, tCategoriaPrimerLv, tNivelTotal, tPdsRestantes, tLlevarArmadura, tHabilidadDefensa, tHabilidadAtaque, tPuntosRegeneracionEspecial,
-	tRazaGeneral, tEtniaGeneral, tBonosNaturales, tHabilidadesNaturales, tBonosNovel;
+	tRazaGeneral, tEtniaGeneral, tBonosNaturales, tHabilidadesNaturales, tBonosNovel, tTipoArma1, tTipoArma2, tTipoArma3, tTipoArma4;
 	
 	@FXML
 	TableView<CaracteristicaSeleccionada> tableViewCaracteristicas;
@@ -95,6 +102,12 @@ public class PersonajeController {
 	@FXML
 	TableView<PdsHabilidadesSecundariasResumen> tableViewResumenAtleticas, tableViewResumenSociales, tableViewResumenPerceptivas, tableViewResumenIntelectuales, tableViewResumenVigor,
 	tableViewResumenSubterfugio, tableViewResumenCreativas;
+	
+	@FXML
+	TableView<ArmaSeleccionada> tableviewArmaSeleccionada1, tableviewArmaSeleccionada2, tableviewArmaSeleccionada3, tableviewArmaSeleccionada4;
+	
+	@FXML
+	TableView<ArmaduraSeleccionada> tableViewArmaduras;
 	
 	@FXML
 	TableColumn<CaracteristicaSeleccionada, String> colBase, colTemp, colTotal, colBono;
@@ -142,7 +155,23 @@ public class PersonajeController {
 	colNombreSecundariaVigor, colPenalizadorSecundariaVigor, colTotalSecundariaVigor,
 	colNombreSecundariaSubterfugio, colPenalizadorSecundariaSubterfugio, colTotalSecundariaSubterfugio,
 	colNombreSecundariaCreativas, colPenalizadorSecundariaCreativas, colTotalSecundariaCreativas;
+
+	@FXML
+	TableColumn<ArmaSeleccionada, String> 
+	colCritico1Arma1, colCritico2Arma1, colEnterezaArma1, colRoturaArma1, colTurnoArma1, colAtaqueArma1, colDañoArma1,
+	colCritico1Arma2, colCritico2Arma2, colEnterezaArma2, colRoturaArma2, colTurnoArma2, colAtaqueArma2, colDañoArma2,
+	colCritico1Arma3, colCritico2Arma3, colEnterezaArma3, colRoturaArma3, colTurnoArma3, colAtaqueArma3, colDañoArma3,
+	colCritico1Arma4, colCritico2Arma4, colEnterezaArma4, colRoturaArma4, colTurnoArma4, colAtaqueArma4, colDañoArma4;
+
+	@FXML
+	ComboBox<String> cBoxNombreArma1, cBoxNombreArma2, cBoxNombreArma3, cBoxNombreArma4;
 	
+	@FXML
+	TableColumn<ArmaduraSeleccionada, String> colArmaduraFilo, colArmaduraContundente, colArmaduraPenetrante, colArmaduraCalor, colArmaduraElectrico, colArmaduraFrio, colArmaduraEnergia,
+	colArmaduraEntereza, colArmaduraRequisito, colArmaduraPenalizacionNatural;
+
+	@FXML
+	TableColumn<ArmaduraSeleccionada, ComboBox<String>> colArmaduraNombre;
 	
 	
 	public PersonajeController(SessionFactory sessionFactory, String categoria, String raza) {
@@ -159,6 +188,8 @@ public class PersonajeController {
 		tNivelTotal.setText(nivelClase.getNivel());
 		ObservableList<String> nombreVentajas = ch.obtenerNombresVentaja(sessionFactory);
 		ObservableList<String> nombreDesventajas = ch.obtenerNombresDesventaja(sessionFactory);
+		ObservableList<String> nombreArmas = ch.obtenerListaArmas(sessionFactory);
+		ObservableList<String> nombreArmaduras = ch.obtenerListaArmaduras(sessionFactory);
 		acPrincipalHabilidadesSecundarias.setExpandedPane(tpAtleticas);
 		acPds.setExpandedPane(tpPdsCombate);
 		acTablasCombate.setExpandedPane(tpTablasArmas);
@@ -197,12 +228,12 @@ public class PersonajeController {
 		
 		/*------------------------------------------------------Tabla Resistencias------------------------------------------------------*/
 		ObservableList<ResistenciasTabla> resistencias = FXCollections.observableArrayList(
-				new ResistenciasTabla("Pres. Base","30","0","0","0"),
-				new ResistenciasTabla("RF","30","0",razaSeleccionada.getBonoResistenciaFisica(),"0"),
-				new ResistenciasTabla("RE","30","0",razaSeleccionada.getBonoResistenciaEnfermedades(),"0"),
-				new ResistenciasTabla("RV","30","0",razaSeleccionada.getBonoResistenciaVenenos(),"0"),
-				new ResistenciasTabla("RM","30","0",razaSeleccionada.getBonoResistenciaMagica(),"0"),
-				new ResistenciasTabla("RP","30","0",razaSeleccionada.getBonoResistenciaPsiquica(),"0"));
+				new ResistenciasTabla("Pres. Base","0","0","0",nivelClase.getNivel()),
+				new ResistenciasTabla("RF",tableViewCaracteristicas.getItems().get(1).getBonoCaracteristica(),razaSeleccionada.getBonoResistenciaFisica(),"0",nivelClase.getNivel()),
+				new ResistenciasTabla("RE",tableViewCaracteristicas.getItems().get(1).getBonoCaracteristica(),razaSeleccionada.getBonoResistenciaEnfermedades(),"0",nivelClase.getNivel()),
+				new ResistenciasTabla("RV",tableViewCaracteristicas.getItems().get(1).getBonoCaracteristica(),razaSeleccionada.getBonoResistenciaVenenos(),"0",nivelClase.getNivel()),
+				new ResistenciasTabla("RM",tableViewCaracteristicas.getItems().get(6).getBonoCaracteristica(),razaSeleccionada.getBonoResistenciaMagica(),"0",nivelClase.getNivel()),
+				new ResistenciasTabla("RP",tableViewCaracteristicas.getItems().get(7).getBonoCaracteristica(),razaSeleccionada.getBonoResistenciaPsiquica(),"0",nivelClase.getNivel()));
 		
 		colNombreResistencias.setCellValueFactory(new PropertyValueFactory<ResistenciasTabla, String>("nombreResistencia"));
 		colResistenciasBase.setCellValueFactory(new PropertyValueFactory<ResistenciasTabla, String>("presenciaBase")); 
@@ -899,32 +930,188 @@ public class PersonajeController {
 		colTotalSecundariaCreativas.setCellValueFactory(new PropertyValueFactory<PdsHabilidadesSecundariasResumen, String>("totalHabilidad"));
 		
 		tableViewResumenCreativas.setItems(resumenSecundarias7);
+		
+		/*------------------------------------------------------Tabla Pds Arma1 de la pestaña Combate------------------------------------------------------*/
+		
+		/*------------------------------------------------------Seteo del turno de los texfield de la pestaña principal------------------------------------------------------*/
+		valorTextFieldTurnoTotal();
+		
+		cBoxNombreArma1.setItems(nombreArmas);
+		cBoxNombreArma2.setItems(nombreArmas);
+		cBoxNombreArma3.setItems(nombreArmas);
+		cBoxNombreArma4.setItems(nombreArmas);
+		ObservableList<ArmaSeleccionada> armaSeleccionada1;
+		ObservableList<ArmaSeleccionada> armaSeleccionada2;
+		ObservableList<ArmaSeleccionada> armaSeleccionada3;
+		ObservableList<ArmaSeleccionada> armaSeleccionada4;
+		
+		/*Si no tiene armas seleccionadas Lista 1*/
+		if ("null".equals(cBoxNombreArma1.getSelectionModel().getSelectedItem())||
+				cBoxNombreArma1.getSelectionModel().isEmpty()||
+				cBoxNombreArma1.getSelectionModel().getSelectedItem()=="") {
+			armaSeleccionada1 = FXCollections.observableArrayList(
+					new ArmaSeleccionada(ch.obtenerArma(sessionFactory, "Desarmado"),
+							tableViewCombate.getItems().get(0).getTotalHabilidad(),
+							tableViewCaracteristicas.getItems().get(3).getBonoCaracteristica(),
+							tTurnoTotal.getText()));
+			cBoxNombreArma1.setValue("Desarmado");
+			tTipoArma1.setText(armaSeleccionada1.get(0).getTipoArma());
+			/*Esta seria en caso de que haya un personaje ya creado con sus armas ya elegidas*/
+		} else {
+			armaSeleccionada1 = FXCollections.observableArrayList(
+					new ArmaSeleccionada(ch.obtenerArma(sessionFactory, cBoxNombreArma1.getSelectionModel().getSelectedItem()),
+							tableViewCombate.getItems().get(0).getTotalHabilidad(),
+							tableViewCaracteristicas.getItems().get(3).getBonoCaracteristica(),
+							tTurnoTotal.getText()));
+		}
+		
+		colCritico1Arma1.setCellValueFactory(new PropertyValueFactory<ArmaSeleccionada, String>("critico1"));
+		colCritico2Arma1.setCellValueFactory(new PropertyValueFactory<ArmaSeleccionada, String>("critico2"));
+		colEnterezaArma1.setCellValueFactory(new PropertyValueFactory<ArmaSeleccionada, String>("entereza"));
+		colRoturaArma1.setCellValueFactory(new PropertyValueFactory<ArmaSeleccionada, String>("rotura"));
+		colTurnoArma1.setCellValueFactory(new PropertyValueFactory<ArmaSeleccionada, String>("turno"));
+		colAtaqueArma1.setCellValueFactory(new PropertyValueFactory<ArmaSeleccionada, String>("ataque"));
+		colDañoArma1.setCellValueFactory(new PropertyValueFactory<ArmaSeleccionada, String>("daño"));
+		
+		tableviewArmaSeleccionada1.setItems(armaSeleccionada1);
+		
 
+		/*Si no tiene armas seleccionadas Lista 2*/
+		if ("null".equals(cBoxNombreArma2.getSelectionModel().getSelectedItem())||
+				cBoxNombreArma2.getSelectionModel().isEmpty()||
+				cBoxNombreArma2.getSelectionModel().getSelectedItem()=="") {
+			armaSeleccionada2 = FXCollections.observableArrayList(
+					new ArmaSeleccionada(ch.obtenerArma(sessionFactory, "Desarmado"),
+							tableViewCombate.getItems().get(0).getTotalHabilidad(),
+							tableViewCaracteristicas.getItems().get(3).getBonoCaracteristica(),
+							tTurnoTotal.getText()));
+			cBoxNombreArma2.setValue("Desarmado");
+			tTipoArma2.setText(armaSeleccionada2.get(0).getTipoArma());
+			/*Esta seria en caso de que haya un personaje ya creado con sus armas ya elegidas*/
+		} else {
+			armaSeleccionada2 = FXCollections.observableArrayList(
+					new ArmaSeleccionada(ch.obtenerArma(sessionFactory, cBoxNombreArma2.getSelectionModel().getSelectedItem()),
+							tableViewCombate.getItems().get(0).getTotalHabilidad(),
+							tableViewCaracteristicas.getItems().get(3).getBonoCaracteristica(),
+							tTurnoTotal.getText()));
+		}
+		
+		colCritico1Arma2.setCellValueFactory(new PropertyValueFactory<ArmaSeleccionada, String>("critico1"));
+		colCritico2Arma2.setCellValueFactory(new PropertyValueFactory<ArmaSeleccionada, String>("critico2"));
+		colEnterezaArma2.setCellValueFactory(new PropertyValueFactory<ArmaSeleccionada, String>("entereza"));
+		colRoturaArma2.setCellValueFactory(new PropertyValueFactory<ArmaSeleccionada, String>("rotura"));
+		colTurnoArma2.setCellValueFactory(new PropertyValueFactory<ArmaSeleccionada, String>("turno"));
+		colAtaqueArma2.setCellValueFactory(new PropertyValueFactory<ArmaSeleccionada, String>("ataque"));
+		colDañoArma2.setCellValueFactory(new PropertyValueFactory<ArmaSeleccionada, String>("daño"));
+		
+		tableviewArmaSeleccionada2.setItems(armaSeleccionada2);
+		
+		/*Si no tiene armas seleccionadas Lista 3*/
+		if ("null".equals(cBoxNombreArma3.getSelectionModel().getSelectedItem())||
+				cBoxNombreArma3.getSelectionModel().isEmpty()||
+				cBoxNombreArma3.getSelectionModel().getSelectedItem()=="") {
+			armaSeleccionada3 = FXCollections.observableArrayList(
+					new ArmaSeleccionada(ch.obtenerArma(sessionFactory, "Desarmado"),
+							tableViewCombate.getItems().get(0).getTotalHabilidad(),
+							tableViewCaracteristicas.getItems().get(3).getBonoCaracteristica(),
+							tTurnoTotal.getText()));
+			cBoxNombreArma3.setValue("Desarmado");
+			tTipoArma3.setText(armaSeleccionada1.get(0).getTipoArma());
+			/*Esta seria en caso de que haya un personaje ya creado con sus armas ya elegidas*/
+		} else {
+			armaSeleccionada3 = FXCollections.observableArrayList(
+					new ArmaSeleccionada(ch.obtenerArma(sessionFactory, cBoxNombreArma3.getSelectionModel().getSelectedItem()),
+							tableViewCombate.getItems().get(0).getTotalHabilidad(),
+							tableViewCaracteristicas.getItems().get(3).getBonoCaracteristica(),
+							tTurnoTotal.getText()));
+		}
+		
+		colCritico1Arma3.setCellValueFactory(new PropertyValueFactory<ArmaSeleccionada, String>("critico1"));
+		colCritico2Arma3.setCellValueFactory(new PropertyValueFactory<ArmaSeleccionada, String>("critico2"));
+		colEnterezaArma3.setCellValueFactory(new PropertyValueFactory<ArmaSeleccionada, String>("entereza"));
+		colRoturaArma3.setCellValueFactory(new PropertyValueFactory<ArmaSeleccionada, String>("rotura"));
+		colTurnoArma3.setCellValueFactory(new PropertyValueFactory<ArmaSeleccionada, String>("turno"));
+		colAtaqueArma3.setCellValueFactory(new PropertyValueFactory<ArmaSeleccionada, String>("ataque"));
+		colDañoArma3.setCellValueFactory(new PropertyValueFactory<ArmaSeleccionada, String>("daño"));
+		
+		tableviewArmaSeleccionada3.setItems(armaSeleccionada3);
+		
+
+		/*Si no tiene armas seleccionadas Lista 4*/
+		if ("null".equals(cBoxNombreArma4.getSelectionModel().getSelectedItem())||
+				cBoxNombreArma4.getSelectionModel().isEmpty()||
+				cBoxNombreArma4.getSelectionModel().getSelectedItem()=="") {
+			armaSeleccionada4 = FXCollections.observableArrayList(
+					new ArmaSeleccionada(ch.obtenerArma(sessionFactory, "Desarmado"),
+							tableViewCombate.getItems().get(0).getTotalHabilidad(),
+							tableViewCaracteristicas.getItems().get(3).getBonoCaracteristica(),
+							tTurnoTotal.getText()));
+			cBoxNombreArma4.setValue("Desarmado");
+			tTipoArma4.setText(armaSeleccionada4.get(0).getTipoArma());
+			/*Esta seria en caso de que haya un personaje ya creado con sus armas ya elegidas*/
+		} else {
+			armaSeleccionada4 = FXCollections.observableArrayList(
+					new ArmaSeleccionada(ch.obtenerArma(sessionFactory, cBoxNombreArma4.getSelectionModel().getSelectedItem()),
+							tableViewCombate.getItems().get(0).getTotalHabilidad(),
+							tableViewCaracteristicas.getItems().get(3).getBonoCaracteristica(),
+							tTurnoTotal.getText()));
+		}
+		
+		colCritico1Arma4.setCellValueFactory(new PropertyValueFactory<ArmaSeleccionada, String>("critico1"));
+		colCritico2Arma4.setCellValueFactory(new PropertyValueFactory<ArmaSeleccionada, String>("critico2"));
+		colEnterezaArma4.setCellValueFactory(new PropertyValueFactory<ArmaSeleccionada, String>("entereza"));
+		colRoturaArma4.setCellValueFactory(new PropertyValueFactory<ArmaSeleccionada, String>("rotura"));
+		colTurnoArma4.setCellValueFactory(new PropertyValueFactory<ArmaSeleccionada, String>("turno"));
+		colAtaqueArma4.setCellValueFactory(new PropertyValueFactory<ArmaSeleccionada, String>("ataque"));
+		colDañoArma4.setCellValueFactory(new PropertyValueFactory<ArmaSeleccionada, String>("daño"));
+		
+		tableviewArmaSeleccionada4.setItems(armaSeleccionada4);
+
+		/*------------------------------------------------------Tabla Armaduras Pestaña Combate------------------------------------------------------*/
+		ComboBox<String> cArmaduras = new ComboBox<String>();
+		cArmaduras.setItems(nombreArmaduras);
+		
+		ObservableList<ArmaduraSeleccionada> armadurasSeleccionadas = FXCollections.observableArrayList(
+				new ArmaduraSeleccionada(cArmaduras,"-","-","-","-","-","-","-","-","-","-"));
+		
+		cArmaduras.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent event) {
+				Armadura armadura = ch.obtenerArmamadura(sessionFactory, cArmaduras.getSelectionModel().getSelectedItem());
+				ArmaduraSeleccionada armaduraSeleccionada = armadurasSeleccionadas.get(0);
+				armaduraSeleccionada.setFilo(String.valueOf(armadura.getTipoArmaduraFilo()));
+				armaduraSeleccionada.setContundente(String.valueOf(armadura.getTipoArmaduraFilo()));
+				armaduraSeleccionada.setPenetrante(String.valueOf(armadura.getTipoArmaduraPenetrante()));
+				armaduraSeleccionada.setCalor(String.valueOf(armadura.getTipoArmaduraCalor()));
+				armaduraSeleccionada.setElectrico(String.valueOf(armadura.getTipoArmaduraElectrico()));
+				armaduraSeleccionada.setFrio(String.valueOf(armadura.getTipoArmaduraFrio()));
+				armaduraSeleccionada.setEnergia(String.valueOf(armadura.getTipoArmaduraEnergia()));
+				armaduraSeleccionada.setEntereza(String.valueOf(armadura.getEntereza()));
+				armaduraSeleccionada.setRequisito(String.valueOf(armadura.getRequisitoNecesario()));
+				armaduraSeleccionada.setPenalizadorNatural(String.valueOf(armadura.getPenalizadorNatural()));
+				tableViewArmaduras.refresh();
+				
+			}
+		});
+		
+		
+		colArmaduraNombre.setCellValueFactory(new PropertyValueFactory<ArmaduraSeleccionada, ComboBox<String>>("nombreArmadura"));
+		colArmaduraFilo.setCellValueFactory(new PropertyValueFactory<ArmaduraSeleccionada, String>("filo"));
+		colArmaduraContundente.setCellValueFactory(new PropertyValueFactory<ArmaduraSeleccionada, String>("contundente"));
+		colArmaduraPenetrante.setCellValueFactory(new PropertyValueFactory<ArmaduraSeleccionada, String>("penetrante"));
+		colArmaduraCalor.setCellValueFactory(new PropertyValueFactory<ArmaduraSeleccionada, String>("calor"));
+		colArmaduraElectrico.setCellValueFactory(new PropertyValueFactory<ArmaduraSeleccionada, String>("electrico"));
+		colArmaduraFrio.setCellValueFactory(new PropertyValueFactory<ArmaduraSeleccionada, String>("frio"));
+		colArmaduraEnergia.setCellValueFactory(new PropertyValueFactory<ArmaduraSeleccionada, String>("energia"));
+		colArmaduraEntereza.setCellValueFactory(new PropertyValueFactory<ArmaduraSeleccionada, String>("entereza"));
+		colArmaduraRequisito.setCellValueFactory(new PropertyValueFactory<ArmaduraSeleccionada, String>("requisito"));
+		colArmaduraPenalizacionNatural.setCellValueFactory(new PropertyValueFactory<ArmaduraSeleccionada, String>("penalizadorNatural"));
+		
+		tableViewArmaduras.setItems(armadurasSeleccionadas);
+		
 		/*------------------------------------------------------Valores TextField Pestaña Principal------------------------------------------------------*/
 		
-		if (tableViewCaracteristicas.getItems().get(0).getBonoCaracteristica()=="-") {
-			tTurnoAgilidad.setText("0");
-		} else {
-			tTurnoAgilidad.setText(tableViewCaracteristicas.getItems().get(0).getBonoCaracteristica());
-		}
-		
-		if (tableViewCaracteristicas.getItems().get(3).getBonoCaracteristica()=="-") {
-			tTurnoDestreza.setText("0");
-		} else {
-			tTurnoDestreza.setText(tableViewCaracteristicas.getItems().get(3).getBonoCaracteristica());
-		}
-		
-		if (tTurnoArmadura.getText().isEmpty()||tTurnoArmadura.getText().equals(null)||null==tTurnoArmadura.getText()||tTurnoArmadura.getText()=="") {
-			tTurnoArmadura.setText("0");
-		} else {
-			
-		}
-		
-		if (tTurnoEspecial.getText().isEmpty()||tTurnoEspecial.getText().equals(null)||null==tTurnoEspecial.getText()||tTurnoEspecial.getText()=="") {
-			tTurnoEspecial.setText("0");
-		} else {
-			
-		}
 
 		tRazaGeneral.setText(razaSeleccionada.getNombre());
 		tPdsRestantes.setText(nivelClase.getPds());
@@ -939,12 +1126,8 @@ public class PersonajeController {
 		tRegeneracion.setText("0");
 		valorConstitucion.setRegeneracionBase(String.valueOf(Integer.parseInt(tRegeneracion.getText())+Integer.parseInt(razaSeleccionada.getBonoRegeneracion())));
 		tRegeneracion.setText(valorConstitucion.getRegeneracionBase());
-		
 		tCuracionDia.setText(valorConstitucion.getCuracionDia());
 		tNegativoDia.setText(valorConstitucion.getNegativoDia());
-		tTurnoCategoria.setText(String.valueOf(categoriaSeleccionada.getTurno()));
-		tTurnoTotal.setText(String.valueOf(Integer.parseInt(tTurnoBase.getText())+Integer.parseInt(tTurnoAgilidad.getText())+Integer.parseInt(tTurnoDestreza.getText())+
-				Integer.parseInt(tTurnoCategoria.getText()) +Integer.parseInt(tTurnoArmadura.getText()) +Integer.parseInt(tTurnoDesarmado.getText()) +Integer.parseInt(tTurnoEspecial.getText())));
 		tCansancioBase.setText(String.valueOf(tableViewCaracteristicas.getItems().get(1).getTotalCaracteristica()));
 		tCansancioEspecial.setText("0");
 		tCansancioTotal.setText(String.valueOf(Integer.parseInt(tableViewCaracteristicas.getItems().get(1).getTotalCaracteristica())+Integer.parseInt(tCansancioEspecial.getText())+Integer.parseInt(razaSeleccionada.getBonoCansancio())));
@@ -984,55 +1167,16 @@ public class PersonajeController {
 		PdsCombate pds = tableViewCombate.getSelectionModel().getSelectedItem();
 		pds.setPdsHabilidad(cellEditEvent.getNewValue());
 		
-		if (tableViewCombate.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("H.Ataque")) {
-			tHabilidadAtaque.setText(pds.getTotalHabilidad());
-		} else if (tableViewCombate.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("H.Parada")) {
-			if (Integer.parseInt(pds.getTotalHabilidad())>Integer.parseInt(tableViewCombate.getItems().get(1).getTotalHabilidad())) {
-				tHabilidadDefensa.setText(pds.getTotalHabilidad());
-			} else {
-				tHabilidadDefensa.setText(tableViewCombate.getItems().get(1).getTotalHabilidad());
-			}
-			
-		} else if (tableViewCombate.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("H.Esquiva")) {
-			if (Integer.parseInt(pds.getTotalHabilidad())>Integer.parseInt(tableViewCombate.getItems().get(1).getTotalHabilidad())) {
-				tHabilidadDefensa.setText(pds.getTotalHabilidad());
-			} else {
-				tHabilidadDefensa.setText(tableViewCombate.getItems().get(1).getTotalHabilidad());
-			}
-			
-		} else if (tableViewCombate.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("Llevar Armadura")) {
-			tLlevarArmadura.setText(pds.getTotalHabilidad());
-		}
-		
-		tableViewCombate.refresh();
+		cambiarPdsCombate(pds);
 	}
 	
 	public void cambiarPdsEspecialCombate (TableColumn.CellEditEvent<PdsCombate, String> cellEditEvent) {
 		PdsCombate pds = tableViewCombate.getSelectionModel().getSelectedItem();
 		pds.setEspecialHabilidad(cellEditEvent.getNewValue());
 		
-		if (tableViewCombate.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("H.Ataque")) {
-			tHabilidadAtaque.setText(pds.getTotalHabilidad());
-		} else if (tableViewCombate.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("H.Parada")) {
-			if (Integer.parseInt(pds.getTotalHabilidad())>Integer.parseInt(tableViewCombate.getItems().get(1).getTotalHabilidad())) {
-				tHabilidadDefensa.setText(pds.getTotalHabilidad());
-			} else {
-				tHabilidadDefensa.setText(tableViewCombate.getItems().get(1).getTotalHabilidad());
-			}
-			
-		} else if (tableViewCombate.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("H.Esquiva")) {
-			if (Integer.parseInt(pds.getTotalHabilidad())>Integer.parseInt(tableViewCombate.getItems().get(1).getTotalHabilidad())) {
-				tHabilidadDefensa.setText(pds.getTotalHabilidad());
-			} else {
-				tHabilidadDefensa.setText(tableViewCombate.getItems().get(1).getTotalHabilidad());
-			}
-			
-		} else if (tableViewCombate.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("Llevar Armadura")) {
-			tLlevarArmadura.setText(pds.getTotalHabilidad());
-		}
-		
-		tableViewCombate.refresh();
+		cambiarPdsCombate(pds);
 	}
+
 	
 	public void cambiarPdsMisticos (TableColumn.CellEditEvent<PdsMisticos, String> cellEditEvent) {
 		PdsMisticos pds = tableViewMisticas.getSelectionModel().getSelectedItem();
@@ -1176,25 +1320,58 @@ public class PersonajeController {
 				
 			}
 			tableViewSecundarias.getItems().get(0).setBonoHabilidad(caracteristica.getBonoCaracteristica());
+			tableViewSecundarias.getItems().get(0).setBonoNatural(tableViewSecundarias.getItems().get(0).getBonoNatural());
+			tableViewSecundarias.getItems().get(0).setHabilidadNatural(tableViewSecundarias.getItems().get(0).getHabilidadNatural());
+			tableViewSecundarias.getItems().get(0).setBonoNovel(tableViewSecundarias.getItems().get(0).getBonoNovel());
 			tableViewResumenAtleticas.getItems().get(0).setTotalHabilidad(tableViewSecundarias.getItems().get(0).getTotalHabilidad());
 			
 			tableViewSecundarias.getItems().get(1).setBonoHabilidad(caracteristica.getBonoCaracteristica());
+			tableViewSecundarias.getItems().get(1).setBonoNatural(tableViewSecundarias.getItems().get(1).getBonoNatural());
+			tableViewSecundarias.getItems().get(1).setHabilidadNatural(tableViewSecundarias.getItems().get(1).getHabilidadNatural());
+			tableViewSecundarias.getItems().get(1).setBonoNovel(tableViewSecundarias.getItems().get(1).getBonoNovel());
 			tableViewResumenAtleticas.getItems().get(1).setTotalHabilidad(tableViewSecundarias.getItems().get(1).getTotalHabilidad());
 			
 			tableViewSecundarias.getItems().get(2).setBonoHabilidad(caracteristica.getBonoCaracteristica());
+			tableViewSecundarias.getItems().get(2).setBonoNatural(tableViewSecundarias.getItems().get(2).getBonoNatural());
+			tableViewSecundarias.getItems().get(2).setHabilidadNatural(tableViewSecundarias.getItems().get(2).getHabilidadNatural());
+			tableViewSecundarias.getItems().get(2).setBonoNovel(tableViewSecundarias.getItems().get(2).getBonoNovel());
 			tableViewResumenAtleticas.getItems().get(2).setTotalHabilidad(tableViewSecundarias.getItems().get(2).getTotalHabilidad());
 			
 			tableViewSecundarias.getItems().get(3).setBonoHabilidad(caracteristica.getBonoCaracteristica());
+			tableViewSecundarias.getItems().get(3).setBonoNatural(tableViewSecundarias.getItems().get(3).getBonoNatural());
+			tableViewSecundarias.getItems().get(3).setHabilidadNatural(tableViewSecundarias.getItems().get(3).getHabilidadNatural());
+			tableViewSecundarias.getItems().get(3).setBonoNovel(tableViewSecundarias.getItems().get(3).getBonoNovel());
 			tableViewResumenAtleticas.getItems().get(3).setTotalHabilidad(tableViewSecundarias.getItems().get(3).getTotalHabilidad());
 			
 			tableViewSecundarias.getItems().get(4).setBonoHabilidad(caracteristica.getBonoCaracteristica());
+			tableViewSecundarias.getItems().get(4).setBonoNatural(tableViewSecundarias.getItems().get(4).getBonoNatural());
+			tableViewSecundarias.getItems().get(4).setHabilidadNatural(tableViewSecundarias.getItems().get(4).getHabilidadNatural());
+			tableViewSecundarias.getItems().get(4).setBonoNovel(tableViewSecundarias.getItems().get(4).getBonoNovel());
 			tableViewResumenAtleticas.getItems().get(4).setTotalHabilidad(tableViewSecundarias.getItems().get(4).getTotalHabilidad());
 			
 			tableViewSecundarias.getItems().get(34).setBonoHabilidad(caracteristica.getBonoCaracteristica());
+			tableViewSecundarias.getItems().get(34).setBonoNatural(tableViewSecundarias.getItems().get(34).getBonoNatural());
+			tableViewSecundarias.getItems().get(34).setHabilidadNatural(tableViewSecundarias.getItems().get(34).getHabilidadNatural());
+			tableViewSecundarias.getItems().get(34).setBonoNovel(tableViewSecundarias.getItems().get(34).getBonoNovel());
 			tableViewResumenSubterfugio.getItems().get(4).setTotalHabilidad(tableViewSecundarias.getItems().get(34).getTotalHabilidad());
 			
 			tableViewSecundarias.getItems().get(39).setBonoHabilidad(caracteristica.getBonoCaracteristica());
+			tableViewSecundarias.getItems().get(39).setBonoNatural(tableViewSecundarias.getItems().get(39).getBonoNatural());
+			tableViewSecundarias.getItems().get(39).setHabilidadNatural(tableViewSecundarias.getItems().get(39).getHabilidadNatural());
+			tableViewSecundarias.getItems().get(39).setBonoNovel(tableViewSecundarias.getItems().get(39).getBonoNovel());
 			tableViewResumenCreativas.getItems().get(1).setTotalHabilidad(tableViewSecundarias.getItems().get(39).getTotalHabilidad());
+			
+			tableviewArmaSeleccionada1.getItems().get(0).setTurno(String.valueOf(Integer.parseInt(tTurnoBase.getText())+Integer.parseInt(tTurnoAgilidad.getText())+
+					Integer.parseInt(tTurnoDestreza.getText())+Integer.parseInt(tTurnoCategoria.getText())+Integer.parseInt(tTurnoArmadura.getText())));
+			
+			tableviewArmaSeleccionada2.getItems().get(0).setTurno(String.valueOf(Integer.parseInt(tTurnoBase.getText())+Integer.parseInt(tTurnoAgilidad.getText())+
+					Integer.parseInt(tTurnoDestreza.getText())+Integer.parseInt(tTurnoCategoria.getText())+Integer.parseInt(tTurnoArmadura.getText())));
+			
+			tableviewArmaSeleccionada3.getItems().get(0).setTurno(String.valueOf(Integer.parseInt(tTurnoBase.getText())+Integer.parseInt(tTurnoAgilidad.getText())+
+					Integer.parseInt(tTurnoDestreza.getText())+Integer.parseInt(tTurnoCategoria.getText())+Integer.parseInt(tTurnoArmadura.getText())));
+			
+			tableviewArmaSeleccionada4.getItems().get(0).setTurno(String.valueOf(Integer.parseInt(tTurnoBase.getText())+Integer.parseInt(tTurnoAgilidad.getText())+
+					Integer.parseInt(tTurnoDestreza.getText())+Integer.parseInt(tTurnoCategoria.getText())+Integer.parseInt(tTurnoArmadura.getText())));
 			
 		} else if (tableViewCaracteristicas.getSelectionModel().getSelectedItem().getNombreCaracteristica().equals("CON")) {
 			caracteristica.setTotalCaracteristica(String.valueOf(Integer.parseInt(caracteristica.getBaseCaracteristica())+Integer.parseInt(caracteristica.getTempCaracteristica())+Integer.parseInt(razaSeleccionada.getBonoConstitucion())));
@@ -1263,14 +1440,25 @@ public class PersonajeController {
 				tableViewCombate.getItems().get(13).setBonoHabilidad("4");
 				
 			}
-			tableViewCaracteristicas.getItems().get(3).setBonoCaracteristica(caracteristica.getBonoCaracteristica());
-			tLlevarArmadura.setText(tableViewCaracteristicas.getItems().get(3).getTotalCaracteristica());
+			tableViewCombate.getItems().get(3).setBonoHabilidad(caracteristica.getBonoCaracteristica());
+			tLlevarArmadura.setText(tableViewCombate.getItems().get(3).getTotalHabilidad());
 			
 			tableViewSecundarias.getItems().get(5).setBonoHabilidad(caracteristica.getBonoCaracteristica());
+			tableViewSecundarias.getItems().get(5).setBonoNatural(tableViewSecundarias.getItems().get(5).getBonoNatural());
+			tableViewSecundarias.getItems().get(5).setHabilidadNatural(tableViewSecundarias.getItems().get(5).getHabilidadNatural());
+			tableViewSecundarias.getItems().get(5).setBonoNovel(tableViewSecundarias.getItems().get(5).getBonoNovel());
 			tableViewResumenAtleticas.getItems().get(5).setTotalHabilidad(tableViewSecundarias.getItems().get(5).getTotalHabilidad());
 			
 			tableViewSecundarias.getItems().get(29).setBonoHabilidad(caracteristica.getBonoCaracteristica());
+			tableViewSecundarias.getItems().get(29).setBonoNatural(tableViewSecundarias.getItems().get(29).getBonoNatural());
+			tableViewSecundarias.getItems().get(29).setHabilidadNatural(tableViewSecundarias.getItems().get(29).getHabilidadNatural());
+			tableViewSecundarias.getItems().get(29).setBonoNovel(tableViewSecundarias.getItems().get(29).getBonoNovel());
 			tableViewResumenVigor.getItems().get(1).setTotalHabilidad(tableViewSecundarias.getItems().get(29).getTotalHabilidad());
+			
+			tableviewArmaSeleccionada1.getItems().get(0).setBonoFuerza(caracteristica.getBonoCaracteristica());
+			tableviewArmaSeleccionada2.getItems().get(0).setBonoFuerza(caracteristica.getBonoCaracteristica());
+			tableviewArmaSeleccionada3.getItems().get(0).setBonoFuerza(caracteristica.getBonoCaracteristica());
+			tableviewArmaSeleccionada4.getItems().get(0).setBonoFuerza(caracteristica.getBonoCaracteristica());
 			
 		} else if (tableViewCaracteristicas.getSelectionModel().getSelectedItem().getNombreCaracteristica().equals("DES")) {
 			caracteristica.setTotalCaracteristica(String.valueOf(Integer.parseInt(caracteristica.getBaseCaracteristica())+Integer.parseInt(caracteristica.getTempCaracteristica())+Integer.parseInt(razaSeleccionada.getBonoDestreza())));
@@ -1311,105 +1499,208 @@ public class PersonajeController {
 			tableViewPsiquicas.getItems().get(1).setBonoHabilidad(caracteristica.getBonoCaracteristica());
 			
 			tableViewSecundarias.getItems().get(31).setBonoHabilidad(caracteristica.getBonoCaracteristica());
+			tableViewSecundarias.getItems().get(31).setBonoNatural(tableViewSecundarias.getItems().get(31).getBonoNatural());
+			tableViewSecundarias.getItems().get(31).setHabilidadNatural(tableViewSecundarias.getItems().get(31).getHabilidadNatural());
+			tableViewSecundarias.getItems().get(31).setBonoNovel(tableViewSecundarias.getItems().get(31).getBonoNovel());
 			tableViewResumenSubterfugio.getItems().get(0).setTotalHabilidad(tableViewSecundarias.getItems().get(31).getTotalHabilidad());
 			
 			tableViewSecundarias.getItems().get(32).setBonoHabilidad(caracteristica.getBonoCaracteristica());
+			tableViewSecundarias.getItems().get(32).setBonoNatural(tableViewSecundarias.getItems().get(32).getBonoNatural());
+			tableViewSecundarias.getItems().get(32).setHabilidadNatural(tableViewSecundarias.getItems().get(32).getHabilidadNatural());
+			tableViewSecundarias.getItems().get(32).setBonoNovel(tableViewSecundarias.getItems().get(32).getBonoNovel());
 			tableViewResumenSubterfugio.getItems().get(1).setTotalHabilidad(tableViewSecundarias.getItems().get(32).getTotalHabilidad());
 
 			tableViewSecundarias.getItems().get(34).setBonoHabilidad(caracteristica.getBonoCaracteristica());
+			tableViewSecundarias.getItems().get(34).setBonoNatural(tableViewSecundarias.getItems().get(34).getBonoNatural());
+			tableViewSecundarias.getItems().get(34).setHabilidadNatural(tableViewSecundarias.getItems().get(34).getHabilidadNatural());
+			tableViewSecundarias.getItems().get(34).setBonoNovel(tableViewSecundarias.getItems().get(34).getBonoNovel());
 			tableViewResumenSubterfugio.getItems().get(3).setTotalHabilidad(tableViewSecundarias.getItems().get(34).getTotalHabilidad());
 
 			tableViewSecundarias.getItems().get(36).setBonoHabilidad(caracteristica.getBonoCaracteristica());
+			tableViewSecundarias.getItems().get(36).setBonoNatural(tableViewSecundarias.getItems().get(36).getBonoNatural());
+			tableViewSecundarias.getItems().get(36).setHabilidadNatural(tableViewSecundarias.getItems().get(36).getHabilidadNatural());
+			tableViewSecundarias.getItems().get(36).setBonoNovel(tableViewSecundarias.getItems().get(36).getBonoNovel());
 			tableViewResumenSubterfugio.getItems().get(5).setTotalHabilidad(tableViewSecundarias.getItems().get(36).getTotalHabilidad());
 
 			tableViewSecundarias.getItems().get(40).setBonoHabilidad(caracteristica.getBonoCaracteristica());
+			tableViewSecundarias.getItems().get(40).setBonoNatural(tableViewSecundarias.getItems().get(40).getBonoNatural());
+			tableViewSecundarias.getItems().get(40).setHabilidadNatural(tableViewSecundarias.getItems().get(40).getHabilidadNatural());
+			tableViewSecundarias.getItems().get(40).setBonoNovel(tableViewSecundarias.getItems().get(40).getBonoNovel());
 			tableViewResumenCreativas.getItems().get(2).setTotalHabilidad(tableViewSecundarias.getItems().get(40).getTotalHabilidad());
 
 			tableViewSecundarias.getItems().get(41).setBonoHabilidad(caracteristica.getBonoCaracteristica());
+			tableViewSecundarias.getItems().get(41).setBonoNatural(tableViewSecundarias.getItems().get(41).getBonoNatural());
+			tableViewSecundarias.getItems().get(41).setHabilidadNatural(tableViewSecundarias.getItems().get(41).getHabilidadNatural());
+			tableViewSecundarias.getItems().get(41).setBonoNovel(tableViewSecundarias.getItems().get(41).getBonoNovel());
 			tableViewResumenCreativas.getItems().get(3).setTotalHabilidad(tableViewSecundarias.getItems().get(41).getTotalHabilidad());
 
 			tableViewSecundarias.getItems().get(45).setBonoHabilidad(caracteristica.getBonoCaracteristica());
+			tableViewSecundarias.getItems().get(45).setBonoNatural(tableViewSecundarias.getItems().get(45).getBonoNatural());
+			tableViewSecundarias.getItems().get(45).setHabilidadNatural(tableViewSecundarias.getItems().get(45).getHabilidadNatural());
+			tableViewSecundarias.getItems().get(45).setBonoNovel(tableViewSecundarias.getItems().get(45).getBonoNovel());
 			tableViewResumenCreativas.getItems().get(7).setTotalHabilidad(tableViewSecundarias.getItems().get(45).getTotalHabilidad());
 
 			tableViewSecundarias.getItems().get(46).setBonoHabilidad(caracteristica.getBonoCaracteristica());
+			tableViewSecundarias.getItems().get(46).setBonoNatural(tableViewSecundarias.getItems().get(46).getBonoNatural());
+			tableViewSecundarias.getItems().get(46).setHabilidadNatural(tableViewSecundarias.getItems().get(46).getHabilidadNatural());
+			tableViewSecundarias.getItems().get(46).setBonoNovel(tableViewSecundarias.getItems().get(46).getBonoNovel());
 			tableViewResumenCreativas.getItems().get(8).setTotalHabilidad(tableViewSecundarias.getItems().get(46).getTotalHabilidad());
 
 			tableViewSecundarias.getItems().get(47).setBonoHabilidad(caracteristica.getBonoCaracteristica());
+			tableViewSecundarias.getItems().get(47).setBonoNatural(tableViewSecundarias.getItems().get(47).getBonoNatural());
+			tableViewSecundarias.getItems().get(47).setHabilidadNatural(tableViewSecundarias.getItems().get(47).getHabilidadNatural());
+			tableViewSecundarias.getItems().get(47).setBonoNovel(tableViewSecundarias.getItems().get(47).getBonoNovel());
 			tableViewResumenCreativas.getItems().get(9).setTotalHabilidad(tableViewSecundarias.getItems().get(47).getTotalHabilidad());
 
 			tableViewSecundarias.getItems().get(48).setBonoHabilidad(caracteristica.getBonoCaracteristica());
+			tableViewSecundarias.getItems().get(48).setBonoNatural(tableViewSecundarias.getItems().get(48).getBonoNatural());
+			tableViewSecundarias.getItems().get(48).setHabilidadNatural(tableViewSecundarias.getItems().get(48).getHabilidadNatural());
+			tableViewSecundarias.getItems().get(48).setBonoNovel(tableViewSecundarias.getItems().get(48).getBonoNovel());
 			tableViewResumenCreativas.getItems().get(10).setTotalHabilidad(tableViewSecundarias.getItems().get(48).getTotalHabilidad());
+			
+		
+			
+			tableviewArmaSeleccionada1.getItems().get(0).setAtaque(tableViewCombate.getItems().get(0).getTotalHabilidad());
+			tableviewArmaSeleccionada2.getItems().get(0).setAtaque(tableViewCombate.getItems().get(0).getTotalHabilidad());
+			tableviewArmaSeleccionada3.getItems().get(0).setAtaque(tableViewCombate.getItems().get(0).getTotalHabilidad());
+			tableviewArmaSeleccionada4.getItems().get(0).setAtaque(tableViewCombate.getItems().get(0).getTotalHabilidad());
 			
 		} else if (tableViewCaracteristicas.getSelectionModel().getSelectedItem().getNombreCaracteristica().equals("INT")) {
 			caracteristica.setTotalCaracteristica(String.valueOf(Integer.parseInt(caracteristica.getBaseCaracteristica())+Integer.parseInt(caracteristica.getTempCaracteristica())+Integer.parseInt(razaSeleccionada.getBonoInteligencia())));
 			caracteristica.setBonoCaracteristica(caracteristica.getTotalCaracteristica());
 			tableViewSecundarias.getItems().get(9).setBonoHabilidad(caracteristica.getBonoCaracteristica());
+			tableViewSecundarias.getItems().get(9).setBonoNatural(tableViewSecundarias.getItems().get(9).getBonoNatural());
+			tableViewSecundarias.getItems().get(9).setHabilidadNatural(tableViewSecundarias.getItems().get(9).getHabilidadNatural());
+			tableViewSecundarias.getItems().get(9).setBonoNovel(tableViewSecundarias.getItems().get(9).getBonoNovel());
 			tableViewResumenSociales.getItems().get(3).setTotalHabilidad(tableViewSecundarias.getItems().get(9).getTotalHabilidad());
 			
 			tableViewSecundarias.getItems().get(10).setBonoHabilidad(caracteristica.getBonoCaracteristica());
+			tableViewSecundarias.getItems().get(10).setBonoNatural(tableViewSecundarias.getItems().get(10).getBonoNatural());
+			tableViewSecundarias.getItems().get(10).setHabilidadNatural(tableViewSecundarias.getItems().get(10).getHabilidadNatural());
+			tableViewSecundarias.getItems().get(10).setBonoNovel(tableViewSecundarias.getItems().get(10).getBonoNovel());
 			tableViewResumenSociales.getItems().get(4).setTotalHabilidad(tableViewSecundarias.getItems().get(10).getTotalHabilidad());
 			
 			tableViewSecundarias.getItems().get(11).setBonoHabilidad(caracteristica.getBonoCaracteristica());
+			tableViewSecundarias.getItems().get(11).setBonoNatural(tableViewSecundarias.getItems().get(11).getBonoNatural());
+			tableViewSecundarias.getItems().get(11).setHabilidadNatural(tableViewSecundarias.getItems().get(11).getHabilidadNatural());
+			tableViewSecundarias.getItems().get(11).setBonoNovel(tableViewSecundarias.getItems().get(11).getBonoNovel());
 			tableViewResumenSociales.getItems().get(5).setTotalHabilidad(tableViewSecundarias.getItems().get(11).getTotalHabilidad());
 			
 			tableViewSecundarias.getItems().get(12).setBonoHabilidad(caracteristica.getBonoCaracteristica());
+			tableViewSecundarias.getItems().get(12).setBonoNatural(tableViewSecundarias.getItems().get(12).getBonoNatural());
+			tableViewSecundarias.getItems().get(12).setHabilidadNatural(tableViewSecundarias.getItems().get(12).getHabilidadNatural());
+			tableViewSecundarias.getItems().get(12).setBonoNovel(tableViewSecundarias.getItems().get(12).getBonoNovel());
 			tableViewResumenSociales.getItems().get(6).setTotalHabilidad(tableViewSecundarias.getItems().get(12).getTotalHabilidad());
 			
 			tableViewSecundarias.getItems().get(16).setBonoHabilidad(caracteristica.getBonoCaracteristica());
+			tableViewSecundarias.getItems().get(16).setBonoNatural(tableViewSecundarias.getItems().get(16).getBonoNatural());
+			tableViewSecundarias.getItems().get(16).setHabilidadNatural(tableViewSecundarias.getItems().get(16).getHabilidadNatural());
+			tableViewSecundarias.getItems().get(16).setBonoNovel(tableViewSecundarias.getItems().get(16).getBonoNovel());
 			tableViewResumenIntelectuales.getItems().get(0).setTotalHabilidad(tableViewSecundarias.getItems().get(16).getTotalHabilidad());
 			
 			tableViewSecundarias.getItems().get(17).setBonoHabilidad(caracteristica.getBonoCaracteristica());
+			tableViewSecundarias.getItems().get(17).setBonoNatural(tableViewSecundarias.getItems().get(17).getBonoNatural());
+			tableViewSecundarias.getItems().get(17).setHabilidadNatural(tableViewSecundarias.getItems().get(17).getHabilidadNatural());
+			tableViewSecundarias.getItems().get(17).setBonoNovel(tableViewSecundarias.getItems().get(17).getBonoNovel());
 			tableViewResumenIntelectuales.getItems().get(1).setTotalHabilidad(tableViewSecundarias.getItems().get(17).getTotalHabilidad());
 			
 			tableViewSecundarias.getItems().get(18).setBonoHabilidad(caracteristica.getBonoCaracteristica());
+			tableViewSecundarias.getItems().get(18).setBonoNatural(tableViewSecundarias.getItems().get(18).getBonoNatural());
+			tableViewSecundarias.getItems().get(18).setHabilidadNatural(tableViewSecundarias.getItems().get(18).getHabilidadNatural());
+			tableViewSecundarias.getItems().get(18).setBonoNovel(tableViewSecundarias.getItems().get(18).getBonoNovel());
 			tableViewResumenIntelectuales.getItems().get(2).setTotalHabilidad(tableViewSecundarias.getItems().get(18).getTotalHabilidad());
 			
 			tableViewSecundarias.getItems().get(19).setBonoHabilidad(caracteristica.getBonoCaracteristica());
+			tableViewSecundarias.getItems().get(19).setBonoNatural(tableViewSecundarias.getItems().get(19).getBonoNatural());
+			tableViewSecundarias.getItems().get(19).setHabilidadNatural(tableViewSecundarias.getItems().get(19).getHabilidadNatural());
+			tableViewSecundarias.getItems().get(19).setBonoNovel(tableViewSecundarias.getItems().get(19).getBonoNovel());
 			tableViewResumenIntelectuales.getItems().get(3).setTotalHabilidad(tableViewSecundarias.getItems().get(19).getTotalHabilidad());
 			
 			tableViewSecundarias.getItems().get(20).setBonoHabilidad(caracteristica.getBonoCaracteristica());
+			tableViewSecundarias.getItems().get(20).setBonoNatural(tableViewSecundarias.getItems().get(20).getBonoNatural());
+			tableViewSecundarias.getItems().get(20).setHabilidadNatural(tableViewSecundarias.getItems().get(20).getHabilidadNatural());
+			tableViewSecundarias.getItems().get(20).setBonoNovel(tableViewSecundarias.getItems().get(20).getBonoNovel());
 			tableViewResumenIntelectuales.getItems().get(4).setTotalHabilidad(tableViewSecundarias.getItems().get(20).getTotalHabilidad());
 			
 			tableViewSecundarias.getItems().get(21).setBonoHabilidad(caracteristica.getBonoCaracteristica());
+			tableViewSecundarias.getItems().get(21).setBonoNatural(tableViewSecundarias.getItems().get(21).getBonoNatural());
+			tableViewSecundarias.getItems().get(21).setHabilidadNatural(tableViewSecundarias.getItems().get(21).getHabilidadNatural());
+			tableViewSecundarias.getItems().get(21).setBonoNovel(tableViewSecundarias.getItems().get(21).getBonoNovel());
 			tableViewResumenIntelectuales.getItems().get(5).setTotalHabilidad(tableViewSecundarias.getItems().get(21).getTotalHabilidad());
 			
 			tableViewSecundarias.getItems().get(22).setBonoHabilidad(caracteristica.getBonoCaracteristica());
+			tableViewSecundarias.getItems().get(22).setBonoNatural(tableViewSecundarias.getItems().get(22).getBonoNatural());
+			tableViewSecundarias.getItems().get(22).setHabilidadNatural(tableViewSecundarias.getItems().get(22).getHabilidadNatural());
+			tableViewSecundarias.getItems().get(22).setBonoNovel(tableViewSecundarias.getItems().get(22).getBonoNovel());
 			tableViewResumenIntelectuales.getItems().get(6).setTotalHabilidad(tableViewSecundarias.getItems().get(22).getTotalHabilidad());
 			
 			tableViewSecundarias.getItems().get(23).setBonoHabilidad(caracteristica.getBonoCaracteristica());
+			tableViewSecundarias.getItems().get(23).setBonoNatural(tableViewSecundarias.getItems().get(23).getBonoNatural());
+			tableViewSecundarias.getItems().get(23).setHabilidadNatural(tableViewSecundarias.getItems().get(23).getHabilidadNatural());
+			tableViewSecundarias.getItems().get(23).setBonoNovel(tableViewSecundarias.getItems().get(23).getBonoNovel());
 			tableViewResumenIntelectuales.getItems().get(7).setTotalHabilidad(tableViewSecundarias.getItems().get(23).getTotalHabilidad());
 
 			tableViewSecundarias.getItems().get(24).setBonoHabilidad(caracteristica.getBonoCaracteristica());
+			tableViewSecundarias.getItems().get(24).setBonoNatural(tableViewSecundarias.getItems().get(24).getBonoNatural());
+			tableViewSecundarias.getItems().get(24).setHabilidadNatural(tableViewSecundarias.getItems().get(24).getHabilidadNatural());
+			tableViewSecundarias.getItems().get(24).setBonoNovel(tableViewSecundarias.getItems().get(24).getBonoNovel());
 			tableViewResumenIntelectuales.getItems().get(8).setTotalHabilidad(tableViewSecundarias.getItems().get(24).getTotalHabilidad());
 			
 			tableViewSecundarias.getItems().get(25).setBonoHabilidad(caracteristica.getBonoCaracteristica());
+			tableViewSecundarias.getItems().get(25).setBonoNatural(tableViewSecundarias.getItems().get(25).getBonoNatural());
+			tableViewSecundarias.getItems().get(25).setHabilidadNatural(tableViewSecundarias.getItems().get(25).getHabilidadNatural());
+			tableViewSecundarias.getItems().get(25).setBonoNovel(tableViewSecundarias.getItems().get(25).getBonoNovel());
 			tableViewResumenIntelectuales.getItems().get(9).setTotalHabilidad(tableViewSecundarias.getItems().get(25).getTotalHabilidad());
 			
 			tableViewSecundarias.getItems().get(26).setBonoHabilidad(caracteristica.getBonoCaracteristica());
+			tableViewSecundarias.getItems().get(26).setBonoNatural(tableViewSecundarias.getItems().get(26).getBonoNatural());
+			tableViewSecundarias.getItems().get(26).setHabilidadNatural(tableViewSecundarias.getItems().get(26).getHabilidadNatural());
+			tableViewSecundarias.getItems().get(26).setBonoNovel(tableViewSecundarias.getItems().get(26).getBonoNovel());
 			tableViewResumenIntelectuales.getItems().get(10).setTotalHabilidad(tableViewSecundarias.getItems().get(26).getTotalHabilidad());
 			
 			tableViewSecundarias.getItems().get(27).setBonoHabilidad(caracteristica.getBonoCaracteristica());
+			tableViewSecundarias.getItems().get(27).setBonoNatural(tableViewSecundarias.getItems().get(27).getBonoNatural());
+			tableViewSecundarias.getItems().get(27).setHabilidadNatural(tableViewSecundarias.getItems().get(27).getHabilidadNatural());
+			tableViewSecundarias.getItems().get(27).setBonoNovel(tableViewSecundarias.getItems().get(27).getBonoNovel());
 			tableViewResumenIntelectuales.getItems().get(7).setTotalHabilidad(tableViewSecundarias.getItems().get(27).getTotalHabilidad());
 
 			tableViewSecundarias.getItems().get(37).setBonoHabilidad(caracteristica.getBonoCaracteristica());
+			tableViewSecundarias.getItems().get(37).setBonoNatural(tableViewSecundarias.getItems().get(37).getBonoNatural());
+			tableViewSecundarias.getItems().get(37).setHabilidadNatural(tableViewSecundarias.getItems().get(37).getHabilidadNatural());
+			tableViewSecundarias.getItems().get(37).setBonoNovel(tableViewSecundarias.getItems().get(37).getBonoNovel());
 			tableViewResumenSubterfugio.getItems().get(6).setTotalHabilidad(tableViewSecundarias.getItems().get(37).getTotalHabilidad());
 
 			tableViewSecundarias.getItems().get(42).setBonoHabilidad(caracteristica.getBonoCaracteristica());
+			tableViewSecundarias.getItems().get(42).setBonoNatural(tableViewSecundarias.getItems().get(42).getBonoNatural());
+			tableViewSecundarias.getItems().get(42).setHabilidadNatural(tableViewSecundarias.getItems().get(42).getHabilidadNatural());
+			tableViewSecundarias.getItems().get(42).setBonoNovel(tableViewSecundarias.getItems().get(42).getBonoNovel());
 			tableViewResumenCreativas.getItems().get(4).setTotalHabilidad(tableViewSecundarias.getItems().get(42).getTotalHabilidad());
 			
 		} else if (tableViewCaracteristicas.getSelectionModel().getSelectedItem().getNombreCaracteristica().equals("PER")) {
 			caracteristica.setTotalCaracteristica(String.valueOf(Integer.parseInt(caracteristica.getBaseCaracteristica())+Integer.parseInt(caracteristica.getTempCaracteristica())+Integer.parseInt(razaSeleccionada.getBonoPercepcion())));
 			caracteristica.setBonoCaracteristica(caracteristica.getTotalCaracteristica());
 			tableViewSecundarias.getItems().get(13).setBonoHabilidad(caracteristica.getBonoCaracteristica());
+			tableViewSecundarias.getItems().get(13).setBonoNatural(tableViewSecundarias.getItems().get(13).getBonoNatural());
+			tableViewSecundarias.getItems().get(13).setHabilidadNatural(tableViewSecundarias.getItems().get(13).getHabilidadNatural());
+			tableViewSecundarias.getItems().get(13).setBonoNovel(tableViewSecundarias.getItems().get(13).getBonoNovel());
 			tableViewResumenPerceptivas.getItems().get(0).setTotalHabilidad(tableViewSecundarias.getItems().get(13).getTotalHabilidad());
 			
 			tableViewSecundarias.getItems().get(14).setBonoHabilidad(caracteristica.getBonoCaracteristica());
+			tableViewSecundarias.getItems().get(14).setBonoNatural(tableViewSecundarias.getItems().get(14).getBonoNatural());
+			tableViewSecundarias.getItems().get(14).setHabilidadNatural(tableViewSecundarias.getItems().get(14).getHabilidadNatural());
+			tableViewSecundarias.getItems().get(14).setBonoNovel(tableViewSecundarias.getItems().get(14).getBonoNovel());
 			tableViewResumenPerceptivas.getItems().get(1).setTotalHabilidad(tableViewSecundarias.getItems().get(14).getTotalHabilidad());
 			
 			tableViewSecundarias.getItems().get(15).setBonoHabilidad(caracteristica.getBonoCaracteristica());
+			tableViewSecundarias.getItems().get(15).setBonoNatural(tableViewSecundarias.getItems().get(15).getBonoNatural());
+			tableViewSecundarias.getItems().get(15).setHabilidadNatural(tableViewSecundarias.getItems().get(15).getHabilidadNatural());
+			tableViewSecundarias.getItems().get(15).setBonoNovel(tableViewSecundarias.getItems().get(15).getBonoNovel());
 			tableViewResumenPerceptivas.getItems().get(2).setTotalHabilidad(tableViewSecundarias.getItems().get(15).getTotalHabilidad());
 			
 			tableViewSecundarias.getItems().get(33).setBonoHabilidad(caracteristica.getBonoCaracteristica());
+			tableViewSecundarias.getItems().get(33).setBonoNatural(tableViewSecundarias.getItems().get(33).getBonoNatural());
+			tableViewSecundarias.getItems().get(33).setHabilidadNatural(tableViewSecundarias.getItems().get(33).getHabilidadNatural());
+			tableViewSecundarias.getItems().get(33).setBonoNovel(tableViewSecundarias.getItems().get(33).getBonoNovel());
 			tableViewResumenSubterfugio.getItems().get(2).setTotalHabilidad(tableViewSecundarias.getItems().get(33).getTotalHabilidad());
 			
 		} else if (tableViewCaracteristicas.getSelectionModel().getSelectedItem().getNombreCaracteristica().equals("POD")) {
@@ -1432,21 +1723,39 @@ public class PersonajeController {
 				
 			}
 			tableViewSecundarias.getItems().get(6).setBonoHabilidad(caracteristica.getBonoCaracteristica());
+			tableViewSecundarias.getItems().get(6).setBonoNatural(tableViewSecundarias.getItems().get(6).getBonoNatural());
+			tableViewSecundarias.getItems().get(6).setHabilidadNatural(tableViewSecundarias.getItems().get(6).getHabilidadNatural());
+			tableViewSecundarias.getItems().get(6).setBonoNovel(tableViewSecundarias.getItems().get(6).getBonoNovel());
 			tableViewResumenSociales.getItems().get(0).setTotalHabilidad(tableViewSecundarias.getItems().get(6).getTotalHabilidad());
 			
 			tableViewSecundarias.getItems().get(8).setBonoHabilidad(caracteristica.getBonoCaracteristica());
+			tableViewSecundarias.getItems().get(8).setBonoNatural(tableViewSecundarias.getItems().get(8).getBonoNatural());
+			tableViewSecundarias.getItems().get(8).setHabilidadNatural(tableViewSecundarias.getItems().get(8).getHabilidadNatural());
+			tableViewSecundarias.getItems().get(8).setBonoNovel(tableViewSecundarias.getItems().get(8).getBonoNovel());
 			tableViewResumenSociales.getItems().get(2).setTotalHabilidad(tableViewSecundarias.getItems().get(8).getTotalHabilidad());
 			
 			tableViewSecundarias.getItems().get(27).setBonoHabilidad(caracteristica.getBonoCaracteristica());
+			tableViewSecundarias.getItems().get(27).setBonoNatural(tableViewSecundarias.getItems().get(27).getBonoNatural());
+			tableViewSecundarias.getItems().get(27).setHabilidadNatural(tableViewSecundarias.getItems().get(27).getHabilidadNatural());
+			tableViewSecundarias.getItems().get(27).setBonoNovel(tableViewSecundarias.getItems().get(27).getBonoNovel());
 			tableViewResumenIntelectuales.getItems().get(11).setTotalHabilidad(tableViewSecundarias.getItems().get(27).getTotalHabilidad());
 			
 			tableViewSecundarias.getItems().get(38).setBonoHabilidad(caracteristica.getBonoCaracteristica());
+			tableViewSecundarias.getItems().get(38).setBonoNatural(tableViewSecundarias.getItems().get(38).getBonoNatural());
+			tableViewSecundarias.getItems().get(38).setHabilidadNatural(tableViewSecundarias.getItems().get(38).getHabilidadNatural());
+			tableViewSecundarias.getItems().get(38).setBonoNovel(tableViewSecundarias.getItems().get(38).getBonoNovel());
 			tableViewResumenCreativas.getItems().get(0).setTotalHabilidad(tableViewSecundarias.getItems().get(38).getTotalHabilidad());
 			
 			tableViewSecundarias.getItems().get(43).setBonoHabilidad(caracteristica.getBonoCaracteristica());
+			tableViewSecundarias.getItems().get(43).setBonoNatural(tableViewSecundarias.getItems().get(43).getBonoNatural());
+			tableViewSecundarias.getItems().get(43).setHabilidadNatural(tableViewSecundarias.getItems().get(43).getHabilidadNatural());
+			tableViewSecundarias.getItems().get(43).setBonoNovel(tableViewSecundarias.getItems().get(43).getBonoNovel());
 			tableViewResumenCreativas.getItems().get(5).setTotalHabilidad(tableViewSecundarias.getItems().get(43).getTotalHabilidad());
 			
 			tableViewSecundarias.getItems().get(44).setBonoHabilidad(caracteristica.getBonoCaracteristica());
+			tableViewSecundarias.getItems().get(44).setBonoNatural(tableViewSecundarias.getItems().get(44).getBonoNatural());
+			tableViewSecundarias.getItems().get(44).setHabilidadNatural(tableViewSecundarias.getItems().get(44).getHabilidadNatural());
+			tableViewSecundarias.getItems().get(44).setBonoNovel(tableViewSecundarias.getItems().get(44).getBonoNovel());
 			tableViewResumenCreativas.getItems().get(6).setTotalHabilidad(tableViewSecundarias.getItems().get(44).getTotalHabilidad());
 			
 			tableViewMisticas.getItems().get(0).setBonoHabilidad(caracteristica.getBonoCaracteristica());
@@ -1477,12 +1786,21 @@ public class PersonajeController {
 			tableViewMisticas.getItems().get(6).setBonoHabilidad(caracteristica.getBonoCaracteristica());
 			
 			tableViewSecundarias.getItems().get(7).setBonoHabilidad(caracteristica.getBonoCaracteristica());
+			tableViewSecundarias.getItems().get(7).setBonoNatural(tableViewSecundarias.getItems().get(7).getBonoNatural());
+			tableViewSecundarias.getItems().get(7).setHabilidadNatural(tableViewSecundarias.getItems().get(7).getHabilidadNatural());
+			tableViewSecundarias.getItems().get(7).setBonoNovel(tableViewSecundarias.getItems().get(7).getBonoNovel());
 			tableViewResumenSociales.getItems().get(1).setTotalHabilidad(tableViewSecundarias.getItems().get(7).getTotalHabilidad());
 			
 			tableViewSecundarias.getItems().get(28).setBonoHabilidad(caracteristica.getBonoCaracteristica());
+			tableViewSecundarias.getItems().get(28).setBonoNatural(tableViewSecundarias.getItems().get(28).getBonoNatural());
+			tableViewSecundarias.getItems().get(28).setHabilidadNatural(tableViewSecundarias.getItems().get(28).getHabilidadNatural());
+			tableViewSecundarias.getItems().get(28).setBonoNovel(tableViewSecundarias.getItems().get(28).getBonoNovel());
 			tableViewResumenVigor.getItems().get(0).setTotalHabilidad(tableViewSecundarias.getItems().get(28).getTotalHabilidad());
 
 			tableViewSecundarias.getItems().get(30).setBonoHabilidad(caracteristica.getBonoCaracteristica());
+			tableViewSecundarias.getItems().get(30).setBonoNatural(tableViewSecundarias.getItems().get(30).getBonoNatural());
+			tableViewSecundarias.getItems().get(30).setHabilidadNatural(tableViewSecundarias.getItems().get(30).getHabilidadNatural());
+			tableViewSecundarias.getItems().get(30).setBonoNovel(tableViewSecundarias.getItems().get(30).getBonoNovel());
 			tableViewResumenVigor.getItems().get(2).setTotalHabilidad(tableViewSecundarias.getItems().get(30).getTotalHabilidad());
 			
 		}
@@ -1499,6 +1817,74 @@ public class PersonajeController {
 		tableViewResumenVigor.refresh();
 		tableViewResumenSubterfugio.refresh();
 		tableViewResumenCreativas.refresh();
+		tableviewArmaSeleccionada1.refresh();
+		tableviewArmaSeleccionada2.refresh();
+		tableviewArmaSeleccionada3.refresh();
+		tableviewArmaSeleccionada4.refresh();
+	}
+	
+	
+	public void cambiarPdsCombate(PdsCombate pds) {
+		if (tableViewCombate.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("H.Ataque")) {
+			tHabilidadAtaque.setText(pds.getTotalHabilidad());
+			
+			tableviewArmaSeleccionada1.getItems().get(0).setAtaque(pds.getTotalHabilidad());
+			tableviewArmaSeleccionada2.getItems().get(0).setAtaque(pds.getTotalHabilidad());
+			tableviewArmaSeleccionada3.getItems().get(0).setAtaque(pds.getTotalHabilidad());
+			tableviewArmaSeleccionada4.getItems().get(0).setAtaque(pds.getTotalHabilidad());
+		} else if (tableViewCombate.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("H.Parada")) {
+			if (Integer.parseInt(pds.getTotalHabilidad())>Integer.parseInt(tableViewCombate.getItems().get(1).getTotalHabilidad())) {
+				tHabilidadDefensa.setText(pds.getTotalHabilidad());
+			} else {
+				tHabilidadDefensa.setText(tableViewCombate.getItems().get(1).getTotalHabilidad());
+			}
+			
+		} else if (tableViewCombate.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("H.Esquiva")) {
+			if (Integer.parseInt(pds.getTotalHabilidad())>Integer.parseInt(tableViewCombate.getItems().get(1).getTotalHabilidad())) {
+				tHabilidadDefensa.setText(pds.getTotalHabilidad());
+			} else {
+				tHabilidadDefensa.setText(tableViewCombate.getItems().get(1).getTotalHabilidad());
+			}
+			
+		} else if (tableViewCombate.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("Llevar Armadura")) {
+			tLlevarArmadura.setText(pds.getTotalHabilidad());
+		}
+		
+		tableViewCombate.refresh();
+		tableviewArmaSeleccionada1.refresh();
+		tableviewArmaSeleccionada2.refresh();
+		tableviewArmaSeleccionada3.refresh();
+		tableviewArmaSeleccionada4.refresh();
+	}
+	
+	public void cambiarArmaSeleccionada(ActionEvent ev) {
+		String nombreArmaSeleccioanda = (String) ((ComboBox<?>)ev.getSource()).getSelectionModel().getSelectedItem();
+		if (((ComboBox<?>)ev.getSource()).getId().equals("cBoxNombreArma1")) {
+			tableviewArmaSeleccionada1.getItems().get(0).setArmaSeleccionada(ch.obtenerArma(sessionFactory, nombreArmaSeleccioanda), 
+					tableViewCombate.getItems().get(0).getTotalHabilidad(), 
+					tableViewCaracteristicas.getItems().get(3).getBonoCaracteristica());
+			tTipoArma1.setText(tableviewArmaSeleccionada1.getItems().get(0).getTipoArma());
+			tableviewArmaSeleccionada1.refresh();
+		} else if (((ComboBox<?>)ev.getSource()).getId().equals("cBoxNombreArma2")) {
+			tableviewArmaSeleccionada2.getItems().get(0).setArmaSeleccionada(ch.obtenerArma(sessionFactory, nombreArmaSeleccioanda), 
+					tableViewCombate.getItems().get(0).getTotalHabilidad(), 
+					tableViewCaracteristicas.getItems().get(3).getBonoCaracteristica());
+			tTipoArma2.setText(tableviewArmaSeleccionada2.getItems().get(0).getTipoArma());
+			tableviewArmaSeleccionada2.refresh();
+		} else if (((ComboBox<?>)ev.getSource()).getId().equals("cBoxNombreArma3")) {
+			tableviewArmaSeleccionada3.getItems().get(0).setArmaSeleccionada(ch.obtenerArma(sessionFactory, nombreArmaSeleccioanda), 
+					tableViewCombate.getItems().get(0).getTotalHabilidad(), 
+					tableViewCaracteristicas.getItems().get(3).getBonoCaracteristica());
+			tTipoArma3.setText(tableviewArmaSeleccionada3.getItems().get(0).getTipoArma());
+			tableviewArmaSeleccionada3.refresh();
+		} else if (((ComboBox<?>)ev.getSource()).getId().equals("cBoxNombreArma4")) {
+			tableviewArmaSeleccionada4.getItems().get(0).setArmaSeleccionada(ch.obtenerArma(sessionFactory, nombreArmaSeleccioanda), 
+					tableViewCombate.getItems().get(0).getTotalHabilidad(), 
+					tableViewCaracteristicas.getItems().get(3).getBonoCaracteristica());
+			tTipoArma4.setText(tableviewArmaSeleccionada4.getItems().get(0).getTipoArma());
+			tableviewArmaSeleccionada4.refresh();
+		}
+		
 	}
 	
 	public void obtenerTotalHabilidades(PdsHabilidadesSecundarias pds) {
@@ -1631,6 +2017,12 @@ public class PersonajeController {
 		tBonosNaturales.setText(nivelClase.getBonoNatural());
 		tBonosNovel.setText(nivelClase.getBonoNovel());
 		tPdsRestantes.setText(nivelClase.getPds());
+		
+		for (int i = 0; i < tableViewResistencias.getItems().size(); i++) {
+			tableViewResistencias.getItems().get(i).setNivel(tNivelTotal.getText());
+		}
+		tableViewResistencias.refresh();
+		
 	}
 	
 	public void cambiarValorCansancio(KeyEvent ev){
@@ -1703,8 +2095,37 @@ public class PersonajeController {
 			}
 	}
 	
-	public void cambiarValorTurnoEspecial(KeyEvent ev){
+	public void valorTextFieldTurnoTotal() {
+		if (tableViewCaracteristicas.getItems().get(0).getBonoCaracteristica()=="-") {
+			tTurnoAgilidad.setText("0");
+		} else {
+			tTurnoAgilidad.setText(tableViewCaracteristicas.getItems().get(0).getBonoCaracteristica());
+		}
 		
+		if (tableViewCaracteristicas.getItems().get(3).getBonoCaracteristica()=="-") {
+			tTurnoDestreza.setText("0");
+		} else {
+			tTurnoDestreza.setText(tableViewCaracteristicas.getItems().get(3).getBonoCaracteristica());
+		}
+		
+		if (tTurnoArmadura.getText().isEmpty()||tTurnoArmadura.getText().equals(null)||null==tTurnoArmadura.getText()||tTurnoArmadura.getText()=="") {
+			tTurnoArmadura.setText("0");
+		} else {
+			
+		}
+		
+		if (tTurnoEspecial.getText().isEmpty()||tTurnoEspecial.getText().equals(null)||null==tTurnoEspecial.getText()||tTurnoEspecial.getText()=="") {
+			tTurnoEspecial.setText("0");
+		} else {
+			
+		}
+		tTurnoCategoria.setText(String.valueOf(categoriaSeleccionada.getTurno()));
+		tTurnoTotal.setText(String.valueOf(Integer.parseInt(tTurnoBase.getText())+Integer.parseInt(tTurnoAgilidad.getText())+Integer.parseInt(tTurnoDestreza.getText())+
+				Integer.parseInt(tTurnoCategoria.getText()) +Integer.parseInt(tTurnoArmadura.getText()) +Integer.parseInt(tTurnoDesarmado.getText()) +Integer.parseInt(tTurnoEspecial.getText())));
+		
+	}
+	
+	public void cambiarValorTurnoEspecial(KeyEvent ev){
 		if (obtenerTecla(ev)) {
 			if (tTurnoEspecial.getText().isEmpty()||tTurnoEspecial.getText().equals(null)||null==tTurnoEspecial.getText()||tTurnoEspecial.getText()==""
 					||tTurnoEspecial.getText()=="0") {
@@ -1719,6 +2140,21 @@ public class PersonajeController {
 						Integer.parseInt(tTurnoEspecial.getText())));
 				
 			}
+			tableviewArmaSeleccionada1.getItems().get(0).setTurno(String.valueOf(Integer.parseInt(tTurnoBase.getText())+Integer.parseInt(tTurnoAgilidad.getText())+
+					Integer.parseInt(tTurnoDestreza.getText())+Integer.parseInt(tTurnoCategoria.getText())+Integer.parseInt(tTurnoArmadura.getText())+
+					Integer.parseInt(tTurnoEspecial.getText())));
+			
+			tableviewArmaSeleccionada2.getItems().get(0).setTurno(String.valueOf(Integer.parseInt(tTurnoBase.getText())+Integer.parseInt(tTurnoAgilidad.getText())+
+					Integer.parseInt(tTurnoDestreza.getText())+Integer.parseInt(tTurnoCategoria.getText())+Integer.parseInt(tTurnoArmadura.getText())+
+					Integer.parseInt(tTurnoEspecial.getText())));
+			
+			tableviewArmaSeleccionada3.getItems().get(0).setTurno(String.valueOf(Integer.parseInt(tTurnoBase.getText())+Integer.parseInt(tTurnoAgilidad.getText())+
+					Integer.parseInt(tTurnoDestreza.getText())+Integer.parseInt(tTurnoCategoria.getText())+Integer.parseInt(tTurnoArmadura.getText())+
+					Integer.parseInt(tTurnoEspecial.getText())));
+			
+			tableviewArmaSeleccionada4.getItems().get(0).setTurno(String.valueOf(Integer.parseInt(tTurnoBase.getText())+Integer.parseInt(tTurnoAgilidad.getText())+
+					Integer.parseInt(tTurnoDestreza.getText())+Integer.parseInt(tTurnoCategoria.getText())+Integer.parseInt(tTurnoArmadura.getText())+
+					Integer.parseInt(tTurnoEspecial.getText())));
 				
 		} else {
 			Alert alerta = new Alert(Alert.AlertType.WARNING);
@@ -1727,9 +2163,14 @@ public class PersonajeController {
 			   alerta.setContentText("No se pueden escribir caracteres diferentes a un numero");
 			   alerta.showAndWait();
 		}
+		tableviewArmaSeleccionada1.refresh();
+		tableviewArmaSeleccionada2.refresh();
+		tableviewArmaSeleccionada3.refresh();
+		tableviewArmaSeleccionada4.refresh();
 	}
 	
 	public boolean obtenerTecla(KeyEvent ev) {
+
 		boolean teclaPulsada = false;
 		
 		if (ev.getCode() == KeyCode.DIGIT1||ev.getCode() == KeyCode.DIGIT2||ev.getCode() == KeyCode.DIGIT3||ev.getCode() == KeyCode.DIGIT4||

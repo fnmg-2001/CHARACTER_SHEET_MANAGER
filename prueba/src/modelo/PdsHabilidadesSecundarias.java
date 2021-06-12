@@ -1,4 +1,4 @@
-package application;
+package modelo;
 
 public class PdsHabilidadesSecundarias {
 	private String nombreHabilidad;
@@ -163,14 +163,6 @@ public class PdsHabilidadesSecundarias {
 
 	public void setBonoHabilidad(String bonoHabilidad) {
 		this.bonoHabilidad = bonoHabilidad;
-		
-		if (null!=this.pdsHabilidad && null!=this.costeHabilidad) {
-			this.baseHabilidad = String.valueOf((Integer.parseInt(pdsHabilidad)/Integer.parseInt(this.costeHabilidad)));
-			
-		} else {
-			this.baseHabilidad = "0";
-			
-		}
 		
 		if (null!=this.pdsHabilidad && null!=this.costeHabilidad) {
 			this.baseHabilidad = String.valueOf((Integer.parseInt(pdsHabilidad)/Integer.parseInt(this.costeHabilidad)));

@@ -1,11 +1,13 @@
 package modelo;
-// Generated 11 jun. 2021 0:33:09 by Hibernate Tools 5.2.12.Final
+// Generated 12 jun. 2021 20:12:54 by Hibernate Tools 5.2.12.Final
 
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -19,7 +21,8 @@ import javax.persistence.Table;
 @Table(name = "armadura", catalog = "anima_sheets_data")
 public class Armadura implements java.io.Serializable {
 
-	private int idArmadura;
+	private Integer idArmadura;
+	private String nombre;
 	private int requisitoNecesario;
 	private int restriccionMovimiento;
 	private int tipoArmaduraFilo;
@@ -31,15 +34,16 @@ public class Armadura implements java.io.Serializable {
 	private int tipoArmaduraEnergia;
 	private int entereza;
 	private int presencia;
+	private int penalizadorNatural;
 	private Set<Personaje> personajes = new HashSet<Personaje>(0);
 
 	public Armadura() {
 	}
 
-	public Armadura(int idArmadura, int requisitoNecesario, int restriccionMovimiento, int tipoArmaduraFilo,
+	public Armadura(String nombre, int requisitoNecesario, int restriccionMovimiento, int tipoArmaduraFilo,
 			int tipoArmaduraContundente, int tipoArmaduraPenetrante, int tipoArmaduraCalor, int tipoArmaduraElectrico,
-			int tipoArmaduraFrio, int tipoArmaduraEnergia, int entereza, int presencia) {
-		this.idArmadura = idArmadura;
+			int tipoArmaduraFrio, int tipoArmaduraEnergia, int entereza, int presencia, int penalizadorNatural) {
+		this.nombre = nombre;
 		this.requisitoNecesario = requisitoNecesario;
 		this.restriccionMovimiento = restriccionMovimiento;
 		this.tipoArmaduraFilo = tipoArmaduraFilo;
@@ -51,12 +55,14 @@ public class Armadura implements java.io.Serializable {
 		this.tipoArmaduraEnergia = tipoArmaduraEnergia;
 		this.entereza = entereza;
 		this.presencia = presencia;
+		this.penalizadorNatural = penalizadorNatural;
 	}
 
-	public Armadura(int idArmadura, int requisitoNecesario, int restriccionMovimiento, int tipoArmaduraFilo,
+	public Armadura(String nombre, int requisitoNecesario, int restriccionMovimiento, int tipoArmaduraFilo,
 			int tipoArmaduraContundente, int tipoArmaduraPenetrante, int tipoArmaduraCalor, int tipoArmaduraElectrico,
-			int tipoArmaduraFrio, int tipoArmaduraEnergia, int entereza, int presencia, Set<Personaje> personajes) {
-		this.idArmadura = idArmadura;
+			int tipoArmaduraFrio, int tipoArmaduraEnergia, int entereza, int presencia, int penalizadorNatural,
+			Set<Personaje> personajes) {
+		this.nombre = nombre;
 		this.requisitoNecesario = requisitoNecesario;
 		this.restriccionMovimiento = restriccionMovimiento;
 		this.tipoArmaduraFilo = tipoArmaduraFilo;
@@ -68,18 +74,29 @@ public class Armadura implements java.io.Serializable {
 		this.tipoArmaduraEnergia = tipoArmaduraEnergia;
 		this.entereza = entereza;
 		this.presencia = presencia;
+		this.penalizadorNatural = penalizadorNatural;
 		this.personajes = personajes;
 	}
 
 	@Id
+	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "ID_ARMADURA", unique = true, nullable = false)
-	public int getIdArmadura() {
+	public Integer getIdArmadura() {
 		return this.idArmadura;
 	}
 
-	public void setIdArmadura(int idArmadura) {
+	public void setIdArmadura(Integer idArmadura) {
 		this.idArmadura = idArmadura;
+	}
+
+	@Column(name = "NOMBRE", nullable = false, length = 50)
+	public String getNombre() {
+		return this.nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
 	@Column(name = "REQUISITO_NECESARIO", nullable = false)
@@ -179,6 +196,15 @@ public class Armadura implements java.io.Serializable {
 
 	public void setPresencia(int presencia) {
 		this.presencia = presencia;
+	}
+
+	@Column(name = "PENALIZADOR_NATURAL", nullable = false)
+	public int getPenalizadorNatural() {
+		return this.penalizadorNatural;
+	}
+
+	public void setPenalizadorNatural(int penalizadorNatural) {
+		this.penalizadorNatural = penalizadorNatural;
 	}
 
 	@ManyToMany(fetch = FetchType.LAZY)

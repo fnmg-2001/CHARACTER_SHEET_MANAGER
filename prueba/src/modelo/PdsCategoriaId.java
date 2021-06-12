@@ -1,5 +1,5 @@
 package modelo;
-// Generated 11 jun. 2021 0:33:09 by Hibernate Tools 5.2.12.Final
+// Generated 12 jun. 2021 20:12:54 by Hibernate Tools 5.2.12.Final
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
