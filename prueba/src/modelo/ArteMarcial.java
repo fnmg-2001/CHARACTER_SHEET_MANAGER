@@ -1,11 +1,13 @@
 package modelo;
-// Generated 12 jun. 2021 20:12:54 by Hibernate Tools 5.2.12.Final
+// Generated 13 jun. 2021 23:25:16 by Hibernate Tools 5.2.12.Final
 
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -19,7 +21,7 @@ import javax.persistence.Table;
 @Table(name = "arte_marcial", catalog = "anima_sheets_data")
 public class ArteMarcial implements java.io.Serializable {
 
-	private int idArteMarcial;
+	private Integer idArteMarcial;
 	private String nombre;
 	private String descripcion;
 	private int conocimientoMarcial;
@@ -32,9 +34,8 @@ public class ArteMarcial implements java.io.Serializable {
 	public ArteMarcial() {
 	}
 
-	public ArteMarcial(int idArteMarcial, String nombre, String descripcion, int conocimientoMarcial, int bonoAtaque,
-			int bonoEsquiva, int bonoParada, int bonoTurno) {
-		this.idArteMarcial = idArteMarcial;
+	public ArteMarcial(String nombre, String descripcion, int conocimientoMarcial, int bonoAtaque, int bonoEsquiva,
+			int bonoParada, int bonoTurno) {
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.conocimientoMarcial = conocimientoMarcial;
@@ -44,9 +45,8 @@ public class ArteMarcial implements java.io.Serializable {
 		this.bonoTurno = bonoTurno;
 	}
 
-	public ArteMarcial(int idArteMarcial, String nombre, String descripcion, int conocimientoMarcial, int bonoAtaque,
-			int bonoEsquiva, int bonoParada, int bonoTurno, Set<Personaje> personajes) {
-		this.idArteMarcial = idArteMarcial;
+	public ArteMarcial(String nombre, String descripcion, int conocimientoMarcial, int bonoAtaque, int bonoEsquiva,
+			int bonoParada, int bonoTurno, Set<Personaje> personajes) {
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.conocimientoMarcial = conocimientoMarcial;
@@ -58,13 +58,14 @@ public class ArteMarcial implements java.io.Serializable {
 	}
 
 	@Id
+	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "ID_ARTE_MARCIAL", unique = true, nullable = false)
-	public int getIdArteMarcial() {
+	public Integer getIdArteMarcial() {
 		return this.idArteMarcial;
 	}
 
-	public void setIdArteMarcial(int idArteMarcial) {
+	public void setIdArteMarcial(Integer idArteMarcial) {
 		this.idArteMarcial = idArteMarcial;
 	}
 
@@ -77,7 +78,7 @@ public class ArteMarcial implements java.io.Serializable {
 		this.nombre = nombre;
 	}
 
-	@Column(name = "DESCRIPCION", nullable = false, length = 250)
+	@Column(name = "DESCRIPCION", nullable = false, length = 65535)
 	public String getDescripcion() {
 		return this.descripcion;
 	}

@@ -38,13 +38,16 @@
         <mapping class="modelo.Ventaja"/>
         <mapping class="modelo.Categoria"/>
         <mapping class="modelo.PdsPrimariasMisticas"/>
+        <mapping class="modelo.TablaConjurosLibreAcceso"/>
         <mapping class="modelo.PdsSecundariasSubterfugio"/>
         <mapping class="modelo.ArteMarcial"/>
         <mapping class="modelo.PdsPrimariasPatronesPsiquicos"/>
         <mapping class="modelo.PdsSecundariasIntelectuales"/>
+        <mapping class="modelo.TablaTablaViasMagiaPersonaje"/>
         <mapping class="modelo.PdsPrimariasComunes"/>
         <mapping class="modelo.PdsSecundariasAtleticas"/>
         <mapping class="modelo.Idioma"/>
         <mapping class="modelo.Raza"/>
+        <mapping class="modelo.TablaViasMagia"/>
     </session-factory>
 </hibernate-configuration>

@@ -329,6 +329,108 @@ public class ConsultasHibernate {
 		return coste;
 	}
 	
+	public ObservableList<String> obtenerListaTablasEstilo(SessionFactory sessionFactory) {
+		Session session = null;
+		ObservableList<String> nombreListaTablasEstilos = FXCollections.observableArrayList();
+		try {
+			session = sessionFactory.getCurrentSession();
+			session.beginTransaction();
+			
+			Query query = session.createQuery("FROM TablaEstilo");
+			List<TablaEstilo> listaTablasEstilo = query.list();
+			String nombreTablaEstilo;
+			
+			for (TablaEstilo tablaEstilo : listaTablasEstilo) {
+				nombreTablaEstilo = tablaEstilo.getNombre();
+				nombreListaTablasEstilos.add(nombreTablaEstilo);
+			}
+			
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			throw e;
+		}
+		finally {
+			if (session != null) {
+				session.close();
+			}
+		}
+		return nombreListaTablasEstilos;
+	}
+	
+	public TablaEstilo obtenerTablasEstiloSeleccionada(SessionFactory sessionFactory, String nombreTablaEstilo) {
+		Session session = null;
+		TablaEstilo tablaEstilo;
+		try {
+			session = sessionFactory.getCurrentSession();
+			session.beginTransaction();
+			
+			Query query = session.createQuery("FROM TablaEstilo t WHERE t.nombre = :nombreTablaEstilo");
+			query.setParameter("nombreTablaEstilo", nombreTablaEstilo);
+			tablaEstilo = (TablaEstilo)query.getSingleResult();
+			
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			throw e;
+		}
+		finally {
+			if (session != null) {
+				session.close();
+			}
+		}
+		return tablaEstilo;
+	}
+	
+	public ObservableList<String> obtenerListaArtesMarciales(SessionFactory sessionFactory) {
+		Session session = null;
+		ObservableList<String> nombreListaArtesMarciales = FXCollections.observableArrayList();
+		try {
+			session = sessionFactory.getCurrentSession();
+			session.beginTransaction();
+			
+			Query query = session.createQuery("FROM ArteMarcial");
+			List<ArteMarcial> listaArtesMarciales = query.list();
+			String nombreArteMarcial;
+			
+			for (ArteMarcial arteMarcial : listaArtesMarciales) {
+				nombreArteMarcial = arteMarcial.getNombre();
+				nombreListaArtesMarciales.add(nombreArteMarcial);
+			}
+			
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			throw e;
+		}
+		finally {
+			if (session != null) {
+				session.close();
+			}
+		}
+		return nombreListaArtesMarciales;
+	}
+
+	public ArteMarcial obtenerArteMarcialSeleccionada(SessionFactory sessionFactory, String nombreArteMarcialSeleccionada) {
+		Session session = null;
+		ArteMarcial arteMarcial;
+		try {
+			session = sessionFactory.getCurrentSession();
+			session.beginTransaction();
+			
+			Query query = session.createQuery("FROM ArteMarcial at WHERE at.nombre = :nombreArteMarcialSeleccionada");
+			query.setParameter("nombreArteMarcialSeleccionada", nombreArteMarcialSeleccionada);
+			arteMarcial = (ArteMarcial)query.getSingleResult();
+			
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			throw e;
+		}
+		finally {
+			if (session != null) {
+				session.close();
+			}
+		}
+		return arteMarcial;
+	}
+	
 	public static void main(String[] args) {
 		ConsultasHibernate ch = new ConsultasHibernate();
 		SessionFactory sf = ch.obtenerSessionFactory();

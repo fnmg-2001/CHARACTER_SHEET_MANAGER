@@ -1,5 +1,5 @@
 package modelo;
-// Generated 12 jun. 2021 20:12:54 by Hibernate Tools 5.2.12.Final
+// Generated 13 jun. 2021 23:25:16 by Hibernate Tools 5.2.12.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -44,12 +44,15 @@ public class Personaje implements java.io.Serializable {
 	private Set<ArmaPersonaje> armaPersonajes = new HashSet<ArmaPersonaje>(0);
 	private Set<Desventaja> desventajas = new HashSet<Desventaja>(0);
 	private Set<TablaPsiquico> tablaPsiquicos = new HashSet<TablaPsiquico>(0);
+	private Set<TablaTablaViasMagiaPersonaje> tablaTablaViasMagiaPersonajes = new HashSet<TablaTablaViasMagiaPersonaje>(
+			0);
 	private Set<TablaMagia> tablaMagias = new HashSet<TablaMagia>(0);
 	private Set<ArteMarcial> arteMarcials = new HashSet<ArteMarcial>(0);
 	private Caracteristicas caracteristicas;
 	private Set<TablaArma> tablaArmas = new HashSet<TablaArma>(0);
 	private Set<TablaEstilo> tablaEstilos = new HashSet<TablaEstilo>(0);
 	private Set<TablaPatronMental> tablaPatronMentals = new HashSet<TablaPatronMental>(0);
+	private Set<TablaConjurosLibreAcceso> tablaConjurosLibreAccesos = new HashSet<TablaConjurosLibreAcceso>(0);
 	private Set<Idioma> idiomas = new HashSet<Idioma>(0);
 	private Set<Ventaja> ventajas = new HashSet<Ventaja>(0);
 
@@ -67,10 +70,11 @@ public class Personaje implements java.io.Serializable {
 			Integer apariencia, String descripcion, String particularidades, String objetivos, String historia,
 			Integer xp, String origen, String etnia, String imagen, Integer cansancioEspecial, Integer pvEspecial,
 			Integer turnoEspecial, Set<Armadura> armaduras, Lv lv, Set<ArmaPersonaje> armaPersonajes,
-			Set<Desventaja> desventajas, Set<TablaPsiquico> tablaPsiquicos, Set<TablaMagia> tablaMagias,
+			Set<Desventaja> desventajas, Set<TablaPsiquico> tablaPsiquicos,
+			Set<TablaTablaViasMagiaPersonaje> tablaTablaViasMagiaPersonajes, Set<TablaMagia> tablaMagias,
 			Set<ArteMarcial> arteMarcials, Caracteristicas caracteristicas, Set<TablaArma> tablaArmas,
-			Set<TablaEstilo> tablaEstilos, Set<TablaPatronMental> tablaPatronMentals, Set<Idioma> idiomas,
-			Set<Ventaja> ventajas) {
+			Set<TablaEstilo> tablaEstilos, Set<TablaPatronMental> tablaPatronMentals,
+			Set<TablaConjurosLibreAcceso> tablaConjurosLibreAccesos, Set<Idioma> idiomas, Set<Ventaja> ventajas) {
 		this.idPersonaje = idPersonaje;
 		this.jugador = jugador;
 		this.raza = raza;
@@ -94,12 +98,14 @@ public class Personaje implements java.io.Serializable {
 		this.armaPersonajes = armaPersonajes;
 		this.desventajas = desventajas;
 		this.tablaPsiquicos = tablaPsiquicos;
+		this.tablaTablaViasMagiaPersonajes = tablaTablaViasMagiaPersonajes;
 		this.tablaMagias = tablaMagias;
 		this.arteMarcials = arteMarcials;
 		this.caracteristicas = caracteristicas;
 		this.tablaArmas = tablaArmas;
 		this.tablaEstilos = tablaEstilos;
 		this.tablaPatronMentals = tablaPatronMentals;
+		this.tablaConjurosLibreAccesos = tablaConjurosLibreAccesos;
 		this.idiomas = idiomas;
 		this.ventajas = ventajas;
 	}
@@ -315,6 +321,15 @@ public class Personaje implements java.io.Serializable {
 		this.tablaPsiquicos = tablaPsiquicos;
 	}
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "personaje")
+	public Set<TablaTablaViasMagiaPersonaje> getTablaTablaViasMagiaPersonajes() {
+		return this.tablaTablaViasMagiaPersonajes;
+	}
+
+	public void setTablaTablaViasMagiaPersonajes(Set<TablaTablaViasMagiaPersonaje> tablaTablaViasMagiaPersonajes) {
+		this.tablaTablaViasMagiaPersonajes = tablaTablaViasMagiaPersonajes;
+	}
+
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "personajes")
 	public Set<TablaMagia> getTablaMagias() {
 		return this.tablaMagias;
@@ -367,6 +382,15 @@ public class Personaje implements java.io.Serializable {
 
 	public void setTablaPatronMentals(Set<TablaPatronMental> tablaPatronMentals) {
 		this.tablaPatronMentals = tablaPatronMentals;
+	}
+
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "personajes")
+	public Set<TablaConjurosLibreAcceso> getTablaConjurosLibreAccesos() {
+		return this.tablaConjurosLibreAccesos;
+	}
+
+	public void setTablaConjurosLibreAccesos(Set<TablaConjurosLibreAcceso> tablaConjurosLibreAccesos) {
+		this.tablaConjurosLibreAccesos = tablaConjurosLibreAccesos;
 	}
 
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "personajes")

@@ -32,6 +32,8 @@
   <table-filter match-catalog="anima_sheets_data" match-name="tabla_arma"/>
   <table-filter match-catalog="anima_sheets_data" match-name="tabla_arma_personaje"/>
   <table-filter match-catalog="anima_sheets_data" match-name="tabla_arte_marcial_personaje"/>
+  <table-filter match-catalog="anima_sheets_data" match-name="tabla_conjuros_libre_acceso"/>
+  <table-filter match-catalog="anima_sheets_data" match-name="tabla_conjuros_libre_acceso_personaje"/>
   <table-filter match-catalog="anima_sheets_data" match-name="tabla_desventaja_personaje"/>
   <table-filter match-catalog="anima_sheets_data" match-name="tabla_estilo"/>
   <table-filter match-catalog="anima_sheets_data" match-name="tabla_estilo_personaje"/>
@@ -42,7 +44,9 @@
   <table-filter match-catalog="anima_sheets_data" match-name="tabla_patron_mental_personaje"/>
   <table-filter match-catalog="anima_sheets_data" match-name="tabla_psiquico"/>
   <table-filter match-catalog="anima_sheets_data" match-name="tabla_psiquico_personaje"/>
+  <table-filter match-catalog="anima_sheets_data" match-name="tabla_tabla_vias_magia_personaje"/>
   <table-filter match-catalog="anima_sheets_data" match-name="tabla_ventaja_personaje"/>
+  <table-filter match-catalog="anima_sheets_data" match-name="tabla_vias_magia"/>
   <table-filter match-catalog="anima_sheets_data" match-name="tamano"/>
   <table-filter match-catalog="anima_sheets_data" match-name="ventaja"/>
 </hibernate-reverse-engineering>

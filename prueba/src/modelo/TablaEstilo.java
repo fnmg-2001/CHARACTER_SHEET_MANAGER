@@ -1,11 +1,13 @@
 package modelo;
-// Generated 12 jun. 2021 20:12:54 by Hibernate Tools 5.2.12.Final
+// Generated 13 jun. 2021 23:25:16 by Hibernate Tools 5.2.12.Final
 
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -19,7 +21,7 @@ import javax.persistence.Table;
 @Table(name = "tabla_estilo", catalog = "anima_sheets_data")
 public class TablaEstilo implements java.io.Serializable {
 
-	private int idTablaEstilo;
+	private Integer idTablaEstilo;
 	private String nombre;
 	private String descripcion;
 	private int coste;
@@ -28,15 +30,13 @@ public class TablaEstilo implements java.io.Serializable {
 	public TablaEstilo() {
 	}
 
-	public TablaEstilo(int idTablaEstilo, String nombre, String descripcion, int coste) {
-		this.idTablaEstilo = idTablaEstilo;
+	public TablaEstilo(String nombre, String descripcion, int coste) {
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.coste = coste;
 	}
 
-	public TablaEstilo(int idTablaEstilo, String nombre, String descripcion, int coste, Set<Personaje> personajes) {
-		this.idTablaEstilo = idTablaEstilo;
+	public TablaEstilo(String nombre, String descripcion, int coste, Set<Personaje> personajes) {
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.coste = coste;
@@ -44,13 +44,14 @@ public class TablaEstilo implements java.io.Serializable {
 	}
 
 	@Id
+	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "ID_TABLA_ESTILO", unique = true, nullable = false)
-	public int getIdTablaEstilo() {
+	public Integer getIdTablaEstilo() {
 		return this.idTablaEstilo;
 	}
 
-	public void setIdTablaEstilo(int idTablaEstilo) {
+	public void setIdTablaEstilo(Integer idTablaEstilo) {
 		this.idTablaEstilo = idTablaEstilo;
 	}
 
@@ -63,7 +64,7 @@ public class TablaEstilo implements java.io.Serializable {
 		this.nombre = nombre;
 	}
 
-	@Column(name = "DESCRIPCION", nullable = false, length = 250)
+	@Column(name = "DESCRIPCION", nullable = false, length = 65535)
 	public String getDescripcion() {
 		return this.descripcion;
 	}

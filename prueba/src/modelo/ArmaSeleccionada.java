@@ -13,6 +13,7 @@ public class ArmaSeleccionada {
 	private String turno;
 	private String ataque;
 	private String daño;
+	private String rasgo;
 	
 	public ArmaSeleccionada(Arma armaSeleccionada, String ataqueDesarrollado, String bonoFuerza, String turno) {
 		this.armaSeleccionada = armaSeleccionada;
@@ -21,25 +22,27 @@ public class ArmaSeleccionada {
 		this.critico2 = armaSeleccionada.getCritico2();
 		this.entereza = String.valueOf(armaSeleccionada.getEntereza());
 		this.rotura = String.valueOf(armaSeleccionada.getRotura());
-		this.turno = String.valueOf(Integer.parseInt(turno)+armaSeleccionada.getTurno());
+		this.turno = String.valueOf(armaSeleccionada.getTurno()+Integer.parseInt(turno));
 		this.ataque = ataqueDesarrollado;
 		this.daño = String.valueOf(armaSeleccionada.getDañoBase() + Integer.parseInt(bonoFuerza));
+		this.rasgo = armaSeleccionada.getRasgo();
 	}
 
 	public Arma getArmaSeleccionada() {
 		return armaSeleccionada;
 	}
 
-	public void setArmaSeleccionada(Arma armaSeleccionada, String ataqueDesarrollado, String bonoFuerza) {
+	public void setArmaSeleccionada(Arma armaSeleccionada, String ataqueDesarrollado, String bonoFuerza, String turno) {
 		this.armaSeleccionada = armaSeleccionada;
 		this.tipoArma = armaSeleccionada.getTipo();
 		this.critico1 = armaSeleccionada.getCritico1();
 		this.critico2 = armaSeleccionada.getCritico2();
 		this.entereza = String.valueOf(armaSeleccionada.getEntereza());
 		this.rotura = String.valueOf(armaSeleccionada.getRotura());
-		this.turno = String.valueOf(Integer.parseInt(turno)+armaSeleccionada.getTurno());
+		this.turno = String.valueOf(armaSeleccionada.getTurno()+Integer.parseInt(turno));
 		this.ataque = ataqueDesarrollado;
-		this.daño = String.valueOf(armaSeleccionada.getDañoBase() + Integer.parseInt(bonoFuerza));
+		this.daño = String.valueOf(armaSeleccionada.getDañoBase()+Integer.parseInt(bonoFuerza));
+		this.rasgo = armaSeleccionada.getRasgo();
 	}
 
 	public String getTipoArma() {
@@ -103,13 +106,12 @@ public class ArmaSeleccionada {
 	}
 
 	public void setTurno(String turno) {
-		this.turno = turno;
 		this.tipoArma = armaSeleccionada.getTipo();
 		this.critico1 = armaSeleccionada.getCritico1();
 		this.critico2 = armaSeleccionada.getCritico2();
 		this.entereza = String.valueOf(armaSeleccionada.getEntereza());
 		this.rotura = String.valueOf(armaSeleccionada.getRotura());
-		this.turno = String.valueOf(Integer.parseInt(turno)+this.armaSeleccionada.getTurno());
+		this.turno = String.valueOf(this.armaSeleccionada.getTurno()+Integer.parseInt(turno));
 	}
 
 	public String getAtaque() {
@@ -122,7 +124,6 @@ public class ArmaSeleccionada {
 		this.critico2 = armaSeleccionada.getCritico2();
 		this.entereza = String.valueOf(armaSeleccionada.getEntereza());
 		this.rotura = String.valueOf(armaSeleccionada.getRotura());
-		this.turno = String.valueOf(Integer.parseInt(turno)+armaSeleccionada.getTurno());
 		this.ataque = ataque;
 	}
 
@@ -139,8 +140,16 @@ public class ArmaSeleccionada {
 		this.critico2 = armaSeleccionada.getCritico2();
 		this.entereza = String.valueOf(armaSeleccionada.getEntereza());
 		this.rotura = String.valueOf(armaSeleccionada.getRotura());
-		this.turno = String.valueOf(Integer.parseInt(turno)+armaSeleccionada.getTurno());
 		this.daño = String.valueOf(armaSeleccionada.getDañoBase() + Integer.parseInt(bonoFuerza));
 	}
+
+	public String getRasgo() {
+		return rasgo;
+	}
+
+	public void setRasgo(String rasgo) {
+		this.rasgo = rasgo;
+	}
+	
 	
 }

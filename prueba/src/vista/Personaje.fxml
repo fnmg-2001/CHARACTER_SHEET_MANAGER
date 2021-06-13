@@ -38,23 +38,23 @@
                      </image></ImageView>
                   <Label alignment="CENTER" layoutX="121.0" layoutY="21.0" prefHeight="35.0" prefWidth="369.0" styleClass="labelPersonaje" text="RETRATO" />
                   <Label alignment="CENTER" layoutX="64.0" layoutY="546.0" prefHeight="35.0" prefWidth="481.0" styleClass="labelPersonaje" text="NOMBRE" />
-                  <TextField alignment="CENTER" layoutX="64.0" layoutY="581.0" prefHeight="31.0" prefWidth="480.0" />
+                  <TextField fx:id="tNombre" alignment="CENTER" layoutX="64.0" layoutY="581.0" prefHeight="31.0" prefWidth="480.0" />
                   <Label alignment="CENTER" layoutX="648.0" layoutY="211.0" prefHeight="35.0" prefWidth="494.0" styleClass="labelPersonaje" text="PARTICULARIDADES" />
-                  <TextArea layoutX="648.0" layoutY="246.0" prefHeight="140.0" prefWidth="494.0" styleClass="tAreaPersonaje" wrapText="true" />
+                  <TextArea fx:id="tAreaParticularidades" layoutX="648.0" layoutY="246.0" prefHeight="140.0" prefWidth="494.0" styleClass="tAreaPersonaje" wrapText="true" />
                   <Label alignment="CENTER" layoutX="650.0" layoutY="393.0" prefHeight="35.0" prefWidth="490.0" styleClass="labelPersonaje" text="OBJETIVOS" />
-                  <TextArea layoutX="650.0" layoutY="428.0" prefHeight="140.0" prefWidth="490.0" styleClass="tAreaPersonaje" wrapText="true" />
+                  <TextArea fx:id="tAreaObjetivos" layoutX="650.0" layoutY="428.0" prefHeight="140.0" prefWidth="490.0" styleClass="tAreaPersonaje" wrapText="true" />
                   <Label alignment="CENTER" layoutX="651.0" layoutY="579.0" prefHeight="35.0" prefWidth="489.0" styleClass="labelPersonaje" text="HISTORIA" />
-                  <TextArea layoutX="651.0" layoutY="614.0" prefHeight="140.0" prefWidth="489.0" styleClass="tAreaPersonaje" wrapText="true" />
+                  <TextArea fx:id="tAreaHistoria" layoutX="651.0" layoutY="614.0" prefHeight="140.0" prefWidth="489.0" styleClass="tAreaPersonaje" wrapText="true" />
                   <Label alignment="CENTER" layoutX="649.0" layoutY="27.0" prefHeight="35.0" prefWidth="492.0" styleClass="labelPersonaje" text="PERSONALIDAD" />
-                  <TextArea layoutX="649.0" layoutY="61.0" prefHeight="140.0" prefWidth="492.0" styleClass="tAreaPersonaje" wrapText="true" />
+                  <TextArea fx:id="tAreaPersonalidad" layoutX="649.0" layoutY="61.0" prefHeight="140.0" prefWidth="492.0" styleClass="tAreaPersonaje" wrapText="true" />
                   <Label alignment="CENTER" layoutX="64.0" layoutY="620.0" prefHeight="35.0" prefWidth="160.0" styleClass="labelPersonaje" text="RAZA" />
                   <TextField fx:id="tRazaGeneral" alignment="CENTER" layoutX="64.0" layoutY="656.0" prefHeight="31.0" prefWidth="158.0" />
                   <Label alignment="CENTER" layoutX="391.0" layoutY="620.0" prefHeight="35.0" prefWidth="156.0" styleClass="labelPersonaje" text="SEXO" />
-                  <TextField alignment="CENTER" layoutX="391.0" layoutY="656.0" prefHeight="31.0" prefWidth="156.0" />
+                  <TextField fx:id="tSexo" alignment="CENTER" layoutX="391.0" layoutY="656.0" prefHeight="31.0" prefWidth="156.0" />
                   <Label alignment="CENTER" layoutX="64.0" layoutY="688.0" prefHeight="35.0" prefWidth="158.0" styleClass="labelPersonaje" text="EDAD" />
-                  <TextField alignment="CENTER" layoutX="64.0" layoutY="723.0" prefHeight="31.0" prefWidth="158.0" />
+                  <TextField fx:id="tEdad" alignment="CENTER" layoutX="64.0" layoutY="723.0" prefHeight="31.0" prefWidth="158.0" />
                   <Label alignment="CENTER" layoutX="224.0" layoutY="688.0" prefHeight="35.0" prefWidth="163.0" styleClass="labelPersonaje" text="REGION" />
-                  <TextField alignment="CENTER" layoutX="225.0" layoutY="723.0" prefHeight="31.0" prefWidth="160.0" />
+                  <TextField fx:id="tRegion" alignment="CENTER" layoutX="225.0" layoutY="723.0" prefHeight="31.0" prefWidth="160.0" />
                   <Label alignment="CENTER" layoutX="389.0" layoutY="688.0" prefHeight="35.0" prefWidth="160.0" styleClass="labelPersonaje" text="ETNIA" />
                   <TextField fx:id="tEtniaGeneral" alignment="CENTER" layoutX="390.0" layoutY="723.0" prefHeight="31.0" prefWidth="158.0" />
                   <Label alignment="CENTER" layoutX="225.0" layoutY="620.0" prefHeight="35.0" prefWidth="164.0" styleClass="labelPersonaje" text="APARIENCIA" />
@@ -90,10 +90,10 @@
                            <children>
                               <TableView fx:id="tableViewCaracteristicas" editable="true" layoutY="35.0" prefHeight="260.0" prefWidth="408.0">
                                  <columns>
-                                    <TableColumn fx:id="colPuntos" maxWidth="105.0" prefWidth="89.0" resizable="false" sortable="false" text="0.pts" />
-                                    <TableColumn fx:id="colBase" onEditCommit="#cambiarBase" prefWidth="87.0" resizable="false" sortable="false" text="BASE" />
-                                    <TableColumn fx:id="colTemp" onEditCommit="#cambiarTemporal" prefWidth="89.0" resizable="false" sortable="false" text="TEMPORAL" />
-                                    <TableColumn fx:id="colTotal" prefWidth="68.0" resizable="false" sortable="false" text="TOTAL" />
+                                    <TableColumn fx:id="colPuntos" maxWidth="157.0" prefWidth="103.0" resizable="false" sortable="false" text="NOMBRE" />
+                                    <TableColumn fx:id="colBase" onEditCommit="#cambiarBase" prefWidth="67.0" resizable="false" sortable="false" text="BASE" />
+                                    <TableColumn fx:id="colTemp" onEditCommit="#cambiarTemporal" prefWidth="102.0" resizable="false" sortable="false" text="TEMPORAL" />
+                                    <TableColumn fx:id="colTotal" prefWidth="61.0" resizable="false" sortable="false" text="TOTAL" />
                                     <TableColumn fx:id="colBono" prefWidth="72.0" resizable="false" sortable="false" text="BONO" />
                                  </columns>
                                  <columnResizePolicy>
@@ -194,13 +194,13 @@
                               <TableView fx:id="tableViewVentaja" editable="true" layoutY="38.0" prefHeight="253.0" prefWidth="326.0">
                                 <columns>
                                   <TableColumn fx:id="colVentajaNombre" prefWidth="253.0" text="VENTAJA" />
-                                  <TableColumn fx:id="colVentajaCoste" minWidth="0.0" prefWidth="72.0" text="COSTE" />
+                                  <TableColumn fx:id="colVentajaCoste" minWidth="0.0" prefWidth="68.0" text="COSTE" />
                                 </columns>
                               </TableView>
                               <TableView fx:id="tableViewDesventaja" editable="true" layoutX="326.0" layoutY="38.0" prefHeight="196.0" prefWidth="323.0">
                                 <columns>
                                   <TableColumn fx:id="colDesventajaNombre" prefWidth="231.0" text="DESVENTAJA" />
-                                  <TableColumn fx:id="colDesventajaBeneficio" prefWidth="91.0" text="BENEFICIO" />
+                                  <TableColumn fx:id="colDesventajaBeneficio" prefWidth="84.0" text="BENEFICIO" />
                                 </columns>
                               </TableView>
                               <Label alignment="CENTER" layoutX="326.0" layoutY="233.0" prefHeight="27.0" prefWidth="324.0" styleClass="labelSubPersonaje" text="PUNTOS RESTANTES" />
@@ -354,7 +354,7 @@
                               <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
-                                          <TableView fx:id="tableViewCombate" editable="true" prefHeight="448.0" prefWidth="1160.0">
+                                          <TableView fx:id="tableViewCombate" editable="true" prefHeight="426.0" prefWidth="1160.0">
                                             <columns>
                                               <TableColumn fx:id="colPdsCombateNombreHabilidad" prefWidth="227.0" sortable="false" text="HABILIDAD" />
                                               <TableColumn fx:id="colPdsCombateCosteHabilidad" prefWidth="125.0" sortable="false" text="COSTE" />
@@ -374,7 +374,7 @@
                                 <content>
                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
-                                          <TableView fx:id="tableViewMisticas" editable="true" prefHeight="449.0" prefWidth="1160.0">
+                                          <TableView fx:id="tableViewMisticas" editable="true" prefHeight="426.0" prefWidth="1160.0">
                                             <columns>
                                               <TableColumn fx:id="colPdsMisticoNombreHabilidad" prefWidth="227.0" sortable="false" text="HABILIDAD" />
                                               <TableColumn fx:id="colPdsMisticoCosteHabilidad" prefWidth="125.0" sortable="false" text="COSTE" />
@@ -394,7 +394,7 @@
                                 <content>
                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
-                                          <TableView fx:id="tableViewPsiquicas" editable="true" prefHeight="448.0" prefWidth="1160.0">
+                                          <TableView fx:id="tableViewPsiquicas" editable="true" prefHeight="425.0" prefWidth="1160.0">
                                             <columns>
                                               <TableColumn fx:id="colPdsPsiquicoNombreHabilidad" prefWidth="227.0" sortable="false" text="HABILIDAD" />
                                               <TableColumn fx:id="colPdsPsiquicoCosteHabilidad" prefWidth="125.0" sortable="false" text="COSTE" />
@@ -414,7 +414,7 @@
                                 <content>
                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
-                                          <TableView fx:id="tableViewSecundarias" editable="true" prefHeight="448.0" prefWidth="1159.0">
+                                          <TableView fx:id="tableViewSecundarias" editable="true" prefHeight="428.0" prefWidth="1159.0">
                                             <columns>
                                               <TableColumn fx:id="colPdsSecundariasNombreHabilidad" prefWidth="227.0" sortable="false" text="HABILIDAD" />
                                               <TableColumn fx:id="colPdsSecundariasCosteHabilidad" prefWidth="88.0" sortable="false" text="COSTE" />
@@ -480,19 +480,19 @@
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <TableView fx:id="tableViewArmaduras" layoutX="14.0" layoutY="41.0" prefHeight="74.0" prefWidth="1173.0">
+                  <TableView fx:id="tableViewArmaduras" layoutX="14.0" layoutY="41.0" prefHeight="67.0" prefWidth="1173.0">
                     <columns>
-                      <TableColumn fx:id="colArmaduraNombre" prefWidth="185.0" text="ARMADURA" />
-                        <TableColumn fx:id="colArmaduraFilo" minWidth="3.0" prefWidth="58.0" text="FILO" />
-                        <TableColumn fx:id="colArmaduraContundente" prefWidth="100.0" text="CONTUNDENTE" />
+                      <TableColumn fx:id="colArmaduraNombre" prefWidth="199.0" text="ARMADURA" />
+                        <TableColumn fx:id="colArmaduraFilo" minWidth="3.0" prefWidth="44.0" text="FILO" />
+                        <TableColumn fx:id="colArmaduraContundente" prefWidth="128.0" text="CONTUNDENTE" />
                         <TableColumn fx:id="colArmaduraPenetrante" minWidth="0.0" prefWidth="107.0" text="PENETRANTE" />
-                        <TableColumn fx:id="colArmaduraCalor" prefWidth="85.0" text="CALOR" />
-                        <TableColumn fx:id="colArmaduraElectrico" prefWidth="96.0" text="ELECTRICO" />
-                        <TableColumn fx:id="colArmaduraFrio" prefWidth="64.0" text="FRIO" />
-                        <TableColumn fx:id="colArmaduraEnergia" prefWidth="86.0" text="ENERGIA" />
-                        <TableColumn fx:id="colArmaduraEntereza" prefWidth="108.0" text="ENTEREZA" />
-                        <TableColumn fx:id="colArmaduraRequisito" prefWidth="113.0" text="REQUISITO" />
-                        <TableColumn fx:id="colArmaduraPenalizacionNatural" prefWidth="164.0" text="PENALIZADOR NATURAL" />
+                        <TableColumn fx:id="colArmaduraCalor" prefWidth="72.0" text="CALOR" />
+                        <TableColumn fx:id="colArmaduraElectrico" prefWidth="91.0" text="ELECTRICO" />
+                        <TableColumn fx:id="colArmaduraFrio" prefWidth="60.0" text="FRIO" />
+                        <TableColumn fx:id="colArmaduraEnergia" text="ENERGIA" />
+                        <TableColumn fx:id="colArmaduraEntereza" prefWidth="90.0" text="ENTEREZA" />
+                        <TableColumn fx:id="colArmaduraRequisito" prefWidth="92.0" text="REQUISITO" />
+                        <TableColumn fx:id="colArmaduraPenalizacionNatural" prefWidth="203.0" text="PENALIZADOR NATURAL" />
                     </columns>
                   </TableView>
                   <Label layoutX="14.0" layoutY="11.0" prefHeight="30.0" prefWidth="1172.0" styleClass="labelPersonaje" text="ARMADURAS" />
@@ -504,61 +504,47 @@
                           <columns>
                             <TableColumn fx:id="colCritico1Arma1" prefWidth="82.0" text="CRITICO 1" />
                             <TableColumn fx:id="colCritico2Arma1" prefWidth="85.0" text="CRITICO 2" />
-                              <TableColumn fx:id="colEnterezaArma1" prefWidth="71.0" text="ENTEREZA" />
-                              <TableColumn fx:id="colRoturaArma1" prefWidth="69.0" text="ROTURA" />
-                              <TableColumn fx:id="colTurnoArma1" prefWidth="65.0" text="TURNO" />
-                              <TableColumn fx:id="colAtaqueArma1" prefWidth="94.0" text="ATAQUE" />
-                              <TableColumn fx:id="colDañoArma1" prefWidth="83.0" text="DAÑO" />
+                              <TableColumn fx:id="colEnterezaArma1" prefWidth="82.0" text="ENTEREZA" />
+                              <TableColumn fx:id="colRoturaArma1" prefWidth="73.0" text="ROTURA" />
+                              <TableColumn fx:id="colTurnoArma1" prefWidth="67.0" text="TURNO" />
+                              <TableColumn fx:id="colAtaqueArma1" prefWidth="84.0" text="ATAQUE" />
+                              <TableColumn fx:id="colDañoArma1" prefWidth="76.0" text="DAÑO" />
                           </columns>
                         </TableView>
-                        <ComboBox fx:id="cBoxTamañoArma1" layoutY="101.0" prefHeight="25.0" prefWidth="156.0" promptText="Tamaño" />
-                        <ComboBox fx:id="cBoxCalidadArma1" layoutX="156.0" layoutY="101.0" prefHeight="25.0" prefWidth="215.0" promptText="Calidad" />
                         <TextField fx:id="tTipoArma1" layoutY="2.0" prefHeight="31.0" prefWidth="238.0" />
-                        <ComboBox fx:id="cBoxMunicion1" layoutX="371.0" layoutY="101.0" prefHeight="25.0" prefWidth="184.0" promptText="Municion" />
+                        <TextField fx:id="tRasgoArma1" editable="false" layoutY="101.0" prefHeight="31.0" prefWidth="553.0" />
                      </children>
                   </Pane>
-                  <Accordion fx:id="acTablasCombate" layoutX="627.0" layoutY="145.0" prefHeight="618.0" prefWidth="560.0">
+                  <Accordion fx:id="acTablasCombate" layoutX="627.0" layoutY="145.0" prefHeight="592.0" prefWidth="560.0">
                     <panes>
-                      <TitledPane fx:id="tpTablasArmas" prefHeight="421.0" prefWidth="562.0" text="TABLAS ARMAS">
+                      <TitledPane fx:id="tpTablasEstilos" text="TABLAS ESTILOS">
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <TableView fx:id="tableViewTablasArmas" prefHeight="543.0" prefWidth="558.0">
+                                    <TableView fx:id="tableViewTablasEstilos" editable="true" prefHeight="541.0" prefWidth="558.0">
                                       <columns>
-                                        <TableColumn fx:id="colNombreTablaArmas" prefWidth="246.0" text="NOMBRE" />
-                                        <TableColumn fx:id="colCosteTablaArmas" prefWidth="65.0" text="COSTE" />
-                                          <TableColumn fx:id="colPdsTablaArmas" prefWidth="74.0" text="PDS" />
-                                          <TableColumn prefWidth="167.0" text="ARMA" />
+                                        <TableColumn fx:id="colNombreTablaEstilos" prefWidth="201.0" text="NOMBRE" />
+                                        <TableColumn fx:id="colCosteTablaEstilos" prefWidth="173.0" text="COSTE" />
+                                          <TableColumn fx:id="colPdsTablaEstilos" prefWidth="177.0" text="PDS" />
                                       </columns>
                                     </TableView>
                                  </children>
                               </AnchorPane>
                         </content>
                       </TitledPane>
-                      <TitledPane text="TABLAS ESTILOS">
+                      <TitledPane prefHeight="563.0" prefWidth="560.0" text="ARTES MARCIALES">
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <TableView fx:id="tableViewTablasArmas" prefHeight="541.0" prefWidth="558.0">
+                                    <TableView fx:id="tableViewTablasArtesMarciales" prefHeight="540.0" prefWidth="558.0">
                                       <columns>
-                                        <TableColumn fx:id="colNombreTablaEstilos" prefWidth="300.0" text="NOMBRE" />
-                                        <TableColumn fx:id="colCosteTablaEstilos" prefWidth="142.0" text="COSTE" />
-                                          <TableColumn fx:id="colPdsTablaEstilos" prefWidth="115.0" text="PDS" />
-                                      </columns>
-                                    </TableView>
-                                 </children>
-                              </AnchorPane>
-                        </content>
-                      </TitledPane>
-                      <TitledPane prefHeight="407.0" prefWidth="553.0" text="ARTES MARCIALES">
-                        <content>
-                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                 <children>
-                                    <TableView fx:id="tableViewTablasArmas" prefHeight="542.0" prefWidth="558.0">
-                                      <columns>
-                                        <TableColumn fx:id="colNombreTablaArtesMarciales" prefWidth="300.0" text="NOMBRE" />
-                                        <TableColumn fx:id="colCosteTablaArtesMarciales" prefWidth="142.0" text="COSTE" />
-                                          <TableColumn fx:id="colPdsTablaArtesMarciales" prefWidth="115.0" text="PDS" />
+                                        <TableColumn fx:id="colNombreTablaArtesMarciales" prefWidth="140.0" text="NOMBRE" />
+                                        <TableColumn fx:id="colCosteTablaArtesMarciales" prefWidth="72.0" text="COSTE" />
+                                          <TableColumn fx:id="colPdsTablaArtesMarciales" prefWidth="52.0" text="PDS" />
+                                          <TableColumn fx:id="colHaTablaArtesMarciales" prefWidth="67.0" text="BONO HA." />
+                                          <TableColumn fx:id="colHpTablaArtesMarciales" prefWidth="65.0" text="BONO HP." />
+                                          <TableColumn fx:id="colHeTablaArtesMarciales" prefWidth="64.0" text="BONO HE." />
+                                          <TableColumn fx:id="colTurnoTablaArtesMarciales" prefWidth="93.0" text="BONO TURNO" />
                                       </columns>
                                     </TableView>
                                  </children>
@@ -576,17 +562,16 @@
                            <columns>
                               <TableColumn fx:id="colCritico1Arma3" prefWidth="82.0" text="CRITICO 1" />
                               <TableColumn fx:id="colCritico2Arma3" prefWidth="85.0" text="CRITICO 2" />
-                              <TableColumn fx:id="colEnterezaArma3" prefWidth="71.0" text="ENTEREZA" />
-                              <TableColumn fx:id="colRoturaArma3" prefWidth="69.0" text="ROTURA" />
-                              <TableColumn fx:id="colTurnoArma3" prefWidth="65.0" text="TURNO" />
-                              <TableColumn fx:id="colAtaqueArma3" prefWidth="94.0" text="ATAQUE" />
-                              <TableColumn fx:id="colDañoArma3" prefWidth="83.0" text="DAÑO" />
+                              <TableColumn fx:id="colEnterezaArma3" prefWidth="82.0" text="ENTEREZA" />
+                              <TableColumn fx:id="colRoturaArma3" prefWidth="73.0" text="ROTURA" />
+                              <TableColumn fx:id="colTurnoArma3" prefWidth="67.0" text="TURNO" />
+                              <TableColumn fx:id="colAtaqueArma3" prefWidth="84.0" text="ATAQUE" />
+                              <TableColumn fx:id="colDañoArma3" prefWidth="76.0" text="DAÑO" />
                            </columns>
                         </TableView>
-                        <ComboBox fx:id="cBoxTamañoArma3" layoutY="103.0" prefHeight="25.0" prefWidth="156.0" promptText="Tamaño" />
-                        <ComboBox fx:id="cBoxCalidadArma3" layoutX="156.0" layoutY="103.0" prefHeight="25.0" prefWidth="215.0" promptText="Calidad" />
                         <TextField fx:id="tTipoArma3" layoutY="3.0" prefHeight="31.0" prefWidth="238.0" />
-                        <ComboBox fx:id="cBoxMunicion3" layoutX="371.0" layoutY="103.0" prefHeight="25.0" prefWidth="184.0" promptText="Municion" />
+                        <TextField fx:id="tTipoArma112" layoutY="106.0" prefHeight="28.0" prefWidth="371.0" />
+                        <TextField fx:id="tRasgoArma3" layoutY="103.0" prefHeight="31.0" prefWidth="553.0" />
                      </children>
                   </Pane>
                   <Label layoutX="15.0" layoutY="280.0" prefHeight="30.0" prefWidth="555.0" styleClass="labelPersonaje" text="ARMA 2" />
@@ -597,17 +582,15 @@
                            <columns>
                               <TableColumn fx:id="colCritico1Arma2" prefWidth="82.0" text="CRITICO 1" />
                               <TableColumn fx:id="colCritico2Arma2" prefWidth="85.0" text="CRITICO 2" />
-                              <TableColumn fx:id="colEnterezaArma2" prefWidth="71.0" text="ENTEREZA" />
-                              <TableColumn fx:id="colRoturaArma2" prefWidth="69.0" text="ROTURA" />
-                              <TableColumn fx:id="colTurnoArma2" prefWidth="65.0" text="TURNO" />
-                              <TableColumn fx:id="colAtaqueArma2" prefWidth="94.0" text="ATAQUE" />
-                              <TableColumn fx:id="colDañoArma2" prefWidth="83.0" text="DAÑO" />
+                              <TableColumn fx:id="colEnterezaArma2" prefWidth="82.0" text="ENTEREZA" />
+                              <TableColumn fx:id="colRoturaArma2" prefWidth="73.0" text="ROTURA" />
+                              <TableColumn fx:id="colTurnoArma2" prefWidth="67.0" text="TURNO" />
+                              <TableColumn fx:id="colAtaqueArma2" prefWidth="84.0" text="ATAQUE" />
+                              <TableColumn fx:id="colDañoArma2" prefWidth="76.0" text="DAÑO" />
                            </columns>
                         </TableView>
-                        <ComboBox fx:id="cBoxTamañoArma2" layoutY="101.0" prefHeight="25.0" prefWidth="156.0" promptText="Tamaño" />
-                        <ComboBox fx:id="cBoxCalidadArma2" layoutX="156.0" layoutY="101.0" prefHeight="25.0" prefWidth="215.0" promptText="Calidad" />
                         <TextField fx:id="tTipoArma2" layoutY="2.0" prefHeight="31.0" prefWidth="237.0" />
-                        <ComboBox fx:id="cBoxMunicion2" layoutX="371.0" layoutY="101.0" prefHeight="25.0" prefWidth="184.0" promptText="Municion" />
+                        <TextField fx:id="tRasgoArma2" editable="false" layoutY="101.0" prefHeight="31.0" prefWidth="553.0" />
                      </children>
                   </Pane>
                   <Pane layoutX="15.0" layoutY="636.0" prefHeight="121.0" prefWidth="555.0">
@@ -617,17 +600,15 @@
                            <columns>
                               <TableColumn fx:id="colCritico1Arma4" prefWidth="82.0" text="CRITICO 1" />
                               <TableColumn fx:id="colCritico2Arma4" prefWidth="85.0" text="CRITICO 2" />
-                              <TableColumn fx:id="colEnterezaArma4" prefWidth="71.0" text="ENTEREZA" />
-                              <TableColumn fx:id="colRoturaArma4" prefWidth="69.0" text="ROTURA" />
-                              <TableColumn fx:id="colTurnoArma4" prefWidth="65.0" text="TURNO" />
-                              <TableColumn fx:id="colAtaqueArma4" prefWidth="94.0" text="ATAQUE" />
-                              <TableColumn fx:id="colDañoArma4" prefWidth="83.0" text="DAÑO" />
+                              <TableColumn fx:id="colEnterezaArma4" prefWidth="82.0" text="ENTEREZA" />
+                              <TableColumn fx:id="colRoturaArma4" prefWidth="73.0" text="ROTURA" />
+                              <TableColumn fx:id="colTurnoArma4" prefWidth="67.0" text="TURNO" />
+                              <TableColumn fx:id="colAtaqueArma4" prefWidth="84.0" text="ATAQUE" />
+                              <TableColumn fx:id="colDañoArma4" prefWidth="76.0" text="DAÑO" />
                            </columns>
                         </TableView>
-                        <ComboBox fx:id="cBoxTamañoArma4" layoutY="103.0" prefHeight="25.0" prefWidth="156.0" promptText="Tamaño" />
-                        <ComboBox fx:id="cBoxCalidadArma4" layoutX="156.0" layoutY="103.0" prefHeight="25.0" prefWidth="215.0" promptText="Calidad" />
                         <TextField fx:id="tTipoArma4" layoutY="3.0" prefHeight="31.0" prefWidth="238.0" />
-                        <ComboBox fx:id="cBoxMunicion4" layoutX="371.0" layoutY="103.0" prefHeight="25.0" prefWidth="184.0" promptText="Municion" />
+                        <TextField fx:id="tRasgoArma4" editable="false" layoutX="-1.0" layoutY="98.0" prefHeight="31.0" prefWidth="553.0" />
                      </children>
                   </Pane>
                   <Label layoutX="15.0" layoutY="606.0" prefHeight="30.0" prefWidth="555.0" styleClass="labelPersonaje" text="ARMA 4" />
@@ -636,12 +617,82 @@
     </Tab>
     <Tab text="EQUIPO">
       <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <Label layoutX="14.0" layoutY="14.0" prefHeight="38.0" prefWidth="361.0" styleClass="labelPersonaje" text="EQUIPO DE COMBATE" />
+                  <Label layoutX="825.0" layoutY="14.0" prefHeight="38.0" prefWidth="361.0" styleClass="labelPersonaje" text="EQUIPO VARIADO" />
+                  <Label layoutX="420.0" layoutY="14.0" prefHeight="38.0" prefWidth="361.0" styleClass="labelPersonaje" text="VESTIMENTA/ACCESORIOS" />
+                  <Label layoutX="14.0" layoutY="410.0" prefHeight="38.0" prefWidth="361.0" styleClass="labelPersonaje" text="CONTACTOS" />
+                  <Label layoutX="420.0" layoutY="410.0" prefHeight="38.0" prefWidth="361.0" styleClass="labelPersonaje" text="TITULOS Y POSESIONES" />
+                  <Label layoutX="825.0" layoutY="410.0" prefHeight="38.0" prefWidth="361.0" styleClass="labelPersonaje" text="DINERO Y JOYAS" />
+                  <TextArea fx:id="tAreaEquipoCombate" layoutX="14.0" layoutY="52.0" prefHeight="268.0" prefWidth="361.0" wrapText="true" />
+                  <TextArea fx:id="tAreaVestimenta" layoutX="420.0" layoutY="52.0" prefHeight="268.0" prefWidth="361.0" wrapText="true" />
+                  <TextArea fx:id="tAreaEquipoVariado" layoutX="825.0" layoutY="52.0" prefHeight="268.0" prefWidth="361.0" wrapText="true" />
+                  <TextArea fx:id="tAreaContactos" layoutX="14.0" layoutY="448.0" prefHeight="268.0" prefWidth="361.0" wrapText="true" />
+                  <TextArea fx:id="tAreaTitulosPosesiones" layoutX="420.0" layoutY="448.0" prefHeight="268.0" prefWidth="361.0" wrapText="true" />
+                  <TextArea fx:id="tAreaJoyas" layoutX="1013.0" layoutY="483.0" prefHeight="233.0" prefWidth="173.0" wrapText="true" />
+                  <Label layoutX="1013.0" layoutY="462.0" prefHeight="21.0" prefWidth="173.0" styleClass="labelSubPersonaje" text="JOYAS" />
+                  <TextField fx:id="tDineroOro" alignment="CENTER_RIGHT" layoutX="825.0" layoutY="483.0" prefHeight="15.0" prefWidth="174.0" />
+                  <TextField fx:id="tDineroPlata" alignment="CENTER_RIGHT" layoutX="825.0" layoutY="580.0" prefHeight="15.0" prefWidth="174.0" />
+                  <TextField fx:id="tDineroCobre" alignment="CENTER_RIGHT" layoutX="825.0" layoutY="685.0" prefHeight="15.0" prefWidth="174.0" />
+                  <Label layoutX="825.0" layoutY="462.0" prefHeight="21.0" prefWidth="173.0" styleClass="labelSubPersonaje" text="ORO" />
+                  <Label layoutX="825.0" layoutY="558.0" prefHeight="21.0" prefWidth="173.0" styleClass="labelSubPersonaje" text="PLATA" />
+                  <Label layoutX="825.0" layoutY="664.0" prefHeight="21.0" prefWidth="173.0" styleClass="labelSubPersonaje" text="COBRE" />
+                  <ImageView fitHeight="27.0" fitWidth="31.0" layoutX="825.0" layoutY="484.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../img/oro.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="27.0" fitWidth="31.0" layoutX="825.0" layoutY="580.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../img/plata.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="27.0" fitWidth="31.0" layoutX="825.0" layoutY="687.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../img/cobre.png" />
+                     </image>
+                  </ImageView>
+               </children></AnchorPane>
       </content>
     </Tab>
     <Tab text="MISTICO">
       <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <Label layoutX="52.0" layoutY="38.0" prefHeight="30.0" prefWidth="394.0" styleClass="labelPersonaje" text="NIVEL DE MAGIA" />
+                  <TableView fx:id="tableViewNivelVia" layoutX="52.0" layoutY="68.0" prefHeight="251.0" prefWidth="395.0">
+                    <columns>
+                      <TableColumn fx:id="colViaNombre" prefWidth="169.0" text="VIA" />
+                      <TableColumn fx:id="colNivelViaUsado" prefWidth="83.0" text="USADO" />
+                        <TableColumn fx:id="colNivelViaTotal" prefWidth="134.0" text="NIVEL" />
+                    </columns>
+                  </TableView>
+                  <Label layoutX="52.0" layoutY="540.0" prefHeight="21.0" prefWidth="394.0" styleClass="labelPersonaje" text="TABLAS MISTICO" />
+                  <TableView fx:id="tableViewTablasMistico" layoutX="52.0" layoutY="570.0" prefHeight="136.0" prefWidth="394.0">
+                    <columns>
+                      <TableColumn fx:id="colNombreTablasMistico" prefWidth="241.0" text="NOMBRE" />
+                      <TableColumn fx:id="colCosteTablasMistico" prefWidth="74.0" text="COSTE" />
+                        <TableColumn fx:id="colPdsTablasMistico" prefWidth="75.0" text="PDS" />
+                    </columns>
+                  </TableView>
+                  <Label layoutX="52.0" layoutY="345.0" prefHeight="21.0" prefWidth="394.0" styleClass="labelPersonaje" text="PROYECCION MAGICA" />
+                  <TextField fx:id="tProyeccionMagicaAtaque" alignment="CENTER" editable="false" layoutX="52.0" layoutY="401.0" prefHeight="31.0" prefWidth="170.0" />
+                  <TextField fx:id="tProyeccionMagicaDefensa" alignment="CENTER" editable="false" layoutX="277.0" layoutY="401.0" prefHeight="31.0" prefWidth="170.0" />
+                  <Label layoutX="52.0" layoutY="380.0" prefHeight="21.0" prefWidth="170.0" styleClass="labelSubPersonaje" text="ATAQUE" />
+                  <Label layoutX="277.0" layoutY="380.0" prefHeight="21.0" prefWidth="170.0" styleClass="labelSubPersonaje" text="DEFENSA" />
+                  <Label layoutX="53.0" layoutY="455.0" prefHeight="30.0" prefWidth="239.0" styleClass="labelPersonaje" text="ACUMULACION/TURNO" />
+                  <Label layoutX="303.0" layoutY="455.0" prefHeight="30.0" prefWidth="144.0" styleClass="labelPersonaje" text="ZEON" />
+                  <TextField fx:id="tPuntosZeon" alignment="CENTER" editable="false" layoutX="303.0" layoutY="485.0" prefHeight="31.0" prefWidth="144.0" />
+                  <TextField fx:id="tAcumulacionTurno" alignment="CENTER" editable="false" layoutX="53.0" layoutY="485.0" prefHeight="31.0" prefWidth="239.0" />
+                  <Label layoutX="617.0" layoutY="38.0" prefHeight="30.0" prefWidth="513.0" styleClass="labelPersonaje" text="CONJUROS DE LIBRE ACCESO" />
+                  <TableView fx:id="tableViewConjurosLibreAcceso" layoutX="617.0" layoutY="68.0" prefHeight="633.0" prefWidth="513.0">
+                    <columns>
+                      <TableColumn fx:id="colConjurosLibreAccesoNombre" prefWidth="392.0" text="CONJURO" />
+                      <TableColumn fx:id="colConjurosLibreAccesoNivel" prefWidth="116.0" text="NIVEL" />
+                    </columns>
+                  </TableView>
+               </children></AnchorPane>
       </content>
     </Tab>
     <Tab text="PSIQUICO">

@@ -15,6 +15,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -30,8 +31,11 @@ import modelo.AccionesTurno;
 import modelo.ArmaSeleccionada;
 import modelo.Armadura;
 import modelo.ArmaduraSeleccionada;
+import modelo.ArteMarcial;
+import modelo.ArteMarcialSeleccionado;
 import modelo.CaracteristicaSeleccionada;
 import modelo.Categoria;
+import modelo.ConjuroSeleccionado;
 import modelo.ConsultasHibernate;
 import modelo.DesventajaSeleccionada;
 import modelo.NivelClase;
@@ -42,8 +46,12 @@ import modelo.PdsMisticos;
 import modelo.PdsPsiquicos;
 import modelo.Raza;
 import modelo.ResistenciasTabla;
+import modelo.TablaEstilo;
+import modelo.TablaEstiloSeleccionada;
+import modelo.TablaMagiaSeleccionada;
 import modelo.ValorConstitucion;
 import modelo.VentajaSeleccionada;
+import modelo.ViaSeleccionada;
 
 public class PersonajeController {
 	
@@ -64,13 +72,18 @@ public class PersonajeController {
 	Pane pPersonajeChar, pD10Apariencia; 
 	
 	@FXML
-	TitledPane tpAtleticas, tpPdsCombate, tpTablasArmas;
+	TitledPane tpAtleticas, tpPdsCombate, tpTablasEstilos;
 	
 	@FXML
 	TextField tApariencia, tCansancioBase, tCansancioEspecial, tCansancioTotal, tTurnoBase, tTurnoAgilidad, tTurnoDestreza, tTurnoCategoria, tTurnoArmadura,
 	tTurnoDesarmado, tTurnoEspecial, tTurnoTotal, tPuntosVidaBase, tPuntosVidaCategoria, tPuntosVidaTotales, tRegeneracion, tCuracionDia, tNegativoDia, tPuntosVidaEspecial,
 	tAccionesTurno, tPuntosCreacion, tCategoriaPrimerLv, tNivelTotal, tPdsRestantes, tLlevarArmadura, tHabilidadDefensa, tHabilidadAtaque, tPuntosRegeneracionEspecial,
-	tRazaGeneral, tEtniaGeneral, tBonosNaturales, tHabilidadesNaturales, tBonosNovel, tTipoArma1, tTipoArma2, tTipoArma3, tTipoArma4;
+	tRazaGeneral, tEtniaGeneral, tBonosNaturales, tHabilidadesNaturales, tBonosNovel, tTipoArma1, tTipoArma2, tTipoArma3, tTipoArma4, tRasgoArma1, tRasgoArma2, tRasgoArma3,
+	tRasgoArma4, tDineroOro, tDineroPlata, tDineroCobre, tNombre, tSexo, tEdad, tRegion, tProyeccionMagicaAtaque, tProyeccionMagicaDefensa, tAcumulacionTurno, tPuntosZeon;
+	
+	@FXML
+	TextArea tAreaEquipoCombate, tAreaVestimenta, tAreaEquipoVariado, tAreaContactos, tAreaTitulosPosesiones, tAreaJoyas, tAreaPersonalidad, tAreaParticularidades, tAreaObjetivos,
+	tAreaHistoria;
 	
 	@FXML
 	TableView<CaracteristicaSeleccionada> tableViewCaracteristicas;
@@ -108,6 +121,21 @@ public class PersonajeController {
 	
 	@FXML
 	TableView<ArmaduraSeleccionada> tableViewArmaduras;
+	
+	@FXML
+	TableView<TablaEstiloSeleccionada> tableViewTablasEstilos;
+	
+	@FXML
+	TableView<ArteMarcialSeleccionado> tableViewTablasArtesMarciales;
+	
+	@FXML
+	TableView<ViaSeleccionada> tableViewNivelVia;
+
+	@FXML
+	TableView<TablaMagiaSeleccionada> tableViewTablasMistico;
+
+	@FXML
+	TableView<ConjuroSeleccionado> tableViewConjurosLibreAcceso;
 	
 	@FXML
 	TableColumn<CaracteristicaSeleccionada, String> colBase, colTemp, colTotal, colBono;
@@ -173,6 +201,36 @@ public class PersonajeController {
 	@FXML
 	TableColumn<ArmaduraSeleccionada, ComboBox<String>> colArmaduraNombre;
 	
+	@FXML
+	TableColumn<TablaEstiloSeleccionada, String> colCosteTablaEstilos, colPdsTablaEstilos;
+
+	@FXML
+	TableColumn<TablaEstiloSeleccionada, ComboBox<String>> colNombreTablaEstilos;
+	
+	@FXML
+	TableColumn<ArteMarcialSeleccionado, ComboBox<String>> colNombreTablaArtesMarciales;
+	
+	@FXML
+	TableColumn<ArteMarcialSeleccionado, String> colCosteTablaArtesMarciales, colPdsTablaArtesMarciales, colHaTablaArtesMarciales, colHpTablaArtesMarciales,
+	colHeTablaArtesMarciales, colTurnoTablaArtesMarciales;
+
+	@FXML
+	TableColumn<ViaSeleccionada, ComboBox<String>> colViaNombre;
+	
+	@FXML
+	TableColumn<ViaSeleccionada, String> colNivelViaUsado, colNivelViaTotal;
+
+	@FXML
+	TableColumn<TablaMagiaSeleccionada, ComboBox<String>> colNombreTablasMistico;
+	
+	@FXML
+	TableColumn<TablaMagiaSeleccionada, String> colCosteTablasMistico, colPdsTablasMistico;
+
+	@FXML
+	TableColumn<TablaMagiaSeleccionada, ComboBox<String>> colConjurosLibreAccesoNombre;
+	
+	@FXML
+	TableColumn<ConjuroSeleccionado, String> colConjurosLibreAccesoNivel;
 	
 	public PersonajeController(SessionFactory sessionFactory, String categoria, String raza) {
 		this.ch = new ConsultasHibernate();
@@ -190,9 +248,11 @@ public class PersonajeController {
 		ObservableList<String> nombreDesventajas = ch.obtenerNombresDesventaja(sessionFactory);
 		ObservableList<String> nombreArmas = ch.obtenerListaArmas(sessionFactory);
 		ObservableList<String> nombreArmaduras = ch.obtenerListaArmaduras(sessionFactory);
+		ObservableList<String> nombreEstilos = ch.obtenerListaTablasEstilo(sessionFactory);
+		ObservableList<String> nombreArtesMarciales = ch.obtenerListaArtesMarciales(sessionFactory);
 		acPrincipalHabilidadesSecundarias.setExpandedPane(tpAtleticas);
 		acPds.setExpandedPane(tpPdsCombate);
-		acTablasCombate.setExpandedPane(tpTablasArmas);
+		acTablasCombate.setExpandedPane(tpTablasEstilos);
 		
 		/*------------------------------------------------------Tabla Caracteristicas------------------------------------------------------*/
 		int puntosCaracteristica=0;
@@ -956,6 +1016,7 @@ public class PersonajeController {
 							tTurnoTotal.getText()));
 			cBoxNombreArma1.setValue("Desarmado");
 			tTipoArma1.setText(armaSeleccionada1.get(0).getTipoArma());
+			tRasgoArma1.setText(armaSeleccionada1.get(0).getRasgo());
 			/*Esta seria en caso de que haya un personaje ya creado con sus armas ya elegidas*/
 		} else {
 			armaSeleccionada1 = FXCollections.observableArrayList(
@@ -985,8 +1046,10 @@ public class PersonajeController {
 							tableViewCombate.getItems().get(0).getTotalHabilidad(),
 							tableViewCaracteristicas.getItems().get(3).getBonoCaracteristica(),
 							tTurnoTotal.getText()));
+			
 			cBoxNombreArma2.setValue("Desarmado");
 			tTipoArma2.setText(armaSeleccionada2.get(0).getTipoArma());
+			tRasgoArma2.setText(armaSeleccionada2.get(0).getRasgo());
 			/*Esta seria en caso de que haya un personaje ya creado con sus armas ya elegidas*/
 		} else {
 			armaSeleccionada2 = FXCollections.observableArrayList(
@@ -1016,7 +1079,8 @@ public class PersonajeController {
 							tableViewCaracteristicas.getItems().get(3).getBonoCaracteristica(),
 							tTurnoTotal.getText()));
 			cBoxNombreArma3.setValue("Desarmado");
-			tTipoArma3.setText(armaSeleccionada1.get(0).getTipoArma());
+			tTipoArma3.setText(armaSeleccionada3.get(0).getTipoArma());
+			tRasgoArma3.setText(armaSeleccionada3.get(0).getRasgo());
 			/*Esta seria en caso de que haya un personaje ya creado con sus armas ya elegidas*/
 		} else {
 			armaSeleccionada3 = FXCollections.observableArrayList(
@@ -1048,6 +1112,7 @@ public class PersonajeController {
 							tTurnoTotal.getText()));
 			cBoxNombreArma4.setValue("Desarmado");
 			tTipoArma4.setText(armaSeleccionada4.get(0).getTipoArma());
+			tRasgoArma4.setText(armaSeleccionada4.get(0).getRasgo());
 			/*Esta seria en caso de que haya un personaje ya creado con sus armas ya elegidas*/
 		} else {
 			armaSeleccionada4 = FXCollections.observableArrayList(
@@ -1109,6 +1174,351 @@ public class PersonajeController {
 		colArmaduraPenalizacionNatural.setCellValueFactory(new PropertyValueFactory<ArmaduraSeleccionada, String>("penalizadorNatural"));
 		
 		tableViewArmaduras.setItems(armadurasSeleccionadas);
+
+		/*------------------------------------------------------Tabla Estilos Pestaña Combate------------------------------------------------------*/
+		ComboBox<String> cTablasEstilos1 = new ComboBox<String>();
+		cTablasEstilos1.setItems(nombreEstilos);
+		ComboBox<String> cTablasEstilos2 = new ComboBox<String>();
+		cTablasEstilos2.setItems(nombreEstilos);
+		ComboBox<String> cTablasEstilos3 = new ComboBox<String>();
+		cTablasEstilos3.setItems(nombreEstilos);
+		ComboBox<String> cTablasEstilos4 = new ComboBox<String>();
+		cTablasEstilos4.setItems(nombreEstilos);
+		ComboBox<String> cTablasEstilos5 = new ComboBox<String>();
+		cTablasEstilos5.setItems(nombreEstilos);
+		
+		ObservableList<TablaEstiloSeleccionada> tablasEstilosSeleccionadas = FXCollections.observableArrayList(
+				new TablaEstiloSeleccionada(cTablasEstilos1,"0","0"),
+				new TablaEstiloSeleccionada(cTablasEstilos2,"0","0"),
+				new TablaEstiloSeleccionada(cTablasEstilos3,"0","0"),
+				new TablaEstiloSeleccionada(cTablasEstilos4,"0","0"),
+				new TablaEstiloSeleccionada(cTablasEstilos5,"0","0"));
+		
+		cTablasEstilos1.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent event) {
+				TablaEstilo tablaEstilo = ch.obtenerTablasEstiloSeleccionada(sessionFactory, cTablasEstilos1.getSelectionModel().getSelectedItem());
+				TablaEstiloSeleccionada tablaEstiloSeleccionada = tablasEstilosSeleccionadas.get(0);
+				tablaEstiloSeleccionada.setCoste(String.valueOf(tablaEstilo.getCoste()));
+				tablaEstiloSeleccionada.setPds(String.valueOf(tablaEstilo.getCoste()));
+				tableViewTablasEstilos.refresh();
+			}
+		});
+		
+		cTablasEstilos2.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent event) {
+				TablaEstilo tablaEstilo = ch.obtenerTablasEstiloSeleccionada(sessionFactory, cTablasEstilos2.getSelectionModel().getSelectedItem());
+				TablaEstiloSeleccionada tablaEstiloSeleccionada = tablasEstilosSeleccionadas.get(1);
+				tablaEstiloSeleccionada.setCoste(String.valueOf(tablaEstilo.getCoste()));
+				tablaEstiloSeleccionada.setPds(String.valueOf(tablaEstilo.getCoste()));
+				tableViewTablasEstilos.refresh();
+			}
+		});
+		
+		cTablasEstilos3.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent event) {
+				TablaEstilo tablaEstilo = ch.obtenerTablasEstiloSeleccionada(sessionFactory, cTablasEstilos3.getSelectionModel().getSelectedItem());
+				TablaEstiloSeleccionada tablaEstiloSeleccionada = tablasEstilosSeleccionadas.get(2);
+				tablaEstiloSeleccionada.setCoste(String.valueOf(tablaEstilo.getCoste()));
+				tablaEstiloSeleccionada.setPds(String.valueOf(tablaEstilo.getCoste()));
+				tableViewTablasEstilos.refresh();
+			}
+		});
+		
+		cTablasEstilos4.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent event) {
+				TablaEstilo tablaEstilo = ch.obtenerTablasEstiloSeleccionada(sessionFactory, cTablasEstilos4.getSelectionModel().getSelectedItem());
+				TablaEstiloSeleccionada tablaEstiloSeleccionada = tablasEstilosSeleccionadas.get(3);
+				tablaEstiloSeleccionada.setCoste(String.valueOf(tablaEstilo.getCoste()));
+				tablaEstiloSeleccionada.setPds(String.valueOf(tablaEstilo.getCoste()));
+				tableViewTablasEstilos.refresh();
+			}
+		});
+		
+		cTablasEstilos5.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent event) {
+				TablaEstilo tablaEstilo = ch.obtenerTablasEstiloSeleccionada(sessionFactory, cTablasEstilos5.getSelectionModel().getSelectedItem());
+				TablaEstiloSeleccionada tablaEstiloSeleccionada = tablasEstilosSeleccionadas.get(4);
+				tablaEstiloSeleccionada.setCoste(String.valueOf(tablaEstilo.getCoste()));
+				tablaEstiloSeleccionada.setPds(String.valueOf(tablaEstilo.getCoste()));
+				tableViewTablasEstilos.refresh();
+			}
+		});
+		
+
+		colNombreTablaEstilos.setCellValueFactory(new PropertyValueFactory<TablaEstiloSeleccionada, ComboBox<String>>("nombreTabla"));
+		colCosteTablaEstilos.setCellValueFactory(new PropertyValueFactory<TablaEstiloSeleccionada, String>("coste"));
+		colPdsTablaEstilos.setCellValueFactory(new PropertyValueFactory<TablaEstiloSeleccionada, String>("pds"));
+		
+		colPdsTablaEstilos.setCellFactory(TextFieldTableCell.forTableColumn());
+		
+		tableViewTablasEstilos.setItems(tablasEstilosSeleccionadas);
+
+		/*------------------------------------------------------Tabla Artes Marciales Pestaña Combate------------------------------------------------------*/
+		ComboBox<String> cArtesMarciales1 = new ComboBox<String>();
+		cArtesMarciales1.setItems(nombreArtesMarciales);
+		ComboBox<String> cArtesMarciales2 = new ComboBox<String>();
+		cArtesMarciales2.setItems(nombreArtesMarciales);
+		ComboBox<String> cArtesMarciales3 = new ComboBox<String>();
+		cArtesMarciales3.setItems(nombreArtesMarciales);
+		ComboBox<String> cArtesMarciales4 = new ComboBox<String>();
+		cArtesMarciales4.setItems(nombreArtesMarciales);
+		ComboBox<String> cArtesMarciales5 = new ComboBox<String>();
+		cArtesMarciales5.setItems(nombreArtesMarciales);
+		ComboBox<String> cArtesMarciales6 = new ComboBox<String>();
+		cArtesMarciales6.setItems(nombreArtesMarciales);
+		ComboBox<String> cArtesMarciales7 = new ComboBox<String>();
+		cArtesMarciales7.setItems(nombreArtesMarciales);
+		ComboBox<String> cArtesMarciales8 = new ComboBox<String>();
+		cArtesMarciales8.setItems(nombreArtesMarciales);
+		ComboBox<String> cArtesMarciales9 = new ComboBox<String>();
+		cArtesMarciales9.setItems(nombreArtesMarciales);
+		ComboBox<String> cArtesMarciales10 = new ComboBox<String>();
+		cArtesMarciales10.setItems(nombreArtesMarciales);
+		
+		ObservableList<ArteMarcialSeleccionado> tablasArtesMarciales = FXCollections.observableArrayList(
+				new ArteMarcialSeleccionado(cArtesMarciales1,"0","0","0","0","0","0"),
+				new ArteMarcialSeleccionado(cArtesMarciales2,"0","0","0","0","0","0"),
+				new ArteMarcialSeleccionado(cArtesMarciales3,"0","0","0","0","0","0"),
+				new ArteMarcialSeleccionado(cArtesMarciales4,"0","0","0","0","0","0"),
+				new ArteMarcialSeleccionado(cArtesMarciales5,"0","0","0","0","0","0"),
+				new ArteMarcialSeleccionado(cArtesMarciales6,"0","0","0","0","0","0"),
+				new ArteMarcialSeleccionado(cArtesMarciales7,"0","0","0","0","0","0"),
+				new ArteMarcialSeleccionado(cArtesMarciales8,"0","0","0","0","0","0"),
+				new ArteMarcialSeleccionado(cArtesMarciales9,"0","0","0","0","0","0"),
+				new ArteMarcialSeleccionado(cArtesMarciales10,"0","0","0","0","0","0"));
+		
+		cArtesMarciales1.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent event) {
+				ArteMarcial arteMarcial = ch.obtenerArteMarcialSeleccionada(sessionFactory, cArtesMarciales1.getSelectionModel().getSelectedItem());
+				ArteMarcialSeleccionado arteMarcialSeleccionado = tablasArtesMarciales.get(0);
+				arteMarcialSeleccionado.setCoste(String.valueOf("20"));
+				arteMarcialSeleccionado.setPds("20");
+				arteMarcialSeleccionado.setBonoHa(String.valueOf(arteMarcial.getBonoAtaque()));
+				arteMarcialSeleccionado.setBonoHp(String.valueOf(arteMarcial.getBonoParada()));
+				arteMarcialSeleccionado.setBonoHe(String.valueOf(arteMarcial.getBonoEsquiva()));
+				arteMarcialSeleccionado.setBonoTurno(String.valueOf(arteMarcial.getBonoTurno()));
+				tableViewTablasArtesMarciales.refresh();
+			}
+		});
+		
+		cArtesMarciales2.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent event) {
+				ArteMarcial arteMarcial = ch.obtenerArteMarcialSeleccionada(sessionFactory, cArtesMarciales2.getSelectionModel().getSelectedItem());
+				ArteMarcialSeleccionado arteMarcialSeleccionado = tablasArtesMarciales.get(1);
+				arteMarcialSeleccionado.setCoste(String.valueOf("20"));
+				arteMarcialSeleccionado.setPds("20");
+				arteMarcialSeleccionado.setBonoHa(String.valueOf(arteMarcial.getBonoAtaque()));
+				arteMarcialSeleccionado.setBonoHp(String.valueOf(arteMarcial.getBonoParada()));
+				arteMarcialSeleccionado.setBonoHe(String.valueOf(arteMarcial.getBonoEsquiva()));
+				arteMarcialSeleccionado.setBonoTurno(String.valueOf(arteMarcial.getBonoTurno()));
+				tableViewTablasArtesMarciales.refresh();
+			}
+		});
+		
+		cArtesMarciales3.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent event) {
+				ArteMarcial arteMarcial = ch.obtenerArteMarcialSeleccionada(sessionFactory, cArtesMarciales3.getSelectionModel().getSelectedItem());
+				ArteMarcialSeleccionado arteMarcialSeleccionado = tablasArtesMarciales.get(2);
+				arteMarcialSeleccionado.setCoste(String.valueOf("20"));
+				arteMarcialSeleccionado.setPds("20");
+				arteMarcialSeleccionado.setBonoHa(String.valueOf(arteMarcial.getBonoAtaque()));
+				arteMarcialSeleccionado.setBonoHp(String.valueOf(arteMarcial.getBonoParada()));
+				arteMarcialSeleccionado.setBonoHe(String.valueOf(arteMarcial.getBonoEsquiva()));
+				arteMarcialSeleccionado.setBonoTurno(String.valueOf(arteMarcial.getBonoTurno()));
+				tableViewTablasArtesMarciales.refresh();
+			}
+		});
+		
+		cArtesMarciales4.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent event) {
+				ArteMarcial arteMarcial = ch.obtenerArteMarcialSeleccionada(sessionFactory, cArtesMarciales4.getSelectionModel().getSelectedItem());
+				ArteMarcialSeleccionado arteMarcialSeleccionado = tablasArtesMarciales.get(3);
+				arteMarcialSeleccionado.setCoste(String.valueOf("20"));
+				arteMarcialSeleccionado.setPds("20");
+				arteMarcialSeleccionado.setBonoHa(String.valueOf(arteMarcial.getBonoAtaque()));
+				arteMarcialSeleccionado.setBonoHp(String.valueOf(arteMarcial.getBonoParada()));
+				arteMarcialSeleccionado.setBonoHe(String.valueOf(arteMarcial.getBonoEsquiva()));
+				arteMarcialSeleccionado.setBonoTurno(String.valueOf(arteMarcial.getBonoTurno()));
+				tableViewTablasArtesMarciales.refresh();
+			}
+		});
+		
+		cArtesMarciales5.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent event) {
+				ArteMarcial arteMarcial = ch.obtenerArteMarcialSeleccionada(sessionFactory, cArtesMarciales5.getSelectionModel().getSelectedItem());
+				ArteMarcialSeleccionado arteMarcialSeleccionado = tablasArtesMarciales.get(4);
+				arteMarcialSeleccionado.setCoste(String.valueOf("20"));
+				arteMarcialSeleccionado.setPds("20");
+				arteMarcialSeleccionado.setBonoHa(String.valueOf(arteMarcial.getBonoAtaque()));
+				arteMarcialSeleccionado.setBonoHp(String.valueOf(arteMarcial.getBonoParada()));
+				arteMarcialSeleccionado.setBonoHe(String.valueOf(arteMarcial.getBonoEsquiva()));
+				arteMarcialSeleccionado.setBonoTurno(String.valueOf(arteMarcial.getBonoTurno()));
+				tableViewTablasArtesMarciales.refresh();
+			}
+		});
+
+		cArtesMarciales6.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent event) {
+				ArteMarcial arteMarcial = ch.obtenerArteMarcialSeleccionada(sessionFactory, cArtesMarciales6.getSelectionModel().getSelectedItem());
+				ArteMarcialSeleccionado arteMarcialSeleccionado = tablasArtesMarciales.get(5);
+				arteMarcialSeleccionado.setCoste(String.valueOf("20"));
+				arteMarcialSeleccionado.setPds("20");
+				arteMarcialSeleccionado.setBonoHa(String.valueOf(arteMarcial.getBonoAtaque()));
+				arteMarcialSeleccionado.setBonoHp(String.valueOf(arteMarcial.getBonoParada()));
+				arteMarcialSeleccionado.setBonoHe(String.valueOf(arteMarcial.getBonoEsquiva()));
+				arteMarcialSeleccionado.setBonoTurno(String.valueOf(arteMarcial.getBonoTurno()));
+				tableViewTablasArtesMarciales.refresh();
+			}
+		});
+		
+		cArtesMarciales7.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent event) {
+				ArteMarcial arteMarcial = ch.obtenerArteMarcialSeleccionada(sessionFactory, cArtesMarciales7.getSelectionModel().getSelectedItem());
+				ArteMarcialSeleccionado arteMarcialSeleccionado = tablasArtesMarciales.get(6);
+				arteMarcialSeleccionado.setCoste(String.valueOf("20"));
+				arteMarcialSeleccionado.setPds("20");
+				arteMarcialSeleccionado.setBonoHa(String.valueOf(arteMarcial.getBonoAtaque()));
+				arteMarcialSeleccionado.setBonoHp(String.valueOf(arteMarcial.getBonoParada()));
+				arteMarcialSeleccionado.setBonoHe(String.valueOf(arteMarcial.getBonoEsquiva()));
+				arteMarcialSeleccionado.setBonoTurno(String.valueOf(arteMarcial.getBonoTurno()));
+				tableViewTablasArtesMarciales.refresh();
+			}
+		});
+		
+		cArtesMarciales8.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent event) {
+				ArteMarcial arteMarcial = ch.obtenerArteMarcialSeleccionada(sessionFactory, cArtesMarciales8.getSelectionModel().getSelectedItem());
+				ArteMarcialSeleccionado arteMarcialSeleccionado = tablasArtesMarciales.get(7);
+				arteMarcialSeleccionado.setCoste(String.valueOf("20"));
+				arteMarcialSeleccionado.setPds("20");
+				arteMarcialSeleccionado.setBonoHa(String.valueOf(arteMarcial.getBonoAtaque()));
+				arteMarcialSeleccionado.setBonoHp(String.valueOf(arteMarcial.getBonoParada()));
+				arteMarcialSeleccionado.setBonoHe(String.valueOf(arteMarcial.getBonoEsquiva()));
+				arteMarcialSeleccionado.setBonoTurno(String.valueOf(arteMarcial.getBonoTurno()));
+				tableViewTablasArtesMarciales.refresh();
+			}
+		});
+		
+		cArtesMarciales9.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent event) {
+				ArteMarcial arteMarcial = ch.obtenerArteMarcialSeleccionada(sessionFactory, cArtesMarciales9.getSelectionModel().getSelectedItem());
+				ArteMarcialSeleccionado arteMarcialSeleccionado = tablasArtesMarciales.get(8);
+				arteMarcialSeleccionado.setCoste(String.valueOf("20"));
+				arteMarcialSeleccionado.setPds("20");
+				arteMarcialSeleccionado.setBonoHa(String.valueOf(arteMarcial.getBonoAtaque()));
+				arteMarcialSeleccionado.setBonoHp(String.valueOf(arteMarcial.getBonoParada()));
+				arteMarcialSeleccionado.setBonoHe(String.valueOf(arteMarcial.getBonoEsquiva()));
+				arteMarcialSeleccionado.setBonoTurno(String.valueOf(arteMarcial.getBonoTurno()));
+				tableViewTablasArtesMarciales.refresh();
+			}
+		});
+		
+		cArtesMarciales10.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent event) {
+				ArteMarcial arteMarcial = ch.obtenerArteMarcialSeleccionada(sessionFactory, cArtesMarciales10.getSelectionModel().getSelectedItem());
+				ArteMarcialSeleccionado arteMarcialSeleccionado = tablasArtesMarciales.get(9);
+				arteMarcialSeleccionado.setCoste(String.valueOf("20"));
+				arteMarcialSeleccionado.setPds("20");
+				arteMarcialSeleccionado.setBonoHa(String.valueOf(arteMarcial.getBonoAtaque()));
+				arteMarcialSeleccionado.setBonoHp(String.valueOf(arteMarcial.getBonoParada()));
+				arteMarcialSeleccionado.setBonoHe(String.valueOf(arteMarcial.getBonoEsquiva()));
+				arteMarcialSeleccionado.setBonoTurno(String.valueOf(arteMarcial.getBonoTurno()));
+				tableViewTablasArtesMarciales.refresh();
+			}
+		});
+		
+		colNombreTablaArtesMarciales.setCellValueFactory(new PropertyValueFactory<ArteMarcialSeleccionado, ComboBox<String>>("nombreArteMarcial"));
+		colCosteTablaArtesMarciales.setCellValueFactory(new PropertyValueFactory<ArteMarcialSeleccionado, String>("coste"));
+		colPdsTablaArtesMarciales.setCellValueFactory(new PropertyValueFactory<ArteMarcialSeleccionado, String>("pds"));
+		colHaTablaArtesMarciales.setCellValueFactory(new PropertyValueFactory<ArteMarcialSeleccionado, String>("bonoHa"));
+		colHpTablaArtesMarciales.setCellValueFactory(new PropertyValueFactory<ArteMarcialSeleccionado, String>("bonoHe"));
+		colHeTablaArtesMarciales.setCellValueFactory(new PropertyValueFactory<ArteMarcialSeleccionado, String>("bonoHp"));
+		colTurnoTablaArtesMarciales.setCellValueFactory(new PropertyValueFactory<ArteMarcialSeleccionado, String>("bonoTurno"));
+		
+		colPdsTablaArtesMarciales.setCellFactory(TextFieldTableCell.forTableColumn());
+		
+		tableViewTablasArtesMarciales.setItems(tablasArtesMarciales);
+		
+
+		/*------------------------------------------------------Tabla Artes Marciales Pestaña Combate------------------------------------------------------*/
+		ComboBox<String> cViaMagica1 = new ComboBox<String>();
+		cViaMagica1.setItems(nombreArtesMarciales);
+		ComboBox<String> cViaMagica2 = new ComboBox<String>();
+		cViaMagica2.setItems(nombreArtesMarciales);
+		ComboBox<String> cViaMagica3 = new ComboBox<String>();
+		cViaMagica3.setItems(nombreArtesMarciales);
+		ComboBox<String> cViaMagica4 = new ComboBox<String>();
+		cViaMagica4.setItems(nombreArtesMarciales);
+		ComboBox<String> cViaMagica5 = new ComboBox<String>();
+		cViaMagica5.setItems(nombreArtesMarciales);
+		ComboBox<String> cViaMagica6 = new ComboBox<String>();
+		cViaMagica6.setItems(nombreArtesMarciales);
+		
+		ObservableList<ArteMarcialSeleccionado> viaMagica = FXCollections.observableArrayList(
+				new ArteMarcialSeleccionado(cViaMagica1,"0","0","0","0","0","0"),
+				new ArteMarcialSeleccionado(cViaMagica2,"0","0","0","0","0","0"),
+				new ArteMarcialSeleccionado(cViaMagica3,"0","0","0","0","0","0"),
+				new ArteMarcialSeleccionado(cViaMagica4,"0","0","0","0","0","0"),
+				new ArteMarcialSeleccionado(cViaMagica5,"0","0","0","0","0","0"),
+				new ArteMarcialSeleccionado(cViaMagica6,"0","0","0","0","0","0"));
+		
+		cArtesMarciales1.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent event) {
+				ArteMarcial arteMarcial = ch.obtenerArteMarcialSeleccionada(sessionFactory, cArtesMarciales1.getSelectionModel().getSelectedItem());
+				ArteMarcialSeleccionado arteMarcialSeleccionado = tablasArtesMarciales.get(0);
+				arteMarcialSeleccionado.setCoste(String.valueOf("20"));
+				arteMarcialSeleccionado.setPds("20");
+				arteMarcialSeleccionado.setBonoHa(String.valueOf(arteMarcial.getBonoAtaque()));
+				arteMarcialSeleccionado.setBonoHp(String.valueOf(arteMarcial.getBonoParada()));
+				arteMarcialSeleccionado.setBonoHe(String.valueOf(arteMarcial.getBonoEsquiva()));
+				arteMarcialSeleccionado.setBonoTurno(String.valueOf(arteMarcial.getBonoTurno()));
+				tableViewTablasArtesMarciales.refresh();
+			}
+		});
+		
+		colNombreTablaArtesMarciales.setCellValueFactory(new PropertyValueFactory<ArteMarcialSeleccionado, ComboBox<String>>("nombreArteMarcial"));
+		colCosteTablaArtesMarciales.setCellValueFactory(new PropertyValueFactory<ArteMarcialSeleccionado, String>("coste"));
+		colPdsTablaArtesMarciales.setCellValueFactory(new PropertyValueFactory<ArteMarcialSeleccionado, String>("pds"));
+		colHaTablaArtesMarciales.setCellValueFactory(new PropertyValueFactory<ArteMarcialSeleccionado, String>("bonoHa"));
+		colHpTablaArtesMarciales.setCellValueFactory(new PropertyValueFactory<ArteMarcialSeleccionado, String>("bonoHe"));
+		colHeTablaArtesMarciales.setCellValueFactory(new PropertyValueFactory<ArteMarcialSeleccionado, String>("bonoHp"));
+		colTurnoTablaArtesMarciales.setCellValueFactory(new PropertyValueFactory<ArteMarcialSeleccionado, String>("bonoTurno"));
+		
+		colPdsTablaArtesMarciales.setCellFactory(TextFieldTableCell.forTableColumn());
+		
+		tableViewTablasArtesMarciales.setItems(tablasArtesMarciales);
 		
 		/*------------------------------------------------------Valores TextField Pestaña Principal------------------------------------------------------*/
 		
@@ -1139,6 +1549,10 @@ public class PersonajeController {
 			tHabilidadDefensa.setText(tableViewCombate.getItems().get(1).getTotalHabilidad());
 		}
 		tLlevarArmadura.setText(tableViewCombate.getItems().get(3).getTotalHabilidad());
+		tProyeccionMagicaAtaque.setText(tableViewMisticas.getItems().get(3).getTotalHabilidad());
+		tProyeccionMagicaDefensa.setText(tableViewMisticas.getItems().get(3).getTotalHabilidad());
+		tPuntosZeon.setText(tableViewMisticas.getItems().get(0).getTotalHabilidad());
+		tAcumulacionTurno.setText(String.valueOf(Integer.parseInt(tableViewMisticas.getItems().get(2).getTotalHabilidad())+Integer.parseInt(tableViewMisticas.getItems().get(1).getTotalHabilidad())));
 	}
 	
 	public void cambiarBase (TableColumn.CellEditEvent<CaracteristicaSeleccionada, String> cellEditEvent) {
@@ -1182,54 +1596,14 @@ public class PersonajeController {
 		PdsMisticos pds = tableViewMisticas.getSelectionModel().getSelectedItem();
 		pds.setPdsHabilidad(cellEditEvent.getNewValue());
 		
-		if (tableViewMisticas.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("Zeon")) {
-			
-		} else if (tableViewMisticas.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("ACT")) {
-			
-		} else if (tableViewMisticas.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("Multiplo de Regeneracion")) {
-			
-		} else if (tableViewMisticas.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("Proyeccion Magia")) {
-			
-		} else if (tableViewMisticas.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("Nivel de Magia")) {
-			
-		} else if (tableViewMisticas.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("Convocar")) {
-			
-		} else if (tableViewMisticas.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("Controlar")) {
-			
-		} else if (tableViewMisticas.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("Atar")) {
-			
-		} else if (tableViewMisticas.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("Desconvocar")) {
-			
-		}
-		
-		tableViewMisticas.refresh();
+		obtenerPdsMisticos(pds);
 	}
 	
 	public void cambiarPdsEspecialMisticos (TableColumn.CellEditEvent<PdsMisticos, String> cellEditEvent) {
 		PdsMisticos pds = tableViewMisticas.getSelectionModel().getSelectedItem();
 		pds.setEspecialHabilidad(cellEditEvent.getNewValue());
 		
-		if (tableViewMisticas.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("Zeon")) {
-			
-		} else if (tableViewMisticas.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("ACT")) {
-			
-		} else if (tableViewMisticas.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("Multiplo de Regeneracion")) {
-			
-		} else if (tableViewMisticas.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("Proyeccion Magia")) {
-			
-		} else if (tableViewMisticas.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("Nivel de Magia")) {
-			
-		} else if (tableViewMisticas.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("Convocar")) {
-			
-		} else if (tableViewMisticas.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("Controlar")) {
-			
-		} else if (tableViewMisticas.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("Atar")) {
-			
-		} else if (tableViewMisticas.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("Desconvocar")) {
-			
-		}
-		
-		tableViewMisticas.refresh();
+		obtenerPdsMisticos(pds);
 	}
 	
 	public void cambiarPdsPsiquicos (TableColumn.CellEditEvent<PdsPsiquicos, String> cellEditEvent) {
@@ -1361,17 +1735,10 @@ public class PersonajeController {
 			tableViewSecundarias.getItems().get(39).setBonoNovel(tableViewSecundarias.getItems().get(39).getBonoNovel());
 			tableViewResumenCreativas.getItems().get(1).setTotalHabilidad(tableViewSecundarias.getItems().get(39).getTotalHabilidad());
 			
-			tableviewArmaSeleccionada1.getItems().get(0).setTurno(String.valueOf(Integer.parseInt(tTurnoBase.getText())+Integer.parseInt(tTurnoAgilidad.getText())+
-					Integer.parseInt(tTurnoDestreza.getText())+Integer.parseInt(tTurnoCategoria.getText())+Integer.parseInt(tTurnoArmadura.getText())));
-			
-			tableviewArmaSeleccionada2.getItems().get(0).setTurno(String.valueOf(Integer.parseInt(tTurnoBase.getText())+Integer.parseInt(tTurnoAgilidad.getText())+
-					Integer.parseInt(tTurnoDestreza.getText())+Integer.parseInt(tTurnoCategoria.getText())+Integer.parseInt(tTurnoArmadura.getText())));
-			
-			tableviewArmaSeleccionada3.getItems().get(0).setTurno(String.valueOf(Integer.parseInt(tTurnoBase.getText())+Integer.parseInt(tTurnoAgilidad.getText())+
-					Integer.parseInt(tTurnoDestreza.getText())+Integer.parseInt(tTurnoCategoria.getText())+Integer.parseInt(tTurnoArmadura.getText())));
-			
-			tableviewArmaSeleccionada4.getItems().get(0).setTurno(String.valueOf(Integer.parseInt(tTurnoBase.getText())+Integer.parseInt(tTurnoAgilidad.getText())+
-					Integer.parseInt(tTurnoDestreza.getText())+Integer.parseInt(tTurnoCategoria.getText())+Integer.parseInt(tTurnoArmadura.getText())));
+			tableviewArmaSeleccionada1.getItems().get(0).setTurno(String.valueOf(Integer.parseInt(tTurnoTotal.getText())-Integer.parseInt("20")));
+			tableviewArmaSeleccionada2.getItems().get(0).setTurno(String.valueOf(Integer.parseInt(tTurnoTotal.getText())-Integer.parseInt("20")));
+			tableviewArmaSeleccionada3.getItems().get(0).setTurno(String.valueOf(Integer.parseInt(tTurnoTotal.getText())-Integer.parseInt("20")));
+			tableviewArmaSeleccionada4.getItems().get(0).setTurno(String.valueOf(Integer.parseInt(tTurnoTotal.getText())-Integer.parseInt("20")));
 			
 		} else if (tableViewCaracteristicas.getSelectionModel().getSelectedItem().getNombreCaracteristica().equals("CON")) {
 			caracteristica.setTotalCaracteristica(String.valueOf(Integer.parseInt(caracteristica.getBaseCaracteristica())+Integer.parseInt(caracteristica.getTempCaracteristica())+Integer.parseInt(razaSeleccionada.getBonoConstitucion())));
@@ -1564,6 +1931,17 @@ public class PersonajeController {
 			tableviewArmaSeleccionada2.getItems().get(0).setAtaque(tableViewCombate.getItems().get(0).getTotalHabilidad());
 			tableviewArmaSeleccionada3.getItems().get(0).setAtaque(tableViewCombate.getItems().get(0).getTotalHabilidad());
 			tableviewArmaSeleccionada4.getItems().get(0).setAtaque(tableViewCombate.getItems().get(0).getTotalHabilidad());
+			
+			
+			tableviewArmaSeleccionada1.getItems().get(0).setTurno(String.valueOf(Integer.parseInt(tTurnoTotal.getText())-Integer.parseInt("20")));
+			tableviewArmaSeleccionada2.getItems().get(0).setTurno(String.valueOf(Integer.parseInt(tTurnoTotal.getText())-Integer.parseInt("20")));
+			tableviewArmaSeleccionada3.getItems().get(0).setTurno(String.valueOf(Integer.parseInt(tTurnoTotal.getText())-Integer.parseInt("20")));
+			tableviewArmaSeleccionada4.getItems().get(0).setTurno(String.valueOf(Integer.parseInt(tTurnoTotal.getText())-Integer.parseInt("20")));
+			
+
+			tProyeccionMagicaAtaque.setText(tableViewMisticas.getItems().get(3).getTotalHabilidad());
+			tProyeccionMagicaDefensa.setText(tableViewMisticas.getItems().get(3).getTotalHabilidad());
+			
 			
 		} else if (tableViewCaracteristicas.getSelectionModel().getSelectedItem().getNombreCaracteristica().equals("INT")) {
 			caracteristica.setTotalCaracteristica(String.valueOf(Integer.parseInt(caracteristica.getBaseCaracteristica())+Integer.parseInt(caracteristica.getTempCaracteristica())+Integer.parseInt(razaSeleccionada.getBonoInteligencia())));
@@ -1760,9 +2138,14 @@ public class PersonajeController {
 			
 			tableViewMisticas.getItems().get(0).setBonoHabilidad(caracteristica.getBonoCaracteristica());
 			tableViewMisticas.getItems().get(1).setBonoHabilidad(caracteristica.getBonoCaracteristica());
+			tableViewMisticas.getItems().get(2).setBonoHabilidad(caracteristica.getBonoCaracteristica());
 			tableViewMisticas.getItems().get(5).setBonoHabilidad(caracteristica.getBonoCaracteristica());
 			tableViewMisticas.getItems().get(7).setBonoHabilidad(caracteristica.getBonoCaracteristica());
 			tableViewMisticas.getItems().get(8).setBonoHabilidad(caracteristica.getBonoCaracteristica());
+			
+			tPuntosZeon.setText(tableViewMisticas.getItems().get(0).getTotalHabilidad());
+			tAcumulacionTurno.setText(String.valueOf(Integer.parseInt(tableViewMisticas.getItems().get(2).getTotalHabilidad())+Integer.parseInt(tableViewMisticas.getItems().get(1).getTotalHabilidad())));
+			
 			
 		} else if (tableViewCaracteristicas.getSelectionModel().getSelectedItem().getNombreCaracteristica().equals("VOL")) {
 			caracteristica.setTotalCaracteristica(String.valueOf(Integer.parseInt(caracteristica.getBaseCaracteristica())+Integer.parseInt(caracteristica.getTempCaracteristica())+Integer.parseInt(razaSeleccionada.getBonoVoluntad())));
@@ -1804,6 +2187,7 @@ public class PersonajeController {
 			tableViewResumenVigor.getItems().get(2).setTotalHabilidad(tableViewSecundarias.getItems().get(30).getTotalHabilidad());
 			
 		}
+		
 		tableViewCaracteristicas.refresh();
 		tableViewResistencias.refresh();
 		tableViewCombate.refresh();
@@ -1857,31 +2241,64 @@ public class PersonajeController {
 		tableviewArmaSeleccionada4.refresh();
 	}
 	
+	public void obtenerPdsMisticos(PdsMisticos pds) {
+		if (tableViewMisticas.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("Zeon")) {
+			tPuntosZeon.setText(tableViewMisticas.getItems().get(0).getTotalHabilidad());
+		} else if (tableViewMisticas.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("ACT")) {
+			tAcumulacionTurno.setText(String.valueOf(Integer.parseInt(tableViewMisticas.getItems().get(2).getTotalHabilidad())+Integer.parseInt(tableViewMisticas.getItems().get(1).getTotalHabilidad())));
+		} else if (tableViewMisticas.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("Multiplo de Regeneracion")) {
+			tAcumulacionTurno.setText(String.valueOf(Integer.parseInt(tableViewMisticas.getItems().get(2).getTotalHabilidad())+Integer.parseInt(tableViewMisticas.getItems().get(1).getTotalHabilidad())));
+		} else if (tableViewMisticas.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("Proyeccion Magia")) {
+			tProyeccionMagicaAtaque.setText(tableViewMisticas.getItems().get(3).getTotalHabilidad());
+			tProyeccionMagicaDefensa.setText(tableViewMisticas.getItems().get(3).getTotalHabilidad());
+		} else if (tableViewMisticas.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("Nivel de Magia")) {
+			
+		} else if (tableViewMisticas.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("Convocar")) {
+			
+		} else if (tableViewMisticas.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("Controlar")) {
+			
+		} else if (tableViewMisticas.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("Atar")) {
+			
+		} else if (tableViewMisticas.getSelectionModel().getSelectedItem().getNombreHabilidad().equals("Desconvocar")) {
+			
+		}
+		
+		tableViewMisticas.refresh();
+	}
+	
 	public void cambiarArmaSeleccionada(ActionEvent ev) {
 		String nombreArmaSeleccioanda = (String) ((ComboBox<?>)ev.getSource()).getSelectionModel().getSelectedItem();
 		if (((ComboBox<?>)ev.getSource()).getId().equals("cBoxNombreArma1")) {
 			tableviewArmaSeleccionada1.getItems().get(0).setArmaSeleccionada(ch.obtenerArma(sessionFactory, nombreArmaSeleccioanda), 
 					tableViewCombate.getItems().get(0).getTotalHabilidad(), 
-					tableViewCaracteristicas.getItems().get(3).getBonoCaracteristica());
+					tableViewCaracteristicas.getItems().get(2).getBonoCaracteristica(),
+					String.valueOf(Integer.parseInt(tTurnoTotal.getText())-Integer.parseInt("20")));
 			tTipoArma1.setText(tableviewArmaSeleccionada1.getItems().get(0).getTipoArma());
+			tRasgoArma1.setText(tableviewArmaSeleccionada1.getItems().get(0).getRasgo());
 			tableviewArmaSeleccionada1.refresh();
 		} else if (((ComboBox<?>)ev.getSource()).getId().equals("cBoxNombreArma2")) {
 			tableviewArmaSeleccionada2.getItems().get(0).setArmaSeleccionada(ch.obtenerArma(sessionFactory, nombreArmaSeleccioanda), 
 					tableViewCombate.getItems().get(0).getTotalHabilidad(), 
-					tableViewCaracteristicas.getItems().get(3).getBonoCaracteristica());
+					tableViewCaracteristicas.getItems().get(2).getBonoCaracteristica(),
+					String.valueOf(Integer.parseInt(tTurnoTotal.getText())-Integer.parseInt("20")));
 			tTipoArma2.setText(tableviewArmaSeleccionada2.getItems().get(0).getTipoArma());
+			tRasgoArma2.setText(tableviewArmaSeleccionada2.getItems().get(0).getRasgo());
 			tableviewArmaSeleccionada2.refresh();
 		} else if (((ComboBox<?>)ev.getSource()).getId().equals("cBoxNombreArma3")) {
 			tableviewArmaSeleccionada3.getItems().get(0).setArmaSeleccionada(ch.obtenerArma(sessionFactory, nombreArmaSeleccioanda), 
 					tableViewCombate.getItems().get(0).getTotalHabilidad(), 
-					tableViewCaracteristicas.getItems().get(3).getBonoCaracteristica());
+					tableViewCaracteristicas.getItems().get(2).getBonoCaracteristica(),
+					String.valueOf(Integer.parseInt(tTurnoTotal.getText())-Integer.parseInt("20")));
 			tTipoArma3.setText(tableviewArmaSeleccionada3.getItems().get(0).getTipoArma());
+			tRasgoArma3.setText(tableviewArmaSeleccionada3.getItems().get(0).getRasgo());
 			tableviewArmaSeleccionada3.refresh();
 		} else if (((ComboBox<?>)ev.getSource()).getId().equals("cBoxNombreArma4")) {
 			tableviewArmaSeleccionada4.getItems().get(0).setArmaSeleccionada(ch.obtenerArma(sessionFactory, nombreArmaSeleccioanda), 
 					tableViewCombate.getItems().get(0).getTotalHabilidad(), 
-					tableViewCaracteristicas.getItems().get(3).getBonoCaracteristica());
+					tableViewCaracteristicas.getItems().get(2).getBonoCaracteristica(),
+					String.valueOf(Integer.parseInt(tTurnoTotal.getText())-Integer.parseInt("20")));
 			tTipoArma4.setText(tableviewArmaSeleccionada4.getItems().get(0).getTipoArma());
+			tRasgoArma4.setText(tableviewArmaSeleccionada4.getItems().get(0).getRasgo());
 			tableviewArmaSeleccionada4.refresh();
 		}
 		

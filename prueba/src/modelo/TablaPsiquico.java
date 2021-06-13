@@ -1,11 +1,13 @@
 package modelo;
-// Generated 12 jun. 2021 20:12:54 by Hibernate Tools 5.2.12.Final
+// Generated 13 jun. 2021 23:25:16 by Hibernate Tools 5.2.12.Final
 
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -19,7 +21,7 @@ import javax.persistence.Table;
 @Table(name = "tabla_psiquico", catalog = "anima_sheets_data")
 public class TablaPsiquico implements java.io.Serializable {
 
-	private int idTablaPsiquico;
+	private Integer idTablaPsiquico;
 	private String nombre;
 	private String descripcion;
 	private int coste;
@@ -28,15 +30,13 @@ public class TablaPsiquico implements java.io.Serializable {
 	public TablaPsiquico() {
 	}
 
-	public TablaPsiquico(int idTablaPsiquico, String nombre, String descripcion, int coste) {
-		this.idTablaPsiquico = idTablaPsiquico;
+	public TablaPsiquico(String nombre, String descripcion, int coste) {
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.coste = coste;
 	}
 
-	public TablaPsiquico(int idTablaPsiquico, String nombre, String descripcion, int coste, Set<Personaje> personajes) {
-		this.idTablaPsiquico = idTablaPsiquico;
+	public TablaPsiquico(String nombre, String descripcion, int coste, Set<Personaje> personajes) {
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.coste = coste;
@@ -44,13 +44,14 @@ public class TablaPsiquico implements java.io.Serializable {
 	}
 
 	@Id
+	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "ID_TABLA_PSIQUICO", unique = true, nullable = false)
-	public int getIdTablaPsiquico() {
+	public Integer getIdTablaPsiquico() {
 		return this.idTablaPsiquico;
 	}
 
-	public void setIdTablaPsiquico(int idTablaPsiquico) {
+	public void setIdTablaPsiquico(Integer idTablaPsiquico) {
 		this.idTablaPsiquico = idTablaPsiquico;
 	}
 
