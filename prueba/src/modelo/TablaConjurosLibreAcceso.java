@@ -1,5 +1,5 @@
 package modelo;
-// Generated 13 jun. 2021 23:25:16 by Hibernate Tools 5.2.12.Final
+// Generated 15 jun. 2021 0:01:59 by Hibernate Tools 5.2.12.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -23,17 +23,20 @@ public class TablaConjurosLibreAcceso implements java.io.Serializable {
 
 	private Integer idTablaConjurosLibreAcceso;
 	private String nombre;
+	private String nivel;
 	private Set<Personaje> personajes = new HashSet<Personaje>(0);
 
 	public TablaConjurosLibreAcceso() {
 	}
 
-	public TablaConjurosLibreAcceso(String nombre) {
+	public TablaConjurosLibreAcceso(String nombre, String nivel) {
 		this.nombre = nombre;
+		this.nivel = nivel;
 	}
 
-	public TablaConjurosLibreAcceso(String nombre, Set<Personaje> personajes) {
+	public TablaConjurosLibreAcceso(String nombre, String nivel, Set<Personaje> personajes) {
 		this.nombre = nombre;
+		this.nivel = nivel;
 		this.personajes = personajes;
 	}
 
@@ -56,6 +59,15 @@ public class TablaConjurosLibreAcceso implements java.io.Serializable {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	@Column(name = "NIVEL", nullable = false, length = 50)
+	public String getNivel() {
+		return this.nivel;
+	}
+
+	public void setNivel(String nivel) {
+		this.nivel = nivel;
 	}
 
 	@ManyToMany(fetch = FetchType.LAZY)

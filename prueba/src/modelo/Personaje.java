@@ -1,5 +1,5 @@
 package modelo;
-// Generated 13 jun. 2021 23:25:16 by Hibernate Tools 5.2.12.Final
+// Generated 15 jun. 2021 0:01:59 by Hibernate Tools 5.2.12.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -22,8 +22,8 @@ import javax.persistence.Table;
 public class Personaje implements java.io.Serializable {
 
 	private int idPersonaje;
-	private Jugador jugador;
 	private Raza raza;
+	private int idJugador;
 	private String armaConocida;
 	private String nombre;
 	private Integer edad;
@@ -32,6 +32,15 @@ public class Personaje implements java.io.Serializable {
 	private String particularidades;
 	private String objetivos;
 	private String historia;
+	private String equipoCombate;
+	private String vestimentaAccesorios;
+	private String equipoVariado;
+	private String contactos;
+	private String titulosPosesiones;
+	private String monedasOro;
+	private String monedasPlata;
+	private String monedasCobre;
+	private String joyas;
 	private Integer xp;
 	private String origen;
 	private String etnia;
@@ -51,6 +60,7 @@ public class Personaje implements java.io.Serializable {
 	private Caracteristicas caracteristicas;
 	private Set<TablaArma> tablaArmas = new HashSet<TablaArma>(0);
 	private Set<TablaEstilo> tablaEstilos = new HashSet<TablaEstilo>(0);
+	private Set<PoderPsiquico> poderPsiquicos = new HashSet<PoderPsiquico>(0);
 	private Set<TablaPatronMental> tablaPatronMentals = new HashSet<TablaPatronMental>(0);
 	private Set<TablaConjurosLibreAcceso> tablaConjurosLibreAccesos = new HashSet<TablaConjurosLibreAcceso>(0);
 	private Set<Idioma> idiomas = new HashSet<Idioma>(0);
@@ -59,25 +69,27 @@ public class Personaje implements java.io.Serializable {
 	public Personaje() {
 	}
 
-	public Personaje(int idPersonaje, Jugador jugador, Raza raza, String nombre) {
+	public Personaje(int idPersonaje, Raza raza, int idJugador, String nombre) {
 		this.idPersonaje = idPersonaje;
-		this.jugador = jugador;
 		this.raza = raza;
+		this.idJugador = idJugador;
 		this.nombre = nombre;
 	}
 
-	public Personaje(int idPersonaje, Jugador jugador, Raza raza, String armaConocida, String nombre, Integer edad,
+	public Personaje(int idPersonaje, Raza raza, int idJugador, String armaConocida, String nombre, Integer edad,
 			Integer apariencia, String descripcion, String particularidades, String objetivos, String historia,
+			String equipoCombate, String vestimentaAccesorios, String equipoVariado, String contactos,
+			String titulosPosesiones, String monedasOro, String monedasPlata, String monedasCobre, String joyas,
 			Integer xp, String origen, String etnia, String imagen, Integer cansancioEspecial, Integer pvEspecial,
 			Integer turnoEspecial, Set<Armadura> armaduras, Lv lv, Set<ArmaPersonaje> armaPersonajes,
 			Set<Desventaja> desventajas, Set<TablaPsiquico> tablaPsiquicos,
 			Set<TablaTablaViasMagiaPersonaje> tablaTablaViasMagiaPersonajes, Set<TablaMagia> tablaMagias,
 			Set<ArteMarcial> arteMarcials, Caracteristicas caracteristicas, Set<TablaArma> tablaArmas,
-			Set<TablaEstilo> tablaEstilos, Set<TablaPatronMental> tablaPatronMentals,
+			Set<TablaEstilo> tablaEstilos, Set<PoderPsiquico> poderPsiquicos, Set<TablaPatronMental> tablaPatronMentals,
 			Set<TablaConjurosLibreAcceso> tablaConjurosLibreAccesos, Set<Idioma> idiomas, Set<Ventaja> ventajas) {
 		this.idPersonaje = idPersonaje;
-		this.jugador = jugador;
 		this.raza = raza;
+		this.idJugador = idJugador;
 		this.armaConocida = armaConocida;
 		this.nombre = nombre;
 		this.edad = edad;
@@ -86,6 +98,15 @@ public class Personaje implements java.io.Serializable {
 		this.particularidades = particularidades;
 		this.objetivos = objetivos;
 		this.historia = historia;
+		this.equipoCombate = equipoCombate;
+		this.vestimentaAccesorios = vestimentaAccesorios;
+		this.equipoVariado = equipoVariado;
+		this.contactos = contactos;
+		this.titulosPosesiones = titulosPosesiones;
+		this.monedasOro = monedasOro;
+		this.monedasPlata = monedasPlata;
+		this.monedasCobre = monedasCobre;
+		this.joyas = joyas;
 		this.xp = xp;
 		this.origen = origen;
 		this.etnia = etnia;
@@ -104,6 +125,7 @@ public class Personaje implements java.io.Serializable {
 		this.caracteristicas = caracteristicas;
 		this.tablaArmas = tablaArmas;
 		this.tablaEstilos = tablaEstilos;
+		this.poderPsiquicos = poderPsiquicos;
 		this.tablaPatronMentals = tablaPatronMentals;
 		this.tablaConjurosLibreAccesos = tablaConjurosLibreAccesos;
 		this.idiomas = idiomas;
@@ -122,16 +144,6 @@ public class Personaje implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ID_JUGADOR", nullable = false)
-	public Jugador getJugador() {
-		return this.jugador;
-	}
-
-	public void setJugador(Jugador jugador) {
-		this.jugador = jugador;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ID_RAZA", nullable = false)
 	public Raza getRaza() {
 		return this.raza;
@@ -139,6 +151,15 @@ public class Personaje implements java.io.Serializable {
 
 	public void setRaza(Raza raza) {
 		this.raza = raza;
+	}
+
+	@Column(name = "ID_JUGADOR", nullable = false)
+	public int getIdJugador() {
+		return this.idJugador;
+	}
+
+	public void setIdJugador(int idJugador) {
+		this.idJugador = idJugador;
 	}
 
 	@Column(name = "ARMA_CONOCIDA", length = 100)
@@ -211,6 +232,87 @@ public class Personaje implements java.io.Serializable {
 
 	public void setHistoria(String historia) {
 		this.historia = historia;
+	}
+
+	@Column(name = "EQUIPO_COMBATE", length = 65535)
+	public String getEquipoCombate() {
+		return this.equipoCombate;
+	}
+
+	public void setEquipoCombate(String equipoCombate) {
+		this.equipoCombate = equipoCombate;
+	}
+
+	@Column(name = "VESTIMENTA_ACCESORIOS", length = 65535)
+	public String getVestimentaAccesorios() {
+		return this.vestimentaAccesorios;
+	}
+
+	public void setVestimentaAccesorios(String vestimentaAccesorios) {
+		this.vestimentaAccesorios = vestimentaAccesorios;
+	}
+
+	@Column(name = "EQUIPO_VARIADO", length = 65535)
+	public String getEquipoVariado() {
+		return this.equipoVariado;
+	}
+
+	public void setEquipoVariado(String equipoVariado) {
+		this.equipoVariado = equipoVariado;
+	}
+
+	@Column(name = "CONTACTOS", length = 65535)
+	public String getContactos() {
+		return this.contactos;
+	}
+
+	public void setContactos(String contactos) {
+		this.contactos = contactos;
+	}
+
+	@Column(name = "TITULOS_POSESIONES", length = 65535)
+	public String getTitulosPosesiones() {
+		return this.titulosPosesiones;
+	}
+
+	public void setTitulosPosesiones(String titulosPosesiones) {
+		this.titulosPosesiones = titulosPosesiones;
+	}
+
+	@Column(name = "MONEDAS_ORO", length = 65535)
+	public String getMonedasOro() {
+		return this.monedasOro;
+	}
+
+	public void setMonedasOro(String monedasOro) {
+		this.monedasOro = monedasOro;
+	}
+
+	@Column(name = "MONEDAS_PLATA", length = 65535)
+	public String getMonedasPlata() {
+		return this.monedasPlata;
+	}
+
+	public void setMonedasPlata(String monedasPlata) {
+		this.monedasPlata = monedasPlata;
+	}
+
+	@Column(name = "MONEDAS_COBRE", length = 65535)
+	public String getMonedasCobre() {
+		return this.monedasCobre;
+	}
+
+	public void setMonedasCobre(String monedasCobre) {
+		this.monedasCobre = monedasCobre;
+	}
+
+	@Column(name = "JOYAS", length = 65535)
+	public String getJoyas() {
+		return this.joyas;
+	}
+
+	public void setJoyas(String joyas) {
+		this.joyas = joyas;
 	}
 
 	@Column(name = "XP")
@@ -373,6 +475,15 @@ public class Personaje implements java.io.Serializable {
 
 	public void setTablaEstilos(Set<TablaEstilo> tablaEstilos) {
 		this.tablaEstilos = tablaEstilos;
+	}
+
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "personajes")
+	public Set<PoderPsiquico> getPoderPsiquicos() {
+		return this.poderPsiquicos;
+	}
+
+	public void setPoderPsiquicos(Set<PoderPsiquico> poderPsiquicos) {
+		this.poderPsiquicos = poderPsiquicos;
 	}
 
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "personajes")

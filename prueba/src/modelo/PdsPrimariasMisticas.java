@@ -1,5 +1,5 @@
 package modelo;
-// Generated 13 jun. 2021 23:25:16 by Hibernate Tools 5.2.12.Final
+// Generated 15 jun. 2021 0:01:59 by Hibernate Tools 5.2.12.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -26,6 +26,7 @@ public class PdsPrimariasMisticas implements java.io.Serializable {
 	private Integer pdsConvocar;
 	private Integer pdsControlar;
 	private Integer pdsDesconvocar;
+	private Integer pdsAtar;
 	private Integer pdsEspZeon;
 	private Integer pdsEspAct;
 	private Integer pdsEspMultiploRegeneracion;
@@ -34,6 +35,7 @@ public class PdsPrimariasMisticas implements java.io.Serializable {
 	private Integer pdsEspConvocar;
 	private Integer pdsEspControlar;
 	private Integer pdsEspDesconvocar;
+	private Integer pdsEspAtar;
 	private Integer pdsTablaMistico1;
 	private Integer pdsTablaMistico2;
 	private Set<PdsCategoria> pdsCategorias = new HashSet<PdsCategoria>(0);
@@ -47,10 +49,10 @@ public class PdsPrimariasMisticas implements java.io.Serializable {
 
 	public PdsPrimariasMisticas(int pdsPrimariasMisticas, Integer pdsZeon, Integer pdsAct,
 			Integer pdsMultiploRegeneracion, Integer pdsProyeccionMagica, Integer pdsLvMagia, Integer pdsConvocar,
-			Integer pdsControlar, Integer pdsDesconvocar, Integer pdsEspZeon, Integer pdsEspAct,
+			Integer pdsControlar, Integer pdsDesconvocar, Integer pdsAtar, Integer pdsEspZeon, Integer pdsEspAct,
 			Integer pdsEspMultiploRegeneracion, Integer pdsEspProyeccionMagica, Integer pdsEspLvMagia,
-			Integer pdsEspConvocar, Integer pdsEspControlar, Integer pdsEspDesconvocar, Integer pdsTablaMistico1,
-			Integer pdsTablaMistico2, Set<PdsCategoria> pdsCategorias) {
+			Integer pdsEspConvocar, Integer pdsEspControlar, Integer pdsEspDesconvocar, Integer pdsEspAtar,
+			Integer pdsTablaMistico1, Integer pdsTablaMistico2, Set<PdsCategoria> pdsCategorias) {
 		this.pdsPrimariasMisticas = pdsPrimariasMisticas;
 		this.pdsZeon = pdsZeon;
 		this.pdsAct = pdsAct;
@@ -60,6 +62,7 @@ public class PdsPrimariasMisticas implements java.io.Serializable {
 		this.pdsConvocar = pdsConvocar;
 		this.pdsControlar = pdsControlar;
 		this.pdsDesconvocar = pdsDesconvocar;
+		this.pdsAtar = pdsAtar;
 		this.pdsEspZeon = pdsEspZeon;
 		this.pdsEspAct = pdsEspAct;
 		this.pdsEspMultiploRegeneracion = pdsEspMultiploRegeneracion;
@@ -68,6 +71,7 @@ public class PdsPrimariasMisticas implements java.io.Serializable {
 		this.pdsEspConvocar = pdsEspConvocar;
 		this.pdsEspControlar = pdsEspControlar;
 		this.pdsEspDesconvocar = pdsEspDesconvocar;
+		this.pdsEspAtar = pdsEspAtar;
 		this.pdsTablaMistico1 = pdsTablaMistico1;
 		this.pdsTablaMistico2 = pdsTablaMistico2;
 		this.pdsCategorias = pdsCategorias;
@@ -156,6 +160,15 @@ public class PdsPrimariasMisticas implements java.io.Serializable {
 		this.pdsDesconvocar = pdsDesconvocar;
 	}
 
+	@Column(name = "PDS_ATAR")
+	public Integer getPdsAtar() {
+		return this.pdsAtar;
+	}
+
+	public void setPdsAtar(Integer pdsAtar) {
+		this.pdsAtar = pdsAtar;
+	}
+
 	@Column(name = "PDS_ESP_ZEON")
 	public Integer getPdsEspZeon() {
 		return this.pdsEspZeon;
@@ -226,6 +239,15 @@ public class PdsPrimariasMisticas implements java.io.Serializable {
 
 	public void setPdsEspDesconvocar(Integer pdsEspDesconvocar) {
 		this.pdsEspDesconvocar = pdsEspDesconvocar;
+	}
+
+	@Column(name = "PDS_ESP_ATAR")
+	public Integer getPdsEspAtar() {
+		return this.pdsEspAtar;
+	}
+
+	public void setPdsEspAtar(Integer pdsEspAtar) {
+		this.pdsEspAtar = pdsEspAtar;
 	}
 
 	@Column(name = "PDS_TABLA_MISTICO1")

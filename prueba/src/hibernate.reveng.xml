@@ -11,7 +11,6 @@
   <table-filter match-catalog="anima_sheets_data" match-name="categoria"/>
   <table-filter match-catalog="anima_sheets_data" match-name="desventaja"/>
   <table-filter match-catalog="anima_sheets_data" match-name="idioma"/>
-  <table-filter match-catalog="anima_sheets_data" match-name="jugador"/>
   <table-filter match-catalog="anima_sheets_data" match-name="lv"/>
   <table-filter match-catalog="anima_sheets_data" match-name="pds_categoria"/>
   <table-filter match-catalog="anima_sheets_data" match-name="pds_primarias_comunes"/>
@@ -28,6 +27,7 @@
   <table-filter match-catalog="anima_sheets_data" match-name="pds_secundarias_subterfugio"/>
   <table-filter match-catalog="anima_sheets_data" match-name="pds_secundarias_vigor"/>
   <table-filter match-catalog="anima_sheets_data" match-name="personaje"/>
+  <table-filter match-catalog="anima_sheets_data" match-name="poder_psiquico"/>
   <table-filter match-catalog="anima_sheets_data" match-name="raza"/>
   <table-filter match-catalog="anima_sheets_data" match-name="tabla_arma"/>
   <table-filter match-catalog="anima_sheets_data" match-name="tabla_arma_personaje"/>
@@ -42,6 +42,7 @@
   <table-filter match-catalog="anima_sheets_data" match-name="tabla_magia_personaje"/>
   <table-filter match-catalog="anima_sheets_data" match-name="tabla_patron_mental"/>
   <table-filter match-catalog="anima_sheets_data" match-name="tabla_patron_mental_personaje"/>
+  <table-filter match-catalog="anima_sheets_data" match-name="tabla_poder_psiquico_personaje"/>
   <table-filter match-catalog="anima_sheets_data" match-name="tabla_psiquico"/>
   <table-filter match-catalog="anima_sheets_data" match-name="tabla_psiquico_personaje"/>
   <table-filter match-catalog="anima_sheets_data" match-name="tabla_tabla_vias_magia_personaje"/>

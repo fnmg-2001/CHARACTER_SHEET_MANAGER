@@ -1,5 +1,5 @@
 package modelo;
-// Generated 13 jun. 2021 23:25:16 by Hibernate Tools 5.2.12.Final
+// Generated 15 jun. 2021 0:01:59 by Hibernate Tools 5.2.12.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -18,13 +18,13 @@ import javax.persistence.Table;
 public class PdsSecundariasSociales implements java.io.Serializable {
 
 	private int pdsSecundariasSociales;
-	private Integer pdsAcrobacias;
-	private Integer pdsAtletismo;
-	private Integer pdsMontar;
-	private Integer pdsNadar;
-	private Integer pdsTrepar;
-	private Integer pdsSaltar;
-	private Integer pdsPilotar;
+	private Integer pdsEstilo;
+	private Integer pdsIntimidar;
+	private Integer pdsLiderazgo;
+	private Integer pdsPersuasion;
+	private Integer pdsComercio;
+	private Integer pdsCallejeo;
+	private Integer pdsEtiqueta;
 	private Integer pdsEspEstilo;
 	private Integer pdsEspIntimidar;
 	private Integer pdsEspLiderazgo;
@@ -62,8 +62,8 @@ public class PdsSecundariasSociales implements java.io.Serializable {
 		this.pdsSecundariasSociales = pdsSecundariasSociales;
 	}
 
-	public PdsSecundariasSociales(int pdsSecundariasSociales, Integer pdsAcrobacias, Integer pdsAtletismo,
-			Integer pdsMontar, Integer pdsNadar, Integer pdsTrepar, Integer pdsSaltar, Integer pdsPilotar,
+	public PdsSecundariasSociales(int pdsSecundariasSociales, Integer pdsEstilo, Integer pdsIntimidar,
+			Integer pdsLiderazgo, Integer pdsPersuasion, Integer pdsComercio, Integer pdsCallejeo, Integer pdsEtiqueta,
 			Integer pdsEspEstilo, Integer pdsEspIntimidar, Integer pdsEspLiderazgo, Integer pdsEspPersuasion,
 			Integer pdsEspComercio, Integer pdsEspCallejeo, Integer pdsEspEtiqueta, Integer bonoNaturalEstilo,
 			Integer bonoNaturalIntimidar, Integer bonoNaturalLiderazgo, Integer bonoNaturalPersuasion,
@@ -74,13 +74,13 @@ public class PdsSecundariasSociales implements java.io.Serializable {
 			Integer bonoNovelPersuasion, Integer bonoNovelComercio, Integer bonoNovelCallejeo,
 			Integer bonoNovelEtiqueta, Set<PdsCategoria> pdsCategorias) {
 		this.pdsSecundariasSociales = pdsSecundariasSociales;
-		this.pdsAcrobacias = pdsAcrobacias;
-		this.pdsAtletismo = pdsAtletismo;
-		this.pdsMontar = pdsMontar;
-		this.pdsNadar = pdsNadar;
-		this.pdsTrepar = pdsTrepar;
-		this.pdsSaltar = pdsSaltar;
-		this.pdsPilotar = pdsPilotar;
+		this.pdsEstilo = pdsEstilo;
+		this.pdsIntimidar = pdsIntimidar;
+		this.pdsLiderazgo = pdsLiderazgo;
+		this.pdsPersuasion = pdsPersuasion;
+		this.pdsComercio = pdsComercio;
+		this.pdsCallejeo = pdsCallejeo;
+		this.pdsEtiqueta = pdsEtiqueta;
 		this.pdsEspEstilo = pdsEspEstilo;
 		this.pdsEspIntimidar = pdsEspIntimidar;
 		this.pdsEspLiderazgo = pdsEspLiderazgo;
@@ -123,67 +123,67 @@ public class PdsSecundariasSociales implements java.io.Serializable {
 		this.pdsSecundariasSociales = pdsSecundariasSociales;
 	}
 
-	@Column(name = "PDS_ACROBACIAS")
-	public Integer getPdsAcrobacias() {
-		return this.pdsAcrobacias;
+	@Column(name = "PDS_ESTILO")
+	public Integer getPdsEstilo() {
+		return this.pdsEstilo;
 	}
 
-	public void setPdsAcrobacias(Integer pdsAcrobacias) {
-		this.pdsAcrobacias = pdsAcrobacias;
+	public void setPdsEstilo(Integer pdsEstilo) {
+		this.pdsEstilo = pdsEstilo;
 	}
 
-	@Column(name = "PDS_ATLETISMO")
-	public Integer getPdsAtletismo() {
-		return this.pdsAtletismo;
+	@Column(name = "PDS_INTIMIDAR")
+	public Integer getPdsIntimidar() {
+		return this.pdsIntimidar;
 	}
 
-	public void setPdsAtletismo(Integer pdsAtletismo) {
-		this.pdsAtletismo = pdsAtletismo;
+	public void setPdsIntimidar(Integer pdsIntimidar) {
+		this.pdsIntimidar = pdsIntimidar;
 	}
 
-	@Column(name = "PDS_MONTAR")
-	public Integer getPdsMontar() {
-		return this.pdsMontar;
+	@Column(name = "PDS_LIDERAZGO")
+	public Integer getPdsLiderazgo() {
+		return this.pdsLiderazgo;
 	}
 
-	public void setPdsMontar(Integer pdsMontar) {
-		this.pdsMontar = pdsMontar;
+	public void setPdsLiderazgo(Integer pdsLiderazgo) {
+		this.pdsLiderazgo = pdsLiderazgo;
 	}
 
-	@Column(name = "PDS_NADAR")
-	public Integer getPdsNadar() {
-		return this.pdsNadar;
+	@Column(name = "PDS_PERSUASION")
+	public Integer getPdsPersuasion() {
+		return this.pdsPersuasion;
 	}
 
-	public void setPdsNadar(Integer pdsNadar) {
-		this.pdsNadar = pdsNadar;
+	public void setPdsPersuasion(Integer pdsPersuasion) {
+		this.pdsPersuasion = pdsPersuasion;
 	}
 
-	@Column(name = "PDS_TREPAR")
-	public Integer getPdsTrepar() {
-		return this.pdsTrepar;
+	@Column(name = "PDS_COMERCIO")
+	public Integer getPdsComercio() {
+		return this.pdsComercio;
 	}
 
-	public void setPdsTrepar(Integer pdsTrepar) {
-		this.pdsTrepar = pdsTrepar;
+	public void setPdsComercio(Integer pdsComercio) {
+		this.pdsComercio = pdsComercio;
 	}
 
-	@Column(name = "PDS_SALTAR")
-	public Integer getPdsSaltar() {
-		return this.pdsSaltar;
+	@Column(name = "PDS_CALLEJEO")
+	public Integer getPdsCallejeo() {
+		return this.pdsCallejeo;
 	}
 
-	public void setPdsSaltar(Integer pdsSaltar) {
-		this.pdsSaltar = pdsSaltar;
+	public void setPdsCallejeo(Integer pdsCallejeo) {
+		this.pdsCallejeo = pdsCallejeo;
 	}
 
-	@Column(name = "PDS_PILOTAR")
-	public Integer getPdsPilotar() {
-		return this.pdsPilotar;
+	@Column(name = "PDS_ETIQUETA")
+	public Integer getPdsEtiqueta() {
+		return this.pdsEtiqueta;
 	}
 
-	public void setPdsPilotar(Integer pdsPilotar) {
-		this.pdsPilotar = pdsPilotar;
+	public void setPdsEtiqueta(Integer pdsEtiqueta) {
+		this.pdsEtiqueta = pdsEtiqueta;
 	}
 
 	@Column(name = "PDS_ESP_ESTILO")

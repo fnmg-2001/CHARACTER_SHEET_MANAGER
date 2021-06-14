@@ -24,7 +24,6 @@
         <mapping class="modelo.Desventaja"/>
         <mapping class="modelo.PdsPrimariasPsiquicas"/>
         <mapping class="modelo.Arma"/>
-        <mapping class="modelo.Jugador"/>
         <mapping class="modelo.Personaje"/>
         <mapping class="modelo.TablaMagia"/>
         <mapping class="modelo.TablaPsiquico"/>
@@ -39,6 +38,7 @@
         <mapping class="modelo.Categoria"/>
         <mapping class="modelo.PdsPrimariasMisticas"/>
         <mapping class="modelo.TablaConjurosLibreAcceso"/>
+        <mapping class="modelo.PoderPsiquico"/>
         <mapping class="modelo.PdsSecundariasSubterfugio"/>
         <mapping class="modelo.ArteMarcial"/>
         <mapping class="modelo.PdsPrimariasPatronesPsiquicos"/>

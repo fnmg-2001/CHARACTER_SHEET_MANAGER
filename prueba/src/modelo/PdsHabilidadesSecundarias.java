@@ -7,6 +7,7 @@ public class PdsHabilidadesSecundarias {
 	private String baseHabilidad;
 	private String bonoHabilidad;
 	private String categoriaHabilidad;
+	private String categoriaHabilidadAux;
 	private String especialHabilidad;
 	private String bonoNatural;
 	private String habilidadNatural;
@@ -15,13 +16,16 @@ public class PdsHabilidadesSecundarias {
 	private int bonoNaturalValor;
 	private int habilidadNaturalValor;
 	private int bonoNovelValor;
+	private String nivelClase;
 	
 	
 	public PdsHabilidadesSecundarias(String nombreHabilidad, String costeHabilidad, String pdsHabilidad,
-			String bonoHabilidad, String categoriaHabilidad, String especialHabilidad, String bonoNatural, String habilidadNatural, String bonoNovel) {
+			String bonoHabilidad, String categoriaHabilidad, String especialHabilidad, String bonoNatural, String habilidadNatural, String bonoNovel,
+			String nivelClase) {
 		this.nombreHabilidad = nombreHabilidad;
 		this.costeHabilidad = costeHabilidad;
 		this.pdsHabilidad = pdsHabilidad;
+		this.nivelClase = nivelClase;
 		
 		if (null!=this.pdsHabilidad && null!=this.costeHabilidad) {
 			this.baseHabilidad = String.valueOf((Integer.parseInt(pdsHabilidad)/Integer.parseInt(this.costeHabilidad)));
@@ -40,11 +44,20 @@ public class PdsHabilidadesSecundarias {
 		}
 		
 		this.categoriaHabilidad = categoriaHabilidad;
+		this.categoriaHabilidadAux = categoriaHabilidad;
 		if (this.categoriaHabilidad=="null"||this.categoriaHabilidad=="-"||null==this.categoriaHabilidad) {
 			this.categoriaHabilidad = "0";
+			if (this.categoriaHabilidadAux=="null"||this.categoriaHabilidadAux=="-"||null==this.categoriaHabilidadAux) {
+				this.categoriaHabilidadAux = "0";
+			} 
 			
-		}else {
+		} else {
 			this.categoriaHabilidad = categoriaHabilidad;
+			this.categoriaHabilidadAux = categoriaHabilidad;
+			
+			for (int i = 1; i < Integer.parseInt(nivelClase); i++) {
+				this.categoriaHabilidad = String.valueOf(Integer.parseInt(this.categoriaHabilidad) + Integer.parseInt(this.categoriaHabilidad));
+			}
 		}
 		
 		this.especialHabilidad = especialHabilidad;
@@ -353,6 +366,36 @@ public class PdsHabilidadesSecundarias {
 			this.totalHabilidad = String.valueOf(Integer.parseInt(this.baseHabilidad)+0+Integer.parseInt(this.categoriaHabilidad)+Integer.parseInt(this.bonoHabilidad)+this.bonoNaturalValor+this.habilidadNaturalValor+this.bonoNovelValor);
 		}  else if (null==this.baseHabilidad && null!=this.especialHabilidad) {
 			this.totalHabilidad = String.valueOf(0+Integer.parseInt(this.especialHabilidad)+Integer.parseInt(this.categoriaHabilidad)+Integer.parseInt(this.bonoHabilidad)+this.bonoNaturalValor+this.habilidadNaturalValor+this.bonoNovelValor);
+			
+		} else {
+			this.totalHabilidad = "0";
+			
+		}
+	}
+
+	public String getNivelClase() {
+		return nivelClase;
+	}
+
+	public void setNivelClase(String nivelClase) {
+		this.nivelClase = nivelClase;
+		if (this.categoriaHabilidad=="null"||this.categoriaHabilidad=="-"||null==this.categoriaHabilidad||this.categoriaHabilidadAux=="null"||this.categoriaHabilidadAux=="-"||null==this.categoriaHabilidadAux) {
+			this.categoriaHabilidad = "0";
+			this.categoriaHabilidadAux = "0";
+			
+		} else {
+			this.categoriaHabilidad = this.categoriaHabilidadAux;
+			for (int i = 1; i < Integer.parseInt(nivelClase); i++) {
+				this.categoriaHabilidad = String.valueOf(Integer.parseInt(this.categoriaHabilidad) + Integer.parseInt(this.categoriaHabilidadAux));
+			}
+		}
+		
+		if (null!=this.baseHabilidad && null!=this.especialHabilidad) {
+			this.totalHabilidad = String.valueOf(Integer.parseInt(this.baseHabilidad)+Integer.parseInt(this.especialHabilidad)+Integer.parseInt(this.categoriaHabilidad)+Integer.parseInt(this.bonoHabilidad));
+		} else if (null!=this.baseHabilidad && null==this.especialHabilidad) {
+			this.totalHabilidad = String.valueOf(Integer.parseInt(this.baseHabilidad)+0+Integer.parseInt(this.categoriaHabilidad)+Integer.parseInt(this.bonoHabilidad));
+		}  else if (null==this.baseHabilidad && null!=this.especialHabilidad) {
+			this.totalHabilidad = String.valueOf(0+Integer.parseInt(this.especialHabilidad)+Integer.parseInt(this.categoriaHabilidad)+Integer.parseInt(this.bonoHabilidad));
 			
 		} else {
 			this.totalHabilidad = "0";

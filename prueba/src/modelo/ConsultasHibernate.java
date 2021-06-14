@@ -175,7 +175,7 @@ public class ConsultasHibernate {
 		
 	}
 	
-	public Armadura obtenerArmamadura(SessionFactory sessionFactory, String nombreArmadura){
+	public Armadura obtenerArmadura(SessionFactory sessionFactory, String nombreArmadura){
 		Armadura armadura;
 		Session session = null;
 		try {
@@ -276,6 +276,30 @@ public class ConsultasHibernate {
 		return coste;
 	}
 	
+	public Ventaja obtenerVentajaSeleccionada(SessionFactory sessionFactory, String nombreVentaja) {
+		Session session = null;
+		Ventaja ventaja;
+		int coste;
+		try {
+			session = sessionFactory.getCurrentSession();
+			session.beginTransaction();
+			
+			Query query = session.createQuery("FROM Ventaja v WHERE v.nombre = :nombreVentaja");
+			query.setParameter("nombreVentaja", nombreVentaja);
+			ventaja = (Ventaja)query.getSingleResult();
+			
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			throw e;
+		}
+		finally {
+			if (session != null) {
+				session.close();
+			}
+		}
+		return ventaja;
+	}
+	
 	public ObservableList<String> obtenerNombresDesventaja(SessionFactory sessionFactory) {
 		Session session = null;
 		ObservableList<String> nombreListaVentaja = FXCollections.observableArrayList();
@@ -327,6 +351,29 @@ public class ConsultasHibernate {
 			}
 		}
 		return coste;
+	}
+	
+	public Desventaja obtenerDesventajaSeleccionada(SessionFactory sessionFactory, String nombreDesventaja) {
+		Session session = null;
+		Desventaja desventaja;
+		try {
+			session = sessionFactory.getCurrentSession();
+			session.beginTransaction();
+			
+			Query query = session.createQuery("FROM Desventaja d WHERE d.nombre = :nombreDesventaja");
+			query.setParameter("nombreDesventaja", nombreDesventaja);
+			desventaja = (Desventaja)query.getSingleResult();
+			
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			throw e;
+		}
+		finally {
+			if (session != null) {
+				session.close();
+			}
+		}
+		return desventaja;
 	}
 	
 	public ObservableList<String> obtenerListaTablasEstilo(SessionFactory sessionFactory) {
@@ -431,13 +478,228 @@ public class ConsultasHibernate {
 		return arteMarcial;
 	}
 	
-	public static void main(String[] args) {
-		ConsultasHibernate ch = new ConsultasHibernate();
-		SessionFactory sf = ch.obtenerSessionFactory();
-		
-		System.out.println(ch.obtenerRaza("DAIMAH", sf).toString());
-		System.out.println(ch.obtenerListaNombreNephilim(sf));
-		System.out.println(ch.obtenerNombresVentaja(sf).toString());
-		System.out.println(ch.obtenerBeneficioDesventajaSeleccionada(sf, "MIOPIA"));
+	public ObservableList<String> obtenerListaViasMagicas(SessionFactory sessionFactory) {
+		Session session = null;
+		ObservableList<String> nombreListaVias = FXCollections.observableArrayList();
+		try {
+			session = sessionFactory.getCurrentSession();
+			session.beginTransaction();
+			
+			Query query = session.createQuery("FROM TablaViasMagia");
+			List<TablaViasMagia> listaVias = query.list();
+			String nombreVia;
+			
+			for (TablaViasMagia tablaViasMagia : listaVias) {
+				nombreVia = tablaViasMagia.getNombre();
+				nombreListaVias.add(nombreVia);
+			}
+			
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			throw e;
+		}
+		finally {
+			if (session != null) {
+				session.close();
+			}
+		}
+		return nombreListaVias;
 	}
+
+	public TablaViasMagia obtenerViaMagiaSeleccionada(SessionFactory sessionFactory, String nombreViaMagiaSeleccionada) {
+		Session session = null;
+		TablaViasMagia tablaViasMagia;
+		try {
+			session = sessionFactory.getCurrentSession();
+			session.beginTransaction();
+			
+			Query query = session.createQuery("FROM TablaViasMagia tvm WHERE tvm.nombre = :nombreViaMagiaSeleccionada");
+			query.setParameter("nombreViaMagiaSeleccionada", nombreViaMagiaSeleccionada);
+			tablaViasMagia = (TablaViasMagia)query.getSingleResult();
+			
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			throw e;
+		}
+		finally {
+			if (session != null) {
+				session.close();
+			}
+		}
+		return tablaViasMagia;
+	}
+	
+	public ObservableList<String> listaTablasMagias(SessionFactory sessionFactory) {
+		Session session = null;
+		ObservableList<String> nombreListaTablasMagia = FXCollections.observableArrayList();
+		try {
+			session = sessionFactory.getCurrentSession();
+			session.beginTransaction();
+			
+			Query query = session.createQuery("FROM TablaMagia");
+			List<TablaMagia> listaTablasMagia = query.list();
+			String nombreTablaMagia;
+			
+			for (TablaMagia tablaMagia : listaTablasMagia) {
+				nombreTablaMagia = tablaMagia.getNombre();
+				nombreListaTablasMagia.add(nombreTablaMagia);
+			}
+			
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			throw e;
+		}
+		finally {
+			if (session != null) {
+				session.close();
+			}
+		}
+		return nombreListaTablasMagia;
+	}
+
+	public TablaMagia obtenerTablaMagia(SessionFactory sessionFactory, String nombreTablaMagiaSeleccionada) {
+		Session session = null;
+		TablaMagia tablaMagia;
+		try {
+			session = sessionFactory.getCurrentSession();
+			session.beginTransaction();
+			
+			Query query = session.createQuery("FROM TablaMagia tm WHERE tm.nombre = :nombreTablaMagiaSeleccionada");
+			query.setParameter("nombreTablaMagiaSeleccionada", nombreTablaMagiaSeleccionada);
+			tablaMagia = (TablaMagia)query.getSingleResult();
+			
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			throw e;
+		}
+		finally {
+			if (session != null) {
+				session.close();
+			}
+		}
+		return tablaMagia;
+	}
+	
+	public ObservableList<String> listaConjurosLibreAcceso(SessionFactory sessionFactory) {
+		Session session = null;
+		ObservableList<String> nombreListaConjurosLibreAcceso = FXCollections.observableArrayList();
+		try {
+			session = sessionFactory.getCurrentSession();
+			session.beginTransaction();
+			
+			Query query = session.createQuery("FROM TablaConjurosLibreAcceso");
+			List<TablaConjurosLibreAcceso> listaConjurosLibreAcceso = query.list();
+			String nombreConjuroLibreAcceso;
+			
+			for (TablaConjurosLibreAcceso tablaConjurosLibreAcceso : listaConjurosLibreAcceso) {
+				nombreConjuroLibreAcceso = tablaConjurosLibreAcceso.getNombre();
+				nombreListaConjurosLibreAcceso.add(nombreConjuroLibreAcceso);
+			}
+			
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			throw e;
+		}
+		finally {
+			if (session != null) {
+				session.close();
+			}
+		}
+		return nombreListaConjurosLibreAcceso;
+	}
+
+	public TablaConjurosLibreAcceso obtenerConjuroLibreAccesoSeleccionado(SessionFactory sessionFactory, String nombreConjuroLibreAccesoSeleccionada) {
+		Session session = null;
+		TablaConjurosLibreAcceso conjuroLibreAcceso;
+		try {
+			session = sessionFactory.getCurrentSession();
+			session.beginTransaction();
+			
+			Query query = session.createQuery("FROM TablaConjurosLibreAcceso tcla WHERE tcla.nombre = :nombreConjuroLibreAccesoSeleccionada");
+			query.setParameter("nombreConjuroLibreAccesoSeleccionada", nombreConjuroLibreAccesoSeleccionada);
+			conjuroLibreAcceso = (TablaConjurosLibreAcceso)query.getSingleResult();
+			
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			throw e;
+		}
+		finally {
+			if (session != null) {
+				session.close();
+			}
+		}
+		return conjuroLibreAcceso;
+	}
+	
+	public ObservableList<String> listaPoderesPsiquicos(SessionFactory sessionFactory) {
+		Session session = null;
+		ObservableList<String> nombreListaPoderesPsiquicos = FXCollections.observableArrayList();
+		try {
+			session = sessionFactory.getCurrentSession();
+			session.beginTransaction();
+			
+			Query query = session.createQuery("FROM PoderPsiquico");
+			List<PoderPsiquico> listaPoderesPsiquicos = query.list();
+			String nombrePoderPsiquico;
+			
+			for (PoderPsiquico poderPsiquico : listaPoderesPsiquicos) {
+				nombrePoderPsiquico = poderPsiquico.getNombre();
+				nombreListaPoderesPsiquicos.add(nombrePoderPsiquico);
+			}
+			
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			throw e;
+		}
+		finally {
+			if (session != null) {
+				session.close();
+			}
+		}
+		return nombreListaPoderesPsiquicos;
+	}
+
+	public PoderPsiquico obtenerPoderPsiquicoSeleccionado(SessionFactory sessionFactory, String nombrePoderPsiquicoSeleccionado) {
+		Session session = null;
+		PoderPsiquico poderPsiquico;
+		try {
+			session = sessionFactory.getCurrentSession();
+			session.beginTransaction();
+			
+			Query query = session.createQuery("FROM PoderPsiquico pp WHERE pp.nombre = :nombrePoderPsiquicoSeleccionado");
+			query.setParameter("nombrePoderPsiquicoSeleccionado", nombrePoderPsiquicoSeleccionado);
+			poderPsiquico = (PoderPsiquico)query.getSingleResult();
+			
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			throw e;
+		}
+		finally {
+			if (session != null) {
+				session.close();
+			}
+		}
+		return poderPsiquico;
+	}
+
+	public void insertarPersonaje(SessionFactory sessionFactory) {
+		Session session = null;
+		
+		try {
+			session = sessionFactory.getCurrentSession();
+			session.beginTransaction();
+			
+			
+			
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			throw e;
+		}
+		finally {
+			if (session != null) {
+				session.close();
+			}
+		}
+	}
+	
 }

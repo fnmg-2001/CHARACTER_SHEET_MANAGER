@@ -1,5 +1,5 @@
 package modelo;
-// Generated 13 jun. 2021 23:25:16 by Hibernate Tools 5.2.12.Final
+// Generated 15 jun. 2021 0:01:59 by Hibernate Tools 5.2.12.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -32,6 +32,13 @@ public class PdsSecundariasAtleticas implements java.io.Serializable {
 	private Integer pdsEspTrepar;
 	private Integer pdsEspSaltar;
 	private Integer pdsEspPilotar;
+	private Integer bonoNaturalAcrobacias;
+	private Integer bonoNaturalAtletismo;
+	private Integer bonoNaturalMontar;
+	private Integer bonoNaturalNadar;
+	private Integer bonoNaturalTrepar;
+	private Integer bonoNaturalSaltar;
+	private Integer bonoNaturalPilotar;
 	private Integer habNaturalAcrobacias;
 	private Integer habNaturalAtletismo;
 	private Integer habNaturalMontar;
@@ -58,11 +65,14 @@ public class PdsSecundariasAtleticas implements java.io.Serializable {
 	public PdsSecundariasAtleticas(int pdsSecundariasAtleticas, Integer pdsAcrobacias, Integer pdsAtletismo,
 			Integer pdsMontar, Integer pdsNadar, Integer pdsTrepar, Integer pdsSaltar, Integer pdsPilotar,
 			Integer pdsEspAcrobacias, Integer pdsEspAtletismo, Integer pdsEspMontar, Integer pdsEspNadar,
-			Integer pdsEspTrepar, Integer pdsEspSaltar, Integer pdsEspPilotar, Integer habNaturalAcrobacias,
-			Integer habNaturalAtletismo, Integer habNaturalMontar, Integer habNaturalNadar, Integer habNaturalTrepar,
-			Integer habNaturalSaltar, Integer habNaturalPilotar, Integer bonoNovelAcrobacias,
-			Integer bonoNovelAtletismo, Integer bonoNovelMontar, Integer bonoNovelNadar, Integer bonoNovelTrepar,
-			Integer bonoNovelSaltar, Integer bonoNovelPilotar, Set<PdsCategoria> pdsCategorias) {
+			Integer pdsEspTrepar, Integer pdsEspSaltar, Integer pdsEspPilotar, Integer bonoNaturalAcrobacias,
+			Integer bonoNaturalAtletismo, Integer bonoNaturalMontar, Integer bonoNaturalNadar,
+			Integer bonoNaturalTrepar, Integer bonoNaturalSaltar, Integer bonoNaturalPilotar,
+			Integer habNaturalAcrobacias, Integer habNaturalAtletismo, Integer habNaturalMontar,
+			Integer habNaturalNadar, Integer habNaturalTrepar, Integer habNaturalSaltar, Integer habNaturalPilotar,
+			Integer bonoNovelAcrobacias, Integer bonoNovelAtletismo, Integer bonoNovelMontar, Integer bonoNovelNadar,
+			Integer bonoNovelTrepar, Integer bonoNovelSaltar, Integer bonoNovelPilotar,
+			Set<PdsCategoria> pdsCategorias) {
 		this.pdsSecundariasAtleticas = pdsSecundariasAtleticas;
 		this.pdsAcrobacias = pdsAcrobacias;
 		this.pdsAtletismo = pdsAtletismo;
@@ -78,6 +88,13 @@ public class PdsSecundariasAtleticas implements java.io.Serializable {
 		this.pdsEspTrepar = pdsEspTrepar;
 		this.pdsEspSaltar = pdsEspSaltar;
 		this.pdsEspPilotar = pdsEspPilotar;
+		this.bonoNaturalAcrobacias = bonoNaturalAcrobacias;
+		this.bonoNaturalAtletismo = bonoNaturalAtletismo;
+		this.bonoNaturalMontar = bonoNaturalMontar;
+		this.bonoNaturalNadar = bonoNaturalNadar;
+		this.bonoNaturalTrepar = bonoNaturalTrepar;
+		this.bonoNaturalSaltar = bonoNaturalSaltar;
+		this.bonoNaturalPilotar = bonoNaturalPilotar;
 		this.habNaturalAcrobacias = habNaturalAcrobacias;
 		this.habNaturalAtletismo = habNaturalAtletismo;
 		this.habNaturalMontar = habNaturalMontar;
@@ -230,6 +247,69 @@ public class PdsSecundariasAtleticas implements java.io.Serializable {
 
 	public void setPdsEspPilotar(Integer pdsEspPilotar) {
 		this.pdsEspPilotar = pdsEspPilotar;
+	}
+
+	@Column(name = "BONO_NATURAL_ACROBACIAS")
+	public Integer getBonoNaturalAcrobacias() {
+		return this.bonoNaturalAcrobacias;
+	}
+
+	public void setBonoNaturalAcrobacias(Integer bonoNaturalAcrobacias) {
+		this.bonoNaturalAcrobacias = bonoNaturalAcrobacias;
+	}
+
+	@Column(name = "BONO_NATURAL_ATLETISMO")
+	public Integer getBonoNaturalAtletismo() {
+		return this.bonoNaturalAtletismo;
+	}
+
+	public void setBonoNaturalAtletismo(Integer bonoNaturalAtletismo) {
+		this.bonoNaturalAtletismo = bonoNaturalAtletismo;
+	}
+
+	@Column(name = "BONO_NATURAL_MONTAR")
+	public Integer getBonoNaturalMontar() {
+		return this.bonoNaturalMontar;
+	}
+
+	public void setBonoNaturalMontar(Integer bonoNaturalMontar) {
+		this.bonoNaturalMontar = bonoNaturalMontar;
+	}
+
+	@Column(name = "BONO_NATURAL_NADAR")
+	public Integer getBonoNaturalNadar() {
+		return this.bonoNaturalNadar;
+	}
+
+	public void setBonoNaturalNadar(Integer bonoNaturalNadar) {
+		this.bonoNaturalNadar = bonoNaturalNadar;
+	}
+
+	@Column(name = "BONO_NATURAL_TREPAR")
+	public Integer getBonoNaturalTrepar() {
+		return this.bonoNaturalTrepar;
+	}
+
+	public void setBonoNaturalTrepar(Integer bonoNaturalTrepar) {
+		this.bonoNaturalTrepar = bonoNaturalTrepar;
+	}
+
+	@Column(name = "BONO_NATURAL_SALTAR")
+	public Integer getBonoNaturalSaltar() {
+		return this.bonoNaturalSaltar;
+	}
+
+	public void setBonoNaturalSaltar(Integer bonoNaturalSaltar) {
+		this.bonoNaturalSaltar = bonoNaturalSaltar;
+	}
+
+	@Column(name = "BONO_NATURAL_PILOTAR")
+	public Integer getBonoNaturalPilotar() {
+		return this.bonoNaturalPilotar;
+	}
+
+	public void setBonoNaturalPilotar(Integer bonoNaturalPilotar) {
+		this.bonoNaturalPilotar = bonoNaturalPilotar;
 	}
 
 	@Column(name = "HAB_NATURAL_ACROBACIAS")

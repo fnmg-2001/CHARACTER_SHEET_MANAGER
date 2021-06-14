@@ -1,5 +1,5 @@
 package modelo;
-// Generated 13 jun. 2021 23:25:16 by Hibernate Tools 5.2.12.Final
+// Generated 15 jun. 2021 0:01:59 by Hibernate Tools 5.2.12.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -20,19 +20,19 @@ public class PdsSecundariasPerceptivas implements java.io.Serializable {
 	private int pdsSecundariasPerceptivas;
 	private Integer pdsAdvertir;
 	private Integer pdsBuscar;
-	private Integer pdsRestrear;
+	private Integer pdsRastrear;
 	private Integer pdsEspAdvertir;
 	private Integer pdsEspBuscar;
-	private Integer pdsEspRestrear;
+	private Integer pdsEspRastrear;
 	private Integer bonoNaturalAdvertir;
 	private Integer bonoNaturalBuscar;
-	private Integer bonoNaturalRestrear;
+	private Integer bonoNaturalRastrear;
 	private Integer habNaturalAdvertir;
 	private Integer habNaturalBuscar;
-	private Integer habNaturalRestrear;
+	private Integer habNaturalRastrear;
 	private Integer bonoNovelAdvertir;
 	private Integer bonoNovelBuscar;
-	private Integer bonoNovelRestrear;
+	private Integer bonoNovelRastrear;
 	private Set<PdsCategoria> pdsCategorias = new HashSet<PdsCategoria>(0);
 
 	public PdsSecundariasPerceptivas() {
@@ -43,26 +43,26 @@ public class PdsSecundariasPerceptivas implements java.io.Serializable {
 	}
 
 	public PdsSecundariasPerceptivas(int pdsSecundariasPerceptivas, Integer pdsAdvertir, Integer pdsBuscar,
-			Integer pdsRestrear, Integer pdsEspAdvertir, Integer pdsEspBuscar, Integer pdsEspRestrear,
-			Integer bonoNaturalAdvertir, Integer bonoNaturalBuscar, Integer bonoNaturalRestrear,
-			Integer habNaturalAdvertir, Integer habNaturalBuscar, Integer habNaturalRestrear, Integer bonoNovelAdvertir,
-			Integer bonoNovelBuscar, Integer bonoNovelRestrear, Set<PdsCategoria> pdsCategorias) {
+			Integer pdsRastrear, Integer pdsEspAdvertir, Integer pdsEspBuscar, Integer pdsEspRastrear,
+			Integer bonoNaturalAdvertir, Integer bonoNaturalBuscar, Integer bonoNaturalRastrear,
+			Integer habNaturalAdvertir, Integer habNaturalBuscar, Integer habNaturalRastrear, Integer bonoNovelAdvertir,
+			Integer bonoNovelBuscar, Integer bonoNovelRastrear, Set<PdsCategoria> pdsCategorias) {
 		this.pdsSecundariasPerceptivas = pdsSecundariasPerceptivas;
 		this.pdsAdvertir = pdsAdvertir;
 		this.pdsBuscar = pdsBuscar;
-		this.pdsRestrear = pdsRestrear;
+		this.pdsRastrear = pdsRastrear;
 		this.pdsEspAdvertir = pdsEspAdvertir;
 		this.pdsEspBuscar = pdsEspBuscar;
-		this.pdsEspRestrear = pdsEspRestrear;
+		this.pdsEspRastrear = pdsEspRastrear;
 		this.bonoNaturalAdvertir = bonoNaturalAdvertir;
 		this.bonoNaturalBuscar = bonoNaturalBuscar;
-		this.bonoNaturalRestrear = bonoNaturalRestrear;
+		this.bonoNaturalRastrear = bonoNaturalRastrear;
 		this.habNaturalAdvertir = habNaturalAdvertir;
 		this.habNaturalBuscar = habNaturalBuscar;
-		this.habNaturalRestrear = habNaturalRestrear;
+		this.habNaturalRastrear = habNaturalRastrear;
 		this.bonoNovelAdvertir = bonoNovelAdvertir;
 		this.bonoNovelBuscar = bonoNovelBuscar;
-		this.bonoNovelRestrear = bonoNovelRestrear;
+		this.bonoNovelRastrear = bonoNovelRastrear;
 		this.pdsCategorias = pdsCategorias;
 	}
 
@@ -95,13 +95,13 @@ public class PdsSecundariasPerceptivas implements java.io.Serializable {
 		this.pdsBuscar = pdsBuscar;
 	}
 
-	@Column(name = "PDS_RESTREAR")
-	public Integer getPdsRestrear() {
-		return this.pdsRestrear;
+	@Column(name = "PDS_RASTREAR")
+	public Integer getPdsRastrear() {
+		return this.pdsRastrear;
 	}
 
-	public void setPdsRestrear(Integer pdsRestrear) {
-		this.pdsRestrear = pdsRestrear;
+	public void setPdsRastrear(Integer pdsRastrear) {
+		this.pdsRastrear = pdsRastrear;
 	}
 
 	@Column(name = "PDS_ESP_ADVERTIR")
@@ -122,13 +122,13 @@ public class PdsSecundariasPerceptivas implements java.io.Serializable {
 		this.pdsEspBuscar = pdsEspBuscar;
 	}
 
-	@Column(name = "PDS_ESP_RESTREAR")
-	public Integer getPdsEspRestrear() {
-		return this.pdsEspRestrear;
+	@Column(name = "PDS_ESP_RASTREAR")
+	public Integer getPdsEspRastrear() {
+		return this.pdsEspRastrear;
 	}
 
-	public void setPdsEspRestrear(Integer pdsEspRestrear) {
-		this.pdsEspRestrear = pdsEspRestrear;
+	public void setPdsEspRastrear(Integer pdsEspRastrear) {
+		this.pdsEspRastrear = pdsEspRastrear;
 	}
 
 	@Column(name = "BONO_NATURAL_ADVERTIR")
@@ -149,13 +149,13 @@ public class PdsSecundariasPerceptivas implements java.io.Serializable {
 		this.bonoNaturalBuscar = bonoNaturalBuscar;
 	}
 
-	@Column(name = "BONO_NATURAL_RESTREAR")
-	public Integer getBonoNaturalRestrear() {
-		return this.bonoNaturalRestrear;
+	@Column(name = "BONO_NATURAL_RASTREAR")
+	public Integer getBonoNaturalRastrear() {
+		return this.bonoNaturalRastrear;
 	}
 
-	public void setBonoNaturalRestrear(Integer bonoNaturalRestrear) {
-		this.bonoNaturalRestrear = bonoNaturalRestrear;
+	public void setBonoNaturalRastrear(Integer bonoNaturalRastrear) {
+		this.bonoNaturalRastrear = bonoNaturalRastrear;
 	}
 
 	@Column(name = "HAB_NATURAL_ADVERTIR")
@@ -176,13 +176,13 @@ public class PdsSecundariasPerceptivas implements java.io.Serializable {
 		this.habNaturalBuscar = habNaturalBuscar;
 	}
 
-	@Column(name = "HAB_NATURAL_RESTREAR")
-	public Integer getHabNaturalRestrear() {
-		return this.habNaturalRestrear;
+	@Column(name = "HAB_NATURAL_RASTREAR")
+	public Integer getHabNaturalRastrear() {
+		return this.habNaturalRastrear;
 	}
 
-	public void setHabNaturalRestrear(Integer habNaturalRestrear) {
-		this.habNaturalRestrear = habNaturalRestrear;
+	public void setHabNaturalRastrear(Integer habNaturalRastrear) {
+		this.habNaturalRastrear = habNaturalRastrear;
 	}
 
 	@Column(name = "BONO_NOVEL_ADVERTIR")
@@ -203,13 +203,13 @@ public class PdsSecundariasPerceptivas implements java.io.Serializable {
 		this.bonoNovelBuscar = bonoNovelBuscar;
 	}
 
-	@Column(name = "BONO_NOVEL_RESTREAR")
-	public Integer getBonoNovelRestrear() {
-		return this.bonoNovelRestrear;
+	@Column(name = "BONO_NOVEL_RASTREAR")
+	public Integer getBonoNovelRastrear() {
+		return this.bonoNovelRastrear;
 	}
 
-	public void setBonoNovelRestrear(Integer bonoNovelRestrear) {
-		this.bonoNovelRestrear = bonoNovelRestrear;
+	public void setBonoNovelRastrear(Integer bonoNovelRastrear) {
+		this.bonoNovelRastrear = bonoNovelRastrear;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "pdsSecundariasPerceptivas")
