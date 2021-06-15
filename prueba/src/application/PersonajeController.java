@@ -43,8 +43,10 @@ import modelo.ConjuroSeleccionado;
 import modelo.ConsultasHibernate;
 import modelo.Desventaja;
 import modelo.DesventajaSeleccionada;
+import modelo.Lv;
 import modelo.NivelClase;
 import modelo.PdsCategoria;
+import modelo.PdsCategoriaId;
 import modelo.PdsCombate;
 import modelo.PdsHabilidadesSecundarias;
 import modelo.PdsHabilidadesSecundariasResumen;
@@ -647,7 +649,7 @@ public class PersonajeController {
 			tableViewResistencias.getItems().get(1).setBonoCaracteristica(caracteristica.getBonoCaracteristica());
 			tableViewResistencias.getItems().get(2).setBonoCaracteristica(caracteristica.getBonoCaracteristica());
 			tableViewResistencias.getItems().get(3).setBonoCaracteristica(caracteristica.getBonoCaracteristica());
-			tableViewCombate.getItems().get(5).setBonoHabilidad(caracteristica.getTotalCaracteristica());
+//			tableViewCombate.getItems().get(5).setBonoHabilidad(caracteristica.getTotalCaracteristica());
 			
 //			if (Integer.parseInt(caracteristica.getTotalCaracteristica())>=1&&Integer.parseInt(caracteristica.getTotalCaracteristica())<=9) {
 //				tableViewCombate.getItems().get(11).setBonoHabilidad("1");
@@ -667,7 +669,7 @@ public class PersonajeController {
 			caracteristica.setTotalCaracteristica(String.valueOf(Integer.parseInt(caracteristica.getBaseCaracteristica())+Integer.parseInt(caracteristica.getTempCaracteristica())+Integer.parseInt(razaSeleccionada.getBonoFuerza())));
 			caracteristica.setBonoCaracteristica(caracteristica.getTotalCaracteristica());
 			tableViewResistencias.getItems().get(4).setBonoCaracteristica(caracteristica.getBonoCaracteristica());
-			tableViewCombate.getItems().get(7).setBonoHabilidad(caracteristica.getTotalCaracteristica());
+//			tableViewCombate.getItems().get(7).setBonoHabilidad(caracteristica.getTotalCaracteristica());
 			
 //			if (Integer.parseInt(caracteristica.getTotalCaracteristica())>=1&&Integer.parseInt(caracteristica.getTotalCaracteristica())<=9) {
 //				tableViewCombate.getItems().get(13).setBonoHabilidad("1");
@@ -709,7 +711,7 @@ public class PersonajeController {
 			tTurnoDestreza.setText(caracteristica.getBonoCaracteristica());
 			tableViewCombate.getItems().get(0).setBonoHabilidad(caracteristica.getBonoCaracteristica());
 			tableViewCombate.getItems().get(1).setBonoHabilidad(caracteristica.getBonoCaracteristica());
-			tableViewCombate.getItems().get(6).setBonoHabilidad(caracteristica.getTotalCaracteristica());
+//			tableViewCombate.getItems().get(6).setBonoHabilidad(caracteristica.getTotalCaracteristica());
 			tTurnoTotal.setText(String.valueOf(Integer.parseInt(tTurnoBase.getText())+Integer.parseInt(tTurnoAgilidad.getText())+
 					Integer.parseInt(tTurnoDestreza.getText())+Integer.parseInt(tTurnoCategoria.getText())+Integer.parseInt(tTurnoArmadura.getText())+Integer.parseInt(tTurnoDesarmado.getText())+
 					Integer.parseInt(tTurnoEspecial.getText())));
@@ -966,7 +968,7 @@ public class PersonajeController {
 			caracteristica.setTotalCaracteristica(String.valueOf(Integer.parseInt(caracteristica.getBaseCaracteristica())+Integer.parseInt(caracteristica.getTempCaracteristica())+Integer.parseInt(razaSeleccionada.getBonoPoder())));
 			caracteristica.setBonoCaracteristica(caracteristica.getTotalCaracteristica());
 			tableViewResistencias.getItems().get(4).setBonoCaracteristica(caracteristica.getBonoCaracteristica());
-			tableViewCombate.getItems().get(8).setBonoHabilidad(caracteristica.getTotalCaracteristica());
+//			tableViewCombate.getItems().get(8).setBonoHabilidad(caracteristica.getTotalCaracteristica());
 			
 //			if (Integer.parseInt(caracteristica.getTotalCaracteristica())>=1&&Integer.parseInt(caracteristica.getTotalCaracteristica())<=9) {
 //				tableViewCombate.getItems().get(14).setBonoHabilidad("1");
@@ -1033,7 +1035,7 @@ public class PersonajeController {
 			caracteristica.setTotalCaracteristica(String.valueOf(Integer.parseInt(caracteristica.getBaseCaracteristica())+Integer.parseInt(caracteristica.getTempCaracteristica())+Integer.parseInt(razaSeleccionada.getBonoVoluntad())));
 			caracteristica.setBonoCaracteristica(caracteristica.getTotalCaracteristica());
 			tableViewResistencias.getItems().get(5).setBonoCaracteristica(caracteristica.getBonoCaracteristica());
-			tableViewCombate.getItems().get(9).setBonoHabilidad(caracteristica.getTotalCaracteristica());
+//			tableViewCombate.getItems().get(9).setBonoHabilidad(caracteristica.getTotalCaracteristica());
 			
 //			if (Integer.parseInt(caracteristica.getTotalCaracteristica())>=1&&Integer.parseInt(caracteristica.getTotalCaracteristica())<=9) {
 //				tableViewCombate.getItems().get(15).setBonoHabilidad("1");
@@ -3754,35 +3756,64 @@ public class PersonajeController {
 		caracteristicas.setPoderTemporal(Integer.parseInt(tableViewCaracteristicas.getItems().get(6).getTempCaracteristica()));
 		caracteristicas.setVoluntadTemporal(Integer.parseInt(tableViewCaracteristicas.getItems().get(7).getTempCaracteristica()));
 		
-		Ventaja ventaja1 = ch.obtenerVentajaSeleccionada(sessionFactory, tableViewVentaja.getItems().get(0).getNombreVentaja().getSelectionModel().getSelectedItem());
-		Ventaja ventaja2 = ch.obtenerVentajaSeleccionada(sessionFactory, tableViewVentaja.getItems().get(1).getNombreVentaja().getSelectionModel().getSelectedItem());
-		Ventaja ventaja3 = ch.obtenerVentajaSeleccionada(sessionFactory, tableViewVentaja.getItems().get(2).getNombreVentaja().getSelectionModel().getSelectedItem());
-		Ventaja ventaja4 = ch.obtenerVentajaSeleccionada(sessionFactory, tableViewVentaja.getItems().get(3).getNombreVentaja().getSelectionModel().getSelectedItem());
-		Ventaja ventaja5 = ch.obtenerVentajaSeleccionada(sessionFactory, tableViewVentaja.getItems().get(4).getNombreVentaja().getSelectionModel().getSelectedItem());
-		Ventaja ventaja6 = ch.obtenerVentajaSeleccionada(sessionFactory, tableViewVentaja.getItems().get(5).getNombreVentaja().getSelectionModel().getSelectedItem());
-		Ventaja ventaja7 = ch.obtenerVentajaSeleccionada(sessionFactory, tableViewVentaja.getItems().get(6).getNombreVentaja().getSelectionModel().getSelectedItem());
 		
 		Set<Ventaja> ventajas = new HashSet<Ventaja>();
-		ventajas.add(ventaja1);
-		ventajas.add(ventaja2);
-		ventajas.add(ventaja3);
-		ventajas.add(ventaja4);
-		ventajas.add(ventaja5);
-		ventajas.add(ventaja6);
-		ventajas.add(ventaja7);
-		
-		Desventaja desventaja1 = ch.obtenerDesventajaSeleccionada(sessionFactory, tableViewDesventaja.getItems().get(0).getNombreDesventaja().getSelectionModel().getSelectedItem());
-		Desventaja desventaja2 = ch.obtenerDesventajaSeleccionada(sessionFactory, tableViewDesventaja.getItems().get(1).getNombreDesventaja().getSelectionModel().getSelectedItem());
-		Desventaja desventaja3 = ch.obtenerDesventajaSeleccionada(sessionFactory, tableViewDesventaja.getItems().get(2).getNombreDesventaja().getSelectionModel().getSelectedItem());
-		Desventaja desventaja4 = ch.obtenerDesventajaSeleccionada(sessionFactory, tableViewDesventaja.getItems().get(3).getNombreDesventaja().getSelectionModel().getSelectedItem());
-		Desventaja desventaja5 = ch.obtenerDesventajaSeleccionada(sessionFactory, tableViewDesventaja.getItems().get(4).getNombreDesventaja().getSelectionModel().getSelectedItem());
+		if (!(tableViewVentaja.getItems().get(0).getNombreVentaja().getSelectionModel().getSelectedItem()==null)) {
+			Ventaja ventaja1 = ch.obtenerVentajaSeleccionada(sessionFactory, tableViewVentaja.getItems().get(0).getNombreVentaja().getSelectionModel().getSelectedItem());
+			ventajas.add(ventaja1);
+		}
+		if (!(tableViewVentaja.getItems().get(1).getNombreVentaja().getSelectionModel().getSelectedItem()==null)) {
+			Ventaja ventaja2 = ch.obtenerVentajaSeleccionada(sessionFactory, tableViewVentaja.getItems().get(1).getNombreVentaja().getSelectionModel().getSelectedItem());
+			ventajas.add(ventaja2);
+		}
+		if (!(tableViewVentaja.getItems().get(2).getNombreVentaja().getSelectionModel().getSelectedItem()==null)) {
+			Ventaja ventaja3 = ch.obtenerVentajaSeleccionada(sessionFactory, tableViewVentaja.getItems().get(2).getNombreVentaja().getSelectionModel().getSelectedItem());
+			ventajas.add(ventaja3);
+			
+		}
+		if (!(tableViewVentaja.getItems().get(3).getNombreVentaja().getSelectionModel().getSelectedItem()==null)) {
+			Ventaja ventaja4 = ch.obtenerVentajaSeleccionada(sessionFactory, tableViewVentaja.getItems().get(3).getNombreVentaja().getSelectionModel().getSelectedItem());
+			ventajas.add(ventaja4);
+			
+		}
+		if (!(tableViewVentaja.getItems().get(4).getNombreVentaja().getSelectionModel().getSelectedItem()==null)) {
+			Ventaja ventaja5 = ch.obtenerVentajaSeleccionada(sessionFactory, tableViewVentaja.getItems().get(4).getNombreVentaja().getSelectionModel().getSelectedItem());
+			ventajas.add(ventaja5);
+			
+		}
+		if (!(tableViewVentaja.getItems().get(5).getNombreVentaja().getSelectionModel().getSelectedItem()==null)) {
+			Ventaja ventaja6 = ch.obtenerVentajaSeleccionada(sessionFactory, tableViewVentaja.getItems().get(5).getNombreVentaja().getSelectionModel().getSelectedItem());
+			ventajas.add(ventaja6);
+			
+		}
+		if (!(tableViewVentaja.getItems().get(6).getNombreVentaja().getSelectionModel().getSelectedItem()==null)) {
+			Ventaja ventaja7 = ch.obtenerVentajaSeleccionada(sessionFactory, tableViewVentaja.getItems().get(6).getNombreVentaja().getSelectionModel().getSelectedItem());
+			ventajas.add(ventaja7);
+			
+		}
 		
 		Set<Desventaja> desventajas = new HashSet<Desventaja>();
-		desventajas.add(desventaja1);
-		desventajas.add(desventaja2);
-		desventajas.add(desventaja3);
-		desventajas.add(desventaja4);
-		desventajas.add(desventaja5);
+		if (!(tableViewDesventaja.getItems().get(0).getNombreDesventaja().getSelectionModel().getSelectedItem()==null)) {
+			Desventaja desventaja1 = ch.obtenerDesventajaSeleccionada(sessionFactory, tableViewDesventaja.getItems().get(0).getNombreDesventaja().getSelectionModel().getSelectedItem());
+			desventajas.add(desventaja1);
+		}
+		if (!(tableViewDesventaja.getItems().get(1).getNombreDesventaja().getSelectionModel().getSelectedItem()==null)) {
+			Desventaja desventaja2 = ch.obtenerDesventajaSeleccionada(sessionFactory, tableViewDesventaja.getItems().get(1).getNombreDesventaja().getSelectionModel().getSelectedItem());
+			desventajas.add(desventaja2);
+		}
+		if (!(tableViewDesventaja.getItems().get(2).getNombreDesventaja().getSelectionModel().getSelectedItem()==null)) {
+			Desventaja desventaja3 = ch.obtenerDesventajaSeleccionada(sessionFactory, tableViewDesventaja.getItems().get(2).getNombreDesventaja().getSelectionModel().getSelectedItem());
+			desventajas.add(desventaja3);
+		}
+		if (!(tableViewDesventaja.getItems().get(3).getNombreDesventaja().getSelectionModel().getSelectedItem()==null)) {
+			Desventaja desventaja4 = ch.obtenerDesventajaSeleccionada(sessionFactory, tableViewDesventaja.getItems().get(3).getNombreDesventaja().getSelectionModel().getSelectedItem());
+			desventajas.add(desventaja4);
+		}
+		if (!(tableViewDesventaja.getItems().get(4).getNombreDesventaja().getSelectionModel().getSelectedItem()==null)) {
+			Desventaja desventaja5 = ch.obtenerDesventajaSeleccionada(sessionFactory, tableViewDesventaja.getItems().get(4).getNombreDesventaja().getSelectionModel().getSelectedItem());
+			desventajas.add(desventaja5);
+		}
+
 		
 		
 		/*Pds Secundarias*/
@@ -4146,19 +4177,24 @@ public class PersonajeController {
 		pdsCategoria.setPdsSecundariasVigor(pdsSecundariasVigor);
 		pdsCategoria.setPdsSecundariasSubterfugio(pdsSecundariasSubterfugio);
 		pdsCategoria.setPdsSecundariasCreativas(pdsSecundariasCreativas);
+
+		
+		
+		Set<PdsCategoria> pdsCategorias = new HashSet<PdsCategoria>();
+		pdsCategorias.add(pdsCategoria);
 		
 		/*Armas Personaje*/
 		ArmaPersonaje armaPersonaje1 = new ArmaPersonaje();
 		armaPersonaje1.setArma(tableviewArmaSeleccionada1.getItems().get(0).getArmaSeleccionada());
 		
 		ArmaPersonaje armaPersonaje2 = new ArmaPersonaje();
-		armaPersonaje2.setArma(tableviewArmaSeleccionada1.getItems().get(1).getArmaSeleccionada());
+		armaPersonaje2.setArma(tableviewArmaSeleccionada2.getItems().get(0).getArmaSeleccionada());
 
 		ArmaPersonaje armaPersonaje3 = new ArmaPersonaje();
-		armaPersonaje3.setArma(tableviewArmaSeleccionada1.getItems().get(3).getArmaSeleccionada());
+		armaPersonaje3.setArma(tableviewArmaSeleccionada3.getItems().get(0).getArmaSeleccionada());
 
 		ArmaPersonaje armaPersonaje4 = new ArmaPersonaje();
-		armaPersonaje4.setArma(tableviewArmaSeleccionada1.getItems().get(4).getArmaSeleccionada());
+		armaPersonaje4.setArma(tableviewArmaSeleccionada4.getItems().get(0).getArmaSeleccionada());
 		
 		Set<ArmaPersonaje> armas = new HashSet<ArmaPersonaje>();
 		armas.add(armaPersonaje1);
@@ -4167,181 +4203,400 @@ public class PersonajeController {
 		armas.add(armaPersonaje4);
 		
 		/*Armadura Personaje*/
-		Armadura armadura = ch.obtenerArmadura(sessionFactory, tableViewArmaduras.getItems().get(0).getNombreArmadura().getSelectionModel().getSelectedItem());
-		
 		Set<Armadura> armaduras = new HashSet<Armadura>();
-		armaduras.add(armadura);
+		if (!(tableViewArmaduras.getItems().get(0).getNombreArmadura().getSelectionModel().getSelectedItem()==null)) {
+			Armadura armadura = ch.obtenerArmadura(sessionFactory, tableViewArmaduras.getItems().get(0).getNombreArmadura().getSelectionModel().getSelectedItem());
+			armaduras.add(armadura);
+		}
+
 		
 		/*Estilos*/
-		TablaEstilo tablaEstilo1 = ch.obtenerTablasEstiloSeleccionada(sessionFactory, tableViewTablasEstilos.getItems().get(0).getNombreTabla().getSelectionModel().getSelectedItem());
-		TablaEstilo tablaEstilo2 = ch.obtenerTablasEstiloSeleccionada(sessionFactory, tableViewTablasEstilos.getItems().get(1).getNombreTabla().getSelectionModel().getSelectedItem());
-		TablaEstilo tablaEstilo3 = ch.obtenerTablasEstiloSeleccionada(sessionFactory, tableViewTablasEstilos.getItems().get(2).getNombreTabla().getSelectionModel().getSelectedItem());
-		TablaEstilo tablaEstilo4 = ch.obtenerTablasEstiloSeleccionada(sessionFactory, tableViewTablasEstilos.getItems().get(3).getNombreTabla().getSelectionModel().getSelectedItem());
-		
 		Set<TablaEstilo> tablaEstilos = new HashSet<TablaEstilo>();
-		tablaEstilos.add(tablaEstilo1);
-		tablaEstilos.add(tablaEstilo2);
-		tablaEstilos.add(tablaEstilo3);
-		tablaEstilos.add(tablaEstilo4);
+		if (!(tableViewTablasEstilos.getItems().get(0).getNombreTabla().getSelectionModel().getSelectedItem()==null)) {
+			TablaEstilo tablaEstilo1 = ch.obtenerTablasEstiloSeleccionada(sessionFactory, tableViewTablasEstilos.getItems().get(0).getNombreTabla().getSelectionModel().getSelectedItem());
+			tablaEstilos.add(tablaEstilo1);
+		}
+		if (!(tableViewTablasEstilos.getItems().get(1).getNombreTabla().getSelectionModel().getSelectedItem()==null)) {
+			TablaEstilo tablaEstilo2 = ch.obtenerTablasEstiloSeleccionada(sessionFactory, tableViewTablasEstilos.getItems().get(1).getNombreTabla().getSelectionModel().getSelectedItem());
+			tablaEstilos.add(tablaEstilo2);
+		}
+		if (!(tableViewTablasEstilos.getItems().get(2).getNombreTabla().getSelectionModel().getSelectedItem()==null)) {
+			TablaEstilo tablaEstilo3 = ch.obtenerTablasEstiloSeleccionada(sessionFactory, tableViewTablasEstilos.getItems().get(2).getNombreTabla().getSelectionModel().getSelectedItem());
+			tablaEstilos.add(tablaEstilo3);
+		}
+		if (!(tableViewTablasEstilos.getItems().get(3).getNombreTabla().getSelectionModel().getSelectedItem()==null)) {
+			TablaEstilo tablaEstilo4 = ch.obtenerTablasEstiloSeleccionada(sessionFactory, tableViewTablasEstilos.getItems().get(3).getNombreTabla().getSelectionModel().getSelectedItem());
+			tablaEstilos.add(tablaEstilo4);
+		}
+		
 		
 		/*Artes Marciales*/
-		ArteMarcial arteMarcial1 = ch.obtenerArteMarcialSeleccionada(sessionFactory, tableViewTablasArtesMarciales.getItems().get(0).getNombreArteMarcial().getSelectionModel().getSelectedItem());
-		ArteMarcial arteMarcial2 = ch.obtenerArteMarcialSeleccionada(sessionFactory, tableViewTablasArtesMarciales.getItems().get(1).getNombreArteMarcial().getSelectionModel().getSelectedItem());
-		ArteMarcial arteMarcial3 = ch.obtenerArteMarcialSeleccionada(sessionFactory, tableViewTablasArtesMarciales.getItems().get(2).getNombreArteMarcial().getSelectionModel().getSelectedItem());
-		ArteMarcial arteMarcial4 = ch.obtenerArteMarcialSeleccionada(sessionFactory, tableViewTablasArtesMarciales.getItems().get(3).getNombreArteMarcial().getSelectionModel().getSelectedItem());
-		ArteMarcial arteMarcial5 = ch.obtenerArteMarcialSeleccionada(sessionFactory, tableViewTablasArtesMarciales.getItems().get(4).getNombreArteMarcial().getSelectionModel().getSelectedItem());
-		ArteMarcial arteMarcial6 = ch.obtenerArteMarcialSeleccionada(sessionFactory, tableViewTablasArtesMarciales.getItems().get(5).getNombreArteMarcial().getSelectionModel().getSelectedItem());
-		ArteMarcial arteMarcial7 = ch.obtenerArteMarcialSeleccionada(sessionFactory, tableViewTablasArtesMarciales.getItems().get(6).getNombreArteMarcial().getSelectionModel().getSelectedItem());
-		ArteMarcial arteMarcial8 = ch.obtenerArteMarcialSeleccionada(sessionFactory, tableViewTablasArtesMarciales.getItems().get(7).getNombreArteMarcial().getSelectionModel().getSelectedItem());
-		ArteMarcial arteMarcial9 = ch.obtenerArteMarcialSeleccionada(sessionFactory, tableViewTablasArtesMarciales.getItems().get(8).getNombreArteMarcial().getSelectionModel().getSelectedItem());
-		ArteMarcial arteMarcial10 = ch.obtenerArteMarcialSeleccionada(sessionFactory, tableViewTablasArtesMarciales.getItems().get(9).getNombreArteMarcial().getSelectionModel().getSelectedItem());
-		
 		Set<ArteMarcial> tablaArteMarcial = new HashSet<ArteMarcial>();
-		tablaArteMarcial.add(arteMarcial1);
-		tablaArteMarcial.add(arteMarcial2);
-		tablaArteMarcial.add(arteMarcial3);
-		tablaArteMarcial.add(arteMarcial4);
-		tablaArteMarcial.add(arteMarcial5);
-		tablaArteMarcial.add(arteMarcial6);
-		tablaArteMarcial.add(arteMarcial7);
-		tablaArteMarcial.add(arteMarcial8);
-		tablaArteMarcial.add(arteMarcial9);
-		tablaArteMarcial.add(arteMarcial10);
+		if (!(tableViewTablasArtesMarciales.getItems().get(0).getNombreArteMarcial().getSelectionModel().getSelectedItem()==null)) {
+			ArteMarcial arteMarcial1 = ch.obtenerArteMarcialSeleccionada(sessionFactory, tableViewTablasArtesMarciales.getItems().get(0).getNombreArteMarcial().getSelectionModel().getSelectedItem());
+			tablaArteMarcial.add(arteMarcial1);
+		}
+		if (!(tableViewTablasArtesMarciales.getItems().get(1).getNombreArteMarcial().getSelectionModel().getSelectedItem()==null)) {
+			ArteMarcial arteMarcial2 = ch.obtenerArteMarcialSeleccionada(sessionFactory, tableViewTablasArtesMarciales.getItems().get(1).getNombreArteMarcial().getSelectionModel().getSelectedItem());
+			tablaArteMarcial.add(arteMarcial2);
+		}
+		if (!(tableViewTablasArtesMarciales.getItems().get(2).getNombreArteMarcial().getSelectionModel().getSelectedItem()==null)) {
+			ArteMarcial arteMarcial3 = ch.obtenerArteMarcialSeleccionada(sessionFactory, tableViewTablasArtesMarciales.getItems().get(2).getNombreArteMarcial().getSelectionModel().getSelectedItem());
+			tablaArteMarcial.add(arteMarcial3);
+		}
+		if (!(tableViewTablasArtesMarciales.getItems().get(3).getNombreArteMarcial().getSelectionModel().getSelectedItem()==null)) {
+			ArteMarcial arteMarcial4 = ch.obtenerArteMarcialSeleccionada(sessionFactory, tableViewTablasArtesMarciales.getItems().get(3).getNombreArteMarcial().getSelectionModel().getSelectedItem());
+			tablaArteMarcial.add(arteMarcial4);
+		}
+		if (!(tableViewTablasArtesMarciales.getItems().get(4).getNombreArteMarcial().getSelectionModel().getSelectedItem()==null)) {
+			ArteMarcial arteMarcial5 = ch.obtenerArteMarcialSeleccionada(sessionFactory, tableViewTablasArtesMarciales.getItems().get(4).getNombreArteMarcial().getSelectionModel().getSelectedItem());
+			tablaArteMarcial.add(arteMarcial5);
+		}
+		if (!(tableViewTablasArtesMarciales.getItems().get(5).getNombreArteMarcial().getSelectionModel().getSelectedItem()==null)) {
+			ArteMarcial arteMarcial6 = ch.obtenerArteMarcialSeleccionada(sessionFactory, tableViewTablasArtesMarciales.getItems().get(5).getNombreArteMarcial().getSelectionModel().getSelectedItem());
+			tablaArteMarcial.add(arteMarcial6);
+		}
+		if (!(tableViewTablasArtesMarciales.getItems().get(6).getNombreArteMarcial().getSelectionModel().getSelectedItem()==null)) {
+			ArteMarcial arteMarcial7 = ch.obtenerArteMarcialSeleccionada(sessionFactory, tableViewTablasArtesMarciales.getItems().get(6).getNombreArteMarcial().getSelectionModel().getSelectedItem());
+			tablaArteMarcial.add(arteMarcial7);
+		}
+		if (!(tableViewTablasArtesMarciales.getItems().get(7).getNombreArteMarcial().getSelectionModel().getSelectedItem()==null)) {
+			ArteMarcial arteMarcial8 = ch.obtenerArteMarcialSeleccionada(sessionFactory, tableViewTablasArtesMarciales.getItems().get(7).getNombreArteMarcial().getSelectionModel().getSelectedItem());
+			tablaArteMarcial.add(arteMarcial8);
+		}
+		if (!(tableViewTablasArtesMarciales.getItems().get(8).getNombreArteMarcial().getSelectionModel().getSelectedItem()==null)) {
+			ArteMarcial arteMarcial9 = ch.obtenerArteMarcialSeleccionada(sessionFactory, tableViewTablasArtesMarciales.getItems().get(8).getNombreArteMarcial().getSelectionModel().getSelectedItem());
+			tablaArteMarcial.add(arteMarcial9);
+		}
+		if (!(tableViewTablasArtesMarciales.getItems().get(9).getNombreArteMarcial().getSelectionModel().getSelectedItem()==null)) {
+			ArteMarcial arteMarcial10 = ch.obtenerArteMarcialSeleccionada(sessionFactory, tableViewTablasArtesMarciales.getItems().get(9).getNombreArteMarcial().getSelectionModel().getSelectedItem());
+			tablaArteMarcial.add(arteMarcial10);
+		}
+
+
+
+
 		
 		/*Artes Marciales*/
-		TablaTablaViasMagiaPersonaje tablaTablaViasMagiaPersonaje1 = new TablaTablaViasMagiaPersonaje();
-		tablaTablaViasMagiaPersonaje1.setTablaViasMagia(ch.obtenerViaMagiaSeleccionada(sessionFactory, tableViewNivelVia.getItems().get(0).getNombreViaSeleccionada().getSelectionModel().getSelectedItem()));
-		tablaTablaViasMagiaPersonaje1.setNivelesUsados(Integer.parseInt(tableViewNivelVia.getItems().get(0).getNivelUsado()));
-		
-		TablaTablaViasMagiaPersonaje tablaTablaViasMagiaPersonaje2 = new TablaTablaViasMagiaPersonaje();
-		tablaTablaViasMagiaPersonaje2.setTablaViasMagia(ch.obtenerViaMagiaSeleccionada(sessionFactory, tableViewNivelVia.getItems().get(1).getNombreViaSeleccionada().getSelectionModel().getSelectedItem()));		
-		tablaTablaViasMagiaPersonaje2.setNivelesUsados(Integer.parseInt(tableViewNivelVia.getItems().get(1).getNivelUsado()));
-		
-		TablaTablaViasMagiaPersonaje tablaTablaViasMagiaPersonaje3 = new TablaTablaViasMagiaPersonaje();
-		tablaTablaViasMagiaPersonaje3.setTablaViasMagia(ch.obtenerViaMagiaSeleccionada(sessionFactory, tableViewNivelVia.getItems().get(2).getNombreViaSeleccionada().getSelectionModel().getSelectedItem()));
-		tablaTablaViasMagiaPersonaje3.setNivelesUsados(Integer.parseInt(tableViewNivelVia.getItems().get(2).getNivelUsado()));
-		
-		TablaTablaViasMagiaPersonaje tablaTablaViasMagiaPersonaje4 = new TablaTablaViasMagiaPersonaje();
-		tablaTablaViasMagiaPersonaje4.setTablaViasMagia(ch.obtenerViaMagiaSeleccionada(sessionFactory, tableViewNivelVia.getItems().get(3).getNombreViaSeleccionada().getSelectionModel().getSelectedItem()));
-		tablaTablaViasMagiaPersonaje4.setNivelesUsados(Integer.parseInt(tableViewNivelVia.getItems().get(3).getNivelUsado()));
-		
-		TablaTablaViasMagiaPersonaje tablaTablaViasMagiaPersonaje5 = new TablaTablaViasMagiaPersonaje();
-		tablaTablaViasMagiaPersonaje5.setTablaViasMagia(ch.obtenerViaMagiaSeleccionada(sessionFactory, tableViewNivelVia.getItems().get(4).getNombreViaSeleccionada().getSelectionModel().getSelectedItem()));		
-		tablaTablaViasMagiaPersonaje5.setNivelesUsados(Integer.parseInt(tableViewNivelVia.getItems().get(4).getNivelUsado()));
-		
-		TablaTablaViasMagiaPersonaje tablaTablaViasMagiaPersonaje6 = new TablaTablaViasMagiaPersonaje();
-		tablaTablaViasMagiaPersonaje6.setTablaViasMagia(ch.obtenerViaMagiaSeleccionada(sessionFactory, tableViewNivelVia.getItems().get(5).getNombreViaSeleccionada().getSelectionModel().getSelectedItem()));
-		tablaTablaViasMagiaPersonaje6.setNivelesUsados(Integer.parseInt(tableViewNivelVia.getItems().get(5).getNivelUsado()));
-		
-		TablaMagia tablaMagia1 = ch.obtenerTablaMagia(sessionFactory, tableViewTablasMistico.getItems().get(0).getNombreTablaSeleccionada().getSelectionModel().getSelectedItem());
-		TablaMagia tablaMagia2 = ch.obtenerTablaMagia(sessionFactory, tableViewTablasMistico.getItems().get(1).getNombreTablaSeleccionada().getSelectionModel().getSelectedItem());
+//		TablaTablaViasMagiaPersonaje tablaTablaViasMagiaPersonaje1 = new TablaTablaViasMagiaPersonaje();
+//		tablaTablaViasMagiaPersonaje1.setTablaViasMagia(ch.obtenerViaMagiaSeleccionada(sessionFactory, tableViewNivelVia.getItems().get(0).getNombreViaSeleccionada().getSelectionModel().getSelectedItem()));
+//		tablaTablaViasMagiaPersonaje1.setNivelesUsados(Integer.parseInt(tableViewNivelVia.getItems().get(0).getNivelUsado()));
+//		
+//		TablaTablaViasMagiaPersonaje tablaTablaViasMagiaPersonaje2 = new TablaTablaViasMagiaPersonaje();
+//		tablaTablaViasMagiaPersonaje2.setTablaViasMagia(ch.obtenerViaMagiaSeleccionada(sessionFactory, tableViewNivelVia.getItems().get(1).getNombreViaSeleccionada().getSelectionModel().getSelectedItem()));		
+//		tablaTablaViasMagiaPersonaje2.setNivelesUsados(Integer.parseInt(tableViewNivelVia.getItems().get(1).getNivelUsado()));
+//		
+//		TablaTablaViasMagiaPersonaje tablaTablaViasMagiaPersonaje3 = new TablaTablaViasMagiaPersonaje();
+//		tablaTablaViasMagiaPersonaje3.setTablaViasMagia(ch.obtenerViaMagiaSeleccionada(sessionFactory, tableViewNivelVia.getItems().get(2).getNombreViaSeleccionada().getSelectionModel().getSelectedItem()));
+//		tablaTablaViasMagiaPersonaje3.setNivelesUsados(Integer.parseInt(tableViewNivelVia.getItems().get(2).getNivelUsado()));
+//		
+//		TablaTablaViasMagiaPersonaje tablaTablaViasMagiaPersonaje4 = new TablaTablaViasMagiaPersonaje();
+//		tablaTablaViasMagiaPersonaje4.setTablaViasMagia(ch.obtenerViaMagiaSeleccionada(sessionFactory, tableViewNivelVia.getItems().get(3).getNombreViaSeleccionada().getSelectionModel().getSelectedItem()));
+//		tablaTablaViasMagiaPersonaje4.setNivelesUsados(Integer.parseInt(tableViewNivelVia.getItems().get(3).getNivelUsado()));
+//		
+//		TablaTablaViasMagiaPersonaje tablaTablaViasMagiaPersonaje5 = new TablaTablaViasMagiaPersonaje();
+//		tablaTablaViasMagiaPersonaje5.setTablaViasMagia(ch.obtenerViaMagiaSeleccionada(sessionFactory, tableViewNivelVia.getItems().get(4).getNombreViaSeleccionada().getSelectionModel().getSelectedItem()));		
+//		tablaTablaViasMagiaPersonaje5.setNivelesUsados(Integer.parseInt(tableViewNivelVia.getItems().get(4).getNivelUsado()));
+//		
+//		TablaTablaViasMagiaPersonaje tablaTablaViasMagiaPersonaje6 = new TablaTablaViasMagiaPersonaje();
+//		tablaTablaViasMagiaPersonaje6.setTablaViasMagia(ch.obtenerViaMagiaSeleccionada(sessionFactory, tableViewNivelVia.getItems().get(5).getNombreViaSeleccionada().getSelectionModel().getSelectedItem()));
+//		tablaTablaViasMagiaPersonaje6.setNivelesUsados(Integer.parseInt(tableViewNivelVia.getItems().get(5).getNivelUsado()));
 		
 		Set<TablaMagia> tablaMagia = new HashSet<TablaMagia>();
-		tablaMagia.add(tablaMagia1);
-		tablaMagia.add(tablaMagia2);
-		
-		TablaConjurosLibreAcceso tablaConjurosLibreAcceso1 = ch.obtenerConjuroLibreAccesoSeleccionado(sessionFactory, tableViewConjurosLibreAcceso.getItems().get(0).getNombreConjuroLibreAcceso().getSelectionModel().getSelectedItem());
-		TablaConjurosLibreAcceso tablaConjurosLibreAcceso2 = ch.obtenerConjuroLibreAccesoSeleccionado(sessionFactory, tableViewConjurosLibreAcceso.getItems().get(1).getNombreConjuroLibreAcceso().getSelectionModel().getSelectedItem());
-		TablaConjurosLibreAcceso tablaConjurosLibreAcceso3 = ch.obtenerConjuroLibreAccesoSeleccionado(sessionFactory, tableViewConjurosLibreAcceso.getItems().get(2).getNombreConjuroLibreAcceso().getSelectionModel().getSelectedItem());
-		TablaConjurosLibreAcceso tablaConjurosLibreAcceso4 = ch.obtenerConjuroLibreAccesoSeleccionado(sessionFactory, tableViewConjurosLibreAcceso.getItems().get(3).getNombreConjuroLibreAcceso().getSelectionModel().getSelectedItem());
-		TablaConjurosLibreAcceso tablaConjurosLibreAcceso5 = ch.obtenerConjuroLibreAccesoSeleccionado(sessionFactory, tableViewConjurosLibreAcceso.getItems().get(4).getNombreConjuroLibreAcceso().getSelectionModel().getSelectedItem());
-		TablaConjurosLibreAcceso tablaConjurosLibreAcceso6 = ch.obtenerConjuroLibreAccesoSeleccionado(sessionFactory, tableViewConjurosLibreAcceso.getItems().get(5).getNombreConjuroLibreAcceso().getSelectionModel().getSelectedItem());
-		TablaConjurosLibreAcceso tablaConjurosLibreAcceso7 = ch.obtenerConjuroLibreAccesoSeleccionado(sessionFactory, tableViewConjurosLibreAcceso.getItems().get(6).getNombreConjuroLibreAcceso().getSelectionModel().getSelectedItem());
-		TablaConjurosLibreAcceso tablaConjurosLibreAcceso8 = ch.obtenerConjuroLibreAccesoSeleccionado(sessionFactory, tableViewConjurosLibreAcceso.getItems().get(7).getNombreConjuroLibreAcceso().getSelectionModel().getSelectedItem());
-		TablaConjurosLibreAcceso tablaConjurosLibreAcceso9 = ch.obtenerConjuroLibreAccesoSeleccionado(sessionFactory, tableViewConjurosLibreAcceso.getItems().get(8).getNombreConjuroLibreAcceso().getSelectionModel().getSelectedItem());
-		TablaConjurosLibreAcceso tablaConjurosLibreAcceso10 = ch.obtenerConjuroLibreAccesoSeleccionado(sessionFactory, tableViewConjurosLibreAcceso.getItems().get(9).getNombreConjuroLibreAcceso().getSelectionModel().getSelectedItem());
-		TablaConjurosLibreAcceso tablaConjurosLibreAcceso11 = ch.obtenerConjuroLibreAccesoSeleccionado(sessionFactory, tableViewConjurosLibreAcceso.getItems().get(10).getNombreConjuroLibreAcceso().getSelectionModel().getSelectedItem());
-		TablaConjurosLibreAcceso tablaConjurosLibreAcceso12 = ch.obtenerConjuroLibreAccesoSeleccionado(sessionFactory, tableViewConjurosLibreAcceso.getItems().get(11).getNombreConjuroLibreAcceso().getSelectionModel().getSelectedItem());
-		TablaConjurosLibreAcceso tablaConjurosLibreAcceso13 = ch.obtenerConjuroLibreAccesoSeleccionado(sessionFactory, tableViewConjurosLibreAcceso.getItems().get(12).getNombreConjuroLibreAcceso().getSelectionModel().getSelectedItem());
-		TablaConjurosLibreAcceso tablaConjurosLibreAcceso14 = ch.obtenerConjuroLibreAccesoSeleccionado(sessionFactory, tableViewConjurosLibreAcceso.getItems().get(13).getNombreConjuroLibreAcceso().getSelectionModel().getSelectedItem());
-		TablaConjurosLibreAcceso tablaConjurosLibreAcceso15 = ch.obtenerConjuroLibreAccesoSeleccionado(sessionFactory, tableViewConjurosLibreAcceso.getItems().get(14).getNombreConjuroLibreAcceso().getSelectionModel().getSelectedItem());
-		TablaConjurosLibreAcceso tablaConjurosLibreAcceso16 = ch.obtenerConjuroLibreAccesoSeleccionado(sessionFactory, tableViewConjurosLibreAcceso.getItems().get(15).getNombreConjuroLibreAcceso().getSelectionModel().getSelectedItem());
-		TablaConjurosLibreAcceso tablaConjurosLibreAcceso17 = ch.obtenerConjuroLibreAccesoSeleccionado(sessionFactory, tableViewConjurosLibreAcceso.getItems().get(16).getNombreConjuroLibreAcceso().getSelectionModel().getSelectedItem());
-		TablaConjurosLibreAcceso tablaConjurosLibreAcceso18 = ch.obtenerConjuroLibreAccesoSeleccionado(sessionFactory, tableViewConjurosLibreAcceso.getItems().get(17).getNombreConjuroLibreAcceso().getSelectionModel().getSelectedItem());
-		TablaConjurosLibreAcceso tablaConjurosLibreAcceso19 = ch.obtenerConjuroLibreAccesoSeleccionado(sessionFactory, tableViewConjurosLibreAcceso.getItems().get(18).getNombreConjuroLibreAcceso().getSelectionModel().getSelectedItem());
-		TablaConjurosLibreAcceso tablaConjurosLibreAcceso20 = ch.obtenerConjuroLibreAccesoSeleccionado(sessionFactory, tableViewConjurosLibreAcceso.getItems().get(19).getNombreConjuroLibreAcceso().getSelectionModel().getSelectedItem());
-		TablaConjurosLibreAcceso tablaConjurosLibreAcceso21 = ch.obtenerConjuroLibreAccesoSeleccionado(sessionFactory, tableViewConjurosLibreAcceso.getItems().get(20).getNombreConjuroLibreAcceso().getSelectionModel().getSelectedItem());
+		if (!(tableViewTablasMistico.getItems().get(0).getNombreTablaSeleccionada().getSelectionModel().getSelectedItem()==null)) {
+			TablaMagia tablaMagia1 = ch.obtenerTablaMagia(sessionFactory, tableViewTablasMistico.getItems().get(0).getNombreTablaSeleccionada().getSelectionModel().getSelectedItem());
+			tablaMagia.add(tablaMagia1);
+		}
+		if (!(tableViewTablasMistico.getItems().get(1).getNombreTablaSeleccionada().getSelectionModel().getSelectedItem()==null)) {
+			TablaMagia tablaMagia2 = ch.obtenerTablaMagia(sessionFactory, tableViewTablasMistico.getItems().get(1).getNombreTablaSeleccionada().getSelectionModel().getSelectedItem());
+			tablaMagia.add(tablaMagia2);
+		}
 		
 		Set<TablaConjurosLibreAcceso> tablaConjurosLibreAcceso = new HashSet<TablaConjurosLibreAcceso>();
-		tablaConjurosLibreAcceso.add(tablaConjurosLibreAcceso1);
-		tablaConjurosLibreAcceso.add(tablaConjurosLibreAcceso2);
-		tablaConjurosLibreAcceso.add(tablaConjurosLibreAcceso3);
-		tablaConjurosLibreAcceso.add(tablaConjurosLibreAcceso4);
-		tablaConjurosLibreAcceso.add(tablaConjurosLibreAcceso5);
-		tablaConjurosLibreAcceso.add(tablaConjurosLibreAcceso6);
-		tablaConjurosLibreAcceso.add(tablaConjurosLibreAcceso7);
-		tablaConjurosLibreAcceso.add(tablaConjurosLibreAcceso8);
-		tablaConjurosLibreAcceso.add(tablaConjurosLibreAcceso9);
-		tablaConjurosLibreAcceso.add(tablaConjurosLibreAcceso10);
-		tablaConjurosLibreAcceso.add(tablaConjurosLibreAcceso11);
-		tablaConjurosLibreAcceso.add(tablaConjurosLibreAcceso12);
-		tablaConjurosLibreAcceso.add(tablaConjurosLibreAcceso13);
-		tablaConjurosLibreAcceso.add(tablaConjurosLibreAcceso14);
-		tablaConjurosLibreAcceso.add(tablaConjurosLibreAcceso15);
-		tablaConjurosLibreAcceso.add(tablaConjurosLibreAcceso16);
-		tablaConjurosLibreAcceso.add(tablaConjurosLibreAcceso17);
-		tablaConjurosLibreAcceso.add(tablaConjurosLibreAcceso18);
-		tablaConjurosLibreAcceso.add(tablaConjurosLibreAcceso19);
-		tablaConjurosLibreAcceso.add(tablaConjurosLibreAcceso20);
-		tablaConjurosLibreAcceso.add(tablaConjurosLibreAcceso21);
-		
-		PoderPsiquico poderPsiquico1 = ch.obtenerPoderPsiquicoSeleccionado(sessionFactory, tableViewPoderesPsiquicos.getItems().get(0).getNombrePoderSeleccionado().getSelectionModel().getSelectedItem());
-		PoderPsiquico poderPsiquico2 = ch.obtenerPoderPsiquicoSeleccionado(sessionFactory, tableViewPoderesPsiquicos.getItems().get(1).getNombrePoderSeleccionado().getSelectionModel().getSelectedItem());
-		PoderPsiquico poderPsiquico3 = ch.obtenerPoderPsiquicoSeleccionado(sessionFactory, tableViewPoderesPsiquicos.getItems().get(2).getNombrePoderSeleccionado().getSelectionModel().getSelectedItem());
-		PoderPsiquico poderPsiquico4 = ch.obtenerPoderPsiquicoSeleccionado(sessionFactory, tableViewPoderesPsiquicos.getItems().get(3).getNombrePoderSeleccionado().getSelectionModel().getSelectedItem());
-		PoderPsiquico poderPsiquico5 = ch.obtenerPoderPsiquicoSeleccionado(sessionFactory, tableViewPoderesPsiquicos.getItems().get(4).getNombrePoderSeleccionado().getSelectionModel().getSelectedItem());
-		PoderPsiquico poderPsiquico6 = ch.obtenerPoderPsiquicoSeleccionado(sessionFactory, tableViewPoderesPsiquicos.getItems().get(5).getNombrePoderSeleccionado().getSelectionModel().getSelectedItem());
-		PoderPsiquico poderPsiquico7 = ch.obtenerPoderPsiquicoSeleccionado(sessionFactory, tableViewPoderesPsiquicos.getItems().get(6).getNombrePoderSeleccionado().getSelectionModel().getSelectedItem());
-		PoderPsiquico poderPsiquico8 = ch.obtenerPoderPsiquicoSeleccionado(sessionFactory, tableViewPoderesPsiquicos.getItems().get(7).getNombrePoderSeleccionado().getSelectionModel().getSelectedItem());
-		PoderPsiquico poderPsiquico9 = ch.obtenerPoderPsiquicoSeleccionado(sessionFactory, tableViewPoderesPsiquicos.getItems().get(8).getNombrePoderSeleccionado().getSelectionModel().getSelectedItem());
-		PoderPsiquico poderPsiquico10 = ch.obtenerPoderPsiquicoSeleccionado(sessionFactory, tableViewPoderesPsiquicos.getItems().get(9).getNombrePoderSeleccionado().getSelectionModel().getSelectedItem());
-		PoderPsiquico poderPsiquico11 = ch.obtenerPoderPsiquicoSeleccionado(sessionFactory, tableViewPoderesPsiquicos.getItems().get(10).getNombrePoderSeleccionado().getSelectionModel().getSelectedItem());
-		PoderPsiquico poderPsiquico12 = ch.obtenerPoderPsiquicoSeleccionado(sessionFactory, tableViewPoderesPsiquicos.getItems().get(11).getNombrePoderSeleccionado().getSelectionModel().getSelectedItem());
-		PoderPsiquico poderPsiquico13 = ch.obtenerPoderPsiquicoSeleccionado(sessionFactory, tableViewPoderesPsiquicos.getItems().get(12).getNombrePoderSeleccionado().getSelectionModel().getSelectedItem());
-		PoderPsiquico poderPsiquico14 = ch.obtenerPoderPsiquicoSeleccionado(sessionFactory, tableViewPoderesPsiquicos.getItems().get(13).getNombrePoderSeleccionado().getSelectionModel().getSelectedItem());
-		PoderPsiquico poderPsiquico15 = ch.obtenerPoderPsiquicoSeleccionado(sessionFactory, tableViewPoderesPsiquicos.getItems().get(14).getNombrePoderSeleccionado().getSelectionModel().getSelectedItem());
-		PoderPsiquico poderPsiquico16 = ch.obtenerPoderPsiquicoSeleccionado(sessionFactory, tableViewPoderesPsiquicos.getItems().get(15).getNombrePoderSeleccionado().getSelectionModel().getSelectedItem());
-		PoderPsiquico poderPsiquico17 = ch.obtenerPoderPsiquicoSeleccionado(sessionFactory, tableViewPoderesPsiquicos.getItems().get(16).getNombrePoderSeleccionado().getSelectionModel().getSelectedItem());
-		PoderPsiquico poderPsiquico18 = ch.obtenerPoderPsiquicoSeleccionado(sessionFactory, tableViewPoderesPsiquicos.getItems().get(17).getNombrePoderSeleccionado().getSelectionModel().getSelectedItem());
-		PoderPsiquico poderPsiquico19 = ch.obtenerPoderPsiquicoSeleccionado(sessionFactory, tableViewPoderesPsiquicos.getItems().get(18).getNombrePoderSeleccionado().getSelectionModel().getSelectedItem());
-		PoderPsiquico poderPsiquico20 = ch.obtenerPoderPsiquicoSeleccionado(sessionFactory, tableViewPoderesPsiquicos.getItems().get(19).getNombrePoderSeleccionado().getSelectionModel().getSelectedItem());
-		
+		if (!(tableViewConjurosLibreAcceso.getItems().get(0).getNombreConjuroLibreAcceso().getSelectionModel().getSelectedItem()==null)) {
+			TablaConjurosLibreAcceso tablaConjurosLibreAcceso1 = ch.obtenerConjuroLibreAccesoSeleccionado(sessionFactory, tableViewConjurosLibreAcceso.getItems().get(0).getNombreConjuroLibreAcceso().getSelectionModel().getSelectedItem());
+			tablaConjurosLibreAcceso.add(tablaConjurosLibreAcceso1);
+		}
+		if (!(tableViewConjurosLibreAcceso.getItems().get(1).getNombreConjuroLibreAcceso().getSelectionModel().getSelectedItem()==null)) {
+			TablaConjurosLibreAcceso tablaConjurosLibreAcceso2 = ch.obtenerConjuroLibreAccesoSeleccionado(sessionFactory, tableViewConjurosLibreAcceso.getItems().get(1).getNombreConjuroLibreAcceso().getSelectionModel().getSelectedItem());
+			tablaConjurosLibreAcceso.add(tablaConjurosLibreAcceso2);
+		}
+		if (!(tableViewConjurosLibreAcceso.getItems().get(2).getNombreConjuroLibreAcceso().getSelectionModel().getSelectedItem()==null)) {
+			TablaConjurosLibreAcceso tablaConjurosLibreAcceso3 = ch.obtenerConjuroLibreAccesoSeleccionado(sessionFactory, tableViewConjurosLibreAcceso.getItems().get(2).getNombreConjuroLibreAcceso().getSelectionModel().getSelectedItem());
+			tablaConjurosLibreAcceso.add(tablaConjurosLibreAcceso3);
+		}
+		if (!(tableViewConjurosLibreAcceso.getItems().get(3).getNombreConjuroLibreAcceso().getSelectionModel().getSelectedItem()==null)) {
+			TablaConjurosLibreAcceso tablaConjurosLibreAcceso4 = ch.obtenerConjuroLibreAccesoSeleccionado(sessionFactory, tableViewConjurosLibreAcceso.getItems().get(3).getNombreConjuroLibreAcceso().getSelectionModel().getSelectedItem());
+			tablaConjurosLibreAcceso.add(tablaConjurosLibreAcceso4);
+		}
+		if (!(tableViewConjurosLibreAcceso.getItems().get(4).getNombreConjuroLibreAcceso().getSelectionModel().getSelectedItem()==null)) {
+			TablaConjurosLibreAcceso tablaConjurosLibreAcceso5 = ch.obtenerConjuroLibreAccesoSeleccionado(sessionFactory, tableViewConjurosLibreAcceso.getItems().get(4).getNombreConjuroLibreAcceso().getSelectionModel().getSelectedItem());
+			tablaConjurosLibreAcceso.add(tablaConjurosLibreAcceso5);
+		}
+		if (!(tableViewConjurosLibreAcceso.getItems().get(5).getNombreConjuroLibreAcceso().getSelectionModel().getSelectedItem()==null)) {
+			TablaConjurosLibreAcceso tablaConjurosLibreAcceso6 = ch.obtenerConjuroLibreAccesoSeleccionado(sessionFactory, tableViewConjurosLibreAcceso.getItems().get(5).getNombreConjuroLibreAcceso().getSelectionModel().getSelectedItem());
+			tablaConjurosLibreAcceso.add(tablaConjurosLibreAcceso6);
+		}
+		if (!(tableViewConjurosLibreAcceso.getItems().get(6).getNombreConjuroLibreAcceso().getSelectionModel().getSelectedItem()==null)) {
+			TablaConjurosLibreAcceso tablaConjurosLibreAcceso7 = ch.obtenerConjuroLibreAccesoSeleccionado(sessionFactory, tableViewConjurosLibreAcceso.getItems().get(6).getNombreConjuroLibreAcceso().getSelectionModel().getSelectedItem());
+			tablaConjurosLibreAcceso.add(tablaConjurosLibreAcceso7);
+		}
+		if (!(tableViewConjurosLibreAcceso.getItems().get(7).getNombreConjuroLibreAcceso().getSelectionModel().getSelectedItem()==null)) {
+			TablaConjurosLibreAcceso tablaConjurosLibreAcceso8 = ch.obtenerConjuroLibreAccesoSeleccionado(sessionFactory, tableViewConjurosLibreAcceso.getItems().get(7).getNombreConjuroLibreAcceso().getSelectionModel().getSelectedItem());
+			tablaConjurosLibreAcceso.add(tablaConjurosLibreAcceso8);
+		}
+		if (!(tableViewConjurosLibreAcceso.getItems().get(8).getNombreConjuroLibreAcceso().getSelectionModel().getSelectedItem()==null)) {
+			TablaConjurosLibreAcceso tablaConjurosLibreAcceso9 = ch.obtenerConjuroLibreAccesoSeleccionado(sessionFactory, tableViewConjurosLibreAcceso.getItems().get(8).getNombreConjuroLibreAcceso().getSelectionModel().getSelectedItem());
+			tablaConjurosLibreAcceso.add(tablaConjurosLibreAcceso9);
+		}
+		if (!(tableViewConjurosLibreAcceso.getItems().get(9).getNombreConjuroLibreAcceso().getSelectionModel().getSelectedItem()==null)) {
+			TablaConjurosLibreAcceso tablaConjurosLibreAcceso10 = ch.obtenerConjuroLibreAccesoSeleccionado(sessionFactory, tableViewConjurosLibreAcceso.getItems().get(9).getNombreConjuroLibreAcceso().getSelectionModel().getSelectedItem());
+			tablaConjurosLibreAcceso.add(tablaConjurosLibreAcceso10);
+		}
+		if (!(tableViewConjurosLibreAcceso.getItems().get(10).getNombreConjuroLibreAcceso().getSelectionModel().getSelectedItem()==null)) {
+			TablaConjurosLibreAcceso tablaConjurosLibreAcceso11 = ch.obtenerConjuroLibreAccesoSeleccionado(sessionFactory, tableViewConjurosLibreAcceso.getItems().get(10).getNombreConjuroLibreAcceso().getSelectionModel().getSelectedItem());
+			tablaConjurosLibreAcceso.add(tablaConjurosLibreAcceso11);
+		}
+		if (!(tableViewConjurosLibreAcceso.getItems().get(11).getNombreConjuroLibreAcceso().getSelectionModel().getSelectedItem()==null)) {
+			TablaConjurosLibreAcceso tablaConjurosLibreAcceso12 = ch.obtenerConjuroLibreAccesoSeleccionado(sessionFactory, tableViewConjurosLibreAcceso.getItems().get(11).getNombreConjuroLibreAcceso().getSelectionModel().getSelectedItem());
+			tablaConjurosLibreAcceso.add(tablaConjurosLibreAcceso12);
+		}
+		if (!(tableViewConjurosLibreAcceso.getItems().get(12).getNombreConjuroLibreAcceso().getSelectionModel().getSelectedItem()==null)) {
+			TablaConjurosLibreAcceso tablaConjurosLibreAcceso13 = ch.obtenerConjuroLibreAccesoSeleccionado(sessionFactory, tableViewConjurosLibreAcceso.getItems().get(12).getNombreConjuroLibreAcceso().getSelectionModel().getSelectedItem());
+			tablaConjurosLibreAcceso.add(tablaConjurosLibreAcceso13);
+		}
+		if (!(tableViewConjurosLibreAcceso.getItems().get(13).getNombreConjuroLibreAcceso().getSelectionModel().getSelectedItem()==null)) {
+			TablaConjurosLibreAcceso tablaConjurosLibreAcceso14 = ch.obtenerConjuroLibreAccesoSeleccionado(sessionFactory, tableViewConjurosLibreAcceso.getItems().get(13).getNombreConjuroLibreAcceso().getSelectionModel().getSelectedItem());
+			tablaConjurosLibreAcceso.add(tablaConjurosLibreAcceso14);
+		}
+		if (!(tableViewConjurosLibreAcceso.getItems().get(14).getNombreConjuroLibreAcceso().getSelectionModel().getSelectedItem()==null)) {
+			TablaConjurosLibreAcceso tablaConjurosLibreAcceso15 = ch.obtenerConjuroLibreAccesoSeleccionado(sessionFactory, tableViewConjurosLibreAcceso.getItems().get(14).getNombreConjuroLibreAcceso().getSelectionModel().getSelectedItem());
+			tablaConjurosLibreAcceso.add(tablaConjurosLibreAcceso15);
+		}
+		if (!(tableViewConjurosLibreAcceso.getItems().get(15).getNombreConjuroLibreAcceso().getSelectionModel().getSelectedItem()==null)) {
+			TablaConjurosLibreAcceso tablaConjurosLibreAcceso16 = ch.obtenerConjuroLibreAccesoSeleccionado(sessionFactory, tableViewConjurosLibreAcceso.getItems().get(15).getNombreConjuroLibreAcceso().getSelectionModel().getSelectedItem());
+			tablaConjurosLibreAcceso.add(tablaConjurosLibreAcceso16);
+		}
+		if (!(tableViewConjurosLibreAcceso.getItems().get(16).getNombreConjuroLibreAcceso().getSelectionModel().getSelectedItem()==null)) {
+			TablaConjurosLibreAcceso tablaConjurosLibreAcceso17 = ch.obtenerConjuroLibreAccesoSeleccionado(sessionFactory, tableViewConjurosLibreAcceso.getItems().get(16).getNombreConjuroLibreAcceso().getSelectionModel().getSelectedItem());
+			tablaConjurosLibreAcceso.add(tablaConjurosLibreAcceso17);
+		}
+		if (!(tableViewConjurosLibreAcceso.getItems().get(17).getNombreConjuroLibreAcceso().getSelectionModel().getSelectedItem()==null)) {
+			TablaConjurosLibreAcceso tablaConjurosLibreAcceso18 = ch.obtenerConjuroLibreAccesoSeleccionado(sessionFactory, tableViewConjurosLibreAcceso.getItems().get(17).getNombreConjuroLibreAcceso().getSelectionModel().getSelectedItem());
+			tablaConjurosLibreAcceso.add(tablaConjurosLibreAcceso18);
+		}
+		if (!(tableViewConjurosLibreAcceso.getItems().get(18).getNombreConjuroLibreAcceso().getSelectionModel().getSelectedItem()==null)) {
+			TablaConjurosLibreAcceso tablaConjurosLibreAcceso19 = ch.obtenerConjuroLibreAccesoSeleccionado(sessionFactory, tableViewConjurosLibreAcceso.getItems().get(18).getNombreConjuroLibreAcceso().getSelectionModel().getSelectedItem());
+			tablaConjurosLibreAcceso.add(tablaConjurosLibreAcceso19);
+		}
+		if (!(tableViewConjurosLibreAcceso.getItems().get(19).getNombreConjuroLibreAcceso().getSelectionModel().getSelectedItem()==null)) {
+			TablaConjurosLibreAcceso tablaConjurosLibreAcceso20 = ch.obtenerConjuroLibreAccesoSeleccionado(sessionFactory, tableViewConjurosLibreAcceso.getItems().get(19).getNombreConjuroLibreAcceso().getSelectionModel().getSelectedItem());
+			tablaConjurosLibreAcceso.add(tablaConjurosLibreAcceso20);
+		}
+		if (!(tableViewConjurosLibreAcceso.getItems().get(20).getNombreConjuroLibreAcceso().getSelectionModel().getSelectedItem()==null)) {
+			TablaConjurosLibreAcceso tablaConjurosLibreAcceso21 = ch.obtenerConjuroLibreAccesoSeleccionado(sessionFactory, tableViewConjurosLibreAcceso.getItems().get(20).getNombreConjuroLibreAcceso().getSelectionModel().getSelectedItem());
+			tablaConjurosLibreAcceso.add(tablaConjurosLibreAcceso21);
+		}
+
 		Set<PoderPsiquico> tablaPoderesPsiquicos = new HashSet<PoderPsiquico>();
-		tablaPoderesPsiquicos.add(poderPsiquico1);
-		tablaPoderesPsiquicos.add(poderPsiquico2);
-		tablaPoderesPsiquicos.add(poderPsiquico3);
-		tablaPoderesPsiquicos.add(poderPsiquico4);
-		tablaPoderesPsiquicos.add(poderPsiquico5);
-		tablaPoderesPsiquicos.add(poderPsiquico6);
-		tablaPoderesPsiquicos.add(poderPsiquico7);
-		tablaPoderesPsiquicos.add(poderPsiquico8);
-		tablaPoderesPsiquicos.add(poderPsiquico9);
-		tablaPoderesPsiquicos.add(poderPsiquico10);
-		tablaPoderesPsiquicos.add(poderPsiquico11);
-		tablaPoderesPsiquicos.add(poderPsiquico12);
-		tablaPoderesPsiquicos.add(poderPsiquico13);
-		tablaPoderesPsiquicos.add(poderPsiquico14);
-		tablaPoderesPsiquicos.add(poderPsiquico15);
-		tablaPoderesPsiquicos.add(poderPsiquico16);
-		tablaPoderesPsiquicos.add(poderPsiquico17);
-		tablaPoderesPsiquicos.add(poderPsiquico18);
-		tablaPoderesPsiquicos.add(poderPsiquico19);
-		tablaPoderesPsiquicos.add(poderPsiquico20);
+		if (!(tableViewPoderesPsiquicos.getItems().get(1).getNombrePoderSeleccionado().getSelectionModel().getSelectedItem()==null)) {
+			PoderPsiquico poderPsiquico1 = ch.obtenerPoderPsiquicoSeleccionado(sessionFactory, tableViewPoderesPsiquicos.getItems().get(0).getNombrePoderSeleccionado().getSelectionModel().getSelectedItem());
+			tablaPoderesPsiquicos.add(poderPsiquico1);
+		}
+		if (!(tableViewPoderesPsiquicos.getItems().get(1).getNombrePoderSeleccionado().getSelectionModel().getSelectedItem()==null)) {
+			PoderPsiquico poderPsiquico2 = ch.obtenerPoderPsiquicoSeleccionado(sessionFactory, tableViewPoderesPsiquicos.getItems().get(1).getNombrePoderSeleccionado().getSelectionModel().getSelectedItem());
+			tablaPoderesPsiquicos.add(poderPsiquico2);
+		}
+		if (!(tableViewPoderesPsiquicos.getItems().get(2).getNombrePoderSeleccionado().getSelectionModel().getSelectedItem()==null)) {
+			PoderPsiquico poderPsiquico3 = ch.obtenerPoderPsiquicoSeleccionado(sessionFactory, tableViewPoderesPsiquicos.getItems().get(2).getNombrePoderSeleccionado().getSelectionModel().getSelectedItem());
+			tablaPoderesPsiquicos.add(poderPsiquico3);
+		}
+		if (!(tableViewPoderesPsiquicos.getItems().get(3).getNombrePoderSeleccionado().getSelectionModel().getSelectedItem()==null)) {
+			PoderPsiquico poderPsiquico4 = ch.obtenerPoderPsiquicoSeleccionado(sessionFactory, tableViewPoderesPsiquicos.getItems().get(3).getNombrePoderSeleccionado().getSelectionModel().getSelectedItem());
+			tablaPoderesPsiquicos.add(poderPsiquico4);
+		}
+		if (!(tableViewPoderesPsiquicos.getItems().get(4).getNombrePoderSeleccionado().getSelectionModel().getSelectedItem()==null)) {
+			PoderPsiquico poderPsiquico5 = ch.obtenerPoderPsiquicoSeleccionado(sessionFactory, tableViewPoderesPsiquicos.getItems().get(4).getNombrePoderSeleccionado().getSelectionModel().getSelectedItem());
+			tablaPoderesPsiquicos.add(poderPsiquico5);
+		}
+		if (!(tableViewPoderesPsiquicos.getItems().get(5).getNombrePoderSeleccionado().getSelectionModel().getSelectedItem()==null)) {
+			PoderPsiquico poderPsiquico6 = ch.obtenerPoderPsiquicoSeleccionado(sessionFactory, tableViewPoderesPsiquicos.getItems().get(5).getNombrePoderSeleccionado().getSelectionModel().getSelectedItem());
+			tablaPoderesPsiquicos.add(poderPsiquico6);
+		}
+		if (!(tableViewPoderesPsiquicos.getItems().get(6).getNombrePoderSeleccionado().getSelectionModel().getSelectedItem()==null)) {
+			PoderPsiquico poderPsiquico7 = ch.obtenerPoderPsiquicoSeleccionado(sessionFactory, tableViewPoderesPsiquicos.getItems().get(6).getNombrePoderSeleccionado().getSelectionModel().getSelectedItem());
+			tablaPoderesPsiquicos.add(poderPsiquico7);
+		}
+		if (!(tableViewPoderesPsiquicos.getItems().get(7).getNombrePoderSeleccionado().getSelectionModel().getSelectedItem()==null)) {
+			PoderPsiquico poderPsiquico8 = ch.obtenerPoderPsiquicoSeleccionado(sessionFactory, tableViewPoderesPsiquicos.getItems().get(7).getNombrePoderSeleccionado().getSelectionModel().getSelectedItem());
+			tablaPoderesPsiquicos.add(poderPsiquico8);
+		}
+		if (!(tableViewPoderesPsiquicos.getItems().get(8).getNombrePoderSeleccionado().getSelectionModel().getSelectedItem()==null)) {
+			PoderPsiquico poderPsiquico9 = ch.obtenerPoderPsiquicoSeleccionado(sessionFactory, tableViewPoderesPsiquicos.getItems().get(8).getNombrePoderSeleccionado().getSelectionModel().getSelectedItem());
+			tablaPoderesPsiquicos.add(poderPsiquico9);
+		}
+		if (!(tableViewPoderesPsiquicos.getItems().get(9).getNombrePoderSeleccionado().getSelectionModel().getSelectedItem()==null)) {
+			PoderPsiquico poderPsiquico10 = ch.obtenerPoderPsiquicoSeleccionado(sessionFactory, tableViewPoderesPsiquicos.getItems().get(9).getNombrePoderSeleccionado().getSelectionModel().getSelectedItem());
+			tablaPoderesPsiquicos.add(poderPsiquico10);
+		}
+		if (!(tableViewPoderesPsiquicos.getItems().get(10).getNombrePoderSeleccionado().getSelectionModel().getSelectedItem()==null)) {
+			PoderPsiquico poderPsiquico11 = ch.obtenerPoderPsiquicoSeleccionado(sessionFactory, tableViewPoderesPsiquicos.getItems().get(10).getNombrePoderSeleccionado().getSelectionModel().getSelectedItem());
+			tablaPoderesPsiquicos.add(poderPsiquico11);
+		}
+		if (!(tableViewPoderesPsiquicos.getItems().get(11).getNombrePoderSeleccionado().getSelectionModel().getSelectedItem()==null)) {
+			PoderPsiquico poderPsiquico12 = ch.obtenerPoderPsiquicoSeleccionado(sessionFactory, tableViewPoderesPsiquicos.getItems().get(11).getNombrePoderSeleccionado().getSelectionModel().getSelectedItem());
+			tablaPoderesPsiquicos.add(poderPsiquico12);
+		}
+		if (!(tableViewPoderesPsiquicos.getItems().get(12).getNombrePoderSeleccionado().getSelectionModel().getSelectedItem()==null)) {
+			PoderPsiquico poderPsiquico13 = ch.obtenerPoderPsiquicoSeleccionado(sessionFactory, tableViewPoderesPsiquicos.getItems().get(12).getNombrePoderSeleccionado().getSelectionModel().getSelectedItem());
+			tablaPoderesPsiquicos.add(poderPsiquico13);
+		}
+		if (!(tableViewPoderesPsiquicos.getItems().get(13).getNombrePoderSeleccionado().getSelectionModel().getSelectedItem()==null)) {
+			PoderPsiquico poderPsiquico14 = ch.obtenerPoderPsiquicoSeleccionado(sessionFactory, tableViewPoderesPsiquicos.getItems().get(13).getNombrePoderSeleccionado().getSelectionModel().getSelectedItem());
+			tablaPoderesPsiquicos.add(poderPsiquico14);
+		}
+		if (!(tableViewPoderesPsiquicos.getItems().get(14).getNombrePoderSeleccionado().getSelectionModel().getSelectedItem()==null)) {
+			PoderPsiquico poderPsiquico15 = ch.obtenerPoderPsiquicoSeleccionado(sessionFactory, tableViewPoderesPsiquicos.getItems().get(14).getNombrePoderSeleccionado().getSelectionModel().getSelectedItem());
+			tablaPoderesPsiquicos.add(poderPsiquico15);
+		}
+		if (!(tableViewPoderesPsiquicos.getItems().get(15).getNombrePoderSeleccionado().getSelectionModel().getSelectedItem()==null)) {
+			PoderPsiquico poderPsiquico16 = ch.obtenerPoderPsiquicoSeleccionado(sessionFactory, tableViewPoderesPsiquicos.getItems().get(15).getNombrePoderSeleccionado().getSelectionModel().getSelectedItem());
+			tablaPoderesPsiquicos.add(poderPsiquico16);
+		}
+		if (!(tableViewPoderesPsiquicos.getItems().get(16).getNombrePoderSeleccionado().getSelectionModel().getSelectedItem()==null)) {
+			PoderPsiquico poderPsiquico17 = ch.obtenerPoderPsiquicoSeleccionado(sessionFactory, tableViewPoderesPsiquicos.getItems().get(16).getNombrePoderSeleccionado().getSelectionModel().getSelectedItem());
+			tablaPoderesPsiquicos.add(poderPsiquico17);
+		}
+		if (!(tableViewPoderesPsiquicos.getItems().get(17).getNombrePoderSeleccionado().getSelectionModel().getSelectedItem()==null)) {
+			PoderPsiquico poderPsiquico18 = ch.obtenerPoderPsiquicoSeleccionado(sessionFactory, tableViewPoderesPsiquicos.getItems().get(17).getNombrePoderSeleccionado().getSelectionModel().getSelectedItem());
+			tablaPoderesPsiquicos.add(poderPsiquico18);
+		}
+		if (!(tableViewPoderesPsiquicos.getItems().get(18).getNombrePoderSeleccionado().getSelectionModel().getSelectedItem()==null)) {
+			PoderPsiquico poderPsiquico19 = ch.obtenerPoderPsiquicoSeleccionado(sessionFactory, tableViewPoderesPsiquicos.getItems().get(18).getNombrePoderSeleccionado().getSelectionModel().getSelectedItem());
+			tablaPoderesPsiquicos.add(poderPsiquico19);
+		}
+		if (!(tableViewPoderesPsiquicos.getItems().get(19).getNombrePoderSeleccionado().getSelectionModel().getSelectedItem()==null)) {
+			PoderPsiquico poderPsiquico20 = ch.obtenerPoderPsiquicoSeleccionado(sessionFactory, tableViewPoderesPsiquicos.getItems().get(19).getNombrePoderSeleccionado().getSelectionModel().getSelectedItem());
+			tablaPoderesPsiquicos.add(poderPsiquico20);
+		}
+
 		
 //		TablaPsiquico tablaPsiquico = cNombreTablaPsiquico.getSelectionModel().getSelectedItem();
+		
+		
+		Lv lv = new Lv();
+		lv.setPdsCategorias(pdsCategorias);
+		if (tCategoriaPrimerLv.getText().equals("CONJURADOR")) {
+			lv.setLv1Conjurador(Integer.parseInt("1"));
+		} else if (tCategoriaPrimerLv.getText().equals("EXPLORADOR")) {
+			lv.setLv1Explorador(Integer.parseInt("1"));
+		} else if (tCategoriaPrimerLv.getText().equals("GUERRERO")) {
+			lv.setLv1Guerrero(Integer.parseInt("1"));
+		} else if (tCategoriaPrimerLv.getText().equals("GUERRERO CONJURADOR")) {
+			lv.setLv1GuerreroConjurador(Integer.parseInt("1"));
+		} else if (tCategoriaPrimerLv.getText().equals("GUERRERO ACROBATA")) {
+			lv.setLv1GuerreroAcrobata(Integer.parseInt("1"));
+		} else if (tCategoriaPrimerLv.getText().equals("GUERRERO MENTALISTA")) {
+			lv.setLv1GuerreroMentalista(Integer.parseInt("1"));
+		} else if (tCategoriaPrimerLv.getText().equals("HECHICERO")) {
+			lv.setLv1Hechicero(Integer.parseInt("1"));
+		} else if (tCategoriaPrimerLv.getText().equals("HECHICERO MENTALISTA")) {
+			lv.setLv1HechiceroMentalista(Integer.parseInt("1"));
+		} else if (tCategoriaPrimerLv.getText().equals("ILUSIONISTA")) {
+			lv.setLv1Ilusionista(Integer.parseInt("1"));
+		} else if (tCategoriaPrimerLv.getText().equals("MAESTRO DE ARMAS")) {
+			lv.setLv1MaestroArmas(Integer.parseInt("1"));
+		} else if (tCategoriaPrimerLv.getText().equals("MENTALISTA")) {
+			lv.setLv1Mentalista(Integer.parseInt("1"));
+		} else if (tCategoriaPrimerLv.getText().equals("NOVEL")) {
+			lv.setLv1Novel(Integer.parseInt("1"));
+		} else if (tCategoriaPrimerLv.getText().equals("PALADIN")) {
+			lv.setLv1Paladin(Integer.parseInt("1"));
+		} else if (tCategoriaPrimerLv.getText().equals("PALADIN OSCURO")) {
+			lv.setLv1PaladinOscuro(Integer.parseInt("1"));
+		} else if (tCategoriaPrimerLv.getText().equals("SOMBRA")) {
+			lv.setLv1Sombra(Integer.parseInt("1"));
+		} else if (tCategoriaPrimerLv.getText().equals("TAO")) {
+			lv.setLv1Tao(Integer.parseInt("1"));
+		} else if (tCategoriaPrimerLv.getText().equals("TECNICISTA")) {
+			lv.setLv1Tecnicista(Integer.parseInt("1"));
+		} else if (tCategoriaPrimerLv.getText().equals("WARLOCK")) {
+			lv.setLv1Warlock(Integer.parseInt("1"));
+		}
+		
+		if (tCategoriaPrimerLv.getText().equals("CONJURADOR")) {
+			lv.setLvConjurador(Integer.parseInt(tNivelTotal.getText()));
+		} else if (tCategoriaPrimerLv.getText().equals("EXPLORADOR")) {
+			lv.setLvExplorador(Integer.parseInt(tNivelTotal.getText()));
+		} else if (tCategoriaPrimerLv.getText().equals("GUERRERO")) {
+			lv.setLvGuerrero(Integer.parseInt(tNivelTotal.getText()));
+		} else if (tCategoriaPrimerLv.getText().equals("GUERRERO CONJURADOR")) {
+			lv.setLvGuerreroConjurador(Integer.parseInt(tNivelTotal.getText()));
+		} else if (tCategoriaPrimerLv.getText().equals("GUERRERO ACROBATA")) {
+			lv.setLvGuerreroAcrobata(Integer.parseInt(tNivelTotal.getText()));
+		} else if (tCategoriaPrimerLv.getText().equals("GUERRERO MENTALISTA")) {
+			lv.setLvGuerreroMentalista(Integer.parseInt(tNivelTotal.getText()));
+		} else if (tCategoriaPrimerLv.getText().equals("HECHICERO")) {
+			lv.setLvHechicero(Integer.parseInt(tNivelTotal.getText()));
+		} else if (tCategoriaPrimerLv.getText().equals("HECHICERO MENTALISTA")) {
+			lv.setLvHechiceroMentalista(Integer.parseInt(tNivelTotal.getText()));
+		} else if (tCategoriaPrimerLv.getText().equals("ILUSIONISTA")) {
+			lv.setLvIlusionista(Integer.parseInt(tNivelTotal.getText()));
+		} else if (tCategoriaPrimerLv.getText().equals("MAESTRO DE ARMAS")) {
+			lv.setLvMaestroArmas(Integer.parseInt(tNivelTotal.getText()));
+		} else if (tCategoriaPrimerLv.getText().equals("MENTALISTA")) {
+			lv.setLvMentalista(Integer.parseInt(tNivelTotal.getText()));
+		} else if (tCategoriaPrimerLv.getText().equals("NOVEL")) {
+			lv.setLvNovel(Integer.parseInt(tNivelTotal.getText()));
+		} else if (tCategoriaPrimerLv.getText().equals("PALADIN")) {
+			lv.setLvPaladin(Integer.parseInt(tNivelTotal.getText()));
+		} else if (tCategoriaPrimerLv.getText().equals("PALADIN OSCURO")) {
+			lv.setLvPaladinOscuro(Integer.parseInt(tNivelTotal.getText()));
+		} else if (tCategoriaPrimerLv.getText().equals("SOMBRA")) {
+			lv.setLvSombra(Integer.parseInt(tNivelTotal.getText()));
+		} else if (tCategoriaPrimerLv.getText().equals("TAO")) {
+			lv.setLvTao(Integer.parseInt(tNivelTotal.getText()));
+		} else if (tCategoriaPrimerLv.getText().equals("TECNICISTA")) {
+			lv.setLvTecnicista(Integer.parseInt(tNivelTotal.getText()));
+		} else if (tCategoriaPrimerLv.getText().equals("WARLOCK")) {
+			lv.setLvWarlock(Integer.parseInt(tNivelTotal.getText()));
+		}
+		lv.setPdsCategorias(pdsCategorias);
+		
 		
 		
 		Personaje personaje = new Personaje();
 		personaje.setApariencia(Integer.parseInt(tApariencia.getText()));
 		
+		personaje.setNombre(tNombre.getText());
+		personaje.setRaza(razaSeleccionada);
 		personaje.setArmaPersonajes(armas);
 		personaje.setArmaduras(armaduras);
 		personaje.setVentajas(ventajas);
 		personaje.setDesventajas(desventajas);
 		personaje.setArteMarcials(tablaArteMarcial);
 		personaje.setTablaEstilos(tablaEstilos);
+		personaje.setCaracteristicas(caracteristicas);
+		personaje.setLv(lv);
+
+
+
+		PdsCategoriaId pdsCategoriaId = new PdsCategoriaId();
+		pdsCategoriaId.setPdsPrimariasComunes(pdsPrimariasComunes.getPdsPrimariasComunes());
+		pdsCategoriaId.setPdsPrimariasKi(pdsPrimariasKi.getPdsPrimariasKi());
+		pdsCategoriaId.setPdsPrimariasMisticas(pdsPrimariasMisticas.getPdsPrimariasMisticas());
+		pdsCategoriaId.setPdsPrimariasPsiquicas(pdsPrimariasPsiquicas.getPdsPrimariasPsiquicas());
+		pdsCategoriaId.setPdsSecundariasAtleticas(pdsSecundariasAtleticas.getPdsSecundariasAtleticas());
+		pdsCategoriaId.setPdsSecundariasSociales(pdsSecundariasSociales.getPdsSecundariasSociales());
+		pdsCategoriaId.setPdsSecundariasPerceptivas(pdsSecundariasPerceptivas.getPdsSecundariasPerceptivas());
+		pdsCategoriaId.setPdsSecundariasIntelectuales(pdsSecundariasIntelectuales.getPdsSecundariasIntelectuales());
+		pdsCategoriaId.setPdsSecundariasVigor(pdsSecundariasVigor.getPdsSecundariasVigor());
+		pdsCategoriaId.setPdsSecundariasSubterfugio(pdsSecundariasSubterfugio.getPdsSecundariasSubterfugio());
+		pdsCategoriaId.setPdsSecundariasCreativas(pdsSecundariasCreativas.getPdsSecundariasCreativas());
+		pdsCategoriaId.setIdCategoria(categoriaSeleccionada.getIdCategoria());
 		
 		
+		int idPersonaje = ch.insertarPersonaje(sessionFactory, personaje, lv, pdsCategoriaId, pdsCategoria);
 	}
 	
 	public void tirarApariencia(MouseEvent ev) {

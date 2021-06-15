@@ -1,5 +1,6 @@
 package modelo;
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.hibernate.HibernateException;
@@ -677,22 +678,84 @@ public class ConsultasHibernate {
 		finally {
 			if (session != null) {
 				session.close();
+				
 			}
 		}
 		return poderPsiquico;
 	}
 
-	public void insertarPersonaje(SessionFactory sessionFactory) {
+	public int insertarPersonaje(SessionFactory sessionFactory, Personaje personaje, Lv lv, PdsCategoriaId pdsCategoriaId, PdsCategoria pdsCategoria) {
 		Session session = null;
+		int idPersonaje = 0;
 		
 		try {
+
 			session = sessionFactory.getCurrentSession();
 			session.beginTransaction();
 			
+			Personaje nuevoPersonaje = new Personaje();
+			nuevoPersonaje.setApariencia(personaje.getApariencia());
+			nuevoPersonaje.setNombre(personaje.getNombre());
+			nuevoPersonaje.setArmaduras(personaje.getArmaduras());
+			nuevoPersonaje.setArteMarcials(personaje.getArteMarcials());
+			nuevoPersonaje.setCaracteristicas(personaje.getCaracteristicas());
+			nuevoPersonaje.setRaza(personaje.getRaza());
+			nuevoPersonaje.setPoderPsiquicos(personaje.getPoderPsiquicos());
+			nuevoPersonaje.setTablaConjurosLibreAccesos(personaje.getTablaConjurosLibreAccesos());
+			nuevoPersonaje.setVentajas(personaje.getVentajas());
+			nuevoPersonaje.setDesventajas(personaje.getDesventajas());
+			nuevoPersonaje.setLv(lv);
 			
+			session.saveOrUpdate(nuevoPersonaje);
+			idPersonaje = nuevoPersonaje.getIdPersonaje();
+			
+			lv.setPersonaje(nuevoPersonaje);
+			session.saveOrUpdate(lv);
+			
+
+			TablaVentajaPersonajeId tablaVentajaPersonajeId = new TablaVentajaPersonajeId();
+			/*Inserta las ventajas del personaje guardado*/
+			for (Iterator<Ventaja> it = nuevoPersonaje.getVentajas().iterator(); it.hasNext();) {
+				Ventaja ventaja = it.next();
+				tablaVentajaPersonajeId.setIdPersonaje(idPersonaje);
+				tablaVentajaPersonajeId.setIdVentaja(ventaja.getIdVentaja());
+				session.saveOrUpdate(tablaVentajaPersonajeId);
+			}
+			
+
+			TablaVentajaPersonajeId tablaDesventajaPersonajeId = new TablaVentajaPersonajeId();
+			/*Inserta las desventajas del personaje guardado*/
+			for (Iterator<Desventaja> it = nuevoPersonaje.getDesventajas().iterator(); it.hasNext();) {
+				Desventaja desventaja = it.next();
+				tablaDesventajaPersonajeId.setIdPersonaje(idPersonaje);
+				tablaDesventajaPersonajeId.setIdVentaja(desventaja.getIdDesventaja());
+				session.saveOrUpdate(tablaDesventajaPersonajeId);
+			}
+			
+			
+			
+			PdsCategoriaId pdsCategoriaIdNuevo = new PdsCategoriaId();
+			pdsCategoriaIdNuevo.setPdsPrimariasComunes(pdsCategoria.getPdsPrimariasComunes().getPdsPrimariasComunes());
+			pdsCategoriaIdNuevo.setPdsPrimariasKi(pdsCategoria.getPdsPrimariasKi().getPdsPrimariasKi());
+			pdsCategoriaIdNuevo.setPdsPrimariasMisticas(pdsCategoria.getPdsPrimariasMisticas().getPdsPrimariasMisticas());
+			pdsCategoriaIdNuevo.setPdsPrimariasPsiquicas(pdsCategoria.getPdsPrimariasPsiquicas().getPdsPrimariasPsiquicas());
+			pdsCategoriaIdNuevo.setPdsSecundariasAtleticas(pdsCategoria.getPdsSecundariasAtleticas().getPdsSecundariasAtleticas());
+			pdsCategoriaIdNuevo.setPdsSecundariasSociales(pdsCategoria.getPdsSecundariasSociales().getPdsSecundariasSociales());
+			pdsCategoriaIdNuevo.setPdsSecundariasPerceptivas(pdsCategoria.getPdsSecundariasPerceptivas().getPdsSecundariasPerceptivas());
+			pdsCategoriaIdNuevo.setPdsSecundariasIntelectuales(pdsCategoria.getPdsSecundariasIntelectuales().getPdsSecundariasIntelectuales());
+			pdsCategoriaIdNuevo.setPdsSecundariasVigor(pdsCategoria.getPdsSecundariasVigor().getPdsSecundariasVigor());
+			pdsCategoriaIdNuevo.setPdsSecundariasSubterfugio(pdsCategoria.getPdsSecundariasSubterfugio().getPdsSecundariasSubterfugio());
+			pdsCategoriaIdNuevo.setPdsSecundariasCreativas(pdsCategoria.getPdsSecundariasCreativas().getPdsSecundariasCreativas());
+			pdsCategoriaIdNuevo.setIdCategoria(pdsCategoria.getCategoria().getIdCategoria());
+			pdsCategoriaIdNuevo.setIdPersonaje(idPersonaje);
+			
+			session.saveOrUpdate(pdsCategoriaIdNuevo);
+			
+			session.getTransaction().commit();
 			
 		} catch (HibernateException e) {
 			e.printStackTrace();
+			session.getTransaction().rollback();
 			throw e;
 		}
 		finally {
@@ -700,6 +763,35 @@ public class ConsultasHibernate {
 				session.close();
 			}
 		}
+		return idPersonaje;
 	}
+	
+	public Personaje obtenerPersonaje(SessionFactory sessionFactory, int idPersonaje) {
+		Session session = null;
+		Personaje personaje = null;
+		
+		try {
+			session = sessionFactory.getCurrentSession();
+			session.beginTransaction();
+			
+			Query query = session.createQuery("FROM Personaje p WHERE p.idPersonaje = :idPersonaje");
+			query.setParameter("idPersonaje", idPersonaje);
+			personaje = (Personaje)query.getSingleResult();
+
+			
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+			throw e;
+		}
+		finally {
+			if (session != null) {
+				session.close();
+			}
+		}
+		return personaje;
+	}
+	
+	
 	
 }
