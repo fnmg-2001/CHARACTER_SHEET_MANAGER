@@ -30,6 +30,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import modelo.Categoria;
 import modelo.ConsultasHibernate;
+import modelo.Personaje;
 import modelo.Raza;
 import javafx.scene.Node;
 
@@ -569,8 +570,9 @@ public class RazaController {
 	}
 	
 	public void selectCategoriaAceptar(ActionEvent ev) throws IOException {
+		Personaje personaje = new Personaje();
 		Stage stage = new Stage();
-		PersonajeController personajeController = new PersonajeController(sessionFactory, lCategoria2.getText(), lRaza2.getText());
+		PersonajeController personajeController = new PersonajeController(sessionFactory, lCategoria2.getText(), lRaza2.getText(), personaje);
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Personaje.fxml"));
 		loader.setController(personajeController);
 		TabPane pane = (TabPane)loader.load();

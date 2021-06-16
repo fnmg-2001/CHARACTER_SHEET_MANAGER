@@ -1,5 +1,5 @@
 package modelo;
-// Generated 15 jun. 2021 23:20:51 by Hibernate Tools 5.2.12.Final
+// Generated 16 jun. 2021 23:54:00 by Hibernate Tools 5.2.12.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -82,7 +82,7 @@ public class Ventaja implements java.io.Serializable {
 		this.coste = coste;
 	}
 
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "tabla_ventaja_personaje", catalog = "anima_sheets_data", joinColumns = {
 			@JoinColumn(name = "ID_VENTAJA", nullable = false, updatable = false) }, inverseJoinColumns = {
 					@JoinColumn(name = "ID_PERSONAJE", nullable = false, updatable = false) })

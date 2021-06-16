@@ -41,23 +41,23 @@
                   <Label alignment="CENTER" layoutX="102.0" layoutY="544.0" prefHeight="35.0" prefWidth="481.0" styleClass="labelPersonaje" text="NOMBRE" />
                   <TextField fx:id="tNombre" alignment="CENTER" layoutX="102.0" layoutY="579.0" prefHeight="31.0" prefWidth="480.0" />
                   <Label alignment="CENTER" layoutX="686.0" layoutY="209.0" prefHeight="35.0" prefWidth="494.0" styleClass="labelPersonaje" text="PARTICULARIDADES" />
-                  <TextArea fx:id="tAreaParticularidades" layoutX="686.0" layoutY="244.0" prefHeight="140.0" prefWidth="494.0" styleClass="tAreaPersonaje" wrapText="true" />
+                  <TextArea fx:id="tAreaParticularidades" layoutX="686.0" layoutY="244.0" prefHeight="140.0" prefWidth="494.0" styleClass="tAreaPersonaje" text=" " wrapText="true" />
                   <Label alignment="CENTER" layoutX="688.0" layoutY="391.0" prefHeight="35.0" prefWidth="490.0" styleClass="labelPersonaje" text="OBJETIVOS" />
-                  <TextArea fx:id="tAreaObjetivos" layoutX="688.0" layoutY="426.0" prefHeight="140.0" prefWidth="490.0" styleClass="tAreaPersonaje" wrapText="true" />
+                  <TextArea fx:id="tAreaObjetivos" layoutX="688.0" layoutY="426.0" prefHeight="140.0" prefWidth="490.0" styleClass="tAreaPersonaje" text=" " wrapText="true" />
                   <Label alignment="CENTER" layoutX="689.0" layoutY="577.0" prefHeight="35.0" prefWidth="489.0" styleClass="labelPersonaje" text="HISTORIA" />
-                  <TextArea fx:id="tAreaHistoria" layoutX="689.0" layoutY="612.0" prefHeight="140.0" prefWidth="489.0" styleClass="tAreaPersonaje" wrapText="true" />
+                  <TextArea fx:id="tAreaHistoria" layoutX="689.0" layoutY="612.0" prefHeight="140.0" prefWidth="489.0" styleClass="tAreaPersonaje" text=" " wrapText="true" />
                   <Label alignment="CENTER" layoutX="687.0" layoutY="25.0" prefHeight="35.0" prefWidth="492.0" styleClass="labelPersonaje" text="PERSONALIDAD" />
-                  <TextArea fx:id="tAreaPersonalidad" layoutX="687.0" layoutY="59.0" prefHeight="140.0" prefWidth="492.0" styleClass="tAreaPersonaje" wrapText="true" />
+                  <TextArea fx:id="tAreaPersonalidad" layoutX="687.0" layoutY="59.0" prefHeight="140.0" prefWidth="492.0" styleClass="tAreaPersonaje" text=" " wrapText="true" />
                   <Label alignment="CENTER" layoutX="102.0" layoutY="618.0" prefHeight="35.0" prefWidth="160.0" styleClass="labelPersonaje" text="RAZA" />
                   <TextField fx:id="tRazaGeneral" alignment="CENTER" layoutX="102.0" layoutY="654.0" prefHeight="31.0" prefWidth="158.0" />
                   <Label alignment="CENTER" layoutX="429.0" layoutY="618.0" prefHeight="35.0" prefWidth="156.0" styleClass="labelPersonaje" text="SEXO" />
-                  <TextField fx:id="tSexo" alignment="CENTER" layoutX="429.0" layoutY="654.0" prefHeight="31.0" prefWidth="156.0" />
+                  <TextField fx:id="tSexo" alignment="CENTER" layoutX="429.0" layoutY="654.0" prefHeight="31.0" prefWidth="156.0" text=" " />
                   <Label alignment="CENTER" layoutX="102.0" layoutY="686.0" prefHeight="35.0" prefWidth="158.0" styleClass="labelPersonaje" text="EDAD" />
                   <TextField fx:id="tEdad" alignment="CENTER" layoutX="102.0" layoutY="721.0" prefHeight="31.0" prefWidth="158.0" />
                   <Label alignment="CENTER" layoutX="262.0" layoutY="686.0" prefHeight="35.0" prefWidth="163.0" styleClass="labelPersonaje" text="REGION" />
-                  <TextField fx:id="tRegion" alignment="CENTER" layoutX="263.0" layoutY="721.0" prefHeight="31.0" prefWidth="160.0" />
+                  <TextField fx:id="tRegion" alignment="CENTER" layoutX="263.0" layoutY="721.0" prefHeight="31.0" prefWidth="160.0" text=" " />
                   <Label alignment="CENTER" layoutX="427.0" layoutY="686.0" prefHeight="35.0" prefWidth="160.0" styleClass="labelPersonaje" text="ETNIA" />
-                  <TextField fx:id="tEtniaGeneral" alignment="CENTER" layoutX="428.0" layoutY="721.0" prefHeight="31.0" prefWidth="158.0" />
+                  <TextField fx:id="tEtniaGeneral" alignment="CENTER" layoutX="428.0" layoutY="721.0" prefHeight="31.0" prefWidth="158.0" text=" " />
                   <Label alignment="CENTER" layoutX="263.0" layoutY="618.0" prefHeight="35.0" prefWidth="164.0" styleClass="labelPersonaje" text="APARIENCIA" />
                   <TextField fx:id="tApariencia" alignment="CENTER" layoutX="264.0" layoutY="654.0" prefHeight="31.0" prefWidth="162.0" />
                   <Pane fx:id="pPersonajeChar" layoutX="159.0" layoutY="55.0" onMouseClicked="#seleccionarImagenPersonaje" onMouseEntered="#PaneImagenPersonaje" onMouseExited="#sinPaneImagenPersonaje" opacity="0.5" prefHeight="442.0" prefWidth="370.0">
@@ -628,16 +628,16 @@
                   <Label layoutX="27.0" layoutY="405.0" prefHeight="38.0" prefWidth="361.0" styleClass="labelPersonaje" text="CONTACTOS" />
                   <Label layoutX="420.0" layoutY="405.0" prefHeight="38.0" prefWidth="361.0" styleClass="labelPersonaje" text="TITULOS Y POSESIONES" />
                   <Label layoutX="818.0" layoutY="405.0" prefHeight="38.0" prefWidth="361.0" styleClass="labelPersonaje" text="DINERO Y JOYAS" />
-                  <TextArea fx:id="tAreaEquipoCombate" layoutX="27.0" layoutY="52.0" prefHeight="268.0" prefWidth="361.0" wrapText="true" />
-                  <TextArea fx:id="tAreaVestimenta" layoutX="420.0" layoutY="52.0" prefHeight="268.0" prefWidth="361.0" wrapText="true" />
-                  <TextArea fx:id="tAreaEquipoVariado" layoutX="818.0" layoutY="52.0" prefHeight="268.0" prefWidth="361.0" wrapText="true" />
-                  <TextArea fx:id="tAreaContactos" layoutX="27.0" layoutY="443.0" prefHeight="268.0" prefWidth="361.0" wrapText="true" />
-                  <TextArea fx:id="tAreaTitulosPosesiones" layoutX="420.0" layoutY="443.0" prefHeight="268.0" prefWidth="361.0" wrapText="true" />
-                  <TextArea fx:id="tAreaJoyas" layoutX="1006.0" layoutY="478.0" prefHeight="233.0" prefWidth="173.0" wrapText="true" />
+                  <TextArea fx:id="tAreaEquipoCombate" layoutX="27.0" layoutY="52.0" prefHeight="268.0" prefWidth="361.0" text=" " wrapText="true" />
+                  <TextArea fx:id="tAreaVestimenta" layoutX="420.0" layoutY="52.0" prefHeight="268.0" prefWidth="361.0" text=" " wrapText="true" />
+                  <TextArea fx:id="tAreaEquipoVariado" layoutX="818.0" layoutY="52.0" prefHeight="268.0" prefWidth="361.0" text=" " wrapText="true" />
+                  <TextArea fx:id="tAreaContactos" layoutX="27.0" layoutY="443.0" prefHeight="268.0" prefWidth="361.0" text=" " wrapText="true" />
+                  <TextArea fx:id="tAreaTitulosPosesiones" layoutX="420.0" layoutY="443.0" prefHeight="268.0" prefWidth="361.0" text=" " wrapText="true" />
+                  <TextArea fx:id="tAreaJoyas" layoutX="1006.0" layoutY="478.0" prefHeight="233.0" prefWidth="173.0" text=" " wrapText="true" />
                   <Label layoutX="1006.0" layoutY="457.0" prefHeight="21.0" prefWidth="173.0" styleClass="labelSubPersonaje" text="JOYAS" />
-                  <TextField fx:id="tDineroOro" alignment="CENTER_RIGHT" layoutX="818.0" layoutY="478.0" prefHeight="15.0" prefWidth="174.0" />
-                  <TextField fx:id="tDineroPlata" alignment="CENTER_RIGHT" layoutX="818.0" layoutY="575.0" prefHeight="15.0" prefWidth="174.0" />
-                  <TextField fx:id="tDineroCobre" alignment="CENTER_RIGHT" layoutX="818.0" layoutY="680.0" prefHeight="15.0" prefWidth="174.0" />
+                  <TextField fx:id="tDineroOro" alignment="CENTER_RIGHT" layoutX="818.0" layoutY="478.0" prefHeight="15.0" prefWidth="174.0" text=" " />
+                  <TextField fx:id="tDineroPlata" alignment="CENTER_RIGHT" layoutX="818.0" layoutY="575.0" prefHeight="15.0" prefWidth="174.0" text=" " />
+                  <TextField fx:id="tDineroCobre" alignment="CENTER_RIGHT" layoutX="818.0" layoutY="680.0" prefHeight="15.0" prefWidth="174.0" text=" " />
                   <Label layoutX="818.0" layoutY="457.0" prefHeight="21.0" prefWidth="173.0" styleClass="labelSubPersonaje" text="ORO" />
                   <Label layoutX="818.0" layoutY="553.0" prefHeight="21.0" prefWidth="173.0" styleClass="labelSubPersonaje" text="PLATA" />
                   <Label layoutX="818.0" layoutY="659.0" prefHeight="21.0" prefWidth="173.0" styleClass="labelSubPersonaje" text="COBRE" />

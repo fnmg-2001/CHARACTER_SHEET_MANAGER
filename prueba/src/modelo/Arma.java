@@ -1,5 +1,5 @@
 package modelo;
-// Generated 15 jun. 2021 23:20:51 by Hibernate Tools 5.2.12.Final
+// Generated 16 jun. 2021 23:54:00 by Hibernate Tools 5.2.12.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -9,7 +9,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 /**
@@ -34,7 +36,7 @@ public class Arma implements java.io.Serializable {
 	private int entereza;
 	private int presencia;
 	private String rasgo;
-	private Set<ArmaPersonaje> armaPersonajes = new HashSet<ArmaPersonaje>(0);
+	private Set<Personaje> personajes = new HashSet<Personaje>(0);
 
 	public Arma() {
 	}
@@ -56,7 +58,7 @@ public class Arma implements java.io.Serializable {
 
 	public Arma(String nombre, int fuerzaRequeridaMinima, int fuerzaRequeridaMaxima, String tipo, int turno,
 			int dañoBase, String critico1, String critico2, int AUnaODosManos, int ADosManos, int rotura, int entereza,
-			int presencia, String rasgo, Set<ArmaPersonaje> armaPersonajes) {
+			int presencia, String rasgo, Set<Personaje> personajes) {
 		this.nombre = nombre;
 		this.fuerzaRequeridaMinima = fuerzaRequeridaMinima;
 		this.fuerzaRequeridaMaxima = fuerzaRequeridaMaxima;
@@ -71,7 +73,7 @@ public class Arma implements java.io.Serializable {
 		this.entereza = entereza;
 		this.presencia = presencia;
 		this.rasgo = rasgo;
-		this.armaPersonajes = armaPersonajes;
+		this.personajes = personajes;
 	}
 
 	@Id
@@ -212,13 +214,16 @@ public class Arma implements java.io.Serializable {
 		this.rasgo = rasgo;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "arma")
-	public Set<ArmaPersonaje> getArmaPersonajes() {
-		return this.armaPersonajes;
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "arma_personaje", catalog = "anima_sheets_data", joinColumns = {
+			@JoinColumn(name = "ID_ARMA", nullable = false, updatable = false) }, inverseJoinColumns = {
+					@JoinColumn(name = "ID_PERSONAJE", nullable = false, updatable = false) })
+	public Set<Personaje> getPersonajes() {
+		return this.personajes;
 	}
 
-	public void setArmaPersonajes(Set<ArmaPersonaje> armaPersonajes) {
-		this.armaPersonajes = armaPersonajes;
+	public void setPersonajes(Set<Personaje> personajes) {
+		this.personajes = personajes;
 	}
 
 }

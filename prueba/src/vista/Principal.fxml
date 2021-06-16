@@ -9,39 +9,26 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="804.0" prefWidth="1600.0" stylesheets="@../application/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="804.0" prefWidth="1400.0" stylesheets="@../application/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <MenuBar cache="true" layoutX="9.0" layoutY="11.0" prefHeight="48.0" prefWidth="1582.0" styleClass="menuBar">
+      <MenuBar cache="true" layoutX="9.0" layoutY="11.0" prefHeight="48.0" prefWidth="1385.0" styleClass="menuBar">
          <menus>
             <Menu mnemonicParsing="false">
                <graphic>
-                  <Label fx:id="lblPersonajes" alignment="CENTER" prefHeight="38.0" prefWidth="162.0" styleClass="labelMenu" text="PERSONAJES">
+                  <Label fx:id="lblPersonajes" alignment="CENTER" prefHeight="260.0" prefWidth="191.0" styleClass="button" text="PERSONAJES">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></Label>
                </graphic>
             </Menu>
-            <Menu mnemonicParsing="false">
-               <graphic>
-                  <Label fx:id="lblCombate" alignment="CENTER" prefHeight="38.0" prefWidth="131.0" styleClass="labelMenu" text="COMBATE">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor></Label>
-               </graphic>
-            </Menu>
-            <Menu mnemonicParsing="false">
-               <graphic>
-                  <Label fx:id="lblCompendios" alignment="CENTER" prefHeight="38.0" prefWidth="183.0" styleClass="labelMenu" text="COMPENDIOS">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor></Label>
-               </graphic>
-            </Menu>
-            <Menu disable="true" mnemonicParsing="false" text="                                                                                                                                                                                                                    " />
+            <Menu mnemonicParsing="false" />
+            <Menu mnemonicParsing="false" />
+            <Menu disable="true" mnemonicParsing="false" text="                                                                                                                                                                                                                                                                                                            " />
             <Menu mnemonicParsing="false">
                <graphic>
                   <Label fx:id="lblSalir" alignment="CENTER" prefHeight="38.0" prefWidth="86.0" styleClass="labelMenu" text="SALIR">
@@ -55,23 +42,26 @@
             <DropShadow />
          </effect>
       </MenuBar>
-      <Pane fx:id="pPersonajes" layoutX="-2.0" layoutY="59.0" prefHeight="746.0" prefWidth="1606.0">
+      <Pane fx:id="pPersonajes" layoutX="-2.0" layoutY="59.0" prefHeight="746.0" prefWidth="1400.0">
          <children>
-            <ImageView fitHeight="586.0" fitWidth="372.0" layoutX="13.0" layoutY="118.0" pickOnBounds="true">
+            <ImageView fx:id="imageViewPersonajeSeleccionado" fitHeight="420.0" fitWidth="418.0" layoutX="22.0" layoutY="326.0" pickOnBounds="true" preserveRatio="true">
                <viewport>
                   <Rectangle2D />
                </viewport>
+               <image>
+                  <Image url="@../../img/1-H.png" />
+               </image>
             </ImageView>
-            <TableView layoutX="507.0" layoutY="168.0" prefHeight="564.0" prefWidth="1085.0" stylesheets="@../application/application.css">
+            <TableView fx:id="tableViewPersonaje" layoutX="531.0" layoutY="80.0" prefHeight="654.0" prefWidth="855.0" stylesheets="@../application/application.css">
               <columns>
-                <TableColumn prefWidth="306.0" text="NOMBRE" />
-                <TableColumn minWidth="0.0" prefWidth="222.0" text="LV" />
-                  <TableColumn minWidth="0.0" prefWidth="249.0" text="RAZA" />
-                  <TableColumn prefWidth="307.0" text="CATEGORIA" />
+                <TableColumn fx:id="colNombrePersonaje" prefWidth="335.0" sortable="false" text="NOMBRE" />
+                <TableColumn fx:id="colNivelPersonaje" minWidth="0.0" prefWidth="62.0" sortable="false" text="LV" />
+                  <TableColumn fx:id="colRazaPersonaje" minWidth="0.0" prefWidth="213.0" sortable="false" text="RAZA" />
+                  <TableColumn fx:id="colCategoriaPersonaje" prefWidth="242.0" sortable="false" text="CATEGORIA" />
               </columns>
             </TableView>
-            <Label alignment="CENTER" layoutX="507.0" layoutY="127.0" prefHeight="41.0" prefWidth="1085.0" styleClass="labelPersonaje" text="LISTA" />
-            <Button layoutX="1348.0" layoutY="128.0" mnemonicParsing="false" onAction="#addPersonaje" prefHeight="26.0" prefWidth="96.0" text="NUEVO" textFill="WHITE">
+            <Label alignment="CENTER" layoutX="531.0" layoutY="40.0" prefHeight="40.0" prefWidth="855.0" styleClass="labelPersonaje" text="LISTA" />
+            <Button layoutX="551.0" layoutY="40.0" mnemonicParsing="false" onAction="#addPersonaje" prefHeight="39.0" prefWidth="89.0" text="NUEVO" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
@@ -79,7 +69,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button layoutX="1454.0" layoutY="128.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="116.0" text="ELIMINAR" textFill="WHITE">
+            <Button layoutX="1248.0" layoutY="40.0" mnemonicParsing="false" onAction="#eliminarPersonaje" prefHeight="26.0" prefWidth="116.0" text="ELIMINAR" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
@@ -87,6 +77,22 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
+            <Button layoutX="1105.0" layoutY="40.0" mnemonicParsing="false" onAction="#modificarPersonaje" prefHeight="39.0" prefWidth="129.0" text="MODIFICAR" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <ImageView fx:id="imageViewPersonajeSeleccionado1" fitHeight="233.0" fitWidth="330.0" layoutX="86.0" layoutY="52.0" pickOnBounds="true" preserveRatio="true">
+               <viewport>
+                  <Rectangle2D />
+               </viewport>
+               <image>
+                  <Image url="@../../img/logoBueeeno.png" />
+               </image>
+            </ImageView>
          </children>
       </Pane>
    </children>

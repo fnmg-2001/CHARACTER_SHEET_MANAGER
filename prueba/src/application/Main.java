@@ -18,11 +18,11 @@ public class Main extends Application {
 			ConsultasHibernate ch = new ConsultasHibernate();
 			SessionFactory sf = ch.obtenerSessionFactory();
 			primaryStage = new Stage();
-			InicioController inicio = new InicioController(sf);
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Inicio.fxml"));
+			PrincipalController inicio = new PrincipalController(sf);
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Principal.fxml"));
 			loader.setController(inicio);
 			Pane pane = (Pane)loader.load();
-			Scene scene = new Scene(pane,1200,800);
+			Scene scene = new Scene(pane,1400,800);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setTitle("Anima Sheet Manager");
 			primaryStage.setScene(scene);

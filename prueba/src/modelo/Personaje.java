@@ -1,11 +1,13 @@
 package modelo;
-// Generated 15 jun. 2021 23:20:51 by Hibernate Tools 5.2.12.Final
+// Generated 16 jun. 2021 23:54:00 by Hibernate Tools 5.2.12.Final
 
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
@@ -22,12 +24,13 @@ import javax.persistence.Table;
 public class Personaje implements java.io.Serializable {
 
 	private int idPersonaje;
+	private Categoria categoria;
 	private Raza raza;
-	private int idJugador;
 	private String armaConocida;
 	private String nombre;
 	private Integer edad;
 	private Integer apariencia;
+	private Integer nivel;
 	private String descripcion;
 	private String particularidades;
 	private String objetivos;
@@ -41,59 +44,74 @@ public class Personaje implements java.io.Serializable {
 	private String monedasPlata;
 	private String monedasCobre;
 	private String joyas;
-	private Integer xp;
 	private String origen;
 	private String etnia;
 	private String imagen;
 	private Integer cansancioEspecial;
+	private Integer regeneracionEspecial;
 	private Integer pvEspecial;
 	private Integer turnoEspecial;
+	private Integer cvInvertido;
+	private PdsSecundariasSubterfugio pdsSecundariasSubterfugio;
+	private PdsSecundariasPerceptivas pdsSecundariasPerceptivas;
+	private PdsPrimariasKi pdsPrimariasKi;
+	private PdsSecundariasCreativas pdsSecundariasCreativas;
+	private PdsSecundariasVigor pdsSecundariasVigor;
 	private Set<Armadura> armaduras = new HashSet<Armadura>(0);
-	private Lv lv;
-	private Set<ArmaPersonaje> armaPersonajes = new HashSet<ArmaPersonaje>(0);
+	private Set<Arma> armas = new HashSet<Arma>(0);
 	private Set<Desventaja> desventajas = new HashSet<Desventaja>(0);
 	private Set<TablaPsiquico> tablaPsiquicos = new HashSet<TablaPsiquico>(0);
 	private Set<TablaTablaViasMagiaPersonaje> tablaTablaViasMagiaPersonajes = new HashSet<TablaTablaViasMagiaPersonaje>(
 			0);
+	private PdsPrimariasPsiquicas pdsPrimariasPsiquicas;
+	private PdsSecundariasAtleticas pdsSecundariasAtleticas;
+	private PdsPrimariasMisticas pdsPrimariasMisticas;
+	private PdsSecundariasSociales pdsSecundariasSociales;
 	private Set<TablaMagia> tablaMagias = new HashSet<TablaMagia>(0);
 	private Set<ArteMarcial> arteMarcials = new HashSet<ArteMarcial>(0);
 	private Caracteristicas caracteristicas;
-	private Set<TablaArma> tablaArmas = new HashSet<TablaArma>(0);
+	private PdsPrimariasComunes pdsPrimariasComunes;
+	private PdsSecundariasIntelectuales pdsSecundariasIntelectuales;
 	private Set<TablaEstilo> tablaEstilos = new HashSet<TablaEstilo>(0);
 	private Set<PoderPsiquico> poderPsiquicos = new HashSet<PoderPsiquico>(0);
-	private Set<TablaPatronMental> tablaPatronMentals = new HashSet<TablaPatronMental>(0);
 	private Set<TablaConjurosLibreAcceso> tablaConjurosLibreAccesos = new HashSet<TablaConjurosLibreAcceso>(0);
-	private Set<Idioma> idiomas = new HashSet<Idioma>(0);
 	private Set<Ventaja> ventajas = new HashSet<Ventaja>(0);
 
 	public Personaje() {
 	}
 
-	public Personaje(int idPersonaje, Raza raza, int idJugador, String nombre) {
+	public Personaje(int idPersonaje, Categoria categoria, Raza raza, String nombre) {
 		this.idPersonaje = idPersonaje;
+		this.categoria = categoria;
 		this.raza = raza;
-		this.idJugador = idJugador;
 		this.nombre = nombre;
 	}
 
-	public Personaje(int idPersonaje, Raza raza, int idJugador, String armaConocida, String nombre, Integer edad,
-			Integer apariencia, String descripcion, String particularidades, String objetivos, String historia,
-			String equipoCombate, String vestimentaAccesorios, String equipoVariado, String contactos,
+	public Personaje(int idPersonaje, Categoria categoria, Raza raza, String armaConocida, String nombre, Integer edad,
+			Integer apariencia, Integer nivel, String descripcion, String particularidades, String objetivos,
+			String historia, String equipoCombate, String vestimentaAccesorios, String equipoVariado, String contactos,
 			String titulosPosesiones, String monedasOro, String monedasPlata, String monedasCobre, String joyas,
-			Integer xp, String origen, String etnia, String imagen, Integer cansancioEspecial, Integer pvEspecial,
-			Integer turnoEspecial, Set<Armadura> armaduras, Lv lv, Set<ArmaPersonaje> armaPersonajes,
+			String origen, String etnia, String imagen, Integer cansancioEspecial, Integer regeneracionEspecial,
+			Integer pvEspecial, Integer turnoEspecial, Integer cvInvertido,
+			PdsSecundariasSubterfugio pdsSecundariasSubterfugio, PdsSecundariasPerceptivas pdsSecundariasPerceptivas,
+			PdsPrimariasKi pdsPrimariasKi, PdsSecundariasCreativas pdsSecundariasCreativas,
+			PdsSecundariasVigor pdsSecundariasVigor, Set<Armadura> armaduras, Set<Arma> armas,
 			Set<Desventaja> desventajas, Set<TablaPsiquico> tablaPsiquicos,
-			Set<TablaTablaViasMagiaPersonaje> tablaTablaViasMagiaPersonajes, Set<TablaMagia> tablaMagias,
-			Set<ArteMarcial> arteMarcials, Caracteristicas caracteristicas, Set<TablaArma> tablaArmas,
-			Set<TablaEstilo> tablaEstilos, Set<PoderPsiquico> poderPsiquicos, Set<TablaPatronMental> tablaPatronMentals,
-			Set<TablaConjurosLibreAcceso> tablaConjurosLibreAccesos, Set<Idioma> idiomas, Set<Ventaja> ventajas) {
+			Set<TablaTablaViasMagiaPersonaje> tablaTablaViasMagiaPersonajes,
+			PdsPrimariasPsiquicas pdsPrimariasPsiquicas, PdsSecundariasAtleticas pdsSecundariasAtleticas,
+			PdsPrimariasMisticas pdsPrimariasMisticas, PdsSecundariasSociales pdsSecundariasSociales,
+			Set<TablaMagia> tablaMagias, Set<ArteMarcial> arteMarcials, Caracteristicas caracteristicas,
+			PdsPrimariasComunes pdsPrimariasComunes, PdsSecundariasIntelectuales pdsSecundariasIntelectuales,
+			Set<TablaEstilo> tablaEstilos, Set<PoderPsiquico> poderPsiquicos,
+			Set<TablaConjurosLibreAcceso> tablaConjurosLibreAccesos, Set<Ventaja> ventajas) {
 		this.idPersonaje = idPersonaje;
+		this.categoria = categoria;
 		this.raza = raza;
-		this.idJugador = idJugador;
 		this.armaConocida = armaConocida;
 		this.nombre = nombre;
 		this.edad = edad;
 		this.apariencia = apariencia;
+		this.nivel = nivel;
 		this.descripcion = descripcion;
 		this.particularidades = particularidades;
 		this.objetivos = objetivos;
@@ -107,33 +125,41 @@ public class Personaje implements java.io.Serializable {
 		this.monedasPlata = monedasPlata;
 		this.monedasCobre = monedasCobre;
 		this.joyas = joyas;
-		this.xp = xp;
 		this.origen = origen;
 		this.etnia = etnia;
 		this.imagen = imagen;
 		this.cansancioEspecial = cansancioEspecial;
+		this.regeneracionEspecial = regeneracionEspecial;
 		this.pvEspecial = pvEspecial;
 		this.turnoEspecial = turnoEspecial;
+		this.cvInvertido = cvInvertido;
+		this.pdsSecundariasSubterfugio = pdsSecundariasSubterfugio;
+		this.pdsSecundariasPerceptivas = pdsSecundariasPerceptivas;
+		this.pdsPrimariasKi = pdsPrimariasKi;
+		this.pdsSecundariasCreativas = pdsSecundariasCreativas;
+		this.pdsSecundariasVigor = pdsSecundariasVigor;
 		this.armaduras = armaduras;
-		this.lv = lv;
-		this.armaPersonajes = armaPersonajes;
+		this.armas = armas;
 		this.desventajas = desventajas;
 		this.tablaPsiquicos = tablaPsiquicos;
 		this.tablaTablaViasMagiaPersonajes = tablaTablaViasMagiaPersonajes;
+		this.pdsPrimariasPsiquicas = pdsPrimariasPsiquicas;
+		this.pdsSecundariasAtleticas = pdsSecundariasAtleticas;
+		this.pdsPrimariasMisticas = pdsPrimariasMisticas;
+		this.pdsSecundariasSociales = pdsSecundariasSociales;
 		this.tablaMagias = tablaMagias;
 		this.arteMarcials = arteMarcials;
 		this.caracteristicas = caracteristicas;
-		this.tablaArmas = tablaArmas;
+		this.pdsPrimariasComunes = pdsPrimariasComunes;
+		this.pdsSecundariasIntelectuales = pdsSecundariasIntelectuales;
 		this.tablaEstilos = tablaEstilos;
 		this.poderPsiquicos = poderPsiquicos;
-		this.tablaPatronMentals = tablaPatronMentals;
 		this.tablaConjurosLibreAccesos = tablaConjurosLibreAccesos;
-		this.idiomas = idiomas;
 		this.ventajas = ventajas;
 	}
 
 	@Id
-
+	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	@Column(name = "ID_PERSONAJE", unique = true, nullable = false)
 	public int getIdPersonaje() {
 		return this.idPersonaje;
@@ -143,7 +169,17 @@ public class Personaje implements java.io.Serializable {
 		this.idPersonaje = idPersonaje;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "ID_CATEGORIA", nullable = false)
+	public Categoria getCategoria() {
+		return this.categoria;
+	}
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
+	}
+
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "ID_RAZA", nullable = false)
 	public Raza getRaza() {
 		return this.raza;
@@ -151,15 +187,6 @@ public class Personaje implements java.io.Serializable {
 
 	public void setRaza(Raza raza) {
 		this.raza = raza;
-	}
-
-	@Column(name = "ID_JUGADOR", nullable = false)
-	public int getIdJugador() {
-		return this.idJugador;
-	}
-
-	public void setIdJugador(int idJugador) {
-		this.idJugador = idJugador;
 	}
 
 	@Column(name = "ARMA_CONOCIDA", length = 100)
@@ -196,6 +223,15 @@ public class Personaje implements java.io.Serializable {
 
 	public void setApariencia(Integer apariencia) {
 		this.apariencia = apariencia;
+	}
+
+	@Column(name = "NIVEL")
+	public Integer getNivel() {
+		return this.nivel;
+	}
+
+	public void setNivel(Integer nivel) {
+		this.nivel = nivel;
 	}
 
 	@Column(name = "DESCRIPCION", length = 65535)
@@ -315,15 +351,6 @@ public class Personaje implements java.io.Serializable {
 		this.joyas = joyas;
 	}
 
-	@Column(name = "XP")
-	public Integer getXp() {
-		return this.xp;
-	}
-
-	public void setXp(Integer xp) {
-		this.xp = xp;
-	}
-
 	@Column(name = "ORIGEN", length = 50)
 	public String getOrigen() {
 		return this.origen;
@@ -360,6 +387,15 @@ public class Personaje implements java.io.Serializable {
 		this.cansancioEspecial = cansancioEspecial;
 	}
 
+	@Column(name = "REGENERACION_ESPECIAL")
+	public Integer getRegeneracionEspecial() {
+		return this.regeneracionEspecial;
+	}
+
+	public void setRegeneracionEspecial(Integer regeneracionEspecial) {
+		this.regeneracionEspecial = regeneracionEspecial;
+	}
+
 	@Column(name = "PV_ESPECIAL")
 	public Integer getPvEspecial() {
 		return this.pvEspecial;
@@ -378,7 +414,61 @@ public class Personaje implements java.io.Serializable {
 		this.turnoEspecial = turnoEspecial;
 	}
 
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "personajes")
+	@Column(name = "CV_INVERTIDO")
+	public Integer getCvInvertido() {
+		return this.cvInvertido;
+	}
+
+	public void setCvInvertido(Integer cvInvertido) {
+		this.cvInvertido = cvInvertido;
+	}
+
+	@OneToOne(fetch = FetchType.EAGER, mappedBy = "personaje")
+	public PdsSecundariasSubterfugio getPdsSecundariasSubterfugio() {
+		return this.pdsSecundariasSubterfugio;
+	}
+
+	public void setPdsSecundariasSubterfugio(PdsSecundariasSubterfugio pdsSecundariasSubterfugio) {
+		this.pdsSecundariasSubterfugio = pdsSecundariasSubterfugio;
+	}
+
+	@OneToOne(fetch = FetchType.EAGER, mappedBy = "personaje")
+	public PdsSecundariasPerceptivas getPdsSecundariasPerceptivas() {
+		return this.pdsSecundariasPerceptivas;
+	}
+
+	public void setPdsSecundariasPerceptivas(PdsSecundariasPerceptivas pdsSecundariasPerceptivas) {
+		this.pdsSecundariasPerceptivas = pdsSecundariasPerceptivas;
+	}
+
+	@OneToOne(fetch = FetchType.EAGER, mappedBy = "personaje")
+	public PdsPrimariasKi getPdsPrimariasKi() {
+		return this.pdsPrimariasKi;
+	}
+
+	public void setPdsPrimariasKi(PdsPrimariasKi pdsPrimariasKi) {
+		this.pdsPrimariasKi = pdsPrimariasKi;
+	}
+
+	@OneToOne(fetch = FetchType.EAGER, mappedBy = "personaje")
+	public PdsSecundariasCreativas getPdsSecundariasCreativas() {
+		return this.pdsSecundariasCreativas;
+	}
+
+	public void setPdsSecundariasCreativas(PdsSecundariasCreativas pdsSecundariasCreativas) {
+		this.pdsSecundariasCreativas = pdsSecundariasCreativas;
+	}
+
+	@OneToOne(fetch = FetchType.EAGER, mappedBy = "personaje")
+	public PdsSecundariasVigor getPdsSecundariasVigor() {
+		return this.pdsSecundariasVigor;
+	}
+
+	public void setPdsSecundariasVigor(PdsSecundariasVigor pdsSecundariasVigor) {
+		this.pdsSecundariasVigor = pdsSecundariasVigor;
+	}
+
+	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "personajes")
 	public Set<Armadura> getArmaduras() {
 		return this.armaduras;
 	}
@@ -387,25 +477,16 @@ public class Personaje implements java.io.Serializable {
 		this.armaduras = armaduras;
 	}
 
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "personaje")
-	public Lv getLv() {
-		return this.lv;
+	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "personajes")
+	public Set<Arma> getArmas() {
+		return this.armas;
 	}
 
-	public void setLv(Lv lv) {
-		this.lv = lv;
+	public void setArmas(Set<Arma> armas) {
+		this.armas = armas;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "personaje")
-	public Set<ArmaPersonaje> getArmaPersonajes() {
-		return this.armaPersonajes;
-	}
-
-	public void setArmaPersonajes(Set<ArmaPersonaje> armaPersonajes) {
-		this.armaPersonajes = armaPersonajes;
-	}
-
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "personajes")
+	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "personajes")
 	public Set<Desventaja> getDesventajas() {
 		return this.desventajas;
 	}
@@ -414,7 +495,7 @@ public class Personaje implements java.io.Serializable {
 		this.desventajas = desventajas;
 	}
 
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "personajes")
+	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "personajes")
 	public Set<TablaPsiquico> getTablaPsiquicos() {
 		return this.tablaPsiquicos;
 	}
@@ -423,7 +504,7 @@ public class Personaje implements java.io.Serializable {
 		this.tablaPsiquicos = tablaPsiquicos;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "personaje")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "personaje")
 	public Set<TablaTablaViasMagiaPersonaje> getTablaTablaViasMagiaPersonajes() {
 		return this.tablaTablaViasMagiaPersonajes;
 	}
@@ -432,7 +513,43 @@ public class Personaje implements java.io.Serializable {
 		this.tablaTablaViasMagiaPersonajes = tablaTablaViasMagiaPersonajes;
 	}
 
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "personajes")
+	@OneToOne(fetch = FetchType.EAGER, mappedBy = "personaje")
+	public PdsPrimariasPsiquicas getPdsPrimariasPsiquicas() {
+		return this.pdsPrimariasPsiquicas;
+	}
+
+	public void setPdsPrimariasPsiquicas(PdsPrimariasPsiquicas pdsPrimariasPsiquicas) {
+		this.pdsPrimariasPsiquicas = pdsPrimariasPsiquicas;
+	}
+
+	@OneToOne(fetch = FetchType.EAGER, mappedBy = "personaje")
+	public PdsSecundariasAtleticas getPdsSecundariasAtleticas() {
+		return this.pdsSecundariasAtleticas;
+	}
+
+	public void setPdsSecundariasAtleticas(PdsSecundariasAtleticas pdsSecundariasAtleticas) {
+		this.pdsSecundariasAtleticas = pdsSecundariasAtleticas;
+	}
+
+	@OneToOne(fetch = FetchType.EAGER, mappedBy = "personaje")
+	public PdsPrimariasMisticas getPdsPrimariasMisticas() {
+		return this.pdsPrimariasMisticas;
+	}
+
+	public void setPdsPrimariasMisticas(PdsPrimariasMisticas pdsPrimariasMisticas) {
+		this.pdsPrimariasMisticas = pdsPrimariasMisticas;
+	}
+
+	@OneToOne(fetch = FetchType.EAGER, mappedBy = "personaje")
+	public PdsSecundariasSociales getPdsSecundariasSociales() {
+		return this.pdsSecundariasSociales;
+	}
+
+	public void setPdsSecundariasSociales(PdsSecundariasSociales pdsSecundariasSociales) {
+		this.pdsSecundariasSociales = pdsSecundariasSociales;
+	}
+
+	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "personajes")
 	public Set<TablaMagia> getTablaMagias() {
 		return this.tablaMagias;
 	}
@@ -441,7 +558,7 @@ public class Personaje implements java.io.Serializable {
 		this.tablaMagias = tablaMagias;
 	}
 
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "personajes")
+	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "personajes")
 	public Set<ArteMarcial> getArteMarcials() {
 		return this.arteMarcials;
 	}
@@ -450,7 +567,7 @@ public class Personaje implements java.io.Serializable {
 		this.arteMarcials = arteMarcials;
 	}
 
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "personaje")
+	@OneToOne(fetch = FetchType.EAGER, mappedBy = "personaje")
 	public Caracteristicas getCaracteristicas() {
 		return this.caracteristicas;
 	}
@@ -459,16 +576,25 @@ public class Personaje implements java.io.Serializable {
 		this.caracteristicas = caracteristicas;
 	}
 
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "personajes")
-	public Set<TablaArma> getTablaArmas() {
-		return this.tablaArmas;
+	@OneToOne(fetch = FetchType.EAGER, mappedBy = "personaje")
+	public PdsPrimariasComunes getPdsPrimariasComunes() {
+		return this.pdsPrimariasComunes;
 	}
 
-	public void setTablaArmas(Set<TablaArma> tablaArmas) {
-		this.tablaArmas = tablaArmas;
+	public void setPdsPrimariasComunes(PdsPrimariasComunes pdsPrimariasComunes) {
+		this.pdsPrimariasComunes = pdsPrimariasComunes;
 	}
 
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "personajes")
+	@OneToOne(fetch = FetchType.EAGER, mappedBy = "personaje")
+	public PdsSecundariasIntelectuales getPdsSecundariasIntelectuales() {
+		return this.pdsSecundariasIntelectuales;
+	}
+
+	public void setPdsSecundariasIntelectuales(PdsSecundariasIntelectuales pdsSecundariasIntelectuales) {
+		this.pdsSecundariasIntelectuales = pdsSecundariasIntelectuales;
+	}
+
+	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "personajes")
 	public Set<TablaEstilo> getTablaEstilos() {
 		return this.tablaEstilos;
 	}
@@ -477,7 +603,7 @@ public class Personaje implements java.io.Serializable {
 		this.tablaEstilos = tablaEstilos;
 	}
 
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "personajes")
+	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "personajes")
 	public Set<PoderPsiquico> getPoderPsiquicos() {
 		return this.poderPsiquicos;
 	}
@@ -486,16 +612,7 @@ public class Personaje implements java.io.Serializable {
 		this.poderPsiquicos = poderPsiquicos;
 	}
 
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "personajes")
-	public Set<TablaPatronMental> getTablaPatronMentals() {
-		return this.tablaPatronMentals;
-	}
-
-	public void setTablaPatronMentals(Set<TablaPatronMental> tablaPatronMentals) {
-		this.tablaPatronMentals = tablaPatronMentals;
-	}
-
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "personajes")
+	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "personajes")
 	public Set<TablaConjurosLibreAcceso> getTablaConjurosLibreAccesos() {
 		return this.tablaConjurosLibreAccesos;
 	}
@@ -504,16 +621,7 @@ public class Personaje implements java.io.Serializable {
 		this.tablaConjurosLibreAccesos = tablaConjurosLibreAccesos;
 	}
 
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "personajes")
-	public Set<Idioma> getIdiomas() {
-		return this.idiomas;
-	}
-
-	public void setIdiomas(Set<Idioma> idiomas) {
-		this.idiomas = idiomas;
-	}
-
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "personajes")
+	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "personajes")
 	public Set<Ventaja> getVentajas() {
 		return this.ventajas;
 	}

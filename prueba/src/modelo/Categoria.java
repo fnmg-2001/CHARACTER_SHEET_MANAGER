@@ -1,5 +1,5 @@
 package modelo;
-// Generated 15 jun. 2021 23:20:51 by Hibernate Tools 5.2.12.Final
+// Generated 16 jun. 2021 23:54:00 by Hibernate Tools 5.2.12.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -117,7 +117,7 @@ public class Categoria implements java.io.Serializable {
 	private Integer costeReducidoTasacion;
 	private Integer costeReducidoMemorizar;
 	private String imagen;
-	private Set<PdsCategoria> pdsCategorias = new HashSet<PdsCategoria>(0);
+	private Set<Personaje> personajes = new HashSet<Personaje>(0);
 
 	public Categoria() {
 	}
@@ -187,7 +187,7 @@ public class Categoria implements java.io.Serializable {
 			Integer costeReducidoEstilo, Integer costeReducidoLiderazgo, Integer costeReducidoIntimidar,
 			Integer costeReducidoPersuasion, Integer costeReducidoResistirDolor, Integer costeReducidoFrialdad,
 			Integer costeReducidoMedicina, Integer costeReducidoTasacion, Integer costeReducidoMemorizar, String imagen,
-			Set<PdsCategoria> pdsCategorias) {
+			Set<Personaje> personajes) {
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.arquetipo1 = arquetipo1;
@@ -285,7 +285,7 @@ public class Categoria implements java.io.Serializable {
 		this.costeReducidoTasacion = costeReducidoTasacion;
 		this.costeReducidoMemorizar = costeReducidoMemorizar;
 		this.imagen = imagen;
-		this.pdsCategorias = pdsCategorias;
+		this.personajes = personajes;
 	}
 
 	@Id
@@ -1174,12 +1174,12 @@ public class Categoria implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "categoria")
-	public Set<PdsCategoria> getPdsCategorias() {
-		return this.pdsCategorias;
+	public Set<Personaje> getPersonajes() {
+		return this.personajes;
 	}
 
-	public void setPdsCategorias(Set<PdsCategoria> pdsCategorias) {
-		this.pdsCategorias = pdsCategorias;
+	public void setPersonajes(Set<Personaje> personajes) {
+		this.personajes = personajes;
 	}
 
 }

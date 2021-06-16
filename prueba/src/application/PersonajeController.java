@@ -1,6 +1,7 @@
 package application;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,7 +12,9 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
@@ -29,8 +32,9 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import modelo.AccionesTurno;
-import modelo.ArmaPersonaje;
+import modelo.Arma;
 import modelo.ArmaSeleccionada;
 import modelo.Armadura;
 import modelo.ArmaduraSeleccionada;
@@ -43,10 +47,7 @@ import modelo.ConjuroSeleccionado;
 import modelo.ConsultasHibernate;
 import modelo.Desventaja;
 import modelo.DesventajaSeleccionada;
-import modelo.Lv;
 import modelo.NivelClase;
-import modelo.PdsCategoria;
-import modelo.PdsCategoriaId;
 import modelo.PdsCombate;
 import modelo.PdsHabilidadesSecundarias;
 import modelo.PdsHabilidadesSecundariasResumen;
@@ -90,6 +91,7 @@ public class PersonajeController {
 	ValorConstitucion valorConstitucion;
 	NivelClase nivelClase;
 	PotencialPsiquico potencialPsiquico;
+	Personaje personaje;
 	
 	@FXML
 	ImageView imagenChar, iD10Apariencia;
@@ -277,7 +279,7 @@ public class PersonajeController {
 	@FXML
 	TableColumn<PoderPsiquicoSeleccionado, String> colDisciplinaPoderesMentales, colNivelPoderesMentales;
 	
-	public PersonajeController(SessionFactory sessionFactory, String categoria, String raza) {
+	public PersonajeController(SessionFactory sessionFactory, String categoria, String raza, Personaje personaje) {
 		this.ch = new ConsultasHibernate();
 		this.sessionFactory = sessionFactory;
 		this.categoriaSeleccionada = ch.obtenerCategoria(categoria, sessionFactory);
@@ -285,6 +287,7 @@ public class PersonajeController {
 		this.nivelClase = new NivelClase(this.categoriaSeleccionada.getNombre(), "2");
 		valorConstitucion = new ValorConstitucion(String.valueOf("0"));
 		this.potencialPsiquico = new PotencialPsiquico("0", "0");
+		this.personaje = personaje;
 	}
 	
 	@FXML
@@ -3728,7 +3731,7 @@ public class PersonajeController {
         }
 	}
 	
-	public void insertarPersonaje(ActionEvent ev) {
+	public void insertarPersonaje(ActionEvent ev) throws IOException {
 
 		
 		
@@ -4159,44 +4162,27 @@ public class PersonajeController {
 		pdsSecundariasCreativas.setBonoNovelCaligrafiaRitual(Integer.parseInt(tableViewSecundarias.getItems().get(46).getBonoNovel()));
 		pdsSecundariasCreativas.setBonoNovelOrfebreria(Integer.parseInt(tableViewSecundarias.getItems().get(47).getBonoNovel()));
 		pdsSecundariasCreativas.setBonoNovelConfeccion(Integer.parseInt(tableViewSecundarias.getItems().get(48).getBonoNovel()));
-		
-		PdsCategoria pdsCategoria = new PdsCategoria();
-		pdsCategoria.setCategoria(categoriaSeleccionada);
-		pdsCategoria.setPdsPrimariasComunes(pdsPrimariasComunes);
-		pdsCategoria.setPdsPrimariasKi(pdsPrimariasKi);
-		pdsCategoria.setPdsPrimariasMisticas(pdsPrimariasMisticas);
-		pdsCategoria.setPdsPrimariasPsiquicas(pdsPrimariasPsiquicas);
-		pdsCategoria.setPdsSecundariasAtleticas(pdsSecundariasAtleticas);
-		pdsCategoria.setPdsSecundariasSociales(pdsSecundariasSociales);
-		pdsCategoria.setPdsSecundariasPerceptivas(pdsSecundariasPerceptivas);
-		pdsCategoria.setPdsSecundariasIntelectuales(pdsSecundariasIntelectuales);
-		pdsCategoria.setPdsSecundariasVigor(pdsSecundariasVigor);
-		pdsCategoria.setPdsSecundariasSubterfugio(pdsSecundariasSubterfugio);
-		pdsCategoria.setPdsSecundariasCreativas(pdsSecundariasCreativas);
 
-		
-		
-		Set<PdsCategoria> pdsCategorias = new HashSet<PdsCategoria>();
-		pdsCategorias.add(pdsCategoria);
-		
-		/*Armas Personaje*/
-		ArmaPersonaje armaPersonaje1 = new ArmaPersonaje();
-		armaPersonaje1.setArma(tableviewArmaSeleccionada1.getItems().get(0).getArmaSeleccionada());
-		
-		ArmaPersonaje armaPersonaje2 = new ArmaPersonaje();
-		armaPersonaje2.setArma(tableviewArmaSeleccionada2.getItems().get(0).getArmaSeleccionada());
 
-		ArmaPersonaje armaPersonaje3 = new ArmaPersonaje();
-		armaPersonaje3.setArma(tableviewArmaSeleccionada3.getItems().get(0).getArmaSeleccionada());
-
-		ArmaPersonaje armaPersonaje4 = new ArmaPersonaje();
-		armaPersonaje4.setArma(tableviewArmaSeleccionada4.getItems().get(0).getArmaSeleccionada());
+		/*
+		Arma armaPersonaje1 = new Arma();
+		armaPersonaje1.set(tableviewArmaSeleccionada1.getItems().get(0).getArmaSeleccionada());
 		
-		Set<ArmaPersonaje> armas = new HashSet<ArmaPersonaje>();
-		armas.add(armaPersonaje1);
-		armas.add(armaPersonaje2);
-		armas.add(armaPersonaje3);
-		armas.add(armaPersonaje4);
+		Arma armaPersonaje2 = new Arma();
+		armaPersonaje2.setArma(tableviewArmaSeleccionada2.getItems().get(1).getArmaSeleccionada());
+
+		Arma armaPersonaje3 = new Arma();
+		armaPersonaje3.setArma(tableviewArmaSeleccionada3.getItems().get(2).getArmaSeleccionada());
+
+		Arma armaPersonaje4 = new Arma();
+		armaPersonaje4.setArma(tableviewArmaSeleccionada4.getItems().get(3).getArmaSeleccionada());
+		*/
+		
+		Set<Arma> armas = new HashSet<Arma>();
+		armas.add(tableviewArmaSeleccionada1.getItems().get(0).getArmaSeleccionada());
+		armas.add(tableviewArmaSeleccionada2.getItems().get(0).getArmaSeleccionada());
+		armas.add(tableviewArmaSeleccionada3.getItems().get(0).getArmaSeleccionada());
+		armas.add(tableviewArmaSeleccionada4.getItems().get(0).getArmaSeleccionada());
 		
 		/*Armadura Personaje*/
 		Set<Armadura> armaduras = new HashSet<Armadura>();
@@ -4268,12 +4254,8 @@ public class PersonajeController {
 			ArteMarcial arteMarcial10 = ch.obtenerArteMarcialSeleccionada(sessionFactory, tableViewTablasArtesMarciales.getItems().get(9).getNombreArteMarcial().getSelectionModel().getSelectedItem());
 			tablaArteMarcial.add(arteMarcial10);
 		}
-
-
-
-
 		
-		/*Artes Marciales*/
+		/*Tabla Niveles Magia*/
 //		TablaTablaViasMagiaPersonaje tablaTablaViasMagiaPersonaje1 = new TablaTablaViasMagiaPersonaje();
 //		tablaTablaViasMagiaPersonaje1.setTablaViasMagia(ch.obtenerViaMagiaSeleccionada(sessionFactory, tableViewNivelVia.getItems().get(0).getNombreViaSeleccionada().getSelectionModel().getSelectedItem()));
 //		tablaTablaViasMagiaPersonaje1.setNivelesUsados(Integer.parseInt(tableViewNivelVia.getItems().get(0).getNivelUsado()));
@@ -4475,124 +4457,57 @@ public class PersonajeController {
 			PoderPsiquico poderPsiquico20 = ch.obtenerPoderPsiquicoSeleccionado(sessionFactory, tableViewPoderesPsiquicos.getItems().get(19).getNombrePoderSeleccionado().getSelectionModel().getSelectedItem());
 			tablaPoderesPsiquicos.add(poderPsiquico20);
 		}
-
 		
-//		TablaPsiquico tablaPsiquico = cNombreTablaPsiquico.getSelectionModel().getSelectedItem();
+		Personaje personajeNuevo = new Personaje();
 		
+		personajeNuevo.setNombre(tNombre.getText());
+		personajeNuevo.setApariencia(Integer.parseInt(tApariencia.getText()));
+		personajeNuevo.setEdad(Integer.parseInt(tEdad.getText()));
 		
-		Lv lv = new Lv();
-		lv.setPdsCategorias(pdsCategorias);
-		if (tCategoriaPrimerLv.getText().equals("CONJURADOR")) {
-			lv.setLv1Conjurador(Integer.parseInt("1"));
-		} else if (tCategoriaPrimerLv.getText().equals("EXPLORADOR")) {
-			lv.setLv1Explorador(Integer.parseInt("1"));
-		} else if (tCategoriaPrimerLv.getText().equals("GUERRERO")) {
-			lv.setLv1Guerrero(Integer.parseInt("1"));
-		} else if (tCategoriaPrimerLv.getText().equals("GUERRERO CONJURADOR")) {
-			lv.setLv1GuerreroConjurador(Integer.parseInt("1"));
-		} else if (tCategoriaPrimerLv.getText().equals("GUERRERO ACROBATA")) {
-			lv.setLv1GuerreroAcrobata(Integer.parseInt("1"));
-		} else if (tCategoriaPrimerLv.getText().equals("GUERRERO MENTALISTA")) {
-			lv.setLv1GuerreroMentalista(Integer.parseInt("1"));
-		} else if (tCategoriaPrimerLv.getText().equals("HECHICERO")) {
-			lv.setLv1Hechicero(Integer.parseInt("1"));
-		} else if (tCategoriaPrimerLv.getText().equals("HECHICERO MENTALISTA")) {
-			lv.setLv1HechiceroMentalista(Integer.parseInt("1"));
-		} else if (tCategoriaPrimerLv.getText().equals("ILUSIONISTA")) {
-			lv.setLv1Ilusionista(Integer.parseInt("1"));
-		} else if (tCategoriaPrimerLv.getText().equals("MAESTRO DE ARMAS")) {
-			lv.setLv1MaestroArmas(Integer.parseInt("1"));
-		} else if (tCategoriaPrimerLv.getText().equals("MENTALISTA")) {
-			lv.setLv1Mentalista(Integer.parseInt("1"));
-		} else if (tCategoriaPrimerLv.getText().equals("NOVEL")) {
-			lv.setLv1Novel(Integer.parseInt("1"));
-		} else if (tCategoriaPrimerLv.getText().equals("PALADIN")) {
-			lv.setLv1Paladin(Integer.parseInt("1"));
-		} else if (tCategoriaPrimerLv.getText().equals("PALADIN OSCURO")) {
-			lv.setLv1PaladinOscuro(Integer.parseInt("1"));
-		} else if (tCategoriaPrimerLv.getText().equals("SOMBRA")) {
-			lv.setLv1Sombra(Integer.parseInt("1"));
-		} else if (tCategoriaPrimerLv.getText().equals("TAO")) {
-			lv.setLv1Tao(Integer.parseInt("1"));
-		} else if (tCategoriaPrimerLv.getText().equals("TECNICISTA")) {
-			lv.setLv1Tecnicista(Integer.parseInt("1"));
-		} else if (tCategoriaPrimerLv.getText().equals("WARLOCK")) {
-			lv.setLv1Warlock(Integer.parseInt("1"));
-		}
+		personajeNuevo.setDescripcion(tAreaPersonalidad.getText());
+		personajeNuevo.setCansancioEspecial(Integer.parseInt(tCansancioEspecial.getText()));
+		personajeNuevo.setTurnoEspecial(Integer.parseInt(tTurnoEspecial.getText()));
+		personajeNuevo.setPvEspecial(Integer.parseInt(tPuntosVidaEspecial.getText()));
+		personajeNuevo.setRegeneracionEspecial(Integer.parseInt(tPuntosRegeneracionEspecial.getText()));
+		personajeNuevo.setCvInvertido(Integer.parseInt(tCvUsado.getText()));
 		
-		if (tCategoriaPrimerLv.getText().equals("CONJURADOR")) {
-			lv.setLvConjurador(Integer.parseInt(tNivelTotal.getText()));
-		} else if (tCategoriaPrimerLv.getText().equals("EXPLORADOR")) {
-			lv.setLvExplorador(Integer.parseInt(tNivelTotal.getText()));
-		} else if (tCategoriaPrimerLv.getText().equals("GUERRERO")) {
-			lv.setLvGuerrero(Integer.parseInt(tNivelTotal.getText()));
-		} else if (tCategoriaPrimerLv.getText().equals("GUERRERO CONJURADOR")) {
-			lv.setLvGuerreroConjurador(Integer.parseInt(tNivelTotal.getText()));
-		} else if (tCategoriaPrimerLv.getText().equals("GUERRERO ACROBATA")) {
-			lv.setLvGuerreroAcrobata(Integer.parseInt(tNivelTotal.getText()));
-		} else if (tCategoriaPrimerLv.getText().equals("GUERRERO MENTALISTA")) {
-			lv.setLvGuerreroMentalista(Integer.parseInt(tNivelTotal.getText()));
-		} else if (tCategoriaPrimerLv.getText().equals("HECHICERO")) {
-			lv.setLvHechicero(Integer.parseInt(tNivelTotal.getText()));
-		} else if (tCategoriaPrimerLv.getText().equals("HECHICERO MENTALISTA")) {
-			lv.setLvHechiceroMentalista(Integer.parseInt(tNivelTotal.getText()));
-		} else if (tCategoriaPrimerLv.getText().equals("ILUSIONISTA")) {
-			lv.setLvIlusionista(Integer.parseInt(tNivelTotal.getText()));
-		} else if (tCategoriaPrimerLv.getText().equals("MAESTRO DE ARMAS")) {
-			lv.setLvMaestroArmas(Integer.parseInt(tNivelTotal.getText()));
-		} else if (tCategoriaPrimerLv.getText().equals("MENTALISTA")) {
-			lv.setLvMentalista(Integer.parseInt(tNivelTotal.getText()));
-		} else if (tCategoriaPrimerLv.getText().equals("NOVEL")) {
-			lv.setLvNovel(Integer.parseInt(tNivelTotal.getText()));
-		} else if (tCategoriaPrimerLv.getText().equals("PALADIN")) {
-			lv.setLvPaladin(Integer.parseInt(tNivelTotal.getText()));
-		} else if (tCategoriaPrimerLv.getText().equals("PALADIN OSCURO")) {
-			lv.setLvPaladinOscuro(Integer.parseInt(tNivelTotal.getText()));
-		} else if (tCategoriaPrimerLv.getText().equals("SOMBRA")) {
-			lv.setLvSombra(Integer.parseInt(tNivelTotal.getText()));
-		} else if (tCategoriaPrimerLv.getText().equals("TAO")) {
-			lv.setLvTao(Integer.parseInt(tNivelTotal.getText()));
-		} else if (tCategoriaPrimerLv.getText().equals("TECNICISTA")) {
-			lv.setLvTecnicista(Integer.parseInt(tNivelTotal.getText()));
-		} else if (tCategoriaPrimerLv.getText().equals("WARLOCK")) {
-			lv.setLvWarlock(Integer.parseInt(tNivelTotal.getText()));
-		}
-		lv.setPdsCategorias(pdsCategorias);
+		personajeNuevo.setContactos(tAreaContactos.getText());
+		personajeNuevo.setEquipoCombate(tAreaEquipoCombate.getText());
+		personajeNuevo.setEquipoVariado(tAreaEquipoVariado.getText());
+		personajeNuevo.setTitulosPosesiones(tAreaTitulosPosesiones.getText());
+		personajeNuevo.setJoyas(tAreaJoyas.getText());
+		personajeNuevo.setMonedasOro(tDineroOro.getText());
+		personajeNuevo.setMonedasPlata(tDineroPlata.getText());
+		personajeNuevo.setMonedasCobre(tDineroCobre.getText());
+		
+		personajeNuevo.setCategoria(categoriaSeleccionada);
+		personajeNuevo.setRaza(razaSeleccionada);
+		personajeNuevo.setCaracteristicas(caracteristicas);
+		personajeNuevo.setArmas(armas);
+		personajeNuevo.setArmaduras(armaduras);
+		personajeNuevo.setVentajas(ventajas);
+		personajeNuevo.setDesventajas(desventajas);
+		personajeNuevo.setArteMarcials(tablaArteMarcial);
+		personajeNuevo.setTablaEstilos(tablaEstilos);
+		personajeNuevo.setNivel(Integer.parseInt(tNivelTotal.getText()));
 		
 		
+		int idPersonaje = ch.insertarPersonaje(sessionFactory, personajeNuevo, pdsPrimariasComunes, pdsPrimariasKi, pdsPrimariasMisticas, pdsPrimariasPsiquicas,
+				pdsSecundariasAtleticas, pdsSecundariasSociales, pdsSecundariasCreativas, pdsSecundariasIntelectuales, pdsSecundariasPerceptivas, pdsSecundariasSubterfugio, 
+				pdsSecundariasVigor, ventajas, desventajas, armas, armaduras, tablaArteMarcial, tablaConjurosLibreAcceso, tablaPoderesPsiquicos, tablaEstilos);
 		
-		Personaje personaje = new Personaje();
-		personaje.setApariencia(Integer.parseInt(tApariencia.getText()));
-		
-		personaje.setNombre(tNombre.getText());
-		personaje.setRaza(razaSeleccionada);
-		personaje.setArmaPersonajes(armas);
-		personaje.setArmaduras(armaduras);
-		personaje.setVentajas(ventajas);
-		personaje.setDesventajas(desventajas);
-		personaje.setArteMarcials(tablaArteMarcial);
-		personaje.setTablaEstilos(tablaEstilos);
-		personaje.setCaracteristicas(caracteristicas);
-		personaje.setLv(lv);
-
-
-
-		PdsCategoriaId pdsCategoriaId = new PdsCategoriaId();
-		pdsCategoriaId.setPdsPrimariasComunes(pdsPrimariasComunes.getPdsPrimariasComunes());
-		pdsCategoriaId.setPdsPrimariasKi(pdsPrimariasKi.getPdsPrimariasKi());
-		pdsCategoriaId.setPdsPrimariasMisticas(pdsPrimariasMisticas.getPdsPrimariasMisticas());
-		pdsCategoriaId.setPdsPrimariasPsiquicas(pdsPrimariasPsiquicas.getPdsPrimariasPsiquicas());
-		pdsCategoriaId.setPdsSecundariasAtleticas(pdsSecundariasAtleticas.getPdsSecundariasAtleticas());
-		pdsCategoriaId.setPdsSecundariasSociales(pdsSecundariasSociales.getPdsSecundariasSociales());
-		pdsCategoriaId.setPdsSecundariasPerceptivas(pdsSecundariasPerceptivas.getPdsSecundariasPerceptivas());
-		pdsCategoriaId.setPdsSecundariasIntelectuales(pdsSecundariasIntelectuales.getPdsSecundariasIntelectuales());
-		pdsCategoriaId.setPdsSecundariasVigor(pdsSecundariasVigor.getPdsSecundariasVigor());
-		pdsCategoriaId.setPdsSecundariasSubterfugio(pdsSecundariasSubterfugio.getPdsSecundariasSubterfugio());
-		pdsCategoriaId.setPdsSecundariasCreativas(pdsSecundariasCreativas.getPdsSecundariasCreativas());
-		pdsCategoriaId.setIdCategoria(categoriaSeleccionada.getIdCategoria());
-		
-		
-		int idPersonaje = ch.insertarPersonaje(sessionFactory, personaje, lv, pdsCategoriaId, pdsCategoria);
+		((Node)ev.getSource()).getScene().getWindow().hide();
+		Stage primaryStage = new Stage();
+		primaryStage = new Stage();
+		PrincipalController inicio = new PrincipalController(sessionFactory);
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Principal.fxml"));
+		loader.setController(inicio);
+		Pane pane = (Pane)loader.load();
+		Scene scene = new Scene(pane,1400,800);
+		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+		primaryStage.setTitle("Anima Sheet Manager");
+		primaryStage.setScene(scene);
+		primaryStage.show();
 	}
 	
 	public void tirarApariencia(MouseEvent ev) {
