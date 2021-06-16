@@ -1,7 +1,9 @@
 package modelo;
 
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -704,6 +706,7 @@ public class ConsultasHibernate {
 			nuevoPersonaje.setTablaConjurosLibreAccesos(personaje.getTablaConjurosLibreAccesos());
 			nuevoPersonaje.setVentajas(personaje.getVentajas());
 			nuevoPersonaje.setDesventajas(personaje.getDesventajas());
+			
 			nuevoPersonaje.setLv(lv);
 			
 			session.saveOrUpdate(nuevoPersonaje);
@@ -712,44 +715,88 @@ public class ConsultasHibernate {
 			lv.setPersonaje(nuevoPersonaje);
 			session.saveOrUpdate(lv);
 			
-
-			TablaVentajaPersonajeId tablaVentajaPersonajeId = new TablaVentajaPersonajeId();
-			/*Inserta las ventajas del personaje guardado*/
-			for (Iterator<Ventaja> it = nuevoPersonaje.getVentajas().iterator(); it.hasNext();) {
-				Ventaja ventaja = it.next();
-				tablaVentajaPersonajeId.setIdPersonaje(idPersonaje);
-				tablaVentajaPersonajeId.setIdVentaja(ventaja.getIdVentaja());
-				session.saveOrUpdate(tablaVentajaPersonajeId);
-			}
 			
-
-			TablaVentajaPersonajeId tablaDesventajaPersonajeId = new TablaVentajaPersonajeId();
-			/*Inserta las desventajas del personaje guardado*/
-			for (Iterator<Desventaja> it = nuevoPersonaje.getDesventajas().iterator(); it.hasNext();) {
-				Desventaja desventaja = it.next();
-				tablaDesventajaPersonajeId.setIdPersonaje(idPersonaje);
-				tablaDesventajaPersonajeId.setIdVentaja(desventaja.getIdDesventaja());
-				session.saveOrUpdate(tablaDesventajaPersonajeId);
-			}
-			
-			
-			
-			PdsCategoriaId pdsCategoriaIdNuevo = new PdsCategoriaId();
-			pdsCategoriaIdNuevo.setPdsPrimariasComunes(pdsCategoria.getPdsPrimariasComunes().getPdsPrimariasComunes());
-			pdsCategoriaIdNuevo.setPdsPrimariasKi(pdsCategoria.getPdsPrimariasKi().getPdsPrimariasKi());
-			pdsCategoriaIdNuevo.setPdsPrimariasMisticas(pdsCategoria.getPdsPrimariasMisticas().getPdsPrimariasMisticas());
-			pdsCategoriaIdNuevo.setPdsPrimariasPsiquicas(pdsCategoria.getPdsPrimariasPsiquicas().getPdsPrimariasPsiquicas());
-			pdsCategoriaIdNuevo.setPdsSecundariasAtleticas(pdsCategoria.getPdsSecundariasAtleticas().getPdsSecundariasAtleticas());
-			pdsCategoriaIdNuevo.setPdsSecundariasSociales(pdsCategoria.getPdsSecundariasSociales().getPdsSecundariasSociales());
-			pdsCategoriaIdNuevo.setPdsSecundariasPerceptivas(pdsCategoria.getPdsSecundariasPerceptivas().getPdsSecundariasPerceptivas());
-			pdsCategoriaIdNuevo.setPdsSecundariasIntelectuales(pdsCategoria.getPdsSecundariasIntelectuales().getPdsSecundariasIntelectuales());
-			pdsCategoriaIdNuevo.setPdsSecundariasVigor(pdsCategoria.getPdsSecundariasVigor().getPdsSecundariasVigor());
-			pdsCategoriaIdNuevo.setPdsSecundariasSubterfugio(pdsCategoria.getPdsSecundariasSubterfugio().getPdsSecundariasSubterfugio());
-			pdsCategoriaIdNuevo.setPdsSecundariasCreativas(pdsCategoria.getPdsSecundariasCreativas().getPdsSecundariasCreativas());
-			pdsCategoriaIdNuevo.setIdCategoria(pdsCategoria.getCategoria().getIdCategoria());
-			pdsCategoriaIdNuevo.setIdPersonaje(idPersonaje);
-			
-			session.saveOrUpdate(pdsCategoriaIdNuevo);
+//			
+//			
+//			PdsPrimariasComunes pdsPrimariasComunes = new PdsPrimariasComunes();
+//			session.saveOrUpdate(pdsPrimariasComunes);
+//			
+//			PdsPrimariasKi pdsPrimariasKi = new PdsPrimariasKi();
+//			session.saveOrUpdate(pdsPrimariasKi);
+//			
+//			PdsPrimariasMisticas pdsPrimariasMisticas = new PdsPrimariasMisticas();
+//			session.saveOrUpdate(pdsPrimariasMisticas);
+//			
+//			PdsPrimariasPsiquicas pdsPrimariasPsiquicas = new PdsPrimariasPsiquicas();
+//			session.saveOrUpdate(pdsPrimariasPsiquicas);
+//			
+//			PdsSecundariasVigor pdsSecundariasVigor = new PdsSecundariasVigor();
+//			session.saveOrUpdate(pdsSecundariasVigor);
+//			
+//			PdsSecundariasAtleticas pdsSecundariasAtleticas = new PdsSecundariasAtleticas();
+//			session.saveOrUpdate(pdsSecundariasAtleticas);
+//			
+//			PdsSecundariasCreativas pdsSecundariasCreativas = new PdsSecundariasCreativas();
+//			session.saveOrUpdate(pdsSecundariasCreativas);
+//			
+//			PdsSecundariasIntelectuales pdsSecundariasIntelectuales = new PdsSecundariasIntelectuales();
+//			session.saveOrUpdate(pdsSecundariasIntelectuales);
+//			
+//			PdsSecundariasPerceptivas pdsSecundariasPerceptivas = new PdsSecundariasPerceptivas();
+//			session.saveOrUpdate(pdsSecundariasPerceptivas);
+//			
+//			PdsSecundariasSociales pdsSecundariasSociales = new PdsSecundariasSociales();
+//			session.saveOrUpdate(pdsSecundariasSociales);
+//		
+//			PdsSecundariasSubterfugio pdsSecundariasSubterfugio = new PdsSecundariasSubterfugio();
+//			session.saveOrUpdate(pdsSecundariasSubterfugio);
+//			
+//			PdsCategoriaId pdsCategoriaIdNuevo = new PdsCategoriaId();
+//			pdsCategoriaIdNuevo.setPdsPrimariasComunes(pdsCategoria.getPdsPrimariasComunes().getPdsPrimariasComunes());
+//			pdsCategoriaIdNuevo.setPdsPrimariasKi(pdsCategoria.getPdsPrimariasKi().getPdsPrimariasKi());
+//			pdsCategoriaIdNuevo.setPdsPrimariasMisticas(pdsCategoria.getPdsPrimariasMisticas().getPdsPrimariasMisticas());
+//			pdsCategoriaIdNuevo.setPdsPrimariasPsiquicas(pdsCategoria.getPdsPrimariasPsiquicas().getPdsPrimariasPsiquicas());
+//			pdsCategoriaIdNuevo.setPdsSecundariasAtleticas(pdsCategoria.getPdsSecundariasAtleticas().getPdsSecundariasAtleticas());
+//			pdsCategoriaIdNuevo.setPdsSecundariasSociales(pdsCategoria.getPdsSecundariasSociales().getPdsSecundariasSociales());
+//			pdsCategoriaIdNuevo.setPdsSecundariasPerceptivas(pdsCategoria.getPdsSecundariasPerceptivas().getPdsSecundariasPerceptivas());
+//			pdsCategoriaIdNuevo.setPdsSecundariasIntelectuales(pdsCategoria.getPdsSecundariasIntelectuales().getPdsSecundariasIntelectuales());
+//			pdsCategoriaIdNuevo.setPdsSecundariasVigor(pdsCategoria.getPdsSecundariasVigor().getPdsSecundariasVigor());
+//			pdsCategoriaIdNuevo.setPdsSecundariasSubterfugio(pdsCategoria.getPdsSecundariasSubterfugio().getPdsSecundariasSubterfugio());
+//			pdsCategoriaIdNuevo.setPdsSecundariasCreativas(pdsCategoria.getPdsSecundariasCreativas().getPdsSecundariasCreativas());
+//			pdsCategoriaIdNuevo.setIdCategoria(pdsCategoria.getCategoria().getIdCategoria());
+//			pdsCategoriaIdNuevo.setIdPersonaje(idPersonaje);
+//			
+//			
+//
+//			
+//
+//			PdsCategoria pdsCategoriaNuevo = new PdsCategoria();
+//			pdsCategoriaNuevo.setPdsPrimariasComunes(pdsPrimariasComunes);
+//			pdsCategoriaNuevo.setPdsPrimariasKi(pdsPrimariasKi);
+//			pdsCategoriaNuevo.setPdsPrimariasMisticas(pdsPrimariasMisticas);
+//			pdsCategoriaNuevo.setPdsPrimariasPsiquicas(pdsPrimariasPsiquicas);
+//			pdsCategoriaNuevo.setPdsSecundariasAtleticas(pdsSecundariasAtleticas);
+//			pdsCategoriaNuevo.setPdsSecundariasSociales(pdsSecundariasSociales);
+//			pdsCategoriaNuevo.setPdsSecundariasPerceptivas(pdsSecundariasPerceptivas);
+//			pdsCategoriaNuevo.setPdsSecundariasIntelectuales(pdsSecundariasIntelectuales);
+//			pdsCategoriaNuevo.setPdsSecundariasVigor(pdsSecundariasVigor);
+//			pdsCategoriaNuevo.setPdsSecundariasSubterfugio(pdsSecundariasSubterfugio);
+//			pdsCategoriaNuevo.setPdsSecundariasCreativas(pdsSecundariasCreativas);
+//			pdsCategoriaNuevo.setCategoria(pdsCategoria.getCategoria());
+//			pdsCategoriaNuevo.setId(pdsCategoriaIdNuevo);
+//		
+//			Set<PdsCategoria> sPdsCategoria = new HashSet<PdsCategoria>();
+//			sPdsCategoria.add(pdsCategoriaNuevo);
+//			
+//			Lv lvNuevo = new Lv();
+//			lvNuevo.setPersonaje(nuevoPersonaje);
+//			lvNuevo.setPdsCategorias(sPdsCategoria);
+//			lvNuevo.setLv1Conjurador(1);
+//			lvNuevo.setLvConjurador(2);
+//			
+//			pdsCategoriaNuevo.setLv(lvNuevo);
+//			
+//			session.saveOrUpdate(pdsCategoriaNuevo);
 			
 			session.getTransaction().commit();
 			
