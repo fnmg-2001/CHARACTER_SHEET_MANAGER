@@ -2,6 +2,7 @@ package application;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -284,10 +285,30 @@ public class PersonajeController {
 		this.sessionFactory = sessionFactory;
 		this.categoriaSeleccionada = ch.obtenerCategoria(categoria, sessionFactory);
 		this.razaSeleccionada = ch.obtenerRaza(raza, sessionFactory);
-		this.nivelClase = new NivelClase(this.categoriaSeleccionada.getNombre(), "2");
-		valorConstitucion = new ValorConstitucion(String.valueOf("0"));
-		this.potencialPsiquico = new PotencialPsiquico("0", "0");
 		this.personaje = personaje;
+		
+		if (null!=personaje.getNombre()) {
+			this.nivelClase = new NivelClase(categoria, String.valueOf(personaje.getNivel()));
+		} else {
+			this.nivelClase = new NivelClase(this.categoriaSeleccionada.getNombre(), "1");
+		}
+		
+		
+		if (null!=personaje.getNombre()) {
+			if (personaje.getCvInvertido()!=null) {
+				this.potencialPsiquico = new PotencialPsiquico(String.valueOf(personaje.getCaracteristicas().getPoder()+personaje.getCaracteristicas().getPoderTemporal()), String.valueOf(personaje.getCvInvertido()));
+			} else {
+				this.potencialPsiquico = new PotencialPsiquico(String.valueOf(personaje.getCaracteristicas().getPoder()+personaje.getCaracteristicas().getPoderTemporal()), "0");
+			}
+
+			valorConstitucion = new ValorConstitucion(String.valueOf(personaje.getCaracteristicas().getConstitucion()+personaje.getCaracteristicas().getConstitucionTemporal()));
+
+			
+		} else {
+			this.potencialPsiquico = new PotencialPsiquico("0", "0");
+			valorConstitucion = new ValorConstitucion(String.valueOf("0"));
+			
+		}
 	}
 	
 	@FXML
@@ -1576,7 +1597,7 @@ public class PersonajeController {
 		} else {
 			ObservableList<CaracteristicaSeleccionada> caracteristicas = FXCollections.observableArrayList(
 					new CaracteristicaSeleccionada("AGI",String.valueOf(personaje.getCaracteristicas().getAgilidad()),String.valueOf(personaje.getCaracteristicas().getAgilidadTemporal()),razaSeleccionada.getBonoAgilidad()),
-					new CaracteristicaSeleccionada("CON",String.valueOf(personaje.getCaracteristicas().getConstitucion()),String.valueOf(personaje.getCaracteristicas().getConstitucion()),razaSeleccionada.getBonoConstitucion()),
+					new CaracteristicaSeleccionada("CON",String.valueOf(personaje.getCaracteristicas().getConstitucion()),String.valueOf(personaje.getCaracteristicas().getConstitucionTemporal()),razaSeleccionada.getBonoConstitucion()),
 					new CaracteristicaSeleccionada("FUE",String.valueOf(personaje.getCaracteristicas().getFuerza()),String.valueOf(personaje.getCaracteristicas().getFuerzaTemporal()),razaSeleccionada.getBonoFuerza()),
 					new CaracteristicaSeleccionada("DES",String.valueOf(personaje.getCaracteristicas().getDestreza()),String.valueOf(personaje.getCaracteristicas().getDestrezaTemporal()),razaSeleccionada.getBonoDestreza()),
 					new CaracteristicaSeleccionada("INT",String.valueOf(personaje.getCaracteristicas().getInteligencia()),String.valueOf(personaje.getCaracteristicas().getInteligenciaTemporal()),razaSeleccionada.getBonoPercepcion()),
@@ -1620,237 +1641,551 @@ public class PersonajeController {
 	
 	public void obtenerTablaVentajas(ObservableList<String> nombreVentajas) {
 		if (null==personaje.getNombre()) {
+			ComboBox<String> cVentajas = new ComboBox<String>();
+			cVentajas.setItems(nombreVentajas);
+			ComboBox<String> cVentajas2 = new ComboBox<String>();
+			cVentajas2.setItems(nombreVentajas);
+			ComboBox<String> cVentajas3 = new ComboBox<String>();
+			cVentajas3.setItems(nombreVentajas);
+			ComboBox<String> cVentajas4 = new ComboBox<String>();
+			cVentajas4.setItems(nombreVentajas);
+			ComboBox<String> cVentajas5 = new ComboBox<String>();
+			cVentajas5.setItems(nombreVentajas);
+			ComboBox<String> cVentajas6 = new ComboBox<String>();
+			cVentajas6.setItems(nombreVentajas);
+			ComboBox<String> cVentajas7 = new ComboBox<String>();
+			cVentajas7.setItems(nombreVentajas);
 			
+			ObservableList<VentajaSeleccionada> ventajas = FXCollections.observableArrayList(
+					new VentajaSeleccionada(cVentajas,"-"),
+					new VentajaSeleccionada(cVentajas2,"-"),
+					new VentajaSeleccionada(cVentajas3,"-"),
+					new VentajaSeleccionada(cVentajas4,"-"),
+					new VentajaSeleccionada(cVentajas5,"-"),
+					new VentajaSeleccionada(cVentajas6,"-"),
+					new VentajaSeleccionada(cVentajas7,"-"));
+			
+			colVentajaNombre.setCellValueFactory(new PropertyValueFactory<VentajaSeleccionada, ComboBox<String>>("nombreVentaja"));
+			colVentajaCoste.setCellValueFactory(new PropertyValueFactory<VentajaSeleccionada, String>("costeVentaja"));
+			
+			cVentajas.setOnAction(new EventHandler<ActionEvent>() {
+				
+				@Override
+				public void handle(ActionEvent event) {
+					VentajaSeleccionada ventaja = ventajas.get(0);
+					ventaja.setCosteVentaja(String.valueOf(ch.obtenerCosteVentajaSeleccionada(sessionFactory, cVentajas.getSelectionModel().getSelectedItem())));
+					tableViewVentaja.refresh();
+					tPuntosCreacion.setText(String.valueOf(Integer.parseInt(tPuntosCreacion.getText())-Integer.parseInt(ventaja.getCosteVentaja())));
+				}
+			});
+			
+			cVentajas2.setOnAction(new EventHandler<ActionEvent>() {
+				
+				@Override
+				public void handle(ActionEvent event) {
+					VentajaSeleccionada ventaja = ventajas.get(1);
+					ventaja.setCosteVentaja(String.valueOf(ch.obtenerCosteVentajaSeleccionada(sessionFactory, cVentajas2.getSelectionModel().getSelectedItem())));
+					tableViewVentaja.refresh();
+					tPuntosCreacion.setText(String.valueOf(Integer.parseInt(tPuntosCreacion.getText())-Integer.parseInt(ventaja.getCosteVentaja())));
+				}
+			});
+			
+			cVentajas3.setOnAction(new EventHandler<ActionEvent>() {
+				
+				@Override
+				public void handle(ActionEvent event) {
+					VentajaSeleccionada ventaja = ventajas.get(2);
+					ventaja.setCosteVentaja(String.valueOf(ch.obtenerCosteVentajaSeleccionada(sessionFactory, cVentajas3.getSelectionModel().getSelectedItem())));
+					tableViewVentaja.refresh();
+					tPuntosCreacion.setText(String.valueOf(Integer.parseInt(tPuntosCreacion.getText())-Integer.parseInt(ventaja.getCosteVentaja())));
+				}
+			});
+			
+			cVentajas4.setOnAction(new EventHandler<ActionEvent>() {
+				
+				@Override
+				public void handle(ActionEvent event) {
+					VentajaSeleccionada ventaja = ventajas.get(3);
+					ventaja.setCosteVentaja(String.valueOf(ch.obtenerCosteVentajaSeleccionada(sessionFactory, cVentajas4.getSelectionModel().getSelectedItem())));
+					tableViewVentaja.refresh();
+					tPuntosCreacion.setText(String.valueOf(Integer.parseInt(tPuntosCreacion.getText())-Integer.parseInt(ventaja.getCosteVentaja())));
+				}
+			});
+			
+			cVentajas5.setOnAction(new EventHandler<ActionEvent>() {
+				
+				@Override
+				public void handle(ActionEvent event) {
+					VentajaSeleccionada ventaja = ventajas.get(4);
+					ventaja.setCosteVentaja(String.valueOf(ch.obtenerCosteVentajaSeleccionada(sessionFactory, cVentajas5.getSelectionModel().getSelectedItem())));
+					tableViewVentaja.refresh();
+					tPuntosCreacion.setText(String.valueOf(Integer.parseInt(tPuntosCreacion.getText())-Integer.parseInt(ventaja.getCosteVentaja())));
+				}
+			});
+			
+			cVentajas6.setOnAction(new EventHandler<ActionEvent>() {
+				
+				@Override
+				public void handle(ActionEvent event) {
+					VentajaSeleccionada ventaja = ventajas.get(5);
+					ventaja.setCosteVentaja(String.valueOf(ch.obtenerCosteVentajaSeleccionada(sessionFactory, cVentajas6.getSelectionModel().getSelectedItem())));
+					tableViewVentaja.refresh();
+					tPuntosCreacion.setText(String.valueOf(Integer.parseInt(tPuntosCreacion.getText())-Integer.parseInt(ventaja.getCosteVentaja())));
+				}
+			});
+			
+			cVentajas7.setOnAction(new EventHandler<ActionEvent>() {
+				
+				@Override
+				public void handle(ActionEvent event) {
+					VentajaSeleccionada ventaja = ventajas.get(6);
+					ventaja.setCosteVentaja(String.valueOf(ch.obtenerCosteVentajaSeleccionada(sessionFactory, cVentajas7.getSelectionModel().getSelectedItem())));
+					tableViewVentaja.refresh();
+					tPuntosCreacion.setText(String.valueOf(Integer.parseInt(tPuntosCreacion.getText())-Integer.parseInt(ventaja.getCosteVentaja())));
+				}
+			});
+			tableViewVentaja.setItems(ventajas);
 		} else {
 			
+			ArrayList<String> nombreSetVentajas = new ArrayList<String>();
+			for (Ventaja ventaja : personaje.getVentajas()) {
+				nombreSetVentajas.add(ventaja.getNombre());
+			}
+			
+			ComboBox<String> cVentajas = new ComboBox<String>();
+			cVentajas.setItems(nombreVentajas);
+			ComboBox<String> cVentajas2 = new ComboBox<String>();
+			cVentajas2.setItems(nombreVentajas);
+			ComboBox<String> cVentajas3 = new ComboBox<String>();
+			cVentajas3.setItems(nombreVentajas);
+			ComboBox<String> cVentajas4 = new ComboBox<String>();
+			cVentajas4.setItems(nombreVentajas);
+			ComboBox<String> cVentajas5 = new ComboBox<String>();
+			cVentajas5.setItems(nombreVentajas);
+			ComboBox<String> cVentajas6 = new ComboBox<String>();
+			cVentajas6.setItems(nombreVentajas);
+			ComboBox<String> cVentajas7 = new ComboBox<String>();
+			cVentajas7.setItems(nombreVentajas);
+			
+
+			
+			
+			ObservableList<VentajaSeleccionada> ventajas = FXCollections.observableArrayList(
+					new VentajaSeleccionada(cVentajas,"-"),
+					new VentajaSeleccionada(cVentajas2,"-"),
+					new VentajaSeleccionada(cVentajas3,"-"),
+					new VentajaSeleccionada(cVentajas4,"-"),
+					new VentajaSeleccionada(cVentajas5,"-"),
+					new VentajaSeleccionada(cVentajas6,"-"),
+					new VentajaSeleccionada(cVentajas7,"-"));
+			
+			if (0 < nombreSetVentajas.size()) {
+				if (nombreSetVentajas.get(0)!=null) {
+					cVentajas.setValue(nombreSetVentajas.get(0));
+					ventajas.get(0).setCosteVentaja(String.valueOf(ch.obtenerCosteVentajaSeleccionada(sessionFactory, cVentajas.getValue())));
+					tPuntosCreacion.setText(String.valueOf(Integer.parseInt(tPuntosCreacion.getText())-Integer.parseInt(ventajas.get(0).getCosteVentaja())));
+				}
+			}
+			
+			if (1 < nombreSetVentajas.size()) {
+				if (nombreSetVentajas.get(1)!=null) {
+					cVentajas2.setValue(nombreSetVentajas.get(1));
+					ventajas.get(1).setCosteVentaja(String.valueOf(ch.obtenerCosteVentajaSeleccionada(sessionFactory, cVentajas2.getValue())));
+					tPuntosCreacion.setText(String.valueOf(Integer.parseInt(tPuntosCreacion.getText())-Integer.parseInt(ventajas.get(1).getCosteVentaja())));
+				}
+			}
+			
+			if (2 < nombreSetVentajas.size()) {
+				if (nombreSetVentajas.get(2)!=null) {
+					cVentajas3.setValue(nombreSetVentajas.get(2));
+					ventajas.get(2).setCosteVentaja(String.valueOf(ch.obtenerCosteVentajaSeleccionada(sessionFactory, cVentajas3.getValue())));
+					tPuntosCreacion.setText(String.valueOf(Integer.parseInt(tPuntosCreacion.getText())-Integer.parseInt(ventajas.get(2).getCosteVentaja())));
+				}
+			}
+			
+			if (3 < nombreSetVentajas.size()) {
+				if (nombreSetVentajas.get(3)!=null) {
+					cVentajas4.setValue(nombreSetVentajas.get(3));
+					ventajas.get(3).setCosteVentaja(String.valueOf(ch.obtenerCosteVentajaSeleccionada(sessionFactory, cVentajas4.getValue())));
+					tPuntosCreacion.setText(String.valueOf(Integer.parseInt(tPuntosCreacion.getText())-Integer.parseInt(ventajas.get(3).getCosteVentaja())));
+				}
+			}
+			
+			if (4 < nombreSetVentajas.size()) {
+				if (nombreSetVentajas.get(4)!=null) {
+					cVentajas5.setValue(nombreSetVentajas.get(4));
+					ventajas.get(4).setCosteVentaja(String.valueOf(ch.obtenerCosteVentajaSeleccionada(sessionFactory, cVentajas5.getValue())));
+					tPuntosCreacion.setText(String.valueOf(Integer.parseInt(tPuntosCreacion.getText())-Integer.parseInt(ventajas.get(4).getCosteVentaja())));
+				}
+			}
+			
+			if (5 < nombreSetVentajas.size()) {
+				if (nombreSetVentajas.get(5)!=null) {
+					cVentajas6.setValue(nombreSetVentajas.get(5));
+					ventajas.get(5).setCosteVentaja(String.valueOf(ch.obtenerCosteVentajaSeleccionada(sessionFactory, cVentajas6.getValue())));
+					tPuntosCreacion.setText(String.valueOf(Integer.parseInt(tPuntosCreacion.getText())-Integer.parseInt(ventajas.get(5).getCosteVentaja())));
+				}
+			}
+			
+			if (6 < nombreSetVentajas.size()) {
+				if (nombreSetVentajas.get(6)!=null) {
+					cVentajas7.setValue(nombreSetVentajas.get(6));
+					ventajas.get(6).setCosteVentaja(String.valueOf(ch.obtenerCosteVentajaSeleccionada(sessionFactory, cVentajas7.getValue())));
+					tPuntosCreacion.setText(String.valueOf(Integer.parseInt(tPuntosCreacion.getText())-Integer.parseInt(ventajas.get(6).getCosteVentaja())));
+				}
+			}
+			
+			colVentajaNombre.setCellValueFactory(new PropertyValueFactory<VentajaSeleccionada, ComboBox<String>>("nombreVentaja"));
+			colVentajaCoste.setCellValueFactory(new PropertyValueFactory<VentajaSeleccionada, String>("costeVentaja"));
+			
+			cVentajas.setOnAction(new EventHandler<ActionEvent>() {
+				
+				@Override
+				public void handle(ActionEvent event) {
+					VentajaSeleccionada ventaja = ventajas.get(0);
+					ventaja.setCosteVentaja(String.valueOf(ch.obtenerCosteVentajaSeleccionada(sessionFactory, cVentajas.getSelectionModel().getSelectedItem())));
+					tableViewVentaja.refresh();
+					tPuntosCreacion.setText(String.valueOf(Integer.parseInt(tPuntosCreacion.getText())-Integer.parseInt(ventaja.getCosteVentaja())));
+				}
+			});
+			
+			cVentajas2.setOnAction(new EventHandler<ActionEvent>() {
+				
+				@Override
+				public void handle(ActionEvent event) {
+					VentajaSeleccionada ventaja = ventajas.get(1);
+					ventaja.setCosteVentaja(String.valueOf(ch.obtenerCosteVentajaSeleccionada(sessionFactory, cVentajas2.getSelectionModel().getSelectedItem())));
+					tableViewVentaja.refresh();
+					tPuntosCreacion.setText(String.valueOf(Integer.parseInt(tPuntosCreacion.getText())-Integer.parseInt(ventaja.getCosteVentaja())));
+				}
+			});
+			
+			cVentajas3.setOnAction(new EventHandler<ActionEvent>() {
+				
+				@Override
+				public void handle(ActionEvent event) {
+					VentajaSeleccionada ventaja = ventajas.get(2);
+					ventaja.setCosteVentaja(String.valueOf(ch.obtenerCosteVentajaSeleccionada(sessionFactory, cVentajas3.getSelectionModel().getSelectedItem())));
+					tableViewVentaja.refresh();
+					tPuntosCreacion.setText(String.valueOf(Integer.parseInt(tPuntosCreacion.getText())-Integer.parseInt(ventaja.getCosteVentaja())));
+				}
+			});
+			
+			cVentajas4.setOnAction(new EventHandler<ActionEvent>() {
+				
+				@Override
+				public void handle(ActionEvent event) {
+					VentajaSeleccionada ventaja = ventajas.get(3);
+					ventaja.setCosteVentaja(String.valueOf(ch.obtenerCosteVentajaSeleccionada(sessionFactory, cVentajas4.getSelectionModel().getSelectedItem())));
+					tableViewVentaja.refresh();
+					tPuntosCreacion.setText(String.valueOf(Integer.parseInt(tPuntosCreacion.getText())-Integer.parseInt(ventaja.getCosteVentaja())));
+				}
+			});
+			
+			cVentajas5.setOnAction(new EventHandler<ActionEvent>() {
+				
+				@Override
+				public void handle(ActionEvent event) {
+					VentajaSeleccionada ventaja = ventajas.get(4);
+					ventaja.setCosteVentaja(String.valueOf(ch.obtenerCosteVentajaSeleccionada(sessionFactory, cVentajas5.getSelectionModel().getSelectedItem())));
+					tableViewVentaja.refresh();
+					tPuntosCreacion.setText(String.valueOf(Integer.parseInt(tPuntosCreacion.getText())-Integer.parseInt(ventaja.getCosteVentaja())));
+				}
+			});
+			
+			cVentajas6.setOnAction(new EventHandler<ActionEvent>() {
+				
+				@Override
+				public void handle(ActionEvent event) {
+					VentajaSeleccionada ventaja = ventajas.get(5);
+					ventaja.setCosteVentaja(String.valueOf(ch.obtenerCosteVentajaSeleccionada(sessionFactory, cVentajas6.getSelectionModel().getSelectedItem())));
+					tableViewVentaja.refresh();
+					tPuntosCreacion.setText(String.valueOf(Integer.parseInt(tPuntosCreacion.getText())-Integer.parseInt(ventaja.getCosteVentaja())));
+				}
+			});
+			
+			cVentajas7.setOnAction(new EventHandler<ActionEvent>() {
+				
+				@Override
+				public void handle(ActionEvent event) {
+					VentajaSeleccionada ventaja = ventajas.get(6);
+					ventaja.setCosteVentaja(String.valueOf(ch.obtenerCosteVentajaSeleccionada(sessionFactory, cVentajas7.getSelectionModel().getSelectedItem())));
+					tableViewVentaja.refresh();
+					tPuntosCreacion.setText(String.valueOf(Integer.parseInt(tPuntosCreacion.getText())-Integer.parseInt(ventaja.getCosteVentaja())));
+				}
+			});
+			tableViewVentaja.setItems(ventajas);
 		}
-		ComboBox<String> cVentajas = new ComboBox<String>();
-		cVentajas.setItems(nombreVentajas);
-		ComboBox<String> cVentajas2 = new ComboBox<String>();
-		cVentajas2.setItems(nombreVentajas);
-		ComboBox<String> cVentajas3 = new ComboBox<String>();
-		cVentajas3.setItems(nombreVentajas);
-		ComboBox<String> cVentajas4 = new ComboBox<String>();
-		cVentajas4.setItems(nombreVentajas);
-		ComboBox<String> cVentajas5 = new ComboBox<String>();
-		cVentajas5.setItems(nombreVentajas);
-		ComboBox<String> cVentajas6 = new ComboBox<String>();
-		cVentajas6.setItems(nombreVentajas);
-		ComboBox<String> cVentajas7 = new ComboBox<String>();
-		cVentajas7.setItems(nombreVentajas);
 		
-		ObservableList<VentajaSeleccionada> ventajas = FXCollections.observableArrayList(
-				new VentajaSeleccionada(cVentajas,"-"),
-				new VentajaSeleccionada(cVentajas2,"-"),
-				new VentajaSeleccionada(cVentajas3,"-"),
-				new VentajaSeleccionada(cVentajas4,"-"),
-				new VentajaSeleccionada(cVentajas5,"-"),
-				new VentajaSeleccionada(cVentajas6,"-"),
-				new VentajaSeleccionada(cVentajas7,"-"));
-		
-		colVentajaNombre.setCellValueFactory(new PropertyValueFactory<VentajaSeleccionada, ComboBox<String>>("nombreVentaja"));
-		colVentajaCoste.setCellValueFactory(new PropertyValueFactory<VentajaSeleccionada, String>("costeVentaja"));
-		
-		cVentajas.setOnAction(new EventHandler<ActionEvent>() {
-			
-			@Override
-			public void handle(ActionEvent event) {
-				VentajaSeleccionada ventaja = ventajas.get(0);
-				ventaja.setCosteVentaja(String.valueOf(ch.obtenerCosteVentajaSeleccionada(sessionFactory, cVentajas.getSelectionModel().getSelectedItem())));
-				tableViewVentaja.refresh();
-				tPuntosCreacion.setText(String.valueOf(Integer.parseInt(tPuntosCreacion.getText())-Integer.parseInt(ventaja.getCosteVentaja())));
-			}
-		});
-		
-		cVentajas2.setOnAction(new EventHandler<ActionEvent>() {
-			
-			@Override
-			public void handle(ActionEvent event) {
-				VentajaSeleccionada ventaja = ventajas.get(1);
-				ventaja.setCosteVentaja(String.valueOf(ch.obtenerCosteVentajaSeleccionada(sessionFactory, cVentajas2.getSelectionModel().getSelectedItem())));
-				tableViewVentaja.refresh();
-				tPuntosCreacion.setText(String.valueOf(Integer.parseInt(tPuntosCreacion.getText())-Integer.parseInt(ventaja.getCosteVentaja())));
-			}
-		});
-		
-		cVentajas3.setOnAction(new EventHandler<ActionEvent>() {
-			
-			@Override
-			public void handle(ActionEvent event) {
-				VentajaSeleccionada ventaja = ventajas.get(2);
-				ventaja.setCosteVentaja(String.valueOf(ch.obtenerCosteVentajaSeleccionada(sessionFactory, cVentajas3.getSelectionModel().getSelectedItem())));
-				tableViewVentaja.refresh();
-				tPuntosCreacion.setText(String.valueOf(Integer.parseInt(tPuntosCreacion.getText())-Integer.parseInt(ventaja.getCosteVentaja())));
-			}
-		});
-		
-		cVentajas4.setOnAction(new EventHandler<ActionEvent>() {
-			
-			@Override
-			public void handle(ActionEvent event) {
-				VentajaSeleccionada ventaja = ventajas.get(3);
-				ventaja.setCosteVentaja(String.valueOf(ch.obtenerCosteVentajaSeleccionada(sessionFactory, cVentajas4.getSelectionModel().getSelectedItem())));
-				tableViewVentaja.refresh();
-				tPuntosCreacion.setText(String.valueOf(Integer.parseInt(tPuntosCreacion.getText())-Integer.parseInt(ventaja.getCosteVentaja())));
-			}
-		});
-		
-		cVentajas5.setOnAction(new EventHandler<ActionEvent>() {
-			
-			@Override
-			public void handle(ActionEvent event) {
-				VentajaSeleccionada ventaja = ventajas.get(4);
-				ventaja.setCosteVentaja(String.valueOf(ch.obtenerCosteVentajaSeleccionada(sessionFactory, cVentajas5.getSelectionModel().getSelectedItem())));
-				tableViewVentaja.refresh();
-				tPuntosCreacion.setText(String.valueOf(Integer.parseInt(tPuntosCreacion.getText())-Integer.parseInt(ventaja.getCosteVentaja())));
-			}
-		});
-		
-		cVentajas6.setOnAction(new EventHandler<ActionEvent>() {
-			
-			@Override
-			public void handle(ActionEvent event) {
-				VentajaSeleccionada ventaja = ventajas.get(5);
-				ventaja.setCosteVentaja(String.valueOf(ch.obtenerCosteVentajaSeleccionada(sessionFactory, cVentajas6.getSelectionModel().getSelectedItem())));
-				tableViewVentaja.refresh();
-				tPuntosCreacion.setText(String.valueOf(Integer.parseInt(tPuntosCreacion.getText())-Integer.parseInt(ventaja.getCosteVentaja())));
-			}
-		});
-		
-		cVentajas7.setOnAction(new EventHandler<ActionEvent>() {
-			
-			@Override
-			public void handle(ActionEvent event) {
-				VentajaSeleccionada ventaja = ventajas.get(6);
-				ventaja.setCosteVentaja(String.valueOf(ch.obtenerCosteVentajaSeleccionada(sessionFactory, cVentajas7.getSelectionModel().getSelectedItem())));
-				tableViewVentaja.refresh();
-				tPuntosCreacion.setText(String.valueOf(Integer.parseInt(tPuntosCreacion.getText())-Integer.parseInt(ventaja.getCosteVentaja())));
-			}
-		});
 		
 //		colVentajaNombre.setCellFactory(ComboBoxTableCell.forTableColumn(new DefaultStringConverter(), nombreVentajas));
 		
-		tableViewVentaja.setItems(ventajas);
+
 	}
 	
 	public void obtenerTablaDesventajas(ObservableList<String> nombreDesventajas) {
-		ComboBox<String> cDesventajas = new ComboBox<String>();
-		cDesventajas.setItems(nombreDesventajas);
-		ComboBox<String> cDesventajas2 = new ComboBox<String>();
-		cDesventajas2.setItems(nombreDesventajas);
-		ComboBox<String> cDesventajas3 = new ComboBox<String>();
-		cDesventajas3.setItems(nombreDesventajas);
-		ComboBox<String> cDesventajas4 = new ComboBox<String>();
-		cDesventajas4.setItems(nombreDesventajas);
-		ComboBox<String> cDesventajas5 = new ComboBox<String>();
-		cDesventajas5.setItems(nombreDesventajas);
-		ComboBox<String> cDesventajas6 = new ComboBox<String>();
-		cDesventajas6.setItems(nombreDesventajas);
 		
-		ObservableList<DesventajaSeleccionada> desventajas = FXCollections.observableArrayList(
-				new DesventajaSeleccionada(cDesventajas,"-"),
-				new DesventajaSeleccionada(cDesventajas2,"-"),
-				new DesventajaSeleccionada(cDesventajas3,"-"),
-				new DesventajaSeleccionada(cDesventajas4,"-"),
-				new DesventajaSeleccionada(cDesventajas5,"-"));
-		
-		colDesventajaNombre.setCellValueFactory(new PropertyValueFactory<DesventajaSeleccionada, ComboBox<String>>("nombreDesventaja"));
-		colDesventajaBeneficio.setCellValueFactory(new PropertyValueFactory<DesventajaSeleccionada, String>("beneficioDesventaja"));
-		
-		cDesventajas.setOnAction(new EventHandler<ActionEvent>() {
+		if (null==personaje.getNombre()) {
+			ComboBox<String> cDesventajas = new ComboBox<String>();
+			cDesventajas.setItems(nombreDesventajas);
+			ComboBox<String> cDesventajas2 = new ComboBox<String>();
+			cDesventajas2.setItems(nombreDesventajas);
+			ComboBox<String> cDesventajas3 = new ComboBox<String>();
+			cDesventajas3.setItems(nombreDesventajas);
+			ComboBox<String> cDesventajas4 = new ComboBox<String>();
+			cDesventajas4.setItems(nombreDesventajas);
+			ComboBox<String> cDesventajas5 = new ComboBox<String>();
+			cDesventajas5.setItems(nombreDesventajas);
+			ComboBox<String> cDesventajas6 = new ComboBox<String>();
+			cDesventajas6.setItems(nombreDesventajas);
 			
-			@Override
-			public void handle(ActionEvent event) {
-				DesventajaSeleccionada desventaja = desventajas.get(0);
-				desventaja.setBeneficioDesventaja(String.valueOf(ch.obtenerBeneficioDesventajaSeleccionada(sessionFactory, cDesventajas.getSelectionModel().getSelectedItem())));
-				tableViewDesventaja.refresh();
-				tPuntosCreacion.setText(String.valueOf(Integer.parseInt(tPuntosCreacion.getText())+Integer.parseInt(desventaja.getBeneficioDesventaja())));
-			}
-		});
-		
-		cDesventajas2.setOnAction(new EventHandler<ActionEvent>() {
+			ObservableList<DesventajaSeleccionada> desventajas = FXCollections.observableArrayList(
+					new DesventajaSeleccionada(cDesventajas,"-"),
+					new DesventajaSeleccionada(cDesventajas2,"-"),
+					new DesventajaSeleccionada(cDesventajas3,"-"),
+					new DesventajaSeleccionada(cDesventajas4,"-"),
+					new DesventajaSeleccionada(cDesventajas5,"-"));
 			
-			@Override
-			public void handle(ActionEvent event) {
-				DesventajaSeleccionada desventaja = desventajas.get(1);
-				desventaja.setBeneficioDesventaja(String.valueOf(ch.obtenerBeneficioDesventajaSeleccionada(sessionFactory, cDesventajas2.getSelectionModel().getSelectedItem())));
-				tableViewDesventaja.refresh();
-				tPuntosCreacion.setText(String.valueOf(Integer.parseInt(tPuntosCreacion.getText())+Integer.parseInt(desventaja.getBeneficioDesventaja())));
-			}
-		});
-		
-		cDesventajas3.setOnAction(new EventHandler<ActionEvent>() {
+			colDesventajaNombre.setCellValueFactory(new PropertyValueFactory<DesventajaSeleccionada, ComboBox<String>>("nombreDesventaja"));
+			colDesventajaBeneficio.setCellValueFactory(new PropertyValueFactory<DesventajaSeleccionada, String>("beneficioDesventaja"));
 			
-			@Override
-			public void handle(ActionEvent event) {
-				DesventajaSeleccionada desventaja = desventajas.get(2);
-				desventaja.setBeneficioDesventaja(String.valueOf(ch.obtenerBeneficioDesventajaSeleccionada(sessionFactory, cDesventajas3.getSelectionModel().getSelectedItem())));
-				tableViewDesventaja.refresh();
-				tPuntosCreacion.setText(String.valueOf(Integer.parseInt(tPuntosCreacion.getText())+Integer.parseInt(desventaja.getBeneficioDesventaja())));
-			}
-		});
-		
-		cDesventajas4.setOnAction(new EventHandler<ActionEvent>() {
+			cDesventajas.setOnAction(new EventHandler<ActionEvent>() {
+				
+				@Override
+				public void handle(ActionEvent event) {
+					DesventajaSeleccionada desventaja = desventajas.get(0);
+					desventaja.setBeneficioDesventaja(String.valueOf(ch.obtenerBeneficioDesventajaSeleccionada(sessionFactory, cDesventajas.getSelectionModel().getSelectedItem())));
+					tableViewDesventaja.refresh();
+					tPuntosCreacion.setText(String.valueOf(Integer.parseInt(tPuntosCreacion.getText())+Integer.parseInt(desventaja.getBeneficioDesventaja())));
+				}
+			});
 			
-			@Override
-			public void handle(ActionEvent event) {
-				DesventajaSeleccionada desventaja = desventajas.get(3);
-				desventaja.setBeneficioDesventaja(String.valueOf(ch.obtenerBeneficioDesventajaSeleccionada(sessionFactory, cDesventajas4.getSelectionModel().getSelectedItem())));
-				tableViewDesventaja.refresh();
-				tPuntosCreacion.setText(String.valueOf(Integer.parseInt(tPuntosCreacion.getText())+Integer.parseInt(desventaja.getBeneficioDesventaja())));
-			}
-		});
-		
-		cDesventajas5.setOnAction(new EventHandler<ActionEvent>() {
+			cDesventajas2.setOnAction(new EventHandler<ActionEvent>() {
+				
+				@Override
+				public void handle(ActionEvent event) {
+					DesventajaSeleccionada desventaja = desventajas.get(1);
+					desventaja.setBeneficioDesventaja(String.valueOf(ch.obtenerBeneficioDesventajaSeleccionada(sessionFactory, cDesventajas2.getSelectionModel().getSelectedItem())));
+					tableViewDesventaja.refresh();
+					tPuntosCreacion.setText(String.valueOf(Integer.parseInt(tPuntosCreacion.getText())+Integer.parseInt(desventaja.getBeneficioDesventaja())));
+				}
+			});
 			
-			@Override
-			public void handle(ActionEvent event) {
-				DesventajaSeleccionada desventaja = desventajas.get(4);
-				desventaja.setBeneficioDesventaja(String.valueOf(ch.obtenerBeneficioDesventajaSeleccionada(sessionFactory, cDesventajas5.getSelectionModel().getSelectedItem())));
-				tableViewDesventaja.refresh();
-				tPuntosCreacion.setText(String.valueOf(Integer.parseInt(tPuntosCreacion.getText())+Integer.parseInt(desventaja.getBeneficioDesventaja())));
+			cDesventajas3.setOnAction(new EventHandler<ActionEvent>() {
+				
+				@Override
+				public void handle(ActionEvent event) {
+					DesventajaSeleccionada desventaja = desventajas.get(2);
+					desventaja.setBeneficioDesventaja(String.valueOf(ch.obtenerBeneficioDesventajaSeleccionada(sessionFactory, cDesventajas3.getSelectionModel().getSelectedItem())));
+					tableViewDesventaja.refresh();
+					tPuntosCreacion.setText(String.valueOf(Integer.parseInt(tPuntosCreacion.getText())+Integer.parseInt(desventaja.getBeneficioDesventaja())));
+				}
+			});
+			
+			cDesventajas4.setOnAction(new EventHandler<ActionEvent>() {
+				
+				@Override
+				public void handle(ActionEvent event) {
+					DesventajaSeleccionada desventaja = desventajas.get(3);
+					desventaja.setBeneficioDesventaja(String.valueOf(ch.obtenerBeneficioDesventajaSeleccionada(sessionFactory, cDesventajas4.getSelectionModel().getSelectedItem())));
+					tableViewDesventaja.refresh();
+					tPuntosCreacion.setText(String.valueOf(Integer.parseInt(tPuntosCreacion.getText())+Integer.parseInt(desventaja.getBeneficioDesventaja())));
+				}
+			});
+			
+			cDesventajas5.setOnAction(new EventHandler<ActionEvent>() {
+				
+				@Override
+				public void handle(ActionEvent event) {
+					DesventajaSeleccionada desventaja = desventajas.get(4);
+					desventaja.setBeneficioDesventaja(String.valueOf(ch.obtenerBeneficioDesventajaSeleccionada(sessionFactory, cDesventajas5.getSelectionModel().getSelectedItem())));
+					tableViewDesventaja.refresh();
+					tPuntosCreacion.setText(String.valueOf(Integer.parseInt(tPuntosCreacion.getText())+Integer.parseInt(desventaja.getBeneficioDesventaja())));
+				}
+			});
+			
+			tableViewDesventaja.setItems(desventajas);
+		} else {
+			
+			ArrayList<String> nombreSetDesventajas = new ArrayList<String>();
+			for (Desventaja desventaja : personaje.getDesventajas()) {
+				nombreSetDesventajas.add(desventaja.getNombre());
 			}
-		});
+			
+			ComboBox<String> cDesventajas = new ComboBox<String>();
+			cDesventajas.setItems(nombreDesventajas);
+			ComboBox<String> cDesventajas2 = new ComboBox<String>();
+			cDesventajas2.setItems(nombreDesventajas);
+			ComboBox<String> cDesventajas3 = new ComboBox<String>();
+			cDesventajas3.setItems(nombreDesventajas);
+			ComboBox<String> cDesventajas4 = new ComboBox<String>();
+			cDesventajas4.setItems(nombreDesventajas);
+			ComboBox<String> cDesventajas5 = new ComboBox<String>();
+			cDesventajas5.setItems(nombreDesventajas);
+			ComboBox<String> cDesventajas6 = new ComboBox<String>();
+			cDesventajas6.setItems(nombreDesventajas);
+			
+			ObservableList<DesventajaSeleccionada> desventajas = FXCollections.observableArrayList(
+					new DesventajaSeleccionada(cDesventajas,"-"),
+					new DesventajaSeleccionada(cDesventajas2,"-"),
+					new DesventajaSeleccionada(cDesventajas3,"-"),
+					new DesventajaSeleccionada(cDesventajas4,"-"),
+					new DesventajaSeleccionada(cDesventajas5,"-"));
+			
+			if (0 < nombreSetDesventajas.size()) {
+				if (nombreDesventajas.get(0)!=null) {
+					cDesventajas.setValue(nombreSetDesventajas.get(0));
+					desventajas.get(0).setBeneficioDesventaja(String.valueOf(ch.obtenerBeneficioDesventajaSeleccionada(sessionFactory, cDesventajas.getValue())));
+					tPuntosCreacion.setText(String.valueOf(Integer.parseInt(tPuntosCreacion.getText())-Integer.parseInt(desventajas.get(0).getBeneficioDesventaja())));
+				}
+			}
+			
+			if (1 < nombreSetDesventajas.size()) {
+				if (nombreDesventajas.get(1)!=null) {
+					cDesventajas2.setValue(nombreSetDesventajas.get(1));
+					desventajas.get(1).setBeneficioDesventaja(String.valueOf(ch.obtenerBeneficioDesventajaSeleccionada(sessionFactory, cDesventajas2.getValue())));
+					tPuntosCreacion.setText(String.valueOf(Integer.parseInt(tPuntosCreacion.getText())-Integer.parseInt(desventajas.get(1).getBeneficioDesventaja())));
+				}
+			}
+			
+			if (2 < nombreSetDesventajas.size()) {
+				if (nombreDesventajas.get(2)!=null) {
+					cDesventajas3.setValue(nombreSetDesventajas.get(2));
+					desventajas.get(2).setBeneficioDesventaja(String.valueOf(ch.obtenerBeneficioDesventajaSeleccionada(sessionFactory, cDesventajas3.getValue())));
+					tPuntosCreacion.setText(String.valueOf(Integer.parseInt(tPuntosCreacion.getText())-Integer.parseInt(desventajas.get(2).getBeneficioDesventaja())));
+				}
+			}
+			
+			if (3 < nombreSetDesventajas.size()) {
+				if (nombreDesventajas.get(3)!=null) {
+					cDesventajas4.setValue(nombreSetDesventajas.get(3));
+					desventajas.get(3).setBeneficioDesventaja(String.valueOf(ch.obtenerBeneficioDesventajaSeleccionada(sessionFactory, cDesventajas4.getValue())));
+					tPuntosCreacion.setText(String.valueOf(Integer.parseInt(tPuntosCreacion.getText())-Integer.parseInt(desventajas.get(3).getBeneficioDesventaja())));
+				}
+			}
+			
+			if (4 < nombreSetDesventajas.size()) {
+				if (nombreDesventajas.get(4)!=null) {
+					cDesventajas5.setValue(nombreSetDesventajas.get(4));
+					desventajas.get(4).setBeneficioDesventaja(String.valueOf(ch.obtenerBeneficioDesventajaSeleccionada(sessionFactory, cDesventajas4.getValue())));
+					tPuntosCreacion.setText(String.valueOf(Integer.parseInt(tPuntosCreacion.getText())-Integer.parseInt(desventajas.get(4).getBeneficioDesventaja())));
+				}
+			}
+			
+
+			
+			colDesventajaNombre.setCellValueFactory(new PropertyValueFactory<DesventajaSeleccionada, ComboBox<String>>("nombreDesventaja"));
+			colDesventajaBeneficio.setCellValueFactory(new PropertyValueFactory<DesventajaSeleccionada, String>("beneficioDesventaja"));
+			
+			cDesventajas.setOnAction(new EventHandler<ActionEvent>() {
+				
+				@Override
+				public void handle(ActionEvent event) {
+					DesventajaSeleccionada desventaja = desventajas.get(0);
+					desventaja.setBeneficioDesventaja(String.valueOf(ch.obtenerBeneficioDesventajaSeleccionada(sessionFactory, cDesventajas.getSelectionModel().getSelectedItem())));
+					tableViewDesventaja.refresh();
+					tPuntosCreacion.setText(String.valueOf(Integer.parseInt(tPuntosCreacion.getText())+Integer.parseInt(desventaja.getBeneficioDesventaja())));
+				}
+			});
+			
+			cDesventajas2.setOnAction(new EventHandler<ActionEvent>() {
+				
+				@Override
+				public void handle(ActionEvent event) {
+					DesventajaSeleccionada desventaja = desventajas.get(1);
+					desventaja.setBeneficioDesventaja(String.valueOf(ch.obtenerBeneficioDesventajaSeleccionada(sessionFactory, cDesventajas2.getSelectionModel().getSelectedItem())));
+					tableViewDesventaja.refresh();
+					tPuntosCreacion.setText(String.valueOf(Integer.parseInt(tPuntosCreacion.getText())+Integer.parseInt(desventaja.getBeneficioDesventaja())));
+				}
+			});
+			
+			cDesventajas3.setOnAction(new EventHandler<ActionEvent>() {
+				
+				@Override
+				public void handle(ActionEvent event) {
+					DesventajaSeleccionada desventaja = desventajas.get(2);
+					desventaja.setBeneficioDesventaja(String.valueOf(ch.obtenerBeneficioDesventajaSeleccionada(sessionFactory, cDesventajas3.getSelectionModel().getSelectedItem())));
+					tableViewDesventaja.refresh();
+					tPuntosCreacion.setText(String.valueOf(Integer.parseInt(tPuntosCreacion.getText())+Integer.parseInt(desventaja.getBeneficioDesventaja())));
+				}
+			});
+			
+			cDesventajas4.setOnAction(new EventHandler<ActionEvent>() {
+				
+				@Override
+				public void handle(ActionEvent event) {
+					DesventajaSeleccionada desventaja = desventajas.get(3);
+					desventaja.setBeneficioDesventaja(String.valueOf(ch.obtenerBeneficioDesventajaSeleccionada(sessionFactory, cDesventajas4.getSelectionModel().getSelectedItem())));
+					tableViewDesventaja.refresh();
+					tPuntosCreacion.setText(String.valueOf(Integer.parseInt(tPuntosCreacion.getText())+Integer.parseInt(desventaja.getBeneficioDesventaja())));
+				}
+			});
+			
+			cDesventajas5.setOnAction(new EventHandler<ActionEvent>() {
+				
+				@Override
+				public void handle(ActionEvent event) {
+					DesventajaSeleccionada desventaja = desventajas.get(4);
+					desventaja.setBeneficioDesventaja(String.valueOf(ch.obtenerBeneficioDesventajaSeleccionada(sessionFactory, cDesventajas5.getSelectionModel().getSelectedItem())));
+					tableViewDesventaja.refresh();
+					tPuntosCreacion.setText(String.valueOf(Integer.parseInt(tPuntosCreacion.getText())+Integer.parseInt(desventaja.getBeneficioDesventaja())));
+				}
+			});
+			
+			tableViewDesventaja.setItems(desventajas);
+			
+		}
 		
-		tableViewDesventaja.setItems(desventajas);
+		
 	}
 	
 	public void obtenerTablaCombate() {
-		ObservableList<PdsCombate> pdsInvertidosCombate = FXCollections.observableArrayList(
-				new PdsCombate("H.Ataque",String.valueOf(categoriaSeleccionada.getCosteHabilidadAtaque()),"0","0",String.valueOf(categoriaSeleccionada.getBonoHa()),"0",tNivelTotal.getText()),
-				new PdsCombate("H.Parada",String.valueOf(categoriaSeleccionada.getCosteHabilidadParada()),"0","0",String.valueOf(categoriaSeleccionada.getBonoHp()),"0",tNivelTotal.getText()),
-				new PdsCombate("H.Esquiva",String.valueOf(categoriaSeleccionada.getCosteHabilidadEsquiva()),"0","0",String.valueOf(categoriaSeleccionada.getBonoHe()),"0",tNivelTotal.getText()),
-				new PdsCombate("Llevar Armadura",String.valueOf(categoriaSeleccionada.getCosteLlevarArmadura()),"0","0",String.valueOf(categoriaSeleccionada.getBonoLlevarArmadura()),"0",tNivelTotal.getText()),
-				
-//				new PdsCombate("Puntos Ki AGI",String.valueOf(categoriaSeleccionada.getCostePuntoKi()),null,"0","-",null,tNivelTotal.getText()),
-//				new PdsCombate("Puntos Ki CON",String.valueOf(categoriaSeleccionada.getCostePuntoKi()),null,"0","-",null,tNivelTotal.getText()),
-//				new PdsCombate("Puntos Ki DES",String.valueOf(categoriaSeleccionada.getCostePuntoKi()),null,"0","-",null,tNivelTotal.getText()),
-//				new PdsCombate("Puntos Ki FUE",String.valueOf(categoriaSeleccionada.getCostePuntoKi()),null,"0","-",null,tNivelTotal.getText()),
-//				new PdsCombate("Puntos Ki POD",String.valueOf(categoriaSeleccionada.getCostePuntoKi()),null,"0","-",null,tNivelTotal.getText()),
-//				new PdsCombate("Puntos Ki VOL",String.valueOf(categoriaSeleccionada.getCostePuntoKi()),null,"0","-",null,tNivelTotal.getText()),
-//
-//				new PdsCombate("Acumulacion Ki AGI",String.valueOf(categoriaSeleccionada.getCosteAcumulacionKi()),null,"0","-",null,tNivelTotal.getText()),
-//				new PdsCombate("Acumulacion Ki CON",String.valueOf(categoriaSeleccionada.getCosteAcumulacionKi()),null,"0","-",null,tNivelTotal.getText()),
-//				new PdsCombate("Acumulacion Ki DES",String.valueOf(categoriaSeleccionada.getCosteAcumulacionKi()),null,"0","-",null,tNivelTotal.getText()),
-//				new PdsCombate("Acumulacion Ki FUE",String.valueOf(categoriaSeleccionada.getCosteAcumulacionKi()),null,"0","-",null,tNivelTotal.getText()),
-//				new PdsCombate("Acumulacion Ki POD",String.valueOf(categoriaSeleccionada.getCosteAcumulacionKi()),null,"0","-",null,tNivelTotal.getText()),
-//				new PdsCombate("Acumulacion Ki VOL",String.valueOf(categoriaSeleccionada.getCosteAcumulacionKi()),null,"0","-",null,tNivelTotal.getText()),
+		if (null==personaje.getNombre()) {
+			ObservableList<PdsCombate> pdsInvertidosCombate = FXCollections.observableArrayList(
+					new PdsCombate("H.Ataque",String.valueOf(categoriaSeleccionada.getCosteHabilidadAtaque()),"0","0",String.valueOf(categoriaSeleccionada.getBonoHa()),"0",tNivelTotal.getText()),
+					new PdsCombate("H.Parada",String.valueOf(categoriaSeleccionada.getCosteHabilidadParada()),"0","0",String.valueOf(categoriaSeleccionada.getBonoHp()),"0",tNivelTotal.getText()),
+					new PdsCombate("H.Esquiva",String.valueOf(categoriaSeleccionada.getCosteHabilidadEsquiva()),"0","0",String.valueOf(categoriaSeleccionada.getBonoHe()),"0",tNivelTotal.getText()),
+					new PdsCombate("Llevar Armadura",String.valueOf(categoriaSeleccionada.getCosteLlevarArmadura()),"0","0",String.valueOf(categoriaSeleccionada.getBonoLlevarArmadura()),"0",tNivelTotal.getText()),
 
-				new PdsCombate("Conocimiento Marcial","5","0","0",String.valueOf(categoriaSeleccionada.getConocimientoMarcial()),"0",tNivelTotal.getText()));
+					new PdsCombate("Conocimiento Marcial","5","0","0",String.valueOf(categoriaSeleccionada.getConocimientoMarcial()),"0",tNivelTotal.getText()));
+			
+			colPdsCombateNombreHabilidad.setCellValueFactory(new PropertyValueFactory<PdsCombate, String>("nombreHabilidad"));
+			colPdsCombateCosteHabilidad.setCellValueFactory(new PropertyValueFactory<PdsCombate, String>("costeHabilidad"));
+			colPdsCombatePuntosHabilidad.setCellValueFactory(new PropertyValueFactory<PdsCombate, String>("pdsHabilidad"));
+			colPdsCombateBaseHabilidad.setCellValueFactory(new PropertyValueFactory<PdsCombate, String>("baseHabilidad"));
+			colPdsCombateBonoHabilidad.setCellValueFactory(new PropertyValueFactory<PdsCombate, String>("bonoHabilidad"));
+			colPdsCombateCategoriaHabilidad.setCellValueFactory(new PropertyValueFactory<PdsCombate, String>("categoriaHabilidad"));
+			colPdsCombateEspecialHabilidad.setCellValueFactory(new PropertyValueFactory<PdsCombate, String>("especialHabilidad"));
+			colPdsCombateTotalHabilidad.setCellValueFactory(new PropertyValueFactory<PdsCombate, String>("totalHabilidad"));
+			
+			colPdsCombatePuntosHabilidad.setCellFactory(TextFieldTableCell.forTableColumn());
+			colPdsCombateEspecialHabilidad.setCellFactory(TextFieldTableCell.forTableColumn());
+			
+			tableViewCombate.setItems(pdsInvertidosCombate);
+		} else {
+			ObservableList<PdsCombate> pdsInvertidosCombate = FXCollections.observableArrayList(
+					new PdsCombate("H.Ataque",String.valueOf(categoriaSeleccionada.getCosteHabilidadAtaque()),String.valueOf(personaje.getPdsPrimariasComunes().getPdsHa()),String.valueOf(tableViewCaracteristicas.getItems().get(3).getBonoCaracteristica()),String.valueOf(categoriaSeleccionada.getBonoHa()),String.valueOf(personaje.getPdsPrimariasComunes().getPdsEspHa()),tNivelTotal.getText()),
+					new PdsCombate("H.Parada",String.valueOf(categoriaSeleccionada.getCosteHabilidadParada()),String.valueOf(personaje.getPdsPrimariasComunes().getPdsHp()),String.valueOf(tableViewCaracteristicas.getItems().get(3).getBonoCaracteristica()),String.valueOf(categoriaSeleccionada.getBonoHp()),String.valueOf(personaje.getPdsPrimariasComunes().getPdsEspHp()),tNivelTotal.getText()),
+					new PdsCombate("H.Esquiva",String.valueOf(categoriaSeleccionada.getCosteHabilidadEsquiva()),String.valueOf(personaje.getPdsPrimariasComunes().getPdsHe()),String.valueOf(tableViewCaracteristicas.getItems().get(0).getBonoCaracteristica()),String.valueOf(categoriaSeleccionada.getBonoHe()),String.valueOf(personaje.getPdsPrimariasComunes().getPdsEspHe()),tNivelTotal.getText()),
+					new PdsCombate("Llevar Armadura",String.valueOf(categoriaSeleccionada.getCosteLlevarArmadura()),String.valueOf(personaje.getPdsPrimariasComunes().getPdsLlevarArmadura()),String.valueOf(tableViewCaracteristicas.getItems().get(2).getBonoCaracteristica()),String.valueOf(categoriaSeleccionada.getBonoLlevarArmadura()),String.valueOf(personaje.getPdsPrimariasComunes().getPdsEspLlevarArmadura()),tNivelTotal.getText()),
+
+					new PdsCombate("Conocimiento Marcial","5",String.valueOf(personaje.getPdsPrimariasKi().getPdsConocimientoMarcial()),"0",String.valueOf(categoriaSeleccionada.getConocimientoMarcial()),String.valueOf(personaje.getPdsPrimariasKi().getPdsConocimientoMarcial()+personaje.getPdsPrimariasKi().getPdsEspConocimientoMarcial()),tNivelTotal.getText()));
+			
+			colPdsCombateNombreHabilidad.setCellValueFactory(new PropertyValueFactory<PdsCombate, String>("nombreHabilidad"));
+			colPdsCombateCosteHabilidad.setCellValueFactory(new PropertyValueFactory<PdsCombate, String>("costeHabilidad"));
+			colPdsCombatePuntosHabilidad.setCellValueFactory(new PropertyValueFactory<PdsCombate, String>("pdsHabilidad"));
+			colPdsCombateBaseHabilidad.setCellValueFactory(new PropertyValueFactory<PdsCombate, String>("baseHabilidad"));
+			colPdsCombateBonoHabilidad.setCellValueFactory(new PropertyValueFactory<PdsCombate, String>("bonoHabilidad"));
+			colPdsCombateCategoriaHabilidad.setCellValueFactory(new PropertyValueFactory<PdsCombate, String>("categoriaHabilidad"));
+			colPdsCombateEspecialHabilidad.setCellValueFactory(new PropertyValueFactory<PdsCombate, String>("especialHabilidad"));
+			colPdsCombateTotalHabilidad.setCellValueFactory(new PropertyValueFactory<PdsCombate, String>("totalHabilidad"));
+			
+			colPdsCombatePuntosHabilidad.setCellFactory(TextFieldTableCell.forTableColumn());
+			colPdsCombateEspecialHabilidad.setCellFactory(TextFieldTableCell.forTableColumn());
+			
+			tableViewCombate.setItems(pdsInvertidosCombate);
+		}
 		
-		colPdsCombateNombreHabilidad.setCellValueFactory(new PropertyValueFactory<PdsCombate, String>("nombreHabilidad"));
-		colPdsCombateCosteHabilidad.setCellValueFactory(new PropertyValueFactory<PdsCombate, String>("costeHabilidad"));
-		colPdsCombatePuntosHabilidad.setCellValueFactory(new PropertyValueFactory<PdsCombate, String>("pdsHabilidad"));
-		colPdsCombateBaseHabilidad.setCellValueFactory(new PropertyValueFactory<PdsCombate, String>("baseHabilidad"));
-		colPdsCombateBonoHabilidad.setCellValueFactory(new PropertyValueFactory<PdsCombate, String>("bonoHabilidad"));
-		colPdsCombateCategoriaHabilidad.setCellValueFactory(new PropertyValueFactory<PdsCombate, String>("categoriaHabilidad"));
-		colPdsCombateEspecialHabilidad.setCellValueFactory(new PropertyValueFactory<PdsCombate, String>("especialHabilidad"));
-		colPdsCombateTotalHabilidad.setCellValueFactory(new PropertyValueFactory<PdsCombate, String>("totalHabilidad"));
-		
-		colPdsCombatePuntosHabilidad.setCellFactory(TextFieldTableCell.forTableColumn());
-		colPdsCombateEspecialHabilidad.setCellFactory(TextFieldTableCell.forTableColumn());
-		
-		tableViewCombate.setItems(pdsInvertidosCombate);
 	}
 	
 	public void obtenerTablaMistico(){
@@ -1866,51 +2201,102 @@ public class PersonajeController {
 			categoriaSeleccionada.setBonoDesconvocar(0);
 		}
 		
-		ObservableList<PdsMisticos> pdsInvertidosMisticos = FXCollections.observableArrayList(
-				new PdsMisticos("Zeon",String.valueOf(categoriaSeleccionada.getCosteZeon()),"0",tableViewCaracteristicas.getItems().get(6).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoZeon()),"0",tNivelTotal.getText()),
-				new PdsMisticos("ACT",String.valueOf(categoriaSeleccionada.getCosteAct()),"0",tableViewCaracteristicas.getItems().get(6).getBonoCaracteristica(),"-","0",tNivelTotal.getText()),
-				new PdsMisticos("Multiplo de regeneracion",String.valueOf(categoriaSeleccionada.getCosteAct()/2),"0",tableViewCaracteristicas.getItems().get(6).getBonoCaracteristica(),"-","0",tNivelTotal.getText()),
-				new PdsMisticos("Proyeccion Magia",String.valueOf(categoriaSeleccionada.getCosteProyeccionMagica()),"0",tableViewCaracteristicas.getItems().get(3).getBonoCaracteristica(),"-","0",tNivelTotal.getText()),
-				new PdsMisticos("Nivel de Magia",String.valueOf(categoriaSeleccionada.getCosteNivelMagia()),"0",tableViewCaracteristicas.getItems().get(4).getBonoCaracteristica(),"-","0",tNivelTotal.getText()),
-				
-				new PdsMisticos("Convocar",String.valueOf(categoriaSeleccionada.getCosteConvocar()),"0",tableViewCaracteristicas.getItems().get(6).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoConvocar()),"0",tNivelTotal.getText()),
-				new PdsMisticos("Controlar",String.valueOf(categoriaSeleccionada.getCosteControlar()),"0",tableViewCaracteristicas.getItems().get(7).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoControlar()),"0",tNivelTotal.getText()),
-				new PdsMisticos("Atar",String.valueOf(categoriaSeleccionada.getCosteAtar()),"0",tableViewCaracteristicas.getItems().get(6).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoAtar()),"0",tNivelTotal.getText()),
-				new PdsMisticos("Desconvocar",String.valueOf(categoriaSeleccionada.getCosteDesconvocar()),"0",tableViewCaracteristicas.getItems().get(6).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoDesconvocar()),"0",tNivelTotal.getText()));
+		if (null==personaje.getNombre()) {
+			ObservableList<PdsMisticos> pdsInvertidosMisticos = FXCollections.observableArrayList(
+					new PdsMisticos("Zeon",String.valueOf(categoriaSeleccionada.getCosteZeon()),"0",tableViewCaracteristicas.getItems().get(6).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoZeon()),"0",tNivelTotal.getText()),
+					new PdsMisticos("ACT",String.valueOf(categoriaSeleccionada.getCosteAct()),"0",tableViewCaracteristicas.getItems().get(6).getBonoCaracteristica(),"-","0",tNivelTotal.getText()),
+					new PdsMisticos("Multiplo de regeneracion",String.valueOf(categoriaSeleccionada.getCosteAct()/2),"0",tableViewCaracteristicas.getItems().get(6).getBonoCaracteristica(),"-","0",tNivelTotal.getText()),
+					new PdsMisticos("Proyeccion Magia",String.valueOf(categoriaSeleccionada.getCosteProyeccionMagica()),"0",tableViewCaracteristicas.getItems().get(3).getBonoCaracteristica(),"-","0",tNivelTotal.getText()),
+					new PdsMisticos("Nivel de Magia",String.valueOf(categoriaSeleccionada.getCosteNivelMagia()),"0",tableViewCaracteristicas.getItems().get(4).getBonoCaracteristica(),"-","0",tNivelTotal.getText()),
+					
+					new PdsMisticos("Convocar",String.valueOf(categoriaSeleccionada.getCosteConvocar()),"0",tableViewCaracteristicas.getItems().get(6).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoConvocar()),"0",tNivelTotal.getText()),
+					new PdsMisticos("Controlar",String.valueOf(categoriaSeleccionada.getCosteControlar()),"0",tableViewCaracteristicas.getItems().get(7).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoControlar()),"0",tNivelTotal.getText()),
+					new PdsMisticos("Atar",String.valueOf(categoriaSeleccionada.getCosteAtar()),"0",tableViewCaracteristicas.getItems().get(6).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoAtar()),"0",tNivelTotal.getText()),
+					new PdsMisticos("Desconvocar",String.valueOf(categoriaSeleccionada.getCosteDesconvocar()),"0",tableViewCaracteristicas.getItems().get(6).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoDesconvocar()),"0",tNivelTotal.getText()));
+			
+			colPdsMisticoNombreHabilidad.setCellValueFactory(new PropertyValueFactory<PdsMisticos, String>("nombreHabilidad"));
+			colPdsMisticoCosteHabilidad.setCellValueFactory(new PropertyValueFactory<PdsMisticos, String>("costeHabilidad"));
+			colPdsMisticoPdsHabilidad.setCellValueFactory(new PropertyValueFactory<PdsMisticos, String>("pdsHabilidad"));
+			colPdsMisticoBaseHabilidad.setCellValueFactory(new PropertyValueFactory<PdsMisticos, String>("baseHabilidad"));
+			colPdsMisticoBonoHabilidad.setCellValueFactory(new PropertyValueFactory<PdsMisticos, String>("bonoHabilidad"));
+			colPdsMisticoCategoriaHabilidad.setCellValueFactory(new PropertyValueFactory<PdsMisticos, String>("categoriaHabilidad"));
+			colPdsMisticoEspecialHabilidad.setCellValueFactory(new PropertyValueFactory<PdsMisticos, String>("especialHabilidad"));
+			colPdsMisticoTotalHabilidad.setCellValueFactory(new PropertyValueFactory<PdsMisticos, String>("totalHabilidad"));
+			
+			colPdsMisticoPdsHabilidad.setCellFactory(TextFieldTableCell.forTableColumn());
+			colPdsMisticoEspecialHabilidad.setCellFactory(TextFieldTableCell.forTableColumn());
+			
+			tableViewMisticas.setItems(pdsInvertidosMisticos);
+		} else {
+			ObservableList<PdsMisticos> pdsInvertidosMisticos = FXCollections.observableArrayList(
+					new PdsMisticos("Zeon",String.valueOf(categoriaSeleccionada.getCosteZeon()),String.valueOf(personaje.getPdsPrimariasMisticas().getPdsZeon()),tableViewCaracteristicas.getItems().get(6).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoZeon()),String.valueOf(personaje.getPdsPrimariasMisticas().getPdsEspZeon()),tNivelTotal.getText()),
+					new PdsMisticos("ACT",String.valueOf(categoriaSeleccionada.getCosteAct()),String.valueOf(personaje.getPdsPrimariasMisticas().getPdsAct()),tableViewCaracteristicas.getItems().get(6).getBonoCaracteristica(),"-",String.valueOf(personaje.getPdsPrimariasMisticas().getPdsEspAct()),tNivelTotal.getText()),
+					new PdsMisticos("Multiplo de regeneracion",String.valueOf(categoriaSeleccionada.getCosteAct()/2),String.valueOf(personaje.getPdsPrimariasMisticas().getPdsMultiploRegeneracion()),tableViewCaracteristicas.getItems().get(6).getBonoCaracteristica(),"-",String.valueOf(personaje.getPdsPrimariasMisticas().getPdsEspMultiploRegeneracion()),tNivelTotal.getText()),
+					new PdsMisticos("Proyeccion Magia",String.valueOf(categoriaSeleccionada.getCosteProyeccionMagica()),String.valueOf(personaje.getPdsPrimariasMisticas().getPdsProyeccionMagica()),tableViewCaracteristicas.getItems().get(3).getBonoCaracteristica(),"-",String.valueOf(personaje.getPdsPrimariasMisticas().getPdsEspProyeccionMagica()),tNivelTotal.getText()),
+					new PdsMisticos("Nivel de Magia",String.valueOf(categoriaSeleccionada.getCosteNivelMagia()),String.valueOf(personaje.getPdsPrimariasMisticas().getPdsLvMagia()),tableViewCaracteristicas.getItems().get(4).getBonoCaracteristica(),"-",String.valueOf(personaje.getPdsPrimariasMisticas().getPdsEspLvMagia()),tNivelTotal.getText()),
+					
+					new PdsMisticos("Convocar",String.valueOf(categoriaSeleccionada.getCosteConvocar()),String.valueOf(personaje.getPdsPrimariasMisticas().getPdsConvocar()),tableViewCaracteristicas.getItems().get(6).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoConvocar()),String.valueOf(personaje.getPdsPrimariasMisticas().getPdsEspConvocar()),tNivelTotal.getText()),
+					new PdsMisticos("Controlar",String.valueOf(categoriaSeleccionada.getCosteControlar()),String.valueOf(personaje.getPdsPrimariasMisticas().getPdsControlar()),tableViewCaracteristicas.getItems().get(7).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoControlar()),String.valueOf(personaje.getPdsPrimariasMisticas().getPdsEspControlar()),tNivelTotal.getText()),
+					new PdsMisticos("Atar",String.valueOf(categoriaSeleccionada.getCosteAtar()),String.valueOf(personaje.getPdsPrimariasMisticas().getPdsAtar()),tableViewCaracteristicas.getItems().get(6).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoAtar()),String.valueOf(personaje.getPdsPrimariasMisticas().getPdsEspAtar()),tNivelTotal.getText()),
+					new PdsMisticos("Desconvocar",String.valueOf(categoriaSeleccionada.getCosteDesconvocar()),String.valueOf(personaje.getPdsPrimariasMisticas().getPdsDesconvocar()),tableViewCaracteristicas.getItems().get(6).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoDesconvocar()),String.valueOf(personaje.getPdsPrimariasMisticas().getPdsEspDesconvocar()),tNivelTotal.getText()));
+			
+			colPdsMisticoNombreHabilidad.setCellValueFactory(new PropertyValueFactory<PdsMisticos, String>("nombreHabilidad"));
+			colPdsMisticoCosteHabilidad.setCellValueFactory(new PropertyValueFactory<PdsMisticos, String>("costeHabilidad"));
+			colPdsMisticoPdsHabilidad.setCellValueFactory(new PropertyValueFactory<PdsMisticos, String>("pdsHabilidad"));
+			colPdsMisticoBaseHabilidad.setCellValueFactory(new PropertyValueFactory<PdsMisticos, String>("baseHabilidad"));
+			colPdsMisticoBonoHabilidad.setCellValueFactory(new PropertyValueFactory<PdsMisticos, String>("bonoHabilidad"));
+			colPdsMisticoCategoriaHabilidad.setCellValueFactory(new PropertyValueFactory<PdsMisticos, String>("categoriaHabilidad"));
+			colPdsMisticoEspecialHabilidad.setCellValueFactory(new PropertyValueFactory<PdsMisticos, String>("especialHabilidad"));
+			colPdsMisticoTotalHabilidad.setCellValueFactory(new PropertyValueFactory<PdsMisticos, String>("totalHabilidad"));
+			
+			colPdsMisticoPdsHabilidad.setCellFactory(TextFieldTableCell.forTableColumn());
+			colPdsMisticoEspecialHabilidad.setCellFactory(TextFieldTableCell.forTableColumn());
+			
+			tableViewMisticas.setItems(pdsInvertidosMisticos);
+		}
 		
-		colPdsMisticoNombreHabilidad.setCellValueFactory(new PropertyValueFactory<PdsMisticos, String>("nombreHabilidad"));
-		colPdsMisticoCosteHabilidad.setCellValueFactory(new PropertyValueFactory<PdsMisticos, String>("costeHabilidad"));
-		colPdsMisticoPdsHabilidad.setCellValueFactory(new PropertyValueFactory<PdsMisticos, String>("pdsHabilidad"));
-		colPdsMisticoBaseHabilidad.setCellValueFactory(new PropertyValueFactory<PdsMisticos, String>("baseHabilidad"));
-		colPdsMisticoBonoHabilidad.setCellValueFactory(new PropertyValueFactory<PdsMisticos, String>("bonoHabilidad"));
-		colPdsMisticoCategoriaHabilidad.setCellValueFactory(new PropertyValueFactory<PdsMisticos, String>("categoriaHabilidad"));
-		colPdsMisticoEspecialHabilidad.setCellValueFactory(new PropertyValueFactory<PdsMisticos, String>("especialHabilidad"));
-		colPdsMisticoTotalHabilidad.setCellValueFactory(new PropertyValueFactory<PdsMisticos, String>("totalHabilidad"));
 		
-		colPdsMisticoPdsHabilidad.setCellFactory(TextFieldTableCell.forTableColumn());
-		colPdsMisticoEspecialHabilidad.setCellFactory(TextFieldTableCell.forTableColumn());
-		
-		tableViewMisticas.setItems(pdsInvertidosMisticos);
 	}
 	
 	public void obtenerTablaPsiquico() {
-		ObservableList<PdsPsiquicos> pdsInvertidosPsiquicos = FXCollections.observableArrayList(
-				new PdsPsiquicos("CV",String.valueOf(categoriaSeleccionada.getCostePuntosCv()),"0","0",String.valueOf(categoriaSeleccionada.getCvInnato()),"0"),
-				new PdsPsiquicos("Proyeccion Psiquica",String.valueOf(categoriaSeleccionada.getCosteProyeccionPsiquica()),"0","0","-","0"));
+		if (null==personaje.getNombre()) {
+			ObservableList<PdsPsiquicos> pdsInvertidosPsiquicos = FXCollections.observableArrayList(
+					new PdsPsiquicos("CV",String.valueOf(categoriaSeleccionada.getCostePuntosCv()),"0","0",String.valueOf(categoriaSeleccionada.getCvInnato()),"0"),
+					new PdsPsiquicos("Proyeccion Psiquica",String.valueOf(categoriaSeleccionada.getCosteProyeccionPsiquica()),"0","0","-","0"));
+			
+			colPdsPsiquicoNombreHabilidad.setCellValueFactory(new PropertyValueFactory<PdsPsiquicos, String>("nombreHabilidad"));
+			colPdsPsiquicoCosteHabilidad.setCellValueFactory(new PropertyValueFactory<PdsPsiquicos, String>("costeHabilidad"));
+			colPdsPsiquicoPdsHabilidad.setCellValueFactory(new PropertyValueFactory<PdsPsiquicos, String>("pdsHabilidad"));
+			colPdsPsiquicoBaseHabilidad.setCellValueFactory(new PropertyValueFactory<PdsPsiquicos, String>("baseHabilidad"));
+			colPdsPsiquicoBonoHabilidad.setCellValueFactory(new PropertyValueFactory<PdsPsiquicos, String>("bonoHabilidad"));
+			colPdsPsiquicoCategoriaHabilidad.setCellValueFactory(new PropertyValueFactory<PdsPsiquicos, String>("categoriaHabilidad"));
+			colPdsPsiquicoEspecialHabilidad.setCellValueFactory(new PropertyValueFactory<PdsPsiquicos, String>("especialHabilidad"));
+			colPdsPsiquicoTotalHabilidad.setCellValueFactory(new PropertyValueFactory<PdsPsiquicos, String>("totalHabilidad"));
+			
+			colPdsPsiquicoPdsHabilidad.setCellFactory(TextFieldTableCell.forTableColumn());
+			colPdsPsiquicoEspecialHabilidad.setCellFactory(TextFieldTableCell.forTableColumn());
+			
+			tableViewPsiquicas.setItems(pdsInvertidosPsiquicos);
+		} else {
+			ObservableList<PdsPsiquicos> pdsInvertidosPsiquicos = FXCollections.observableArrayList(
+					new PdsPsiquicos("CV",String.valueOf(categoriaSeleccionada.getCostePuntosCv()),String.valueOf(personaje.getPdsPrimariasPsiquicas().getPdsCv()),"0",String.valueOf(categoriaSeleccionada.getCvInnato()),String.valueOf(personaje.getPdsPrimariasPsiquicas().getPdsEspCv())),
+					new PdsPsiquicos("Proyeccion Psiquica",String.valueOf(categoriaSeleccionada.getCosteProyeccionPsiquica()),String.valueOf(personaje.getPdsPrimariasPsiquicas().getPdsProyeccionPsiquica()),"0","-",String.valueOf(personaje.getPdsPrimariasPsiquicas().getPdsEspProyeccionPsiquica())));
+			
+			colPdsPsiquicoNombreHabilidad.setCellValueFactory(new PropertyValueFactory<PdsPsiquicos, String>("nombreHabilidad"));
+			colPdsPsiquicoCosteHabilidad.setCellValueFactory(new PropertyValueFactory<PdsPsiquicos, String>("costeHabilidad"));
+			colPdsPsiquicoPdsHabilidad.setCellValueFactory(new PropertyValueFactory<PdsPsiquicos, String>("pdsHabilidad"));
+			colPdsPsiquicoBaseHabilidad.setCellValueFactory(new PropertyValueFactory<PdsPsiquicos, String>("baseHabilidad"));
+			colPdsPsiquicoBonoHabilidad.setCellValueFactory(new PropertyValueFactory<PdsPsiquicos, String>("bonoHabilidad"));
+			colPdsPsiquicoCategoriaHabilidad.setCellValueFactory(new PropertyValueFactory<PdsPsiquicos, String>("categoriaHabilidad"));
+			colPdsPsiquicoEspecialHabilidad.setCellValueFactory(new PropertyValueFactory<PdsPsiquicos, String>("especialHabilidad"));
+			colPdsPsiquicoTotalHabilidad.setCellValueFactory(new PropertyValueFactory<PdsPsiquicos, String>("totalHabilidad"));
+			
+			colPdsPsiquicoPdsHabilidad.setCellFactory(TextFieldTableCell.forTableColumn());
+			colPdsPsiquicoEspecialHabilidad.setCellFactory(TextFieldTableCell.forTableColumn());
+			
+			tableViewPsiquicas.setItems(pdsInvertidosPsiquicos);
+		}
 		
-		colPdsPsiquicoNombreHabilidad.setCellValueFactory(new PropertyValueFactory<PdsPsiquicos, String>("nombreHabilidad"));
-		colPdsPsiquicoCosteHabilidad.setCellValueFactory(new PropertyValueFactory<PdsPsiquicos, String>("costeHabilidad"));
-		colPdsPsiquicoPdsHabilidad.setCellValueFactory(new PropertyValueFactory<PdsPsiquicos, String>("pdsHabilidad"));
-		colPdsPsiquicoBaseHabilidad.setCellValueFactory(new PropertyValueFactory<PdsPsiquicos, String>("baseHabilidad"));
-		colPdsPsiquicoBonoHabilidad.setCellValueFactory(new PropertyValueFactory<PdsPsiquicos, String>("bonoHabilidad"));
-		colPdsPsiquicoCategoriaHabilidad.setCellValueFactory(new PropertyValueFactory<PdsPsiquicos, String>("categoriaHabilidad"));
-		colPdsPsiquicoEspecialHabilidad.setCellValueFactory(new PropertyValueFactory<PdsPsiquicos, String>("especialHabilidad"));
-		colPdsPsiquicoTotalHabilidad.setCellValueFactory(new PropertyValueFactory<PdsPsiquicos, String>("totalHabilidad"));
-		
-		colPdsPsiquicoPdsHabilidad.setCellFactory(TextFieldTableCell.forTableColumn());
-		colPdsPsiquicoEspecialHabilidad.setCellFactory(TextFieldTableCell.forTableColumn());
-		
-		tableViewPsiquicas.setItems(pdsInvertidosPsiquicos);
 	}
 	
 	public void obtenerTablaSecundarias() {
@@ -2122,82 +2508,163 @@ public class PersonajeController {
 		} else {
 			costeMemorizar = String.valueOf(categoriaSeleccionada.getCosteIntelectuales());
 		}
-		ObservableList<PdsHabilidadesSecundarias> pdsInvertidosSecundarias = FXCollections.observableArrayList(
-				new PdsHabilidadesSecundarias("Acrobacias",costeAcrobacias,"0",tableViewCaracteristicas.getItems().get(3).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoAcrobacias()),"0","0","0","0", tNivelTotal.getText()),
-				new PdsHabilidadesSecundarias("Atletismo",costeAtletismo,"0",tableViewCaracteristicas.getItems().get(3).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoAtletismo()),"0","0","0","0", tNivelTotal.getText()),
-				new PdsHabilidadesSecundarias("Montar",String.valueOf(categoriaSeleccionada.getCosteAtleticas()),"0",tableViewCaracteristicas.getItems().get(3).getBonoCaracteristica(),"0","0","0","0","0", tNivelTotal.getText()),
-				new PdsHabilidadesSecundarias("Nadar",String.valueOf(categoriaSeleccionada.getCosteAtleticas()),"0",tableViewCaracteristicas.getItems().get(3).getBonoCaracteristica(),"0","0","0","0","0", tNivelTotal.getText()),
-				new PdsHabilidadesSecundarias("Trepar",String.valueOf(categoriaSeleccionada.getCosteAtleticas()),"0",tableViewCaracteristicas.getItems().get(3).getBonoCaracteristica(),"0","0","0","0","0", tNivelTotal.getText()),
-				new PdsHabilidadesSecundarias("Saltar",costeSaltar,"0",tableViewCaracteristicas.getItems().get(2).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoSaltar()),"0","0","0","0", tNivelTotal.getText()),
-				
-				new PdsHabilidadesSecundarias("Estilo",costeEstilo,"0",tableViewCaracteristicas.getItems().get(6).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoEstilo()),"0","0","0","0", tNivelTotal.getText()),
-				new PdsHabilidadesSecundarias("Intimidar",costeIntimidar,"0",tableViewCaracteristicas.getItems().get(7).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoIntimidar()),"0","0","0","0", tNivelTotal.getText()),
-				new PdsHabilidadesSecundarias("Liderazgo",costeLiderazgo,"0",tableViewCaracteristicas.getItems().get(6).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoLiderazgo()),"0","0","0","0", tNivelTotal.getText()),
-				new PdsHabilidadesSecundarias("Persuasion",costePersuasion,"0",tableViewCaracteristicas.getItems().get(4).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoPersuasion()),"0","0","0","0", tNivelTotal.getText()),
-				new PdsHabilidadesSecundarias("Comercio",String.valueOf(categoriaSeleccionada.getCosteSociales()),"0",tableViewCaracteristicas.getItems().get(4).getBonoCaracteristica(),"0","0","0","0","0", tNivelTotal.getText()),
-				new PdsHabilidadesSecundarias("Callejeo",String.valueOf(categoriaSeleccionada.getCosteSociales()),"0",tableViewCaracteristicas.getItems().get(4).getBonoCaracteristica(),"0","0","0","0","0", tNivelTotal.getText()),
-				new PdsHabilidadesSecundarias("Etiqueta",String.valueOf(categoriaSeleccionada.getCosteSociales()),"0",tableViewCaracteristicas.getItems().get(4).getBonoCaracteristica(),"0","0","0","0","0", tNivelTotal.getText()),
-				
-				new PdsHabilidadesSecundarias("Advertir",costeAdvertir,"0",tableViewCaracteristicas.getItems().get(5).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoAdvertir()),"0","0","0","0", tNivelTotal.getText()),
-				new PdsHabilidadesSecundarias("Buscar",costeBuscar,"0",tableViewCaracteristicas.getItems().get(5).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoBuscar()),"0","0","0","0", tNivelTotal.getText()),
-				new PdsHabilidadesSecundarias("Rastrear",costeRastrear,"0",tableViewCaracteristicas.getItems().get(5).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoRastrear()),"0","0","0","0", tNivelTotal.getText()),
-				
-				new PdsHabilidadesSecundarias("Animales",costeAnimales,"0",tableViewCaracteristicas.getItems().get(4).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoAnimales()),"0","0","0","0", tNivelTotal.getText()),
-				new PdsHabilidadesSecundarias("Ciencia",String.valueOf(categoriaSeleccionada.getCosteIntelectuales()),"0",tableViewCaracteristicas.getItems().get(4).getBonoCaracteristica(),"0","0","0","0","0", tNivelTotal.getText()),
-				new PdsHabilidadesSecundarias("Ley",String.valueOf(categoriaSeleccionada.getCosteIntelectuales()),"0",tableViewCaracteristicas.getItems().get(4).getBonoCaracteristica(),"0","0","0","0","0", tNivelTotal.getText()),
-				new PdsHabilidadesSecundarias("Herbolaria",costeHerbolaria,"0",tableViewCaracteristicas.getItems().get(4).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoHerbolaria()),"0","0","0","0", tNivelTotal.getText()),
-				new PdsHabilidadesSecundarias("Historia",String.valueOf(categoriaSeleccionada.getCosteIntelectuales()),"0",tableViewCaracteristicas.getItems().get(4).getBonoCaracteristica(),"0","0","0","0","0", tNivelTotal.getText()),
-				new PdsHabilidadesSecundarias("Tactica",String.valueOf(categoriaSeleccionada.getCosteIntelectuales()),"0",tableViewCaracteristicas.getItems().get(4).getBonoCaracteristica(),"0","0","0","0","0", tNivelTotal.getText()),
-				new PdsHabilidadesSecundarias("Medicina",String.valueOf(categoriaSeleccionada.getCosteIntelectuales()),"0",tableViewCaracteristicas.getItems().get(4).getBonoCaracteristica(),"0","0","0","0","0", tNivelTotal.getText()),
-				new PdsHabilidadesSecundarias("Memorizar",costeMemorizar,"0",tableViewCaracteristicas.getItems().get(4).getBonoCaracteristica(),"0","0","0","0","0", tNivelTotal.getText()),
-				new PdsHabilidadesSecundarias("Navegacion",String.valueOf(categoriaSeleccionada.getCosteIntelectuales()),"0",tableViewCaracteristicas.getItems().get(4).getBonoCaracteristica(),"0","0","0","0","0", tNivelTotal.getText()),
-				new PdsHabilidadesSecundarias("Ocultismo",costeOcultismo,"0",tableViewCaracteristicas.getItems().get(4).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoOcultismo()),"0","0","0","0", tNivelTotal.getText()),
-				new PdsHabilidadesSecundarias("Tasacion",costeTasacion,"0",tableViewCaracteristicas.getItems().get(4).getBonoCaracteristica(),"0","0","0","0","0", tNivelTotal.getText()),
-				new PdsHabilidadesSecundarias("V.Magica",costeValoracionMagica,"0",tableViewCaracteristicas.getItems().get(6).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoValoracionMagica()),"0","0","0","0", tNivelTotal.getText()),
-				
-				new PdsHabilidadesSecundarias("Frialdad",costeFrialdad,"0",tableViewCaracteristicas.getItems().get(7).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoFrialdad()),"0","0","0","0", tNivelTotal.getText()),
-				new PdsHabilidadesSecundarias("P.Fuerza",costeProezaFuerza,"0",tableViewCaracteristicas.getItems().get(2).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoProezaFuerza()),"0","0","0","0", tNivelTotal.getText()),
-				new PdsHabilidadesSecundarias("Res.Dolor",costeResistirDolor,"0",tableViewCaracteristicas.getItems().get(7).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoResistirDolor()),"0","0","0","0", tNivelTotal.getText()),
-				
-				new PdsHabilidadesSecundarias("Cerrajeria",String.valueOf(categoriaSeleccionada.getCosteSubterfugio()),"0",tableViewCaracteristicas.getItems().get(3).getBonoCaracteristica(),"0","0","0","0","0", tNivelTotal.getText()),
-				new PdsHabilidadesSecundarias("Disfraz",costeDisfraz,"0",tableViewCaracteristicas.getItems().get(3).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoDisfraz()),"0","0","0","0", tNivelTotal.getText()),
-				new PdsHabilidadesSecundarias("Ocultarse",costeOcultarse,"0",tableViewCaracteristicas.getItems().get(5).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoOcultarse()),"0","0","0","0", tNivelTotal.getText()),
-				new PdsHabilidadesSecundarias("Robo",costeRobo,"0",tableViewCaracteristicas.getItems().get(3).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoRobo()),"0","0","0","0", tNivelTotal.getText()),
-				new PdsHabilidadesSecundarias("Sigilo",costeSigilo,"0",tableViewCaracteristicas.getItems().get(0).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoSigilo()),"0","0","0","0", tNivelTotal.getText()),
-				new PdsHabilidadesSecundarias("Tramperia",costeTramperia,"0",tableViewCaracteristicas.getItems().get(3).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoTramperia()),"0","0","0","0", tNivelTotal.getText()),
-				new PdsHabilidadesSecundarias("Venenos",costeVeneno,"0",tableViewCaracteristicas.getItems().get(4).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoVeneno()),"0","0","0","0", tNivelTotal.getText()),
-				
-				new PdsHabilidadesSecundarias("Arte",String.valueOf(categoriaSeleccionada.getCosteCreativas()),"0",tableViewCaracteristicas.getItems().get(6).getBonoCaracteristica(),"0","0","0","0","0", tNivelTotal.getText()),
-				new PdsHabilidadesSecundarias("Baile",String.valueOf(categoriaSeleccionada.getCosteCreativas()),"0",tableViewCaracteristicas.getItems().get(1).getBonoCaracteristica(),"0","0","0","0","0", tNivelTotal.getText()),
-				new PdsHabilidadesSecundarias("Forja",String.valueOf(categoriaSeleccionada.getCosteCreativas()),"0",tableViewCaracteristicas.getItems().get(3).getBonoCaracteristica(),"0","0","0","0","0", tNivelTotal.getText()),
-				new PdsHabilidadesSecundarias("Runas",String.valueOf(categoriaSeleccionada.getCosteCreativas()),"0",tableViewCaracteristicas.getItems().get(3).getBonoCaracteristica(),"0","0","0","0","0", tNivelTotal.getText()),
-				new PdsHabilidadesSecundarias("Alquimia",String.valueOf(categoriaSeleccionada.getCosteCreativas()),"0",tableViewCaracteristicas.getItems().get(4).getBonoCaracteristica(),"0","0","0","0","0", tNivelTotal.getText()),
-				new PdsHabilidadesSecundarias("Animismo",String.valueOf(categoriaSeleccionada.getCosteCreativas()),"0",tableViewCaracteristicas.getItems().get(6).getBonoCaracteristica(),"0","0","0","0","0", tNivelTotal.getText()),
-				new PdsHabilidadesSecundarias("Musica",String.valueOf(categoriaSeleccionada.getCosteCreativas()),"0",tableViewCaracteristicas.getItems().get(6).getBonoCaracteristica(),"0","0","0","0","0", tNivelTotal.getText()),
-				new PdsHabilidadesSecundarias("T.Manos",costeTrucoManos,"0",tableViewCaracteristicas.getItems().get(3).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoTrucoManos()),"0","0","0","0", tNivelTotal.getText()),
-				new PdsHabilidadesSecundarias("Caligrafia Ritual",String.valueOf(categoriaSeleccionada.getCosteCreativas()),"0",tableViewCaracteristicas.getItems().get(3).getBonoCaracteristica(),"0","0","0","0","0", tNivelTotal.getText()),
-				new PdsHabilidadesSecundarias("Orfebreria",String.valueOf(categoriaSeleccionada.getCosteCreativas()),"0",tableViewCaracteristicas.getItems().get(3).getBonoCaracteristica(),"0","0","0","0","0", tNivelTotal.getText()),
-				new PdsHabilidadesSecundarias("Confeccion",String.valueOf(categoriaSeleccionada.getCosteCreativas()),"0",tableViewCaracteristicas.getItems().get(3).getBonoCaracteristica(),"0","0","0","0","0", tNivelTotal.getText()));
 		
-		colPdsSecundariasNombreHabilidad.setCellValueFactory(new PropertyValueFactory<PdsHabilidadesSecundarias, String>("nombreHabilidad"));
-		colPdsSecundariasCosteHabilidad.setCellValueFactory(new PropertyValueFactory<PdsHabilidadesSecundarias, String>("costeHabilidad"));
-		colPdsSecundariasPdsHabilidad.setCellValueFactory(new PropertyValueFactory<PdsHabilidadesSecundarias, String>("pdsHabilidad"));
-		colPdsSecundariasBaseHabilidad.setCellValueFactory(new PropertyValueFactory<PdsHabilidadesSecundarias, String>("baseHabilidad"));
-		colPdsSecundariasBonoHabilidad.setCellValueFactory(new PropertyValueFactory<PdsHabilidadesSecundarias, String>("bonoHabilidad"));
-		colPdsSecundariasCategoriaHabilidad.setCellValueFactory(new PropertyValueFactory<PdsHabilidadesSecundarias, String>("categoriaHabilidad"));
-		colPdsSecundariasEspecialHabilidad.setCellValueFactory(new PropertyValueFactory<PdsHabilidadesSecundarias, String>("especialHabilidad"));
-		colPdsSecundariasBonoNatural.setCellValueFactory(new PropertyValueFactory<PdsHabilidadesSecundarias, String>("bonoNatural"));
-		colPdsSecundariasHabilidadNatural.setCellValueFactory(new PropertyValueFactory<PdsHabilidadesSecundarias, String>("habilidadNatural"));
-		colPdsSecundariasBonoNovel.setCellValueFactory(new PropertyValueFactory<PdsHabilidadesSecundarias, String>("bonoNovel"));
-		colPdsSecundariasTotalHabilidad.setCellValueFactory(new PropertyValueFactory<PdsHabilidadesSecundarias, String>("totalHabilidad"));
+		if (null==personaje.getNombre()) {
+			ObservableList<PdsHabilidadesSecundarias> pdsInvertidosSecundarias = FXCollections.observableArrayList(
+					new PdsHabilidadesSecundarias("Acrobacias",costeAcrobacias,"0",tableViewCaracteristicas.getItems().get(3).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoAcrobacias()),"0","0","0","0", tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Atletismo",costeAtletismo,"0",tableViewCaracteristicas.getItems().get(3).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoAtletismo()),"0","0","0","0", tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Montar",String.valueOf(categoriaSeleccionada.getCosteAtleticas()),"0",tableViewCaracteristicas.getItems().get(3).getBonoCaracteristica(),"0","0","0","0","0", tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Nadar",String.valueOf(categoriaSeleccionada.getCosteAtleticas()),"0",tableViewCaracteristicas.getItems().get(3).getBonoCaracteristica(),"0","0","0","0","0", tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Trepar",String.valueOf(categoriaSeleccionada.getCosteAtleticas()),"0",tableViewCaracteristicas.getItems().get(3).getBonoCaracteristica(),"0","0","0","0","0", tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Saltar",costeSaltar,"0",tableViewCaracteristicas.getItems().get(2).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoSaltar()),"0","0","0","0", tNivelTotal.getText()),
+					
+					new PdsHabilidadesSecundarias("Estilo",costeEstilo,"0",tableViewCaracteristicas.getItems().get(6).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoEstilo()),"0","0","0","0", tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Intimidar",costeIntimidar,"0",tableViewCaracteristicas.getItems().get(7).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoIntimidar()),"0","0","0","0", tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Liderazgo",costeLiderazgo,"0",tableViewCaracteristicas.getItems().get(6).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoLiderazgo()),"0","0","0","0", tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Persuasion",costePersuasion,"0",tableViewCaracteristicas.getItems().get(4).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoPersuasion()),"0","0","0","0", tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Comercio",String.valueOf(categoriaSeleccionada.getCosteSociales()),"0",tableViewCaracteristicas.getItems().get(4).getBonoCaracteristica(),"0","0","0","0","0", tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Callejeo",String.valueOf(categoriaSeleccionada.getCosteSociales()),"0",tableViewCaracteristicas.getItems().get(4).getBonoCaracteristica(),"0","0","0","0","0", tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Etiqueta",String.valueOf(categoriaSeleccionada.getCosteSociales()),"0",tableViewCaracteristicas.getItems().get(4).getBonoCaracteristica(),"0","0","0","0","0", tNivelTotal.getText()),
+					
+					new PdsHabilidadesSecundarias("Advertir",costeAdvertir,"0",tableViewCaracteristicas.getItems().get(5).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoAdvertir()),"0","0","0","0", tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Buscar",costeBuscar,"0",tableViewCaracteristicas.getItems().get(5).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoBuscar()),"0","0","0","0", tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Rastrear",costeRastrear,"0",tableViewCaracteristicas.getItems().get(5).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoRastrear()),"0","0","0","0", tNivelTotal.getText()),
+					
+					new PdsHabilidadesSecundarias("Animales",costeAnimales,"0",tableViewCaracteristicas.getItems().get(4).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoAnimales()),"0","0","0","0", tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Ciencia",String.valueOf(categoriaSeleccionada.getCosteIntelectuales()),"0",tableViewCaracteristicas.getItems().get(4).getBonoCaracteristica(),"0","0","0","0","0", tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Ley",String.valueOf(categoriaSeleccionada.getCosteIntelectuales()),"0",tableViewCaracteristicas.getItems().get(4).getBonoCaracteristica(),"0","0","0","0","0", tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Herbolaria",costeHerbolaria,"0",tableViewCaracteristicas.getItems().get(4).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoHerbolaria()),"0","0","0","0", tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Historia",String.valueOf(categoriaSeleccionada.getCosteIntelectuales()),"0",tableViewCaracteristicas.getItems().get(4).getBonoCaracteristica(),"0","0","0","0","0", tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Tactica",String.valueOf(categoriaSeleccionada.getCosteIntelectuales()),"0",tableViewCaracteristicas.getItems().get(4).getBonoCaracteristica(),"0","0","0","0","0", tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Medicina",String.valueOf(categoriaSeleccionada.getCosteIntelectuales()),"0",tableViewCaracteristicas.getItems().get(4).getBonoCaracteristica(),"0","0","0","0","0", tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Memorizar",costeMemorizar,"0",tableViewCaracteristicas.getItems().get(4).getBonoCaracteristica(),"0","0","0","0","0", tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Navegacion",String.valueOf(categoriaSeleccionada.getCosteIntelectuales()),"0",tableViewCaracteristicas.getItems().get(4).getBonoCaracteristica(),"0","0","0","0","0", tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Ocultismo",costeOcultismo,"0",tableViewCaracteristicas.getItems().get(4).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoOcultismo()),"0","0","0","0", tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Tasacion",costeTasacion,"0",tableViewCaracteristicas.getItems().get(4).getBonoCaracteristica(),"0","0","0","0","0", tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("V.Magica",costeValoracionMagica,"0",tableViewCaracteristicas.getItems().get(6).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoValoracionMagica()),"0","0","0","0", tNivelTotal.getText()),
+					
+					new PdsHabilidadesSecundarias("Frialdad",costeFrialdad,"0",tableViewCaracteristicas.getItems().get(7).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoFrialdad()),"0","0","0","0", tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("P.Fuerza",costeProezaFuerza,"0",tableViewCaracteristicas.getItems().get(2).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoProezaFuerza()),"0","0","0","0", tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Res.Dolor",costeResistirDolor,"0",tableViewCaracteristicas.getItems().get(7).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoResistirDolor()),"0","0","0","0", tNivelTotal.getText()),
+					
+					new PdsHabilidadesSecundarias("Cerrajeria",String.valueOf(categoriaSeleccionada.getCosteSubterfugio()),"0",tableViewCaracteristicas.getItems().get(3).getBonoCaracteristica(),"0","0","0","0","0", tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Disfraz",costeDisfraz,"0",tableViewCaracteristicas.getItems().get(3).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoDisfraz()),"0","0","0","0", tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Ocultarse",costeOcultarse,"0",tableViewCaracteristicas.getItems().get(5).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoOcultarse()),"0","0","0","0", tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Robo",costeRobo,"0",tableViewCaracteristicas.getItems().get(3).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoRobo()),"0","0","0","0", tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Sigilo",costeSigilo,"0",tableViewCaracteristicas.getItems().get(0).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoSigilo()),"0","0","0","0", tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Tramperia",costeTramperia,"0",tableViewCaracteristicas.getItems().get(3).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoTramperia()),"0","0","0","0", tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Venenos",costeVeneno,"0",tableViewCaracteristicas.getItems().get(4).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoVeneno()),"0","0","0","0", tNivelTotal.getText()),
+					
+					new PdsHabilidadesSecundarias("Arte",String.valueOf(categoriaSeleccionada.getCosteCreativas()),"0",tableViewCaracteristicas.getItems().get(6).getBonoCaracteristica(),"0","0","0","0","0", tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Baile",String.valueOf(categoriaSeleccionada.getCosteCreativas()),"0",tableViewCaracteristicas.getItems().get(1).getBonoCaracteristica(),"0","0","0","0","0", tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Forja",String.valueOf(categoriaSeleccionada.getCosteCreativas()),"0",tableViewCaracteristicas.getItems().get(3).getBonoCaracteristica(),"0","0","0","0","0", tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Runas",String.valueOf(categoriaSeleccionada.getCosteCreativas()),"0",tableViewCaracteristicas.getItems().get(3).getBonoCaracteristica(),"0","0","0","0","0", tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Alquimia",String.valueOf(categoriaSeleccionada.getCosteCreativas()),"0",tableViewCaracteristicas.getItems().get(4).getBonoCaracteristica(),"0","0","0","0","0", tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Animismo",String.valueOf(categoriaSeleccionada.getCosteCreativas()),"0",tableViewCaracteristicas.getItems().get(6).getBonoCaracteristica(),"0","0","0","0","0", tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Musica",String.valueOf(categoriaSeleccionada.getCosteCreativas()),"0",tableViewCaracteristicas.getItems().get(6).getBonoCaracteristica(),"0","0","0","0","0", tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("T.Manos",costeTrucoManos,"0",tableViewCaracteristicas.getItems().get(3).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoTrucoManos()),"0","0","0","0", tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Caligrafia Ritual",String.valueOf(categoriaSeleccionada.getCosteCreativas()),"0",tableViewCaracteristicas.getItems().get(3).getBonoCaracteristica(),"0","0","0","0","0", tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Orfebreria",String.valueOf(categoriaSeleccionada.getCosteCreativas()),"0",tableViewCaracteristicas.getItems().get(3).getBonoCaracteristica(),"0","0","0","0","0", tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Confeccion",String.valueOf(categoriaSeleccionada.getCosteCreativas()),"0",tableViewCaracteristicas.getItems().get(3).getBonoCaracteristica(),"0","0","0","0","0", tNivelTotal.getText()));
+			
+			colPdsSecundariasNombreHabilidad.setCellValueFactory(new PropertyValueFactory<PdsHabilidadesSecundarias, String>("nombreHabilidad"));
+			colPdsSecundariasCosteHabilidad.setCellValueFactory(new PropertyValueFactory<PdsHabilidadesSecundarias, String>("costeHabilidad"));
+			colPdsSecundariasPdsHabilidad.setCellValueFactory(new PropertyValueFactory<PdsHabilidadesSecundarias, String>("pdsHabilidad"));
+			colPdsSecundariasBaseHabilidad.setCellValueFactory(new PropertyValueFactory<PdsHabilidadesSecundarias, String>("baseHabilidad"));
+			colPdsSecundariasBonoHabilidad.setCellValueFactory(new PropertyValueFactory<PdsHabilidadesSecundarias, String>("bonoHabilidad"));
+			colPdsSecundariasCategoriaHabilidad.setCellValueFactory(new PropertyValueFactory<PdsHabilidadesSecundarias, String>("categoriaHabilidad"));
+			colPdsSecundariasEspecialHabilidad.setCellValueFactory(new PropertyValueFactory<PdsHabilidadesSecundarias, String>("especialHabilidad"));
+			colPdsSecundariasBonoNatural.setCellValueFactory(new PropertyValueFactory<PdsHabilidadesSecundarias, String>("bonoNatural"));
+			colPdsSecundariasHabilidadNatural.setCellValueFactory(new PropertyValueFactory<PdsHabilidadesSecundarias, String>("habilidadNatural"));
+			colPdsSecundariasBonoNovel.setCellValueFactory(new PropertyValueFactory<PdsHabilidadesSecundarias, String>("bonoNovel"));
+			colPdsSecundariasTotalHabilidad.setCellValueFactory(new PropertyValueFactory<PdsHabilidadesSecundarias, String>("totalHabilidad"));
+			
+			colPdsSecundariasPdsHabilidad.setCellFactory(TextFieldTableCell.forTableColumn());
+			colPdsSecundariasEspecialHabilidad.setCellFactory(TextFieldTableCell.forTableColumn());
+			colPdsSecundariasBonoNatural.setCellFactory(TextFieldTableCell.forTableColumn());
+			colPdsSecundariasHabilidadNatural.setCellFactory(TextFieldTableCell.forTableColumn());
+			colPdsSecundariasBonoNovel.setCellFactory(TextFieldTableCell.forTableColumn());
+			
+			tableViewSecundarias.setItems(pdsInvertidosSecundarias);
+		} else {
+			ObservableList<PdsHabilidadesSecundarias> pdsInvertidosSecundarias = FXCollections.observableArrayList(
+					new PdsHabilidadesSecundarias("Acrobacias",costeAcrobacias,String.valueOf(personaje.getPdsSecundariasAtleticas().getPdsAcrobacias()),tableViewCaracteristicas.getItems().get(3).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoAcrobacias()),String.valueOf(personaje.getPdsSecundariasAtleticas().getPdsEspAcrobacias()),String.valueOf(personaje.getPdsSecundariasAtleticas().getBonoNaturalAcrobacias()),String.valueOf(personaje.getPdsSecundariasAtleticas().getHabNaturalAcrobacias()),String.valueOf(personaje.getPdsSecundariasAtleticas().getBonoNovelAcrobacias()), tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Atletismo",costeAtletismo,String.valueOf(personaje.getPdsSecundariasAtleticas().getPdsAtletismo()),tableViewCaracteristicas.getItems().get(3).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoAtletismo()),String.valueOf(personaje.getPdsSecundariasAtleticas().getPdsEspAtletismo()),String.valueOf(personaje.getPdsSecundariasAtleticas().getBonoNaturalAtletismo()),String.valueOf(personaje.getPdsSecundariasAtleticas().getHabNaturalAtletismo()),String.valueOf(personaje.getPdsSecundariasAtleticas().getBonoNovelAtletismo()), tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Montar",String.valueOf(categoriaSeleccionada.getCosteAtleticas()),String.valueOf(personaje.getPdsSecundariasAtleticas().getPdsMontar()),tableViewCaracteristicas.getItems().get(3).getBonoCaracteristica(),"0",String.valueOf(personaje.getPdsSecundariasAtleticas().getPdsEspMontar()),String.valueOf(personaje.getPdsSecundariasAtleticas().getBonoNaturalMontar()),String.valueOf(personaje.getPdsSecundariasAtleticas().getHabNaturalMontar()),String.valueOf(personaje.getPdsSecundariasAtleticas().getBonoNovelMontar()), tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Nadar",String.valueOf(categoriaSeleccionada.getCosteAtleticas()),String.valueOf(personaje.getPdsSecundariasAtleticas().getPdsNadar()),tableViewCaracteristicas.getItems().get(3).getBonoCaracteristica(),"0",String.valueOf(personaje.getPdsSecundariasAtleticas().getPdsEspNadar()),String.valueOf(personaje.getPdsSecundariasAtleticas().getBonoNaturalNadar()),String.valueOf(personaje.getPdsSecundariasAtleticas().getHabNaturalNadar()),String.valueOf(personaje.getPdsSecundariasAtleticas().getBonoNovelNadar()), tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Trepar",String.valueOf(categoriaSeleccionada.getCosteAtleticas()),String.valueOf(personaje.getPdsSecundariasAtleticas().getPdsTrepar()),tableViewCaracteristicas.getItems().get(3).getBonoCaracteristica(),"0",String.valueOf(personaje.getPdsSecundariasAtleticas().getPdsEspTrepar()),String.valueOf(personaje.getPdsSecundariasAtleticas().getBonoNaturalTrepar()),String.valueOf(personaje.getPdsSecundariasAtleticas().getHabNaturalTrepar()),String.valueOf(personaje.getPdsSecundariasAtleticas().getBonoNovelTrepar()), tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Saltar",costeSaltar,String.valueOf(personaje.getPdsSecundariasAtleticas().getPdsSaltar()),tableViewCaracteristicas.getItems().get(2).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoSaltar()),String.valueOf(personaje.getPdsSecundariasAtleticas().getPdsEspSaltar()),String.valueOf(personaje.getPdsSecundariasAtleticas().getBonoNaturalSaltar()),String.valueOf(personaje.getPdsSecundariasAtleticas().getHabNaturalSaltar()),String.valueOf(personaje.getPdsSecundariasAtleticas().getBonoNovelSaltar()), tNivelTotal.getText()),
+					
+					new PdsHabilidadesSecundarias("Estilo",costeEstilo,String.valueOf(personaje.getPdsSecundariasSociales().getPdsEstilo()),tableViewCaracteristicas.getItems().get(6).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoEstilo()),String.valueOf(personaje.getPdsSecundariasSociales().getPdsEspEstilo()),String.valueOf(personaje.getPdsSecundariasSociales().getBonoNaturalEstilo()),String.valueOf(personaje.getPdsSecundariasSociales().getHabNaturalEstilo()),String.valueOf(personaje.getPdsSecundariasSociales().getBonoNovelEstilo()), tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Intimidar",costeIntimidar,String.valueOf(personaje.getPdsSecundariasSociales().getPdsIntimidar()),tableViewCaracteristicas.getItems().get(7).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoIntimidar()),String.valueOf(personaje.getPdsSecundariasSociales().getPdsEspIntimidar()),String.valueOf(personaje.getPdsSecundariasSociales().getBonoNaturalIntimidar()),String.valueOf(personaje.getPdsSecundariasSociales().getHabNaturalIntimidar()),String.valueOf(personaje.getPdsSecundariasSociales().getBonoNovelIntimidar()), tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Liderazgo",costeLiderazgo,String.valueOf(personaje.getPdsSecundariasSociales().getPdsLiderazgo()),tableViewCaracteristicas.getItems().get(6).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoLiderazgo()),String.valueOf(personaje.getPdsSecundariasSociales().getPdsEspLiderazgo()),String.valueOf(personaje.getPdsSecundariasSociales().getBonoNaturalLiderazgo()),String.valueOf(personaje.getPdsSecundariasSociales().getHabNaturalLiderazgo()),String.valueOf(personaje.getPdsSecundariasSociales().getBonoNovelLiderazgo()), tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Persuasion",costePersuasion,String.valueOf(personaje.getPdsSecundariasSociales().getPdsPersuasion()),tableViewCaracteristicas.getItems().get(4).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoPersuasion()),String.valueOf(personaje.getPdsSecundariasSociales().getPdsEspPersuasion()),String.valueOf(personaje.getPdsSecundariasSociales().getBonoNaturalPersuasion()),String.valueOf(personaje.getPdsSecundariasSociales().getHabNaturalPersuasion()),String.valueOf(personaje.getPdsSecundariasSociales().getBonoNovelPersuasion()), tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Comercio",String.valueOf(categoriaSeleccionada.getCosteSociales()),String.valueOf(personaje.getPdsSecundariasSociales().getPdsComercio()),tableViewCaracteristicas.getItems().get(4).getBonoCaracteristica(),"0",String.valueOf(personaje.getPdsSecundariasSociales().getPdsEspComercio()),String.valueOf(personaje.getPdsSecundariasSociales().getBonoNaturalComercio()),String.valueOf(personaje.getPdsSecundariasSociales().getHabNaturalComercio()),String.valueOf(personaje.getPdsSecundariasSociales().getBonoNovelComercio()), tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Callejeo",String.valueOf(categoriaSeleccionada.getCosteSociales()),String.valueOf(personaje.getPdsSecundariasSociales().getPdsCallejeo()),tableViewCaracteristicas.getItems().get(4).getBonoCaracteristica(),"0",String.valueOf(personaje.getPdsSecundariasSociales().getPdsEspCallejeo()),String.valueOf(personaje.getPdsSecundariasSociales().getBonoNaturalCallejeo()),String.valueOf(personaje.getPdsSecundariasSociales().getHabNaturalCallejeo()),String.valueOf(personaje.getPdsSecundariasSociales().getBonoNovelCallejeo()), tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Etiqueta",String.valueOf(categoriaSeleccionada.getCosteSociales()),String.valueOf(personaje.getPdsSecundariasSociales().getPdsEtiqueta()),tableViewCaracteristicas.getItems().get(4).getBonoCaracteristica(),"0",String.valueOf(personaje.getPdsSecundariasSociales().getPdsEspEtiqueta()),String.valueOf(personaje.getPdsSecundariasSociales().getBonoNaturalEtiqueta()),String.valueOf(personaje.getPdsSecundariasSociales().getHabNaturalEtiqueta()),String.valueOf(personaje.getPdsSecundariasSociales().getBonoNovelEtiqueta()), tNivelTotal.getText()),
+					
+					new PdsHabilidadesSecundarias("Advertir",costeAdvertir,String.valueOf(personaje.getPdsSecundariasPerceptivas().getPdsAdvertir()),tableViewCaracteristicas.getItems().get(5).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoAdvertir()),String.valueOf(personaje.getPdsSecundariasPerceptivas().getPdsEspAdvertir()),String.valueOf(personaje.getPdsSecundariasPerceptivas().getBonoNaturalAdvertir()),String.valueOf(personaje.getPdsSecundariasPerceptivas().getHabNaturalAdvertir()),String.valueOf(personaje.getPdsSecundariasPerceptivas().getBonoNovelAdvertir()), tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Buscar",costeBuscar,String.valueOf(personaje.getPdsSecundariasPerceptivas().getPdsBuscar()),tableViewCaracteristicas.getItems().get(5).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoBuscar()),String.valueOf(personaje.getPdsSecundariasPerceptivas().getPdsEspBuscar()),String.valueOf(personaje.getPdsSecundariasPerceptivas().getBonoNaturalBuscar()),String.valueOf(personaje.getPdsSecundariasPerceptivas().getHabNaturalBuscar()),String.valueOf(personaje.getPdsSecundariasPerceptivas().getBonoNovelBuscar()), tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Rastrear",costeRastrear,String.valueOf(personaje.getPdsSecundariasPerceptivas().getPdsRastrear()),tableViewCaracteristicas.getItems().get(5).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoRastrear()),String.valueOf(personaje.getPdsSecundariasPerceptivas().getPdsEspRastrear()),String.valueOf(personaje.getPdsSecundariasPerceptivas().getBonoNaturalRastrear()),String.valueOf(personaje.getPdsSecundariasPerceptivas().getHabNaturalRastrear()),String.valueOf(personaje.getPdsSecundariasPerceptivas().getBonoNovelRastrear()), tNivelTotal.getText()),
+					
+					new PdsHabilidadesSecundarias("Animales",costeAnimales,String.valueOf(personaje.getPdsSecundariasIntelectuales().getPdsAnimales()),tableViewCaracteristicas.getItems().get(4).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoAnimales()),String.valueOf(personaje.getPdsSecundariasIntelectuales().getPdsEspAnimales()),String.valueOf(personaje.getPdsSecundariasIntelectuales().getBonoNaturalAnimales()),String.valueOf(personaje.getPdsSecundariasIntelectuales().getHabNaturalAnimales()),String.valueOf(personaje.getPdsSecundariasIntelectuales().getBonoNovelAnimales()), tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Ciencia",String.valueOf(categoriaSeleccionada.getCosteIntelectuales()),String.valueOf(personaje.getPdsSecundariasIntelectuales().getPdsCiencia()),tableViewCaracteristicas.getItems().get(4).getBonoCaracteristica(),"0",String.valueOf(personaje.getPdsSecundariasIntelectuales().getPdsEspCiencia()),String.valueOf(personaje.getPdsSecundariasIntelectuales().getBonoNaturalCiencia()),String.valueOf(personaje.getPdsSecundariasIntelectuales().getHabNaturalCiencia()),String.valueOf(personaje.getPdsSecundariasIntelectuales().getBonoNovelCiencia()), tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Ley",String.valueOf(categoriaSeleccionada.getCosteIntelectuales()),String.valueOf(personaje.getPdsSecundariasIntelectuales().getPdsLey()),tableViewCaracteristicas.getItems().get(4).getBonoCaracteristica(),"0",String.valueOf(personaje.getPdsSecundariasIntelectuales().getPdsEspLey()),String.valueOf(personaje.getPdsSecundariasIntelectuales().getBonoNaturalLey()),String.valueOf(personaje.getPdsSecundariasIntelectuales().getHabNaturalLey()),String.valueOf(personaje.getPdsSecundariasIntelectuales().getBonoNovelLey()), tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Herbolaria",costeHerbolaria,String.valueOf(personaje.getPdsSecundariasIntelectuales().getPdsHerbolaria()),tableViewCaracteristicas.getItems().get(4).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoHerbolaria()),String.valueOf(personaje.getPdsSecundariasIntelectuales().getPdsEspHerbolaria()),String.valueOf(personaje.getPdsSecundariasIntelectuales().getBonoNaturalHerbolaria()),String.valueOf(personaje.getPdsSecundariasIntelectuales().getHabNaturalHerbolaria()),String.valueOf(personaje.getPdsSecundariasIntelectuales().getBonoNovelHerbolaria()), tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Historia",String.valueOf(categoriaSeleccionada.getCosteIntelectuales()),String.valueOf(personaje.getPdsSecundariasIntelectuales().getPdsHistoria()),tableViewCaracteristicas.getItems().get(4).getBonoCaracteristica(),"0",String.valueOf(personaje.getPdsSecundariasIntelectuales().getPdsEspHistoria()),String.valueOf(personaje.getPdsSecundariasIntelectuales().getBonoNaturalHistoria()),String.valueOf(personaje.getPdsSecundariasIntelectuales().getHabNaturalHistoria()),String.valueOf(personaje.getPdsSecundariasIntelectuales().getBonoNovelHistoria()), tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Tactica",String.valueOf(categoriaSeleccionada.getCosteIntelectuales()),String.valueOf(personaje.getPdsSecundariasIntelectuales().getPdsTactica()),tableViewCaracteristicas.getItems().get(4).getBonoCaracteristica(),"0",String.valueOf(personaje.getPdsSecundariasIntelectuales().getPdsEspTactica()),String.valueOf(personaje.getPdsSecundariasIntelectuales().getBonoNaturalTactica()),String.valueOf(personaje.getPdsSecundariasIntelectuales().getHabNaturalTactica()),String.valueOf(personaje.getPdsSecundariasIntelectuales().getBonoNovelTactica()), tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Medicina",String.valueOf(categoriaSeleccionada.getCosteIntelectuales()),String.valueOf(personaje.getPdsSecundariasIntelectuales().getPdsMedicina()),tableViewCaracteristicas.getItems().get(4).getBonoCaracteristica(),"0",String.valueOf(personaje.getPdsSecundariasIntelectuales().getPdsEspMedicina()),String.valueOf(personaje.getPdsSecundariasIntelectuales().getBonoNaturalMedicina()),String.valueOf(personaje.getPdsSecundariasIntelectuales().getHabNaturalMedicina()),String.valueOf(personaje.getPdsSecundariasIntelectuales().getBonoNovelMedicina()), tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Memorizar",costeMemorizar,String.valueOf(personaje.getPdsSecundariasIntelectuales().getPdsMemorizar()),tableViewCaracteristicas.getItems().get(4).getBonoCaracteristica(),"0",String.valueOf(personaje.getPdsSecundariasIntelectuales().getPdsEspMemorizar()),String.valueOf(personaje.getPdsSecundariasIntelectuales().getBonoNaturalMemorizar()),String.valueOf(personaje.getPdsSecundariasIntelectuales().getHabNaturalMemorizar()),String.valueOf(personaje.getPdsSecundariasIntelectuales().getBonoNovelMemorizar()), tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Navegacion",String.valueOf(categoriaSeleccionada.getCosteIntelectuales()),String.valueOf(personaje.getPdsSecundariasIntelectuales().getPdsNavegacion()),tableViewCaracteristicas.getItems().get(4).getBonoCaracteristica(),"0",String.valueOf(personaje.getPdsSecundariasIntelectuales().getPdsEspNavegacion()),String.valueOf(personaje.getPdsSecundariasIntelectuales().getBonoNaturalNavegacion()),String.valueOf(personaje.getPdsSecundariasIntelectuales().getHabNaturalNavegacion()),String.valueOf(personaje.getPdsSecundariasIntelectuales().getBonoNovelNavegacion()), tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Ocultismo",costeOcultismo,String.valueOf(personaje.getPdsSecundariasIntelectuales().getPdsOcultismo()),tableViewCaracteristicas.getItems().get(4).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoOcultismo()),String.valueOf(personaje.getPdsSecundariasIntelectuales().getPdsEspOcultismo()),String.valueOf(personaje.getPdsSecundariasIntelectuales().getBonoNaturalOcultismo()),String.valueOf(personaje.getPdsSecundariasIntelectuales().getHabNaturalOcultismo()),String.valueOf(personaje.getPdsSecundariasIntelectuales().getBonoNovelOcultismo()), tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Tasacion",costeTasacion,String.valueOf(personaje.getPdsSecundariasIntelectuales().getPdsTasacion()),tableViewCaracteristicas.getItems().get(4).getBonoCaracteristica(),"0",String.valueOf(personaje.getPdsSecundariasIntelectuales().getPdsEspTasacion()),String.valueOf(personaje.getPdsSecundariasIntelectuales().getBonoNaturalTasacion()),String.valueOf(personaje.getPdsSecundariasIntelectuales().getHabNaturalTasacion()),String.valueOf(personaje.getPdsSecundariasIntelectuales().getBonoNovelTasacion()), tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("V.Magica",costeValoracionMagica,String.valueOf(personaje.getPdsSecundariasIntelectuales().getPdsValoracionMagica()),tableViewCaracteristicas.getItems().get(6).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoValoracionMagica()),String.valueOf(personaje.getPdsSecundariasIntelectuales().getPdsEspValoracionMagica()),String.valueOf(personaje.getPdsSecundariasIntelectuales().getBonoNaturalValoracionMagica()),String.valueOf(personaje.getPdsSecundariasIntelectuales().getHabNaturalValoracionMagica()),String.valueOf(personaje.getPdsSecundariasIntelectuales().getBonoNovelValoracionMagica()), tNivelTotal.getText()),
+					
+					new PdsHabilidadesSecundarias("Frialdad",costeFrialdad,String.valueOf(personaje.getPdsSecundariasVigor().getPdsFrialdad()),tableViewCaracteristicas.getItems().get(7).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoFrialdad()),String.valueOf(personaje.getPdsSecundariasVigor().getPdsEspFrialdad()),String.valueOf(personaje.getPdsSecundariasVigor().getBonoNaturalFrialdad()),String.valueOf(personaje.getPdsSecundariasVigor().getHabNaturalFrialdad()),String.valueOf(personaje.getPdsSecundariasVigor().getBonoNovelFrialdad()), tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("P.Fuerza",costeProezaFuerza,String.valueOf(personaje.getPdsSecundariasVigor().getPdsProezaFuerza()),tableViewCaracteristicas.getItems().get(2).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoProezaFuerza()),String.valueOf(personaje.getPdsSecundariasVigor().getPdsEspProezaFuerza()),String.valueOf(personaje.getPdsSecundariasVigor().getBonoNaturalProezaFuerza()),String.valueOf(personaje.getPdsSecundariasVigor().getHabNaturalProezaFuerza()),String.valueOf(personaje.getPdsSecundariasVigor().getBonoNovelProezaFuerza()), tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Res.Dolor",costeResistirDolor,String.valueOf(personaje.getPdsSecundariasVigor().getPdsResistirDolor()),tableViewCaracteristicas.getItems().get(7).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoResistirDolor()),String.valueOf(personaje.getPdsSecundariasVigor().getPdsEspResistirDolor()),String.valueOf(personaje.getPdsSecundariasVigor().getBonoNaturalResistirDolor()),String.valueOf(personaje.getPdsSecundariasVigor().getHabNaturalResistirDolor()),String.valueOf(personaje.getPdsSecundariasVigor().getBonoNovelResistirDolor()), tNivelTotal.getText()),
+					
+					new PdsHabilidadesSecundarias("Cerrajeria",String.valueOf(categoriaSeleccionada.getCosteSubterfugio()),String.valueOf(personaje.getPdsSecundariasSubterfugio().getPdsCerrajeria()),tableViewCaracteristicas.getItems().get(3).getBonoCaracteristica(),"0",String.valueOf(personaje.getPdsSecundariasSubterfugio().getPdsEspCerrajeria()),String.valueOf(personaje.getPdsSecundariasSubterfugio().getBonoNaturalCerrajeria()),String.valueOf(personaje.getPdsSecundariasSubterfugio().getHabNaturalCerrajeria()),String.valueOf(personaje.getPdsSecundariasSubterfugio().getBonoNovelCerrajeria()), tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Disfraz",costeDisfraz,String.valueOf(personaje.getPdsSecundariasSubterfugio().getPdsDisfraz()),tableViewCaracteristicas.getItems().get(3).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoDisfraz()), String.valueOf(personaje.getPdsSecundariasSubterfugio().getPdsEspDisfraz()),String.valueOf(personaje.getPdsSecundariasSubterfugio().getBonoNaturalDisfraz()),String.valueOf(personaje.getPdsSecundariasSubterfugio().getHabNaturalDisfraz()),String.valueOf(personaje.getPdsSecundariasSubterfugio().getBonoNovelDisfraz()), tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Ocultarse",costeOcultarse,String.valueOf(personaje.getPdsSecundariasSubterfugio().getPdsOcultarse()),tableViewCaracteristicas.getItems().get(5).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoOcultarse()), String.valueOf(personaje.getPdsSecundariasSubterfugio().getPdsEspOcultarse()),String.valueOf(personaje.getPdsSecundariasSubterfugio().getBonoNaturalOcultarse()),String.valueOf(personaje.getPdsSecundariasSubterfugio().getHabNaturalOcultarse()),String.valueOf(personaje.getPdsSecundariasSubterfugio().getBonoNovelOcultarse()), tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Robo",costeRobo,String.valueOf(personaje.getPdsSecundariasSubterfugio().getPdsRobo()),tableViewCaracteristicas.getItems().get(3).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoRobo()),String.valueOf(personaje.getPdsSecundariasSubterfugio().getPdsEspRobo()),String.valueOf(personaje.getPdsSecundariasSubterfugio().getBonoNaturalRobo()),String.valueOf(personaje.getPdsSecundariasSubterfugio().getHabNaturalRobo()),String.valueOf(personaje.getPdsSecundariasSubterfugio().getBonoNovelRobo()), tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Sigilo",costeSigilo,String.valueOf(personaje.getPdsSecundariasSubterfugio().getPdsSigilo()),tableViewCaracteristicas.getItems().get(0).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoSigilo()),String.valueOf(personaje.getPdsSecundariasSubterfugio().getPdsEspSigilo()),String.valueOf(personaje.getPdsSecundariasSubterfugio().getBonoNaturalSigilo()),String.valueOf(personaje.getPdsSecundariasSubterfugio().getHabNaturalSigilo()),String.valueOf(personaje.getPdsSecundariasSubterfugio().getBonoNovelSigilo()), tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Tramperia",costeTramperia,String.valueOf(personaje.getPdsSecundariasSubterfugio().getPdsTramperia()),tableViewCaracteristicas.getItems().get(3).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoTramperia()),String.valueOf(personaje.getPdsSecundariasSubterfugio().getPdsEspTramperia()),String.valueOf(personaje.getPdsSecundariasSubterfugio().getBonoNaturalTramperia()),String.valueOf(personaje.getPdsSecundariasSubterfugio().getHabNaturalTramperia()),String.valueOf(personaje.getPdsSecundariasSubterfugio().getBonoNovelTramperia()), tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Venenos",costeVeneno,String.valueOf(personaje.getPdsSecundariasSubterfugio().getPdsVenenos()),tableViewCaracteristicas.getItems().get(4).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoVeneno()),String.valueOf(personaje.getPdsSecundariasSubterfugio().getPdsEspVenenos()),String.valueOf(personaje.getPdsSecundariasSubterfugio().getBonoNaturalVenenos()),String.valueOf(personaje.getPdsSecundariasSubterfugio().getHabNaturalVenenos()),String.valueOf(personaje.getPdsSecundariasSubterfugio().getBonoNovelVenenos()), tNivelTotal.getText()),
+					
+					new PdsHabilidadesSecundarias("Arte",String.valueOf(categoriaSeleccionada.getCosteCreativas()),String.valueOf(personaje.getPdsSecundariasCreativas().getPdsArte()),tableViewCaracteristicas.getItems().get(6).getBonoCaracteristica(),"0","0",String.valueOf(personaje.getPdsSecundariasCreativas().getBonoNaturalAlquimia()),String.valueOf(personaje.getPdsSecundariasCreativas().getHabNaturalAlquimia()),String.valueOf(personaje.getPdsSecundariasCreativas().getBonoNovelArte()), tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Baile",String.valueOf(categoriaSeleccionada.getCosteCreativas()),String.valueOf(personaje.getPdsSecundariasCreativas().getPdsBaile()),tableViewCaracteristicas.getItems().get(1).getBonoCaracteristica(),"0","0",String.valueOf(personaje.getPdsSecundariasCreativas().getBonoNaturalBaile()),String.valueOf(personaje.getPdsSecundariasCreativas().getHabNaturalBaile()),String.valueOf(personaje.getPdsSecundariasCreativas().getBonoNovelBaile()), tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Forja",String.valueOf(categoriaSeleccionada.getCosteCreativas()),String.valueOf(personaje.getPdsSecundariasCreativas().getPdsForja()),tableViewCaracteristicas.getItems().get(3).getBonoCaracteristica(),"0","0",String.valueOf(personaje.getPdsSecundariasCreativas().getBonoNaturalForja()),String.valueOf(personaje.getPdsSecundariasCreativas().getHabNaturalForja()),String.valueOf(personaje.getPdsSecundariasCreativas().getBonoNovelForja()), tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Runas",String.valueOf(categoriaSeleccionada.getCosteCreativas()),String.valueOf(personaje.getPdsSecundariasCreativas().getPdsRunas()),tableViewCaracteristicas.getItems().get(3).getBonoCaracteristica(),"0","0",String.valueOf(personaje.getPdsSecundariasCreativas().getBonoNaturalRunas()),String.valueOf(personaje.getPdsSecundariasCreativas().getHabNaturalRunas()),String.valueOf(personaje.getPdsSecundariasCreativas().getBonoNovelRunas()), tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Alquimia",String.valueOf(categoriaSeleccionada.getCosteCreativas()),String.valueOf(personaje.getPdsSecundariasCreativas().getPdsAlquimia()),tableViewCaracteristicas.getItems().get(4).getBonoCaracteristica(),"0","0",String.valueOf(personaje.getPdsSecundariasCreativas().getBonoNaturalAlquimia()),String.valueOf(personaje.getPdsSecundariasCreativas().getHabNaturalAlquimia()),String.valueOf(personaje.getPdsSecundariasCreativas().getBonoNovelAlquimia()), tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Animismo",String.valueOf(categoriaSeleccionada.getCosteCreativas()),String.valueOf(personaje.getPdsSecundariasCreativas().getPdsAnimismo()),tableViewCaracteristicas.getItems().get(6).getBonoCaracteristica(),"0","0",String.valueOf(personaje.getPdsSecundariasCreativas().getBonoNaturalAnimismo()),String.valueOf(personaje.getPdsSecundariasCreativas().getHabNaturalAnimismo()),String.valueOf(personaje.getPdsSecundariasCreativas().getBonoNovelAnimismo()), tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Musica",String.valueOf(categoriaSeleccionada.getCosteCreativas()),String.valueOf(personaje.getPdsSecundariasCreativas().getPdsMusica()),tableViewCaracteristicas.getItems().get(6).getBonoCaracteristica(),"0","0",String.valueOf(personaje.getPdsSecundariasCreativas().getBonoNaturalMusica()),String.valueOf(personaje.getPdsSecundariasCreativas().getHabNaturalMusica()),String.valueOf(personaje.getPdsSecundariasCreativas().getBonoNovelMusica()), tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("T.Manos",costeTrucoManos,String.valueOf(personaje.getPdsSecundariasCreativas().getPdsTrucoManos()),tableViewCaracteristicas.getItems().get(3).getBonoCaracteristica(),String.valueOf(categoriaSeleccionada.getBonoTrucoManos()),"0",String.valueOf(personaje.getPdsSecundariasCreativas().getBonoNaturalTrucoManos()),String.valueOf(personaje.getPdsSecundariasCreativas().getHabNaturalTrucoManos()),String.valueOf(personaje.getPdsSecundariasCreativas().getBonoNovelTrucoManos()), tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Caligrafia Ritual",String.valueOf(categoriaSeleccionada.getCosteCreativas()),String.valueOf(personaje.getPdsSecundariasCreativas().getPdsCaligrafiaRitual()),tableViewCaracteristicas.getItems().get(3).getBonoCaracteristica(),"0","0",String.valueOf(personaje.getPdsSecundariasCreativas().getBonoNaturalCaligrafiaRitual()),String.valueOf(personaje.getPdsSecundariasCreativas().getHabNaturalCaligrafiaRitual()),String.valueOf(personaje.getPdsSecundariasCreativas().getBonoNovelCaligrafiaRitual()), tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Orfebreria",String.valueOf(categoriaSeleccionada.getCosteCreativas()),String.valueOf(personaje.getPdsSecundariasCreativas().getPdsOrfebreria()),tableViewCaracteristicas.getItems().get(3).getBonoCaracteristica(),"0","0",String.valueOf(personaje.getPdsSecundariasCreativas().getBonoNaturalOrfebreria()),String.valueOf(personaje.getPdsSecundariasCreativas().getHabNaturalOrfebreria()),String.valueOf(personaje.getPdsSecundariasCreativas().getBonoNovelOrfebreria()), tNivelTotal.getText()),
+					new PdsHabilidadesSecundarias("Confeccion",String.valueOf(categoriaSeleccionada.getCosteCreativas()),String.valueOf(personaje.getPdsSecundariasCreativas().getPdsConfeccion()),tableViewCaracteristicas.getItems().get(3).getBonoCaracteristica(),"0","0",String.valueOf(personaje.getPdsSecundariasCreativas().getBonoNaturalConfeccion()),String.valueOf(personaje.getPdsSecundariasCreativas().getHabNaturalConfeccion()),String.valueOf(personaje.getPdsSecundariasCreativas().getBonoNovelConfeccion()), tNivelTotal.getText()));
+			
+			colPdsSecundariasNombreHabilidad.setCellValueFactory(new PropertyValueFactory<PdsHabilidadesSecundarias, String>("nombreHabilidad"));
+			colPdsSecundariasCosteHabilidad.setCellValueFactory(new PropertyValueFactory<PdsHabilidadesSecundarias, String>("costeHabilidad"));
+			colPdsSecundariasPdsHabilidad.setCellValueFactory(new PropertyValueFactory<PdsHabilidadesSecundarias, String>("pdsHabilidad"));
+			colPdsSecundariasBaseHabilidad.setCellValueFactory(new PropertyValueFactory<PdsHabilidadesSecundarias, String>("baseHabilidad"));
+			colPdsSecundariasBonoHabilidad.setCellValueFactory(new PropertyValueFactory<PdsHabilidadesSecundarias, String>("bonoHabilidad"));
+			colPdsSecundariasCategoriaHabilidad.setCellValueFactory(new PropertyValueFactory<PdsHabilidadesSecundarias, String>("categoriaHabilidad"));
+			colPdsSecundariasEspecialHabilidad.setCellValueFactory(new PropertyValueFactory<PdsHabilidadesSecundarias, String>("especialHabilidad"));
+			colPdsSecundariasBonoNatural.setCellValueFactory(new PropertyValueFactory<PdsHabilidadesSecundarias, String>("bonoNatural"));
+			colPdsSecundariasHabilidadNatural.setCellValueFactory(new PropertyValueFactory<PdsHabilidadesSecundarias, String>("habilidadNatural"));
+			colPdsSecundariasBonoNovel.setCellValueFactory(new PropertyValueFactory<PdsHabilidadesSecundarias, String>("bonoNovel"));
+			colPdsSecundariasTotalHabilidad.setCellValueFactory(new PropertyValueFactory<PdsHabilidadesSecundarias, String>("totalHabilidad"));
+			
+			colPdsSecundariasPdsHabilidad.setCellFactory(TextFieldTableCell.forTableColumn());
+			colPdsSecundariasEspecialHabilidad.setCellFactory(TextFieldTableCell.forTableColumn());
+			colPdsSecundariasBonoNatural.setCellFactory(TextFieldTableCell.forTableColumn());
+			colPdsSecundariasHabilidadNatural.setCellFactory(TextFieldTableCell.forTableColumn());
+			colPdsSecundariasBonoNovel.setCellFactory(TextFieldTableCell.forTableColumn());
+			
+			tableViewSecundarias.setItems(pdsInvertidosSecundarias);
+		}
 		
-		colPdsSecundariasPdsHabilidad.setCellFactory(TextFieldTableCell.forTableColumn());
-		colPdsSecundariasEspecialHabilidad.setCellFactory(TextFieldTableCell.forTableColumn());
-		colPdsSecundariasBonoNatural.setCellFactory(TextFieldTableCell.forTableColumn());
-		colPdsSecundariasHabilidadNatural.setCellFactory(TextFieldTableCell.forTableColumn());
-		colPdsSecundariasBonoNovel.setCellFactory(TextFieldTableCell.forTableColumn());
-		
-		tableViewSecundarias.setItems(pdsInvertidosSecundarias);
 	}
 	
 	public void obtenerTablaResumenAtleticas() {
@@ -3899,11 +4366,11 @@ public class PersonajeController {
 		pdsSecundariasAtleticas.setHabNaturalMontar(Integer.parseInt(tableViewSecundarias.getItems().get(2).getHabilidadNatural()));
 		pdsSecundariasAtleticas.setBonoNovelMontar(Integer.parseInt(tableViewSecundarias.getItems().get(2).getBonoNovel()));
 		
-		pdsSecundariasAtleticas.setPdsTrepar(Integer.parseInt(tableViewSecundarias.getItems().get(3).getPdsHabilidad()));
-		pdsSecundariasAtleticas.setPdsEspTrepar(Integer.parseInt(tableViewSecundarias.getItems().get(3).getEspecialHabilidad()));
-		pdsSecundariasAtleticas.setBonoNaturalTrepar(Integer.parseInt(tableViewSecundarias.getItems().get(3).getBonoNatural()));
-		pdsSecundariasAtleticas.setHabNaturalTrepar(Integer.parseInt(tableViewSecundarias.getItems().get(3).getHabilidadNatural()));
-		pdsSecundariasAtleticas.setBonoNovelTrepar(Integer.parseInt(tableViewSecundarias.getItems().get(3).getBonoNovel()));
+		pdsSecundariasAtleticas.setPdsNadar(Integer.parseInt(tableViewSecundarias.getItems().get(3).getPdsHabilidad()));
+		pdsSecundariasAtleticas.setPdsEspNadar(Integer.parseInt(tableViewSecundarias.getItems().get(3).getEspecialHabilidad()));
+		pdsSecundariasAtleticas.setBonoNaturalNadar(Integer.parseInt(tableViewSecundarias.getItems().get(3).getBonoNatural()));
+		pdsSecundariasAtleticas.setHabNaturalNadar(Integer.parseInt(tableViewSecundarias.getItems().get(3).getHabilidadNatural()));
+		pdsSecundariasAtleticas.setBonoNovelNadar(Integer.parseInt(tableViewSecundarias.getItems().get(3).getBonoNovel()));
 		
 		pdsSecundariasAtleticas.setPdsTrepar(Integer.parseInt(tableViewSecundarias.getItems().get(4).getPdsHabilidad()));
 		pdsSecundariasAtleticas.setPdsEspTrepar(Integer.parseInt(tableViewSecundarias.getItems().get(4).getEspecialHabilidad()));
@@ -4180,20 +4647,6 @@ public class PersonajeController {
 		pdsSecundariasCreativas.setBonoNovelOrfebreria(Integer.parseInt(tableViewSecundarias.getItems().get(47).getBonoNovel()));
 		pdsSecundariasCreativas.setBonoNovelConfeccion(Integer.parseInt(tableViewSecundarias.getItems().get(48).getBonoNovel()));
 
-
-		/*
-		Arma armaPersonaje1 = new Arma();
-		armaPersonaje1.set(tableviewArmaSeleccionada1.getItems().get(0).getArmaSeleccionada());
-		
-		Arma armaPersonaje2 = new Arma();
-		armaPersonaje2.setArma(tableviewArmaSeleccionada2.getItems().get(1).getArmaSeleccionada());
-
-		Arma armaPersonaje3 = new Arma();
-		armaPersonaje3.setArma(tableviewArmaSeleccionada3.getItems().get(2).getArmaSeleccionada());
-
-		Arma armaPersonaje4 = new Arma();
-		armaPersonaje4.setArma(tableviewArmaSeleccionada4.getItems().get(3).getArmaSeleccionada());
-		*/
 		
 		Set<Arma> armas = new HashSet<Arma>();
 		armas.add(tableviewArmaSeleccionada1.getItems().get(0).getArmaSeleccionada());

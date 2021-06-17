@@ -58,7 +58,7 @@ public class PrincipalController {
 				String nivel = String.valueOf(personaje.getNivel());
 				String categoria = personaje.getCategoria().getNombre();
 				String raza = personaje.getRaza().getNombre();
-				tablaPersonaje = new TablaPersonajes(personaje.getIdPersonaje(),nombre, nivel, categoria, raza);
+				tablaPersonaje = new TablaPersonajes(personaje.getIdPersonaje(),nombre, nivel, raza, categoria);
 				tablaPersonajes.add(tablaPersonaje);
 				
 			}

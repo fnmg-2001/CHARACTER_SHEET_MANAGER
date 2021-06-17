@@ -752,6 +752,8 @@ public class ConsultasHibernate {
 			query.setParameter("idPersonaje", idPersonaje);
 			personaje = (Personaje)query.getSingleResult();
 		
+			session.delete(personaje.getCaracteristicas());
+			
 			session.delete(personaje.getPdsPrimariasComunes());
 			
 			session.delete(personaje.getPdsPrimariasKi());
