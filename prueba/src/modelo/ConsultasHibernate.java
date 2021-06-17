@@ -842,7 +842,7 @@ public class ConsultasHibernate {
 		}
 	}
 	
-	public int insertarPersonaje(SessionFactory sessionFactory, Personaje personaje, PdsPrimariasComunes pdsPrimariasComunes, 
+	public int insertarPersonaje(SessionFactory sessionFactory, Personaje personaje, Caracteristicas caracteristicas, PdsPrimariasComunes pdsPrimariasComunes, 
 			PdsPrimariasKi pdsPrimariasKi, PdsPrimariasMisticas pdsPrimariasMisticas, PdsPrimariasPsiquicas pdsPrimariasPsiquicas, 
 			PdsSecundariasAtleticas pdsSecundariasAtleticas, PdsSecundariasSociales pdsSecundariasSociales, PdsSecundariasCreativas pdsSecundariasCreativas, 
 			PdsSecundariasIntelectuales pdsSecundariasIntelectuales, PdsSecundariasPerceptivas pdsSecundariasPerceptivas, PdsSecundariasSubterfugio pdsSecundariasSubterfugio, 
@@ -888,6 +888,10 @@ public class ConsultasHibernate {
 			session.save(nuevoPersonaje);
 			
 			idPersonaje = nuevoPersonaje.getIdPersonaje();
+			
+			
+			caracteristicas.setPersonaje(nuevoPersonaje);
+			session.save(caracteristicas);
 			
 			pdsPrimariasComunes.setPersonaje(nuevoPersonaje);
 			pdsPrimariasComunes.setIdPersonaje(idPersonaje);

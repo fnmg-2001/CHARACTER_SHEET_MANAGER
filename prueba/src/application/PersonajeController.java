@@ -304,14 +304,13 @@ public class PersonajeController {
 		ObservableList<String> nombreConjurosLibreAcceso = ch.listaConjurosLibreAcceso(sessionFactory);
 		ObservableList<String> nombreTablaPsiquico = FXCollections.observableArrayList();
 		ObservableList<String> nombresPoderesPsiquicos = ch.listaPoderesPsiquicos(sessionFactory);
-		nombreTablaPsiquico.add("");
-		nombreTablaPsiquico.add("Tabla de Proyeccion Psiquica");
 		acPrincipalHabilidadesSecundarias.setExpandedPane(tpAtleticas);
 		acPds.setExpandedPane(tpPdsCombate);
 		acTablasCombate.setExpandedPane(tpTablasEstilos);
 		
+
 		/*------------------------------------------------------Tabla Caracteristicas------------------------------------------------------*/
-		obtenerTablaCaracteristicas();
+		obtenerTablaCaracteristicas(personaje);
 		
 		/*------------------------------------------------------Tabla Resistencias------------------------------------------------------*/
 		obtenerTablaResistencias();
@@ -420,7 +419,6 @@ public class PersonajeController {
 		tCvTotales.setText(tableViewPsiquicas.getItems().get(0).getTotalHabilidad());
 		tProyeccionPsiquicaAtaque.setText(tableViewPsiquicas.getItems().get(1).getTotalHabilidad());
 		tProyeccionPsiquicaDefensa.setText(tableViewPsiquicas.getItems().get(1).getTotalHabilidad());
-		cNombreTablaPsiquico.setItems(nombreTablaPsiquico);
 	}
 	
 	public void cambiarBase (TableColumn.CellEditEvent<CaracteristicaSeleccionada, String> cellEditEvent) {
@@ -1553,37 +1551,51 @@ public class PersonajeController {
 		tableviewArmaSeleccionada4.refresh();
 	}
 	
-	public void obtenerTablaCaracteristicas() {
-		int puntosCaracteristica=0;
-		ObservableList<CaracteristicaSeleccionada> caracteristicas = FXCollections.observableArrayList(
-				new CaracteristicaSeleccionada("AGI","0","0",razaSeleccionada.getBonoAgilidad()),
-				new CaracteristicaSeleccionada("CON","0","0",razaSeleccionada.getBonoConstitucion()),
-				new CaracteristicaSeleccionada("FUE","0","0",razaSeleccionada.getBonoFuerza()),
-				new CaracteristicaSeleccionada("DES","0","0",razaSeleccionada.getBonoDestreza()),
-				new CaracteristicaSeleccionada("INT","0","0",razaSeleccionada.getBonoPercepcion()),
-				new CaracteristicaSeleccionada("PER","0","0",razaSeleccionada.getBonoPercepcion()),
-				new CaracteristicaSeleccionada("POD","0","0",razaSeleccionada.getBonoPoder()),
-				new CaracteristicaSeleccionada("VOL","0","0",razaSeleccionada.getBonoVoluntad()));
-		
-		colPuntos.setCellValueFactory(new PropertyValueFactory<CaracteristicaSeleccionada, String>("nombreCaracteristica"));
-		colBase.setCellValueFactory(new PropertyValueFactory<CaracteristicaSeleccionada, String>("baseCaracteristica"));
-		colTemp.setCellValueFactory(new PropertyValueFactory<CaracteristicaSeleccionada, String>("tempCaracteristica"));
-		colTotal.setCellValueFactory(new PropertyValueFactory<CaracteristicaSeleccionada, String>("totalCaracteristica"));
-		colBono.setCellValueFactory(new PropertyValueFactory<CaracteristicaSeleccionada, String>("bonoCaracteristica"));
-		
-		for (CaracteristicaSeleccionada caracteristicaSeleccionada : caracteristicas) {
-			if (Integer.parseInt(caracteristicaSeleccionada.getTotalCaracteristica())>=10) {
-				puntosCaracteristica = puntosCaracteristica + (Integer.parseInt(caracteristicaSeleccionada.getTotalCaracteristica())+1);
-			}else {
-				puntosCaracteristica = puntosCaracteristica + Integer.parseInt(caracteristicaSeleccionada.getTotalCaracteristica());
-			}
+	public void obtenerTablaCaracteristicas(Personaje personaje2) {
+		if (null==personaje.getNombre()) {
+			ObservableList<CaracteristicaSeleccionada> caracteristicas = FXCollections.observableArrayList(
+					new CaracteristicaSeleccionada("AGI","0","0",razaSeleccionada.getBonoAgilidad()),
+					new CaracteristicaSeleccionada("CON","0","0",razaSeleccionada.getBonoConstitucion()),
+					new CaracteristicaSeleccionada("FUE","0","0",razaSeleccionada.getBonoFuerza()),
+					new CaracteristicaSeleccionada("DES","0","0",razaSeleccionada.getBonoDestreza()),
+					new CaracteristicaSeleccionada("INT","0","0",razaSeleccionada.getBonoPercepcion()),
+					new CaracteristicaSeleccionada("PER","0","0",razaSeleccionada.getBonoPercepcion()),
+					new CaracteristicaSeleccionada("POD","0","0",razaSeleccionada.getBonoPoder()),
+					new CaracteristicaSeleccionada("VOL","0","0",razaSeleccionada.getBonoVoluntad()));
 			
+			colPuntos.setCellValueFactory(new PropertyValueFactory<CaracteristicaSeleccionada, String>("nombreCaracteristica"));
+			colBase.setCellValueFactory(new PropertyValueFactory<CaracteristicaSeleccionada, String>("baseCaracteristica"));
+			colTemp.setCellValueFactory(new PropertyValueFactory<CaracteristicaSeleccionada, String>("tempCaracteristica"));
+			colTotal.setCellValueFactory(new PropertyValueFactory<CaracteristicaSeleccionada, String>("totalCaracteristica"));
+			colBono.setCellValueFactory(new PropertyValueFactory<CaracteristicaSeleccionada, String>("bonoCaracteristica"));
+
+			
+			colBase.setCellFactory(TextFieldTableCell.forTableColumn());
+			colTemp.setCellFactory(TextFieldTableCell.forTableColumn());
+			tableViewCaracteristicas.setItems(caracteristicas);
+		} else {
+			ObservableList<CaracteristicaSeleccionada> caracteristicas = FXCollections.observableArrayList(
+					new CaracteristicaSeleccionada("AGI",String.valueOf(personaje.getCaracteristicas().getAgilidad()),String.valueOf(personaje.getCaracteristicas().getAgilidadTemporal()),razaSeleccionada.getBonoAgilidad()),
+					new CaracteristicaSeleccionada("CON",String.valueOf(personaje.getCaracteristicas().getConstitucion()),String.valueOf(personaje.getCaracteristicas().getConstitucion()),razaSeleccionada.getBonoConstitucion()),
+					new CaracteristicaSeleccionada("FUE",String.valueOf(personaje.getCaracteristicas().getFuerza()),String.valueOf(personaje.getCaracteristicas().getFuerzaTemporal()),razaSeleccionada.getBonoFuerza()),
+					new CaracteristicaSeleccionada("DES",String.valueOf(personaje.getCaracteristicas().getDestreza()),String.valueOf(personaje.getCaracteristicas().getDestrezaTemporal()),razaSeleccionada.getBonoDestreza()),
+					new CaracteristicaSeleccionada("INT",String.valueOf(personaje.getCaracteristicas().getInteligencia()),String.valueOf(personaje.getCaracteristicas().getInteligenciaTemporal()),razaSeleccionada.getBonoPercepcion()),
+					new CaracteristicaSeleccionada("PER",String.valueOf(personaje.getCaracteristicas().getPercepcion()),String.valueOf(personaje.getCaracteristicas().getPercepcionTemporal()),razaSeleccionada.getBonoPercepcion()),
+					new CaracteristicaSeleccionada("POD",String.valueOf(personaje.getCaracteristicas().getPoder()),String.valueOf(personaje.getCaracteristicas().getPoderTemporal()),razaSeleccionada.getBonoPoder()),
+					new CaracteristicaSeleccionada("VOL",String.valueOf(personaje.getCaracteristicas().getVoluntad()),String.valueOf(personaje.getCaracteristicas().getVoluntadTemporal()),razaSeleccionada.getBonoVoluntad()));
+			
+			colPuntos.setCellValueFactory(new PropertyValueFactory<CaracteristicaSeleccionada, String>("nombreCaracteristica"));
+			colBase.setCellValueFactory(new PropertyValueFactory<CaracteristicaSeleccionada, String>("baseCaracteristica"));
+			colTemp.setCellValueFactory(new PropertyValueFactory<CaracteristicaSeleccionada, String>("tempCaracteristica"));
+			colTotal.setCellValueFactory(new PropertyValueFactory<CaracteristicaSeleccionada, String>("totalCaracteristica"));
+			colBono.setCellValueFactory(new PropertyValueFactory<CaracteristicaSeleccionada, String>("bonoCaracteristica"));
+
+			
+			colBase.setCellFactory(TextFieldTableCell.forTableColumn());
+			colTemp.setCellFactory(TextFieldTableCell.forTableColumn());
+			tableViewCaracteristicas.setItems(caracteristicas);
 		}
-		
-		colBase.setCellFactory(TextFieldTableCell.forTableColumn());
-		colTemp.setCellFactory(TextFieldTableCell.forTableColumn());
-		colPuntos.setText(puntosCaracteristica+".pts");
-		tableViewCaracteristicas.setItems(caracteristicas);
+
 	}
 	
 	public void obtenerTablaResistencias() {
@@ -1607,6 +1619,11 @@ public class PersonajeController {
 	}
 	
 	public void obtenerTablaVentajas(ObservableList<String> nombreVentajas) {
+		if (null==personaje.getNombre()) {
+			
+		} else {
+			
+		}
 		ComboBox<String> cVentajas = new ComboBox<String>();
 		cVentajas.setItems(nombreVentajas);
 		ComboBox<String> cVentajas2 = new ComboBox<String>();
@@ -4492,7 +4509,7 @@ public class PersonajeController {
 		personajeNuevo.setNivel(Integer.parseInt(tNivelTotal.getText()));
 		
 		
-		int idPersonaje = ch.insertarPersonaje(sessionFactory, personajeNuevo, pdsPrimariasComunes, pdsPrimariasKi, pdsPrimariasMisticas, pdsPrimariasPsiquicas,
+		int idPersonaje = ch.insertarPersonaje(sessionFactory, personajeNuevo, caracteristicas, pdsPrimariasComunes, pdsPrimariasKi, pdsPrimariasMisticas, pdsPrimariasPsiquicas,
 				pdsSecundariasAtleticas, pdsSecundariasSociales, pdsSecundariasCreativas, pdsSecundariasIntelectuales, pdsSecundariasPerceptivas, pdsSecundariasSubterfugio, 
 				pdsSecundariasVigor, ventajas, desventajas, armas, armaduras, tablaArteMarcial, tablaConjurosLibreAcceso, tablaPoderesPsiquicos, tablaEstilos);
 		

@@ -150,19 +150,15 @@
                         </Pane>
                         <Pane fx:id="pHabilidadesCombate" layoutX="34.0" layoutY="329.0" prefHeight="290.0" prefWidth="405.0">
                            <children>
-                              <Label alignment="CENTER" prefHeight="35.0" prefWidth="405.0" styleClass="labelPersonaje" text="HABILIDADES DE COMBATE" />
-                              <Label alignment="CENTER" layoutX="1.0" layoutY="41.0" prefHeight="27.0" prefWidth="161.0" styleClass="labelSubPersonaje" text="HA. DE ATAQUE" />
-                              <TextField fx:id="tHabilidadAtaque" alignment="CENTER" editable="false" layoutX="1.0" layoutY="68.0" prefHeight="31.0" prefWidth="160.0" />
-                              <Label alignment="CENTER" layoutX="1.0" layoutY="103.0" prefHeight="27.0" prefWidth="161.0" styleClass="labelSubPersonaje" text="HA. DE DEFENSA" />
-                              <TextField fx:id="tHabilidadDefensa" alignment="CENTER" editable="false" layoutX="2.0" layoutY="130.0" prefHeight="31.0" prefWidth="160.0" />
-                              <Label alignment="CENTER" layoutY="167.0" prefHeight="27.0" prefWidth="160.0" styleClass="labelSubPersonaje" text="LL. ARMADURA" />
-                              <TextField fx:id="tLlevarArmadura" alignment="CENTER" editable="false" layoutY="194.0" prefHeight="31.0" prefWidth="160.0" />
-                              <Label alignment="CENTER" layoutY="233.0" prefHeight="27.0" prefWidth="404.0" styleClass="labelSubPersonaje" text="ARMA DESARROLLADA" />
-                              <TextField alignment="CENTER" layoutY="260.0" prefHeight="31.0" prefWidth="404.0" />
-                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="242.0" layoutY="58.0" prefHeight="27.0" prefWidth="162.0" styleClass="labelSubPersonaje" text=" MODIFICADORES" />
-                              <TextField alignment="CENTER" layoutX="243.0" layoutY="85.0" prefHeight="31.0" prefWidth="162.0" />
-                              <Label alignment="CENTER" layoutX="245.0" layoutY="128.0" prefHeight="27.0" prefWidth="159.0" styleClass="labelSubPersonaje" text="ACCIONES/TURNO" />
-                              <TextField fx:id="tAccionesTurno" alignment="CENTER" editable="false" layoutX="245.0" layoutY="155.0" prefHeight="31.0" prefWidth="160.0" text="0" />
+                              <Label alignment="CENTER" layoutY="33.0" prefHeight="35.0" prefWidth="405.0" styleClass="labelPersonaje" text="HABILIDADES DE COMBATE" />
+                              <Label alignment="CENTER" layoutX="1.0" layoutY="74.0" prefHeight="27.0" prefWidth="161.0" styleClass="labelSubPersonaje" text="HA. DE ATAQUE" />
+                              <TextField fx:id="tHabilidadAtaque" alignment="CENTER" editable="false" layoutX="1.0" layoutY="101.0" prefHeight="31.0" prefWidth="160.0" />
+                              <Label alignment="CENTER" layoutX="1.0" layoutY="136.0" prefHeight="27.0" prefWidth="161.0" styleClass="labelSubPersonaje" text="HA. DE DEFENSA" />
+                              <TextField fx:id="tHabilidadDefensa" alignment="CENTER" editable="false" layoutX="2.0" layoutY="163.0" prefHeight="31.0" prefWidth="160.0" />
+                              <Label alignment="CENTER" layoutY="200.0" prefHeight="27.0" prefWidth="160.0" styleClass="labelSubPersonaje" text="LL. ARMADURA" />
+                              <TextField fx:id="tLlevarArmadura" alignment="CENTER" editable="false" layoutY="227.0" prefHeight="31.0" prefWidth="160.0" />
+                              <Label alignment="CENTER" layoutX="245.0" layoutY="161.0" prefHeight="27.0" prefWidth="159.0" styleClass="labelSubPersonaje" text="ACCIONES/TURNO" />
+                              <TextField fx:id="tAccionesTurno" alignment="CENTER" editable="false" layoutX="245.0" layoutY="188.0" prefHeight="31.0" prefWidth="160.0" text="0" />
                            </children>
                         </Pane>
                         <Pane fx:id="pCansancio" layoutX="34.0" layoutY="637.0" prefHeight="161.0" prefWidth="405.0">
@@ -704,21 +700,20 @@
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <Label layoutX="43.0" layoutY="22.0" prefHeight="30.0" prefWidth="401.0" styleClass="labelPersonaje" text="CONSUMOS DE VOLUNTAD TOTALES" />
-                  <TextField fx:id="tCvTotales" alignment="CENTER" layoutX="43.0" layoutY="52.0" prefHeight="31.0" prefWidth="401.0" />
-                  <Label layoutX="43.0" layoutY="105.0" prefHeight="30.0" prefWidth="401.0" styleClass="labelPersonaje" text="POTENCIAL PSIQUICO" />
-                  <TextField fx:id="tPotencialTotal" alignment="CENTER" layoutX="43.0" layoutY="174.0" prefHeight="31.0" prefWidth="238.0" text="0" />
-                  <Label layoutX="43.0" layoutY="144.0" prefHeight="30.0" prefWidth="239.0" styleClass="labelSubPersonaje" text="POTENCIAL TOTAL" />
-                  <TextField fx:id="tCvUsado" alignment="CENTER" layoutX="293.0" layoutY="174.0" onKeyReleased="#cambiarValorCvUsado" prefHeight="31.0" prefWidth="150.0" text="0" />
-                  <Label layoutX="293.0" layoutY="144.0" prefHeight="30.0" prefWidth="151.0" styleClass="labelSubPersonaje" text="CV USADO" />
-                  <Label layoutX="50.0" layoutY="232.0" prefHeight="30.0" prefWidth="394.0" styleClass="labelPersonaje" text="PROYECCION PSIQUICA" />
-                  <TextField fx:id="tProyeccionPsiquicaAtaque" alignment="CENTER" editable="false" layoutX="50.0" layoutY="303.0" prefHeight="31.0" prefWidth="170.0" />
-                  <TextField fx:id="tProyeccionPsiquicaDefensa" alignment="CENTER" editable="false" layoutX="273.0" layoutY="304.0" prefHeight="31.0" prefWidth="170.0" />
-                  <Label layoutX="50.0" layoutY="270.0" prefHeight="30.0" prefWidth="170.0" styleClass="labelSubPersonaje" text="ATAQUE" />
-                  <Label layoutX="273.0" layoutY="271.0" prefHeight="30.0" prefWidth="170.0" styleClass="labelSubPersonaje" text="DEFENSA" />
-                  <Label layoutX="47.0" layoutY="608.0" prefHeight="30.0" prefWidth="394.0" styleClass="labelPersonaje" text="TABLA PSIQUICO" />
-                  <Label layoutX="50.0" layoutY="351.0" prefHeight="30.0" prefWidth="394.0" styleClass="labelPersonaje" text="CONCENTRACION" />
-                  <TableView fx:id="tableViewConcentracion" layoutX="50.0" layoutY="381.0" prefHeight="200.0" prefWidth="394.0">
+                  <Label layoutX="43.0" layoutY="58.0" prefHeight="30.0" prefWidth="401.0" styleClass="labelPersonaje" text="CONSUMOS DE VOLUNTAD TOTALES" />
+                  <TextField fx:id="tCvTotales" alignment="CENTER" layoutX="43.0" layoutY="88.0" prefHeight="31.0" prefWidth="401.0" />
+                  <Label layoutX="43.0" layoutY="171.0" prefHeight="30.0" prefWidth="401.0" styleClass="labelPersonaje" text="POTENCIAL PSIQUICO" />
+                  <TextField fx:id="tPotencialTotal" alignment="CENTER" layoutX="43.0" layoutY="240.0" prefHeight="31.0" prefWidth="238.0" text="0" />
+                  <Label layoutX="43.0" layoutY="210.0" prefHeight="30.0" prefWidth="239.0" styleClass="labelSubPersonaje" text="POTENCIAL TOTAL" />
+                  <TextField fx:id="tCvUsado" alignment="CENTER" layoutX="293.0" layoutY="240.0" onKeyReleased="#cambiarValorCvUsado" prefHeight="31.0" prefWidth="150.0" text="0" />
+                  <Label layoutX="293.0" layoutY="210.0" prefHeight="30.0" prefWidth="151.0" styleClass="labelSubPersonaje" text="CV USADO" />
+                  <Label layoutX="50.0" layoutY="334.0" prefHeight="30.0" prefWidth="394.0" styleClass="labelPersonaje" text="PROYECCION PSIQUICA" />
+                  <TextField fx:id="tProyeccionPsiquicaAtaque" alignment="CENTER" editable="false" layoutX="50.0" layoutY="405.0" prefHeight="31.0" prefWidth="170.0" />
+                  <TextField fx:id="tProyeccionPsiquicaDefensa" alignment="CENTER" editable="false" layoutX="273.0" layoutY="406.0" prefHeight="31.0" prefWidth="170.0" />
+                  <Label layoutX="50.0" layoutY="372.0" prefHeight="30.0" prefWidth="170.0" styleClass="labelSubPersonaje" text="ATAQUE" />
+                  <Label layoutX="273.0" layoutY="373.0" prefHeight="30.0" prefWidth="170.0" styleClass="labelSubPersonaje" text="DEFENSA" />
+                  <Label layoutX="50.0" layoutY="464.0" prefHeight="30.0" prefWidth="394.0" styleClass="labelPersonaje" text="CONCENTRACION" />
+                  <TableView fx:id="tableViewConcentracion" layoutX="50.0" layoutY="494.0" prefHeight="200.0" prefWidth="394.0">
                     <columns>
                       <TableColumn fx:id="colPreparacionConcentracion" prefWidth="193.0" text="PREPARACION" />
                       <TableColumn fx:id="colBonoPotencialConcentracion" prefWidth="196.0" text="BONO POTENCIAL" />
@@ -732,12 +727,6 @@
                       <TableColumn fx:id="colNivelPoderesMentales" prefWidth="70.0" text="NIVEL" />
                     </columns>
                   </TableView>
-                  <ComboBox fx:id="cNombreTablaPsiquico" layoutX="48.0" layoutY="681.0" onAction="#seleccionarCTablaPsiquico" prefHeight="31.0" prefWidth="197.0" />
-                  <TextField fx:id="tCosteTablaPsiquico" alignment="CENTER" layoutX="247.0" layoutY="681.0" prefHeight="31.0" prefWidth="99.0" text="0" />
-                  <TextField fx:id="tPdsTablaPsiquico" alignment="CENTER" layoutX="349.0" layoutY="681.0" prefHeight="31.0" prefWidth="92.0" text="0" />
-                  <Label layoutX="48.0" layoutY="651.0" prefHeight="30.0" prefWidth="196.0" styleClass="labelSubPersonaje" text="NOMBRE" />
-                  <Label layoutX="248.0" layoutY="651.0" prefHeight="30.0" prefWidth="98.0" styleClass="labelSubPersonaje" text="COSTE" />
-                  <Label layoutX="348.0" layoutY="651.0" prefHeight="30.0" prefWidth="92.0" styleClass="labelSubPersonaje" text="PDS" />
                </children></AnchorPane>
       </content>
     </Tab>
