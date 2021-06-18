@@ -175,7 +175,7 @@
                         <Pane fx:id="pResistencias" layoutX="33.0" layoutY="824.0" prefHeight="251.0" prefWidth="407.0">
                            <children>
                               <Label alignment="CENTER" prefHeight="35.0" prefWidth="406.0" styleClass="labelPersonaje" text="RESISTENCIAS" />
-                              <TableView fx:id="tableViewResistencias" editable="true" layoutY="35.0" prefHeight="192.0" prefWidth="408.0">
+                              <TableView fx:id="tableViewResistencias" editable="true" layoutY="35.0" prefHeight="210.0" prefWidth="408.0">
                                 <columns>
                                   <TableColumn fx:id="colNombreResistencias" prefWidth="98.0" sortable="false" />
                                   <TableColumn fx:id="colResistenciasBase" prefWidth="47.0" sortable="false" text="BASE" />
@@ -192,14 +192,14 @@
                               <Label alignment="CENTER" prefHeight="35.0" prefWidth="648.0" styleClass="labelPersonaje" text="PUNTOS DE CREACION" />
                               <TableView fx:id="tableViewVentaja" editable="true" layoutY="38.0" prefHeight="253.0" prefWidth="326.0">
                                 <columns>
-                                  <TableColumn fx:id="colVentajaNombre" prefWidth="253.0" text="VENTAJA" />
-                                  <TableColumn fx:id="colVentajaCoste" minWidth="0.0" prefWidth="68.0" text="COSTE" />
+                                  <TableColumn fx:id="colVentajaNombre" prefWidth="246.0" text="VENTAJA" />
+                                  <TableColumn fx:id="colVentajaCoste" minWidth="0.0" prefWidth="60.0" text="COSTE" />
                                 </columns>
                               </TableView>
-                              <TableView fx:id="tableViewDesventaja" editable="true" layoutX="326.0" layoutY="38.0" prefHeight="196.0" prefWidth="323.0">
+                              <TableView fx:id="tableViewDesventaja" editable="true" layoutX="327.0" layoutY="38.0" prefHeight="196.0" prefWidth="323.0">
                                 <columns>
-                                  <TableColumn fx:id="colDesventajaNombre" prefWidth="231.0" text="DESVENTAJA" />
-                                  <TableColumn fx:id="colDesventajaBeneficio" prefWidth="84.0" text="BENEFICIO" />
+                                  <TableColumn fx:id="colDesventajaNombre" prefWidth="224.0" text="DESVENTAJA" />
+                                  <TableColumn fx:id="colDesventajaBeneficio" prefWidth="82.0" text="BENEFICIO" />
                                 </columns>
                               </TableView>
                               <Label alignment="CENTER" layoutX="326.0" layoutY="233.0" prefHeight="27.0" prefWidth="324.0" styleClass="labelSubPersonaje" text="PUNTOS RESTANTES" />
@@ -309,7 +309,7 @@
                                                    <columns>
                                                       <TableColumn fx:id="colNombreSecundariaCreativas" prefWidth="329.0" text="HABILIDAD" />
                                                       <TableColumn fx:id="colPenalizadorSecundariaCreativas" prefWidth="310.0" text="PEN.NATURAL" visible="false" />
-                                                      <TableColumn fx:id="colTotalSecundariaCreativas" prefWidth="205.0" text="TOTAL" />
+                                                      <TableColumn fx:id="colTotalSecundariaCreativas" prefWidth="310.0" text="TOTAL" />
                                                    </columns>
                                                 </TableView>
                                              </children>
@@ -479,7 +479,7 @@
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <TableView fx:id="tableViewArmaduras" layoutX="14.0" layoutY="41.0" prefHeight="67.0" prefWidth="1173.0">
+                  <TableView fx:id="tableViewArmaduras" layoutX="14.0" layoutY="41.0" prefHeight="74.0" prefWidth="1173.0">
                     <columns>
                       <TableColumn fx:id="colArmaduraNombre" prefWidth="199.0" text="ARMADURA" />
                         <TableColumn fx:id="colArmaduraFilo" minWidth="3.0" prefWidth="44.0" text="FILO" />
@@ -499,7 +499,7 @@
                   <Pane layoutX="14.0" layoutY="144.0" prefHeight="121.0" prefWidth="556.0">
                      <children>
                         <ComboBox fx:id="cBoxNombreArma1" layoutX="238.0" layoutY="2.0" onAction="#cambiarArmaSeleccionada" prefHeight="30.0" prefWidth="316.0" promptText="Arma" />
-                        <TableView fx:id="tableviewArmaSeleccionada1" layoutY="33.0" prefHeight="59.0" prefWidth="553.0">
+                        <TableView fx:id="tableviewArmaSeleccionada1" layoutY="33.0" prefHeight="64.0" prefWidth="553.0">
                           <columns>
                             <TableColumn fx:id="colCritico1Arma1" prefWidth="82.0" text="CRITICO 1" />
                             <TableColumn fx:id="colCritico2Arma1" prefWidth="85.0" text="CRITICO 2" />
@@ -557,7 +557,7 @@
                   <Pane layoutX="14.0" layoutY="472.0" prefHeight="121.0" prefWidth="555.0">
                      <children>
                         <ComboBox fx:id="cBoxNombreArma3" layoutX="238.0" layoutY="2.0" onAction="#cambiarArmaSeleccionada" prefHeight="33.0" prefWidth="316.0" promptText="Arma" />
-                        <TableView fx:id="tableviewArmaSeleccionada3" layoutY="35.0" prefHeight="59.0" prefWidth="554.0">
+                        <TableView fx:id="tableviewArmaSeleccionada3" layoutY="35.0" prefHeight="64.0" prefWidth="554.0">
                            <columns>
                               <TableColumn fx:id="colCritico1Arma3" prefWidth="82.0" text="CRITICO 1" />
                               <TableColumn fx:id="colCritico2Arma3" prefWidth="85.0" text="CRITICO 2" />
@@ -577,7 +577,7 @@
                   <Pane layoutX="15.0" layoutY="309.0" prefHeight="121.0" prefWidth="555.0">
                      <children>
                         <ComboBox fx:id="cBoxNombreArma2" layoutX="237.0" layoutY="2.0" onAction="#cambiarArmaSeleccionada" prefHeight="30.0" prefWidth="317.0" promptText="Arma" />
-                        <TableView fx:id="tableviewArmaSeleccionada2" layoutY="33.0" prefHeight="59.0" prefWidth="554.0">
+                        <TableView fx:id="tableviewArmaSeleccionada2" layoutY="33.0" prefHeight="64.0" prefWidth="554.0">
                            <columns>
                               <TableColumn fx:id="colCritico1Arma2" prefWidth="82.0" text="CRITICO 1" />
                               <TableColumn fx:id="colCritico2Arma2" prefWidth="85.0" text="CRITICO 2" />
@@ -595,7 +595,7 @@
                   <Pane layoutX="15.0" layoutY="636.0" prefHeight="121.0" prefWidth="555.0">
                      <children>
                         <ComboBox fx:id="cBoxNombreArma4" layoutX="238.0" layoutY="2.0" onAction="#cambiarArmaSeleccionada" prefHeight="33.0" prefWidth="316.0" promptText="Arma" />
-                        <TableView fx:id="tableviewArmaSeleccionada4" layoutY="35.0" prefHeight="59.0" prefWidth="554.0">
+                        <TableView fx:id="tableviewArmaSeleccionada4" layoutY="35.0" prefHeight="64.0" prefWidth="554.0">
                            <columns>
                               <TableColumn fx:id="colCritico1Arma4" prefWidth="82.0" text="CRITICO 1" />
                               <TableColumn fx:id="colCritico2Arma4" prefWidth="85.0" text="CRITICO 2" />
