@@ -93,6 +93,7 @@ public class PersonajeController {
 	NivelClase nivelClase;
 	PotencialPsiquico potencialPsiquico;
 	Personaje personaje;
+	String direccionImagen;
 	
 	@FXML
 	ImageView imagenChar, iD10Apariencia;
@@ -440,6 +441,33 @@ public class PersonajeController {
 		tCvTotales.setText(tableViewPsiquicas.getItems().get(0).getTotalHabilidad());
 		tProyeccionPsiquicaAtaque.setText(tableViewPsiquicas.getItems().get(1).getTotalHabilidad());
 		tProyeccionPsiquicaDefensa.setText(tableViewPsiquicas.getItems().get(1).getTotalHabilidad());
+		if (null!=personaje.getImagen()) {
+			this.direccionImagen = personaje.getImagen();
+            Image image = new Image("file:" + direccionImagen);
+            imagenChar.setImage(image);
+		}
+		if (null!=personaje.getNombre()) {
+			tNombre.setText(personaje.getNombre());
+			tApariencia.setText(String.valueOf(personaje.getApariencia()));
+			tEtniaGeneral.setText(personaje.getEtnia());
+			tRegion.setText(personaje.getOrigen());
+			tEdad.setText(String.valueOf(personaje.getEdad()));
+			tAreaContactos.setText(personaje.getContactos());
+			tAreaEquipoCombate.setText(personaje.getEquipoCombate());
+			tAreaEquipoVariado.setText(personaje.getEquipoVariado());
+			tAreaTitulosPosesiones.setText(personaje.getTitulosPosesiones());
+			tAreaVestimenta.setText(personaje.getVestimentaAccesorios());
+			tAreaJoyas.setText(personaje.getJoyas());
+			tAreaHistoria.setText(personaje.getHistoria());
+			tAreaObjetivos.setText(personaje.getObjetivos());
+			tAreaParticularidades.setText(personaje.getParticularidades());
+			tAreaPersonalidad.setText(personaje.getDescripcion());
+			tDineroOro.setText(personaje.getMonedasOro());
+			tDineroPlata.setText(personaje.getMonedasPlata());
+			tDineroCobre.setText(personaje.getMonedasCobre());
+			tNombre.setEditable(false);
+		}
+		
 	}
 	
 	public void cambiarBase (TableColumn.CellEditEvent<CaracteristicaSeleccionada, String> cellEditEvent) {
@@ -2792,6 +2820,11 @@ public class PersonajeController {
 	
 	public void obtenerTablaArma(ObservableList<String> nombreArmas ) {
 		valorTextFieldTurnoTotal();
+				
+		ArrayList<String> nombreSetArmas = new ArrayList<String>();
+		for (Arma arma : personaje.getArmas()) {
+			nombreSetArmas.add(arma.getNombre());
+		}
 		
 		cBoxNombreArma1.setItems(nombreArmas);
 		cBoxNombreArma2.setItems(nombreArmas);
@@ -2834,6 +2867,21 @@ public class PersonajeController {
 		tableviewArmaSeleccionada1.setItems(armaSeleccionada1);
 		
 
+		
+		if (0 < nombreSetArmas.size()) {
+			if (nombreSetArmas.get(0)!=null) {
+				cBoxNombreArma1.setValue(nombreSetArmas.get(0));
+				/*armaSeleccionada1.get(0).setArmaSeleccionada(ch.obtenerArma(sessionFactory, cBoxNombreArma1.getSelectionModel().getSelectedItem()), tableViewCombate.getItems().get(0).getTotalHabilidad(), tableViewCaracteristicas.getItems().get(2).getBonoCaracteristica(), String.valueOf(Integer.parseInt(tTurnoTotal.getText())-Integer.parseInt("20")));*/
+				tableviewArmaSeleccionada1.getItems().get(0).setArmaSeleccionada(ch.obtenerArma(sessionFactory, cBoxNombreArma1.getSelectionModel().getSelectedItem()), 
+						tableViewCombate.getItems().get(0).getTotalHabilidad(), 
+						tableViewCaracteristicas.getItems().get(2).getBonoCaracteristica(),
+						String.valueOf(Integer.parseInt(tTurnoTotal.getText())-Integer.parseInt("20")));
+				tTipoArma1.setText(tableviewArmaSeleccionada1.getItems().get(0).getTipoArma());
+				tRasgoArma1.setText(tableviewArmaSeleccionada1.getItems().get(0).getRasgo());
+				tableviewArmaSeleccionada1.refresh();
+			}
+		}
+
 		/*Si no tiene armas seleccionadas Lista 2*/
 		if ("null".equals(cBoxNombreArma2.getSelectionModel().getSelectedItem())||
 				cBoxNombreArma2.getSelectionModel().isEmpty()||
@@ -2866,6 +2914,22 @@ public class PersonajeController {
 		
 		tableviewArmaSeleccionada2.setItems(armaSeleccionada2);
 		
+
+		
+		if (1 < nombreSetArmas.size()) {
+			if (nombreSetArmas.get(1)!=null) {
+				cBoxNombreArma2.setValue(nombreSetArmas.get(1));
+				/*armaSeleccionada1.get(0).setArmaSeleccionada(ch.obtenerArma(sessionFactory, cBoxNombreArma1.getSelectionModel().getSelectedItem()), tableViewCombate.getItems().get(0).getTotalHabilidad(), tableViewCaracteristicas.getItems().get(2).getBonoCaracteristica(), String.valueOf(Integer.parseInt(tTurnoTotal.getText())-Integer.parseInt("20")));*/
+				tableviewArmaSeleccionada2.getItems().get(0).setArmaSeleccionada(ch.obtenerArma(sessionFactory, cBoxNombreArma2.getSelectionModel().getSelectedItem()), 
+						tableViewCombate.getItems().get(0).getTotalHabilidad(), 
+						tableViewCaracteristicas.getItems().get(2).getBonoCaracteristica(),
+						String.valueOf(Integer.parseInt(tTurnoTotal.getText())-Integer.parseInt("20")));
+				tTipoArma2.setText(tableviewArmaSeleccionada2.getItems().get(0).getTipoArma());
+				tRasgoArma2.setText(tableviewArmaSeleccionada2.getItems().get(0).getRasgo());
+				tableviewArmaSeleccionada2.refresh();
+			}
+		}
+		
 		/*Si no tiene armas seleccionadas Lista 3*/
 		if ("null".equals(cBoxNombreArma3.getSelectionModel().getSelectedItem())||
 				cBoxNombreArma3.getSelectionModel().isEmpty()||
@@ -2887,6 +2951,7 @@ public class PersonajeController {
 							tTurnoTotal.getText()));
 		}
 		
+		
 		colCritico1Arma3.setCellValueFactory(new PropertyValueFactory<ArmaSeleccionada, String>("critico1"));
 		colCritico2Arma3.setCellValueFactory(new PropertyValueFactory<ArmaSeleccionada, String>("critico2"));
 		colEnterezaArma3.setCellValueFactory(new PropertyValueFactory<ArmaSeleccionada, String>("entereza"));
@@ -2896,7 +2961,21 @@ public class PersonajeController {
 		colDañoArma3.setCellValueFactory(new PropertyValueFactory<ArmaSeleccionada, String>("daño"));
 		
 		tableviewArmaSeleccionada3.setItems(armaSeleccionada3);
+
 		
+		if (2 < nombreSetArmas.size()) {
+			if (nombreSetArmas.get(2)!=null) {
+				cBoxNombreArma3.setValue(nombreSetArmas.get(2));
+				/*armaSeleccionada1.get(0).setArmaSeleccionada(ch.obtenerArma(sessionFactory, cBoxNombreArma1.getSelectionModel().getSelectedItem()), tableViewCombate.getItems().get(0).getTotalHabilidad(), tableViewCaracteristicas.getItems().get(2).getBonoCaracteristica(), String.valueOf(Integer.parseInt(tTurnoTotal.getText())-Integer.parseInt("20")));*/
+				tableviewArmaSeleccionada2.getItems().get(0).setArmaSeleccionada(ch.obtenerArma(sessionFactory, cBoxNombreArma3.getSelectionModel().getSelectedItem()), 
+						tableViewCombate.getItems().get(0).getTotalHabilidad(), 
+						tableViewCaracteristicas.getItems().get(2).getBonoCaracteristica(),
+						String.valueOf(Integer.parseInt(tTurnoTotal.getText())-Integer.parseInt("20")));
+				tTipoArma3.setText(tableviewArmaSeleccionada2.getItems().get(0).getTipoArma());
+				tRasgoArma3.setText(tableviewArmaSeleccionada2.getItems().get(0).getRasgo());
+				tableviewArmaSeleccionada3.refresh();
+			}
+		}
 
 		/*Si no tiene armas seleccionadas Lista 4*/
 		if ("null".equals(cBoxNombreArma4.getSelectionModel().getSelectedItem())||
@@ -2919,6 +2998,7 @@ public class PersonajeController {
 							tTurnoTotal.getText()));
 		}
 		
+		
 		colCritico1Arma4.setCellValueFactory(new PropertyValueFactory<ArmaSeleccionada, String>("critico1"));
 		colCritico2Arma4.setCellValueFactory(new PropertyValueFactory<ArmaSeleccionada, String>("critico2"));
 		colEnterezaArma4.setCellValueFactory(new PropertyValueFactory<ArmaSeleccionada, String>("entereza"));
@@ -2928,51 +3008,134 @@ public class PersonajeController {
 		colDañoArma4.setCellValueFactory(new PropertyValueFactory<ArmaSeleccionada, String>("daño"));
 		
 		tableviewArmaSeleccionada4.setItems(armaSeleccionada4);
+		
+		if (3 < nombreSetArmas.size()) {
+			if (nombreSetArmas.get(3)!=null) {
+				cBoxNombreArma4.setValue(nombreSetArmas.get(3));
+				/*armaSeleccionada1.get(0).setArmaSeleccionada(ch.obtenerArma(sessionFactory, cBoxNombreArma1.getSelectionModel().getSelectedItem()), tableViewCombate.getItems().get(0).getTotalHabilidad(), tableViewCaracteristicas.getItems().get(2).getBonoCaracteristica(), String.valueOf(Integer.parseInt(tTurnoTotal.getText())-Integer.parseInt("20")));*/
+				tableviewArmaSeleccionada4.getItems().get(0).setArmaSeleccionada(ch.obtenerArma(sessionFactory, cBoxNombreArma4.getSelectionModel().getSelectedItem()), 
+						tableViewCombate.getItems().get(0).getTotalHabilidad(), 
+						tableViewCaracteristicas.getItems().get(2).getBonoCaracteristica(),
+						String.valueOf(Integer.parseInt(tTurnoTotal.getText())-Integer.parseInt("20")));
+				tTipoArma4.setText(tableviewArmaSeleccionada4.getItems().get(0).getTipoArma());
+				tRasgoArma4.setText(tableviewArmaSeleccionada4.getItems().get(0).getRasgo());
+				tableviewArmaSeleccionada4.refresh();
+			}
+		}
 	}
 	
 	public void obtenerTablaArmadura(ObservableList<String> nombreArmaduras) {
-		ComboBox<String> cArmaduras = new ComboBox<String>();
-		cArmaduras.setItems(nombreArmaduras);
-		cArmaduras.setPrefWidth(colArmaduraNombre.getPrefWidth());
-		
-		ObservableList<ArmaduraSeleccionada> armadurasSeleccionadas = FXCollections.observableArrayList(
-				new ArmaduraSeleccionada(cArmaduras,"-","-","-","-","-","-","-","-","-","-"));
-		
-		cArmaduras.setOnAction(new EventHandler<ActionEvent>() {
+		if (null==personaje.getNombre()) {
+			ComboBox<String> cArmaduras = new ComboBox<String>();
+			cArmaduras.setItems(nombreArmaduras);
+			cArmaduras.setPrefWidth(colArmaduraNombre.getPrefWidth());
+
+			ObservableList<ArmaduraSeleccionada> armadurasSeleccionadas = FXCollections.observableArrayList(
+					new ArmaduraSeleccionada(cArmaduras,"-","-","-","-","-","-","-","-","-","-"));
+
 			
-			@Override
-			public void handle(ActionEvent event) {
-				Armadura armadura = ch.obtenerArmadura(sessionFactory, cArmaduras.getSelectionModel().getSelectedItem());
-				ArmaduraSeleccionada armaduraSeleccionada = armadurasSeleccionadas.get(0);
-				armaduraSeleccionada.setFilo(String.valueOf(armadura.getTipoArmaduraFilo()));
-				armaduraSeleccionada.setContundente(String.valueOf(armadura.getTipoArmaduraFilo()));
-				armaduraSeleccionada.setPenetrante(String.valueOf(armadura.getTipoArmaduraPenetrante()));
-				armaduraSeleccionada.setCalor(String.valueOf(armadura.getTipoArmaduraCalor()));
-				armaduraSeleccionada.setElectrico(String.valueOf(armadura.getTipoArmaduraElectrico()));
-				armaduraSeleccionada.setFrio(String.valueOf(armadura.getTipoArmaduraFrio()));
-				armaduraSeleccionada.setEnergia(String.valueOf(armadura.getTipoArmaduraEnergia()));
-				armaduraSeleccionada.setEntereza(String.valueOf(armadura.getEntereza()));
-				armaduraSeleccionada.setRequisito(String.valueOf(armadura.getRequisitoNecesario()));
-				armaduraSeleccionada.setPenalizadorNatural(String.valueOf(armadura.getPenalizadorNatural()));
-				tableViewArmaduras.refresh();
+			cArmaduras.setOnAction(new EventHandler<ActionEvent>() {
 				
+				@Override
+				public void handle(ActionEvent event) {
+					Armadura armadura = ch.obtenerArmadura(sessionFactory, cArmaduras.getSelectionModel().getSelectedItem());
+					ArmaduraSeleccionada armaduraSeleccionada = armadurasSeleccionadas.get(0);
+					armaduraSeleccionada.setFilo(String.valueOf(armadura.getTipoArmaduraFilo()));
+					armaduraSeleccionada.setContundente(String.valueOf(armadura.getTipoArmaduraFilo()));
+					armaduraSeleccionada.setPenetrante(String.valueOf(armadura.getTipoArmaduraPenetrante()));
+					armaduraSeleccionada.setCalor(String.valueOf(armadura.getTipoArmaduraCalor()));
+					armaduraSeleccionada.setElectrico(String.valueOf(armadura.getTipoArmaduraElectrico()));
+					armaduraSeleccionada.setFrio(String.valueOf(armadura.getTipoArmaduraFrio()));
+					armaduraSeleccionada.setEnergia(String.valueOf(armadura.getTipoArmaduraEnergia()));
+					armaduraSeleccionada.setEntereza(String.valueOf(armadura.getEntereza()));
+					armaduraSeleccionada.setRequisito(String.valueOf(armadura.getRequisitoNecesario()));
+					armaduraSeleccionada.setPenalizadorNatural(String.valueOf(armadura.getPenalizadorNatural()));
+					tableViewArmaduras.refresh();
+					
+				}
+			});
+			
+			
+			colArmaduraNombre.setCellValueFactory(new PropertyValueFactory<ArmaduraSeleccionada, ComboBox<String>>("nombreArmadura"));
+			colArmaduraFilo.setCellValueFactory(new PropertyValueFactory<ArmaduraSeleccionada, String>("filo"));
+			colArmaduraContundente.setCellValueFactory(new PropertyValueFactory<ArmaduraSeleccionada, String>("contundente"));
+			colArmaduraPenetrante.setCellValueFactory(new PropertyValueFactory<ArmaduraSeleccionada, String>("penetrante"));
+			colArmaduraCalor.setCellValueFactory(new PropertyValueFactory<ArmaduraSeleccionada, String>("calor"));
+			colArmaduraElectrico.setCellValueFactory(new PropertyValueFactory<ArmaduraSeleccionada, String>("electrico"));
+			colArmaduraFrio.setCellValueFactory(new PropertyValueFactory<ArmaduraSeleccionada, String>("frio"));
+			colArmaduraEnergia.setCellValueFactory(new PropertyValueFactory<ArmaduraSeleccionada, String>("energia"));
+			colArmaduraEntereza.setCellValueFactory(new PropertyValueFactory<ArmaduraSeleccionada, String>("entereza"));
+			colArmaduraRequisito.setCellValueFactory(new PropertyValueFactory<ArmaduraSeleccionada, String>("requisito"));
+			colArmaduraPenalizacionNatural.setCellValueFactory(new PropertyValueFactory<ArmaduraSeleccionada, String>("penalizadorNatural"));
+			
+			tableViewArmaduras.setItems(armadurasSeleccionadas);
+		}else {
+			ComboBox<String> cArmaduras = new ComboBox<String>();
+			cArmaduras.setItems(nombreArmaduras);
+			cArmaduras.setPrefWidth(colArmaduraNombre.getPrefWidth());
+			
+			ArrayList<String> nombreSetArmaduras = new ArrayList<String>();
+			for (Armadura armadura : personaje.getArmaduras()) {
+				nombreSetArmaduras.add(armadura.getNombre());
 			}
-		});
+			
+			ObservableList<ArmaduraSeleccionada> armadurasSeleccionadas = FXCollections.observableArrayList(
+					new ArmaduraSeleccionada(cArmaduras,"-","-","-","-","-","-","-","-","-","-"));
+			
+			if (0 < armadurasSeleccionadas.size()) {
+				if (armadurasSeleccionadas.get(0)!=null) {
+					cArmaduras.setValue(nombreSetArmaduras.get(0));
+					Armadura armadura = ch.obtenerArmadura(sessionFactory, cArmaduras.getValue());
+					armadurasSeleccionadas.get(0).setCalor(String.valueOf(armadura.getTipoArmaduraCalor()));
+					armadurasSeleccionadas.get(0).setContundente(String.valueOf(armadura.getTipoArmaduraContundente()));
+					armadurasSeleccionadas.get(0).setElectrico(String.valueOf(armadura.getTipoArmaduraElectrico()));
+					armadurasSeleccionadas.get(0).setEnergia(String.valueOf(armadura.getTipoArmaduraEnergia()));
+					armadurasSeleccionadas.get(0).setFilo(String.valueOf(armadura.getTipoArmaduraFilo()));
+					armadurasSeleccionadas.get(0).setFrio(String.valueOf(armadura.getTipoArmaduraFrio()));
+					armadurasSeleccionadas.get(0).setPenetrante(String.valueOf(armadura.getTipoArmaduraPenetrante()));
+					armadurasSeleccionadas.get(0).setEntereza(String.valueOf(armadura.getEntereza()));
+					armadurasSeleccionadas.get(0).setPenalizadorNatural(String.valueOf(armadura.getPenalizadorNatural()));
+					armadurasSeleccionadas.get(0).setRequisito(String.valueOf(armadura.getRequisitoNecesario()));
+				}
+			}
+			
+			cArmaduras.setOnAction(new EventHandler<ActionEvent>() {
+				
+				@Override
+				public void handle(ActionEvent event) {
+					Armadura armadura = ch.obtenerArmadura(sessionFactory, cArmaduras.getSelectionModel().getSelectedItem());
+					ArmaduraSeleccionada armaduraSeleccionada = armadurasSeleccionadas.get(0);
+					armaduraSeleccionada.setFilo(String.valueOf(armadura.getTipoArmaduraFilo()));
+					armaduraSeleccionada.setContundente(String.valueOf(armadura.getTipoArmaduraFilo()));
+					armaduraSeleccionada.setPenetrante(String.valueOf(armadura.getTipoArmaduraPenetrante()));
+					armaduraSeleccionada.setCalor(String.valueOf(armadura.getTipoArmaduraCalor()));
+					armaduraSeleccionada.setElectrico(String.valueOf(armadura.getTipoArmaduraElectrico()));
+					armaduraSeleccionada.setFrio(String.valueOf(armadura.getTipoArmaduraFrio()));
+					armaduraSeleccionada.setEnergia(String.valueOf(armadura.getTipoArmaduraEnergia()));
+					armaduraSeleccionada.setEntereza(String.valueOf(armadura.getEntereza()));
+					armaduraSeleccionada.setRequisito(String.valueOf(armadura.getRequisitoNecesario()));
+					armaduraSeleccionada.setPenalizadorNatural(String.valueOf(armadura.getPenalizadorNatural()));
+					tableViewArmaduras.refresh();
+					
+				}
+			});
+			
+			
+			colArmaduraNombre.setCellValueFactory(new PropertyValueFactory<ArmaduraSeleccionada, ComboBox<String>>("nombreArmadura"));
+			colArmaduraFilo.setCellValueFactory(new PropertyValueFactory<ArmaduraSeleccionada, String>("filo"));
+			colArmaduraContundente.setCellValueFactory(new PropertyValueFactory<ArmaduraSeleccionada, String>("contundente"));
+			colArmaduraPenetrante.setCellValueFactory(new PropertyValueFactory<ArmaduraSeleccionada, String>("penetrante"));
+			colArmaduraCalor.setCellValueFactory(new PropertyValueFactory<ArmaduraSeleccionada, String>("calor"));
+			colArmaduraElectrico.setCellValueFactory(new PropertyValueFactory<ArmaduraSeleccionada, String>("electrico"));
+			colArmaduraFrio.setCellValueFactory(new PropertyValueFactory<ArmaduraSeleccionada, String>("frio"));
+			colArmaduraEnergia.setCellValueFactory(new PropertyValueFactory<ArmaduraSeleccionada, String>("energia"));
+			colArmaduraEntereza.setCellValueFactory(new PropertyValueFactory<ArmaduraSeleccionada, String>("entereza"));
+			colArmaduraRequisito.setCellValueFactory(new PropertyValueFactory<ArmaduraSeleccionada, String>("requisito"));
+			colArmaduraPenalizacionNatural.setCellValueFactory(new PropertyValueFactory<ArmaduraSeleccionada, String>("penalizadorNatural"));
+			
+			tableViewArmaduras.setItems(armadurasSeleccionadas);
+		}
 		
-		
-		colArmaduraNombre.setCellValueFactory(new PropertyValueFactory<ArmaduraSeleccionada, ComboBox<String>>("nombreArmadura"));
-		colArmaduraFilo.setCellValueFactory(new PropertyValueFactory<ArmaduraSeleccionada, String>("filo"));
-		colArmaduraContundente.setCellValueFactory(new PropertyValueFactory<ArmaduraSeleccionada, String>("contundente"));
-		colArmaduraPenetrante.setCellValueFactory(new PropertyValueFactory<ArmaduraSeleccionada, String>("penetrante"));
-		colArmaduraCalor.setCellValueFactory(new PropertyValueFactory<ArmaduraSeleccionada, String>("calor"));
-		colArmaduraElectrico.setCellValueFactory(new PropertyValueFactory<ArmaduraSeleccionada, String>("electrico"));
-		colArmaduraFrio.setCellValueFactory(new PropertyValueFactory<ArmaduraSeleccionada, String>("frio"));
-		colArmaduraEnergia.setCellValueFactory(new PropertyValueFactory<ArmaduraSeleccionada, String>("energia"));
-		colArmaduraEntereza.setCellValueFactory(new PropertyValueFactory<ArmaduraSeleccionada, String>("entereza"));
-		colArmaduraRequisito.setCellValueFactory(new PropertyValueFactory<ArmaduraSeleccionada, String>("requisito"));
-		colArmaduraPenalizacionNatural.setCellValueFactory(new PropertyValueFactory<ArmaduraSeleccionada, String>("penalizadorNatural"));
-		
-		tableViewArmaduras.setItems(armadurasSeleccionadas);
 	}
 	
 	public void obtenerTablaEstilos(ObservableList<String> nombreEstilos){
@@ -2992,12 +3155,64 @@ public class PersonajeController {
 		cTablasEstilos5.setItems(nombreEstilos);
 		cTablasEstilos5.setPrefWidth(colNombreTablaEstilos.getPrefWidth());
 		
+		ArrayList<String> nombreSetTablaEstilos = new ArrayList<String>();
+		for (TablaEstilo tablaEstilo : personaje.getTablaEstilos()) {
+			nombreSetTablaEstilos.add(tablaEstilo.getNombre());
+		}
+		
+		
 		ObservableList<TablaEstiloSeleccionada> tablasEstilosSeleccionadas = FXCollections.observableArrayList(
 				new TablaEstiloSeleccionada(cTablasEstilos1,"0","0"),
 				new TablaEstiloSeleccionada(cTablasEstilos2,"0","0"),
 				new TablaEstiloSeleccionada(cTablasEstilos3,"0","0"),
 				new TablaEstiloSeleccionada(cTablasEstilos4,"0","0"),
 				new TablaEstiloSeleccionada(cTablasEstilos5,"0","0"));
+		
+		
+		if (0 < nombreSetTablaEstilos.size()) {
+			if (nombreSetTablaEstilos.get(0)!=null) {
+				cTablasEstilos1.setValue(nombreSetTablaEstilos.get(0));
+				TablaEstilo tablaEstiloCoste = ch.obtenerTablasEstiloSeleccionada(sessionFactory, cTablasEstilos1.getValue());
+				tablasEstilosSeleccionadas.get(0).setCoste(String.valueOf(tablaEstiloCoste.getCoste()));
+				tablasEstilosSeleccionadas.get(0).setPds(String.valueOf(tablaEstiloCoste.getCoste()));
+			}
+		}
+		
+		if (1 < nombreSetTablaEstilos.size()) {
+			if (nombreSetTablaEstilos.get(1)!=null) {
+				cTablasEstilos2.setValue(nombreSetTablaEstilos.get(1));
+				TablaEstilo tablaEstiloCoste = ch.obtenerTablasEstiloSeleccionada(sessionFactory, cTablasEstilos2.getValue());
+				tablasEstilosSeleccionadas.get(1).setCoste(String.valueOf(tablaEstiloCoste.getCoste()));
+				tablasEstilosSeleccionadas.get(1).setPds(String.valueOf(tablaEstiloCoste.getCoste()));
+			}
+		}
+		
+		if (2 < nombreSetTablaEstilos.size()) {
+			if (nombreSetTablaEstilos.get(2)!=null) {
+				cTablasEstilos3.setValue(nombreSetTablaEstilos.get(2));
+				TablaEstilo tablaEstiloCoste = ch.obtenerTablasEstiloSeleccionada(sessionFactory, cTablasEstilos3.getValue());
+				tablasEstilosSeleccionadas.get(2).setCoste(String.valueOf(tablaEstiloCoste.getCoste()));
+				tablasEstilosSeleccionadas.get(2).setPds(String.valueOf(tablaEstiloCoste.getCoste()));
+			}
+		}
+		if (3 < nombreSetTablaEstilos.size()) {
+			if (nombreSetTablaEstilos.get(3)!=null) {
+				cTablasEstilos4.setValue(nombreSetTablaEstilos.get(3));
+				TablaEstilo tablaEstiloCoste = ch.obtenerTablasEstiloSeleccionada(sessionFactory, cTablasEstilos4.getValue());
+				tablasEstilosSeleccionadas.get(3).setCoste(String.valueOf(tablaEstiloCoste.getCoste()));
+				tablasEstilosSeleccionadas.get(3).setPds(String.valueOf(tablaEstiloCoste.getCoste()));
+			}
+		}
+		
+		if (4 < nombreSetTablaEstilos.size()) {
+			if (nombreSetTablaEstilos.get(4)!=null) {
+				cTablasEstilos5.setValue(nombreSetTablaEstilos.get(4));
+				TablaEstilo tablaEstiloCoste = ch.obtenerTablasEstiloSeleccionada(sessionFactory, cTablasEstilos5.getValue());
+				tablasEstilosSeleccionadas.get(4).setCoste(String.valueOf(tablaEstiloCoste.getCoste()));
+				tablasEstilosSeleccionadas.get(4).setPds(String.valueOf(tablaEstiloCoste.getCoste()));
+			}
+		}
+		
 		
 		cTablasEstilos1.setOnAction(new EventHandler<ActionEvent>() {
 			
@@ -3101,6 +3316,11 @@ public class PersonajeController {
 		cArtesMarciales10.setItems(nombreArtesMarciales);
 		cArtesMarciales10.setPrefWidth(colNombreTablaArtesMarciales.getPrefWidth());
 		
+		ArrayList<String> nombreSetArtesMarciales = new ArrayList<String>();
+		for (ArteMarcial arteMarcial : personaje.getArteMarcials()) {
+			nombreSetArtesMarciales.add(arteMarcial.getNombre());
+		}
+		
 		ObservableList<ArteMarcialSeleccionado> tablasArtesMarciales = FXCollections.observableArrayList(
 				new ArteMarcialSeleccionado(cArtesMarciales1,"0","0","0","0","0","0"),
 				new ArteMarcialSeleccionado(cArtesMarciales2,"0","0","0","0","0","0"),
@@ -3112,6 +3332,136 @@ public class PersonajeController {
 				new ArteMarcialSeleccionado(cArtesMarciales8,"0","0","0","0","0","0"),
 				new ArteMarcialSeleccionado(cArtesMarciales9,"0","0","0","0","0","0"),
 				new ArteMarcialSeleccionado(cArtesMarciales10,"0","0","0","0","0","0"));
+		
+		if (0 < nombreSetArtesMarciales.size()) {
+			if (nombreSetArtesMarciales.get(0)!=null) {
+				cArtesMarciales1.setValue(nombreSetArtesMarciales.get(0));
+				ArteMarcial arteMarcial = ch.obtenerArteMarcialSeleccionada(sessionFactory, cArtesMarciales1.getValue());
+				tablasArtesMarciales.get(0).setCoste(String.valueOf("20"));
+				tablasArtesMarciales.get(0).setPds("20");
+				tablasArtesMarciales.get(0).setBonoHa(String.valueOf(arteMarcial.getBonoAtaque()));
+				tablasArtesMarciales.get(0).setBonoHp(String.valueOf(arteMarcial.getBonoParada()));
+				tablasArtesMarciales.get(0).setBonoHe(String.valueOf(arteMarcial.getBonoEsquiva()));
+				tablasArtesMarciales.get(0).setBonoTurno(String.valueOf(arteMarcial.getBonoTurno()));
+			}
+		}
+		
+		if (1 < nombreSetArtesMarciales.size()) {
+			if (nombreSetArtesMarciales.get(1)!=null) {
+				cArtesMarciales2.setValue(nombreSetArtesMarciales.get(1));
+				ArteMarcial arteMarcial = ch.obtenerArteMarcialSeleccionada(sessionFactory, cArtesMarciales2.getValue());
+				tablasArtesMarciales.get(1).setCoste(String.valueOf("20"));
+				tablasArtesMarciales.get(1).setPds("20");
+				tablasArtesMarciales.get(1).setBonoHa(String.valueOf(arteMarcial.getBonoAtaque()));
+				tablasArtesMarciales.get(1).setBonoHp(String.valueOf(arteMarcial.getBonoParada()));
+				tablasArtesMarciales.get(1).setBonoHe(String.valueOf(arteMarcial.getBonoEsquiva()));
+				tablasArtesMarciales.get(1).setBonoTurno(String.valueOf(arteMarcial.getBonoTurno()));
+			}
+		}
+		
+		if (2 < nombreSetArtesMarciales.size()) {
+			if (nombreSetArtesMarciales.get(2)!=null) {
+				cArtesMarciales3.setValue(nombreSetArtesMarciales.get(2));
+				ArteMarcial arteMarcial = ch.obtenerArteMarcialSeleccionada(sessionFactory, cArtesMarciales3.getValue());
+				tablasArtesMarciales.get(2).setCoste(String.valueOf("20"));
+				tablasArtesMarciales.get(2).setPds("20");
+				tablasArtesMarciales.get(2).setBonoHa(String.valueOf(arteMarcial.getBonoAtaque()));
+				tablasArtesMarciales.get(2).setBonoHp(String.valueOf(arteMarcial.getBonoParada()));
+				tablasArtesMarciales.get(2).setBonoHe(String.valueOf(arteMarcial.getBonoEsquiva()));
+				tablasArtesMarciales.get(2).setBonoTurno(String.valueOf(arteMarcial.getBonoTurno()));
+			}
+		}
+		
+		if (3 < nombreSetArtesMarciales.size()) {
+			if (nombreSetArtesMarciales.get(3)!=null) {
+				cArtesMarciales4.setValue(nombreSetArtesMarciales.get(3));
+				ArteMarcial arteMarcial = ch.obtenerArteMarcialSeleccionada(sessionFactory, cArtesMarciales4.getValue());
+				tablasArtesMarciales.get(3).setCoste(String.valueOf("20"));
+				tablasArtesMarciales.get(3).setPds("20");
+				tablasArtesMarciales.get(3).setBonoHa(String.valueOf(arteMarcial.getBonoAtaque()));
+				tablasArtesMarciales.get(3).setBonoHp(String.valueOf(arteMarcial.getBonoParada()));
+				tablasArtesMarciales.get(3).setBonoHe(String.valueOf(arteMarcial.getBonoEsquiva()));
+				tablasArtesMarciales.get(3).setBonoTurno(String.valueOf(arteMarcial.getBonoTurno()));
+			}
+		}
+		
+		if (4 < nombreSetArtesMarciales.size()) {
+			if (nombreSetArtesMarciales.get(4)!=null) {
+				cArtesMarciales5.setValue(nombreSetArtesMarciales.get(4));
+				ArteMarcial arteMarcial = ch.obtenerArteMarcialSeleccionada(sessionFactory, cArtesMarciales5.getValue());
+				tablasArtesMarciales.get(4).setCoste(String.valueOf("20"));
+				tablasArtesMarciales.get(4).setPds("20");
+				tablasArtesMarciales.get(4).setBonoHa(String.valueOf(arteMarcial.getBonoAtaque()));
+				tablasArtesMarciales.get(4).setBonoHp(String.valueOf(arteMarcial.getBonoParada()));
+				tablasArtesMarciales.get(4).setBonoHe(String.valueOf(arteMarcial.getBonoEsquiva()));
+				tablasArtesMarciales.get(4).setBonoTurno(String.valueOf(arteMarcial.getBonoTurno()));
+			}
+		}
+		
+		if (5 < nombreSetArtesMarciales.size()) {
+			if (nombreSetArtesMarciales.get(5)!=null) {
+				cArtesMarciales6.setValue(nombreSetArtesMarciales.get(1));
+				ArteMarcial arteMarcial = ch.obtenerArteMarcialSeleccionada(sessionFactory, cArtesMarciales6.getValue());
+				tablasArtesMarciales.get(5).setCoste(String.valueOf("20"));
+				tablasArtesMarciales.get(5).setPds("20");
+				tablasArtesMarciales.get(5).setBonoHa(String.valueOf(arteMarcial.getBonoAtaque()));
+				tablasArtesMarciales.get(5).setBonoHp(String.valueOf(arteMarcial.getBonoParada()));
+				tablasArtesMarciales.get(5).setBonoHe(String.valueOf(arteMarcial.getBonoEsquiva()));
+				tablasArtesMarciales.get(5).setBonoTurno(String.valueOf(arteMarcial.getBonoTurno()));
+			}
+		}
+		
+		if (6 < nombreSetArtesMarciales.size()) {
+			if (nombreSetArtesMarciales.get(6)!=null) {
+				cArtesMarciales7.setValue(nombreSetArtesMarciales.get(6));
+				ArteMarcial arteMarcial = ch.obtenerArteMarcialSeleccionada(sessionFactory, cArtesMarciales7.getValue());
+				tablasArtesMarciales.get(6).setCoste(String.valueOf("20"));
+				tablasArtesMarciales.get(6).setPds("20");
+				tablasArtesMarciales.get(6).setBonoHa(String.valueOf(arteMarcial.getBonoAtaque()));
+				tablasArtesMarciales.get(6).setBonoHp(String.valueOf(arteMarcial.getBonoParada()));
+				tablasArtesMarciales.get(6).setBonoHe(String.valueOf(arteMarcial.getBonoEsquiva()));
+				tablasArtesMarciales.get(6).setBonoTurno(String.valueOf(arteMarcial.getBonoTurno()));
+			}
+		}
+		
+		if (7 < nombreSetArtesMarciales.size()) {
+			if (nombreSetArtesMarciales.get(7)!=null) {
+				cArtesMarciales8.setValue(nombreSetArtesMarciales.get(7));
+				ArteMarcial arteMarcial = ch.obtenerArteMarcialSeleccionada(sessionFactory, cArtesMarciales8.getValue());
+				tablasArtesMarciales.get(7).setCoste(String.valueOf("20"));
+				tablasArtesMarciales.get(7).setPds("20");
+				tablasArtesMarciales.get(7).setBonoHa(String.valueOf(arteMarcial.getBonoAtaque()));
+				tablasArtesMarciales.get(7).setBonoHp(String.valueOf(arteMarcial.getBonoParada()));
+				tablasArtesMarciales.get(7).setBonoHe(String.valueOf(arteMarcial.getBonoEsquiva()));
+				tablasArtesMarciales.get(7).setBonoTurno(String.valueOf(arteMarcial.getBonoTurno()));
+			}
+		}
+		
+		if (8 < nombreSetArtesMarciales.size()) {
+			if (nombreSetArtesMarciales.get(8)!=null) {
+				cArtesMarciales9.setValue(nombreSetArtesMarciales.get(8));
+				ArteMarcial arteMarcial = ch.obtenerArteMarcialSeleccionada(sessionFactory, cArtesMarciales9.getValue());
+				tablasArtesMarciales.get(8).setCoste(String.valueOf("20"));
+				tablasArtesMarciales.get(8).setPds("20");
+				tablasArtesMarciales.get(8).setBonoHa(String.valueOf(arteMarcial.getBonoAtaque()));
+				tablasArtesMarciales.get(8).setBonoHp(String.valueOf(arteMarcial.getBonoParada()));
+				tablasArtesMarciales.get(8).setBonoHe(String.valueOf(arteMarcial.getBonoEsquiva()));
+				tablasArtesMarciales.get(8).setBonoTurno(String.valueOf(arteMarcial.getBonoTurno()));
+			}
+		}
+		
+		if (9 < nombreSetArtesMarciales.size()) {
+			if (nombreSetArtesMarciales.get(9)!=null) {
+				cArtesMarciales10.setValue(nombreSetArtesMarciales.get(9));
+				ArteMarcial arteMarcial = ch.obtenerArteMarcialSeleccionada(sessionFactory, cArtesMarciales10.getValue());
+				tablasArtesMarciales.get(9).setCoste(String.valueOf("20"));
+				tablasArtesMarciales.get(9).setPds("20");
+				tablasArtesMarciales.get(9).setBonoHa(String.valueOf(arteMarcial.getBonoAtaque()));
+				tablasArtesMarciales.get(9).setBonoHp(String.valueOf(arteMarcial.getBonoParada()));
+				tablasArtesMarciales.get(9).setBonoHe(String.valueOf(arteMarcial.getBonoEsquiva()));
+				tablasArtesMarciales.get(9).setBonoTurno(String.valueOf(arteMarcial.getBonoTurno()));
+			}
+		}
 		
 		cArtesMarciales1.setOnAction(new EventHandler<ActionEvent>() {
 			
@@ -3504,6 +3854,10 @@ public class PersonajeController {
 		cConjurosSeleccionados21.setItems(nombreConjurosLibreAcceso);
 		cConjurosSeleccionados21.setPrefWidth(colConjurosLibreAccesoNombre.getPrefWidth());
 		
+		ArrayList<String> nombreSetConjurosLibreAcceso = new ArrayList<String>();
+		for (TablaConjurosLibreAcceso tablaConjurosLibreAcceso : personaje.getTablaConjurosLibreAccesos()) {
+			nombreSetConjurosLibreAcceso.add(tablaConjurosLibreAcceso.getNombre());
+		}
 		
 		ObservableList<ConjuroSeleccionado> conjurosLibreAcceso = FXCollections.observableArrayList(
 				new ConjuroSeleccionado(cConjurosSeleccionados1,"0"),
@@ -3527,6 +3881,174 @@ public class PersonajeController {
 				new ConjuroSeleccionado(cConjurosSeleccionados19,"0"),
 				new ConjuroSeleccionado(cConjurosSeleccionados20,"0"),
 				new ConjuroSeleccionado(cConjurosSeleccionados21,"0"));
+		
+		if (0 < nombreSetConjurosLibreAcceso.size()) {
+			if (nombreSetConjurosLibreAcceso.get(0)!=null) {
+				cConjurosSeleccionados1.setValue(nombreSetConjurosLibreAcceso.get(0));
+				TablaConjurosLibreAcceso tablaConjurosLibreAcceso = ch.obtenerConjuroLibreAccesoSeleccionado(sessionFactory, cConjurosSeleccionados1.getValue());
+				conjurosLibreAcceso.get(0).setNivel(tablaConjurosLibreAcceso.getNivel());
+			}
+		}
+		
+		if (1 < nombreSetConjurosLibreAcceso.size()) {
+			if (nombreSetConjurosLibreAcceso.get(1)!=null) {
+				cConjurosSeleccionados2.setValue(nombreSetConjurosLibreAcceso.get(1));
+				TablaConjurosLibreAcceso tablaConjurosLibreAcceso = ch.obtenerConjuroLibreAccesoSeleccionado(sessionFactory, cConjurosSeleccionados2.getValue());
+				conjurosLibreAcceso.get(1).setNivel(tablaConjurosLibreAcceso.getNivel());
+			}
+		}
+		
+		if (2 < nombreSetConjurosLibreAcceso.size()) {
+			if (nombreSetConjurosLibreAcceso.get(2)!=null) {
+				cConjurosSeleccionados3.setValue(nombreSetConjurosLibreAcceso.get(2));
+				TablaConjurosLibreAcceso tablaConjurosLibreAcceso = ch.obtenerConjuroLibreAccesoSeleccionado(sessionFactory, cConjurosSeleccionados3.getValue());
+				conjurosLibreAcceso.get(2).setNivel(tablaConjurosLibreAcceso.getNivel());
+			}
+		}
+		
+		if (3 < nombreSetConjurosLibreAcceso.size()) {
+			if (nombreSetConjurosLibreAcceso.get(3)!=null) {
+				cConjurosSeleccionados4.setValue(nombreSetConjurosLibreAcceso.get(3));
+				TablaConjurosLibreAcceso tablaConjurosLibreAcceso = ch.obtenerConjuroLibreAccesoSeleccionado(sessionFactory, cConjurosSeleccionados4.getValue());
+				conjurosLibreAcceso.get(3).setNivel(tablaConjurosLibreAcceso.getNivel());
+			}
+		}
+		
+		if (4 < nombreSetConjurosLibreAcceso.size()) {
+			if (nombreSetConjurosLibreAcceso.get(4)!=null) {
+				cConjurosSeleccionados5.setValue(nombreSetConjurosLibreAcceso.get(4));
+				TablaConjurosLibreAcceso tablaConjurosLibreAcceso = ch.obtenerConjuroLibreAccesoSeleccionado(sessionFactory, cConjurosSeleccionados5.getValue());
+				conjurosLibreAcceso.get(4).setNivel(tablaConjurosLibreAcceso.getNivel());
+			}
+		}
+		
+		if (5 < nombreSetConjurosLibreAcceso.size()) {
+			if (nombreSetConjurosLibreAcceso.get(5)!=null) {
+				cConjurosSeleccionados6.setValue(nombreSetConjurosLibreAcceso.get(1));
+				TablaConjurosLibreAcceso tablaConjurosLibreAcceso = ch.obtenerConjuroLibreAccesoSeleccionado(sessionFactory, cConjurosSeleccionados6.getValue());
+				conjurosLibreAcceso.get(5).setNivel(tablaConjurosLibreAcceso.getNivel());
+			}
+		}
+		
+		if (6 < nombreSetConjurosLibreAcceso.size()) {
+			if (nombreSetConjurosLibreAcceso.get(6)!=null) {
+				cConjurosSeleccionados7.setValue(nombreSetConjurosLibreAcceso.get(3));
+				TablaConjurosLibreAcceso tablaConjurosLibreAcceso = ch.obtenerConjuroLibreAccesoSeleccionado(sessionFactory, cConjurosSeleccionados7.getValue());
+				conjurosLibreAcceso.get(6).setNivel(tablaConjurosLibreAcceso.getNivel());
+			}
+		}
+		
+		if (7 < nombreSetConjurosLibreAcceso.size()) {
+			if (nombreSetConjurosLibreAcceso.get(7)!=null) {
+				cConjurosSeleccionados8.setValue(nombreSetConjurosLibreAcceso.get(4));
+				TablaConjurosLibreAcceso tablaConjurosLibreAcceso = ch.obtenerConjuroLibreAccesoSeleccionado(sessionFactory, cConjurosSeleccionados8.getValue());
+				conjurosLibreAcceso.get(7).setNivel(tablaConjurosLibreAcceso.getNivel());
+			}
+		}
+		
+		if (8 < nombreSetConjurosLibreAcceso.size()) {
+			if (nombreSetConjurosLibreAcceso.get(8)!=null) {
+				cConjurosSeleccionados9.setValue(nombreSetConjurosLibreAcceso.get(8));
+				TablaConjurosLibreAcceso tablaConjurosLibreAcceso = ch.obtenerConjuroLibreAccesoSeleccionado(sessionFactory, cConjurosSeleccionados9.getValue());
+				conjurosLibreAcceso.get(8).setNivel(tablaConjurosLibreAcceso.getNivel());
+			}
+		}
+		
+		if (9 < nombreSetConjurosLibreAcceso.size()) {
+			if (nombreSetConjurosLibreAcceso.get(9)!=null) {
+				cConjurosSeleccionados10.setValue(nombreSetConjurosLibreAcceso.get(9));
+				TablaConjurosLibreAcceso tablaConjurosLibreAcceso = ch.obtenerConjuroLibreAccesoSeleccionado(sessionFactory, cConjurosSeleccionados10.getValue());
+				conjurosLibreAcceso.get(9).setNivel(tablaConjurosLibreAcceso.getNivel());
+			}
+		}
+		
+		if (10 < nombreSetConjurosLibreAcceso.size()) {
+			if (nombreSetConjurosLibreAcceso.get(10)!=null) {
+				cConjurosSeleccionados11.setValue(nombreSetConjurosLibreAcceso.get(10));
+				TablaConjurosLibreAcceso tablaConjurosLibreAcceso = ch.obtenerConjuroLibreAccesoSeleccionado(sessionFactory, cConjurosSeleccionados11.getValue());
+				conjurosLibreAcceso.get(10).setNivel(tablaConjurosLibreAcceso.getNivel());
+			}
+		}
+		
+		if (11 < nombreSetConjurosLibreAcceso.size()) {
+			if (nombreSetConjurosLibreAcceso.get(11)!=null) {
+				cConjurosSeleccionados12.setValue(nombreSetConjurosLibreAcceso.get(11));
+				TablaConjurosLibreAcceso tablaConjurosLibreAcceso = ch.obtenerConjuroLibreAccesoSeleccionado(sessionFactory, cConjurosSeleccionados12.getValue());
+				conjurosLibreAcceso.get(11).setNivel(tablaConjurosLibreAcceso.getNivel());
+			}
+		}
+		
+		if (12 < nombreSetConjurosLibreAcceso.size()) {
+			if (nombreSetConjurosLibreAcceso.get(12)!=null) {
+				cConjurosSeleccionados13.setValue(nombreSetConjurosLibreAcceso.get(12));
+				TablaConjurosLibreAcceso tablaConjurosLibreAcceso = ch.obtenerConjuroLibreAccesoSeleccionado(sessionFactory, cConjurosSeleccionados13.getValue());
+				conjurosLibreAcceso.get(12).setNivel(tablaConjurosLibreAcceso.getNivel());
+			}
+		}
+		
+		if (13 < nombreSetConjurosLibreAcceso.size()) {
+			if (nombreSetConjurosLibreAcceso.get(13)!=null) {
+				cConjurosSeleccionados14.setValue(nombreSetConjurosLibreAcceso.get(13));
+				TablaConjurosLibreAcceso tablaConjurosLibreAcceso = ch.obtenerConjuroLibreAccesoSeleccionado(sessionFactory, cConjurosSeleccionados14.getValue());
+				conjurosLibreAcceso.get(13).setNivel(tablaConjurosLibreAcceso.getNivel());
+			}
+		}
+		
+		if (14 < nombreSetConjurosLibreAcceso.size()) {
+			if (nombreSetConjurosLibreAcceso.get(14)!=null) {
+				cConjurosSeleccionados15.setValue(nombreSetConjurosLibreAcceso.get(14));
+				TablaConjurosLibreAcceso tablaConjurosLibreAcceso = ch.obtenerConjuroLibreAccesoSeleccionado(sessionFactory, cConjurosSeleccionados15.getValue());
+				conjurosLibreAcceso.get(14).setNivel(tablaConjurosLibreAcceso.getNivel());
+			}
+		}
+		
+		if (15 < nombreSetConjurosLibreAcceso.size()) {
+			if (nombreSetConjurosLibreAcceso.get(15)!=null) {
+				cConjurosSeleccionados16.setValue(nombreSetConjurosLibreAcceso.get(15));
+				TablaConjurosLibreAcceso tablaConjurosLibreAcceso = ch.obtenerConjuroLibreAccesoSeleccionado(sessionFactory, cConjurosSeleccionados16.getValue());
+				conjurosLibreAcceso.get(15).setNivel(tablaConjurosLibreAcceso.getNivel());
+			}
+		}
+		
+		if (16 < nombreSetConjurosLibreAcceso.size()) {
+			if (nombreSetConjurosLibreAcceso.get(16)!=null) {
+				cConjurosSeleccionados17.setValue(nombreSetConjurosLibreAcceso.get(16));
+				TablaConjurosLibreAcceso tablaConjurosLibreAcceso = ch.obtenerConjuroLibreAccesoSeleccionado(sessionFactory, cConjurosSeleccionados17.getValue());
+				conjurosLibreAcceso.get(16).setNivel(tablaConjurosLibreAcceso.getNivel());
+			}
+		}
+		
+		if (17 < nombreSetConjurosLibreAcceso.size()) {
+			if (nombreSetConjurosLibreAcceso.get(17)!=null) {
+				cConjurosSeleccionados18.setValue(nombreSetConjurosLibreAcceso.get(17));
+				TablaConjurosLibreAcceso tablaConjurosLibreAcceso = ch.obtenerConjuroLibreAccesoSeleccionado(sessionFactory, cConjurosSeleccionados18.getValue());
+				conjurosLibreAcceso.get(17).setNivel(tablaConjurosLibreAcceso.getNivel());
+			}
+		}
+		
+		if (18 < nombreSetConjurosLibreAcceso.size()) {
+			if (nombreSetConjurosLibreAcceso.get(18)!=null) {
+				cConjurosSeleccionados19.setValue(nombreSetConjurosLibreAcceso.get(18));
+				TablaConjurosLibreAcceso tablaConjurosLibreAcceso = ch.obtenerConjuroLibreAccesoSeleccionado(sessionFactory, cConjurosSeleccionados19.getValue());
+				conjurosLibreAcceso.get(18).setNivel(tablaConjurosLibreAcceso.getNivel());
+			}
+		}
+		
+		if (19 < nombreSetConjurosLibreAcceso.size()) {
+			if (nombreSetConjurosLibreAcceso.get(19)!=null) {
+				cConjurosSeleccionados20.setValue(nombreSetConjurosLibreAcceso.get(19));
+				TablaConjurosLibreAcceso tablaConjurosLibreAcceso = ch.obtenerConjuroLibreAccesoSeleccionado(sessionFactory, cConjurosSeleccionados20.getValue());
+				conjurosLibreAcceso.get(19).setNivel(tablaConjurosLibreAcceso.getNivel());
+			}
+		}
+		
+		if (20 < nombreSetConjurosLibreAcceso.size()) {
+			if (nombreSetConjurosLibreAcceso.get(20)!=null) {
+				cConjurosSeleccionados21.setValue(nombreSetConjurosLibreAcceso.get(20));
+				TablaConjurosLibreAcceso tablaConjurosLibreAcceso = ch.obtenerConjuroLibreAccesoSeleccionado(sessionFactory, cConjurosSeleccionados21.getValue());
+				conjurosLibreAcceso.get(20).setNivel(tablaConjurosLibreAcceso.getNivel());
+			}
+		}
 		
 		cConjurosSeleccionados1.setOnAction(new EventHandler<ActionEvent>() {
 			
@@ -3859,6 +4381,10 @@ public class PersonajeController {
 		cPoderPsiquicoSeleccionado20.setItems(nombresPoderesPsiquicos);
 		cPoderPsiquicoSeleccionado20.setPrefWidth(colConjurosLibreAccesoNombre.getPrefWidth());
 		
+		ArrayList<String> nombreSetPoderPsiquico = new ArrayList<String>();
+		for (PoderPsiquico poderPsiquico : personaje.getPoderPsiquicos()) {
+			nombreSetPoderPsiquico.add(poderPsiquico.getNombre());
+		}
 		
 		ObservableList<PoderPsiquicoSeleccionado> poderesPsiquicosSeleccionados = FXCollections.observableArrayList(
 				new PoderPsiquicoSeleccionado(cPoderPsiquicoSeleccionado1,"","0"),
@@ -3881,6 +4407,188 @@ public class PersonajeController {
 				new PoderPsiquicoSeleccionado(cPoderPsiquicoSeleccionado18,"","0"),
 				new PoderPsiquicoSeleccionado(cPoderPsiquicoSeleccionado19,"","0"),
 				new PoderPsiquicoSeleccionado(cPoderPsiquicoSeleccionado20,"","0"));
+		
+
+		if (0 < nombreSetPoderPsiquico.size()) {
+			if (nombreSetPoderPsiquico.get(0)!=null) {
+				cPoderPsiquicoSeleccionado1.setValue(nombreSetPoderPsiquico.get(0));
+				PoderPsiquico poderPsiquico = ch.obtenerPoderPsiquicoSeleccionado(sessionFactory, cPoderPsiquicoSeleccionado1.getValue());
+				poderesPsiquicosSeleccionados.get(0).setDisciplinaPoderSeleccionado(poderPsiquico.getDisciplina());
+				poderesPsiquicosSeleccionados.get(0).setNivelPoderSeleccionado(String.valueOf(poderPsiquico.getNivel()));
+			}
+		}
+		
+		if (1 < nombreSetPoderPsiquico.size()) {
+			if (nombreSetPoderPsiquico.get(1)!=null) {
+				cPoderPsiquicoSeleccionado2.setValue(nombreSetPoderPsiquico.get(1));
+				PoderPsiquico poderPsiquico = ch.obtenerPoderPsiquicoSeleccionado(sessionFactory, cPoderPsiquicoSeleccionado2.getValue());
+				poderesPsiquicosSeleccionados.get(1).setDisciplinaPoderSeleccionado(poderPsiquico.getDisciplina());
+				poderesPsiquicosSeleccionados.get(1).setNivelPoderSeleccionado(String.valueOf(poderPsiquico.getNivel()));
+			}
+		}
+		
+		if (2 < nombreSetPoderPsiquico.size()) {
+			if (nombreSetPoderPsiquico.get(2)!=null) {
+				cPoderPsiquicoSeleccionado3.setValue(nombreSetPoderPsiquico.get(2));
+				PoderPsiquico poderPsiquico = ch.obtenerPoderPsiquicoSeleccionado(sessionFactory, cPoderPsiquicoSeleccionado3.getValue());
+				poderesPsiquicosSeleccionados.get(2).setDisciplinaPoderSeleccionado(poderPsiquico.getDisciplina());
+				poderesPsiquicosSeleccionados.get(2).setNivelPoderSeleccionado(String.valueOf(poderPsiquico.getNivel()));
+			}
+		}
+		
+		if (3 < nombreSetPoderPsiquico.size()) {
+			if (nombreSetPoderPsiquico.get(3)!=null) {
+				cPoderPsiquicoSeleccionado4.setValue(nombreSetPoderPsiquico.get(3));
+				PoderPsiquico poderPsiquico = ch.obtenerPoderPsiquicoSeleccionado(sessionFactory, cPoderPsiquicoSeleccionado4.getValue());
+				poderesPsiquicosSeleccionados.get(3).setDisciplinaPoderSeleccionado(poderPsiquico.getDisciplina());
+				poderesPsiquicosSeleccionados.get(3).setNivelPoderSeleccionado(String.valueOf(poderPsiquico.getNivel()));
+			}
+		}
+		
+		if (4 < nombreSetPoderPsiquico.size()) {
+			if (nombreSetPoderPsiquico.get(4)!=null) {
+				cPoderPsiquicoSeleccionado5.setValue(nombreSetPoderPsiquico.get(4));
+				PoderPsiquico poderPsiquico = ch.obtenerPoderPsiquicoSeleccionado(sessionFactory, cPoderPsiquicoSeleccionado5.getValue());
+				poderesPsiquicosSeleccionados.get(4).setDisciplinaPoderSeleccionado(poderPsiquico.getDisciplina());
+				poderesPsiquicosSeleccionados.get(4).setNivelPoderSeleccionado(String.valueOf(poderPsiquico.getNivel()));
+			}
+		}
+		
+		if (5 < nombreSetPoderPsiquico.size()) {
+			if (nombreSetPoderPsiquico.get(5)!=null) {
+				cPoderPsiquicoSeleccionado6.setValue(nombreSetPoderPsiquico.get(1));
+				PoderPsiquico poderPsiquico = ch.obtenerPoderPsiquicoSeleccionado(sessionFactory, cPoderPsiquicoSeleccionado6.getValue());
+				poderesPsiquicosSeleccionados.get(5).setDisciplinaPoderSeleccionado(poderPsiquico.getDisciplina());
+				poderesPsiquicosSeleccionados.get(5).setNivelPoderSeleccionado(String.valueOf(poderPsiquico.getNivel()));
+			}
+		}
+		
+		if (6 < nombreSetPoderPsiquico.size()) {
+			if (nombreSetPoderPsiquico.get(6)!=null) {
+				cPoderPsiquicoSeleccionado7.setValue(nombreSetPoderPsiquico.get(3));
+				PoderPsiquico poderPsiquico = ch.obtenerPoderPsiquicoSeleccionado(sessionFactory, cPoderPsiquicoSeleccionado7.getValue());
+				poderesPsiquicosSeleccionados.get(6).setDisciplinaPoderSeleccionado(poderPsiquico.getDisciplina());
+				poderesPsiquicosSeleccionados.get(6).setNivelPoderSeleccionado(String.valueOf(poderPsiquico.getNivel()));
+			}
+		}
+		
+		if (7 < nombreSetPoderPsiquico.size()) {
+			if (nombreSetPoderPsiquico.get(7)!=null) {
+				cPoderPsiquicoSeleccionado8.setValue(nombreSetPoderPsiquico.get(4));
+				PoderPsiquico poderPsiquico = ch.obtenerPoderPsiquicoSeleccionado(sessionFactory, cPoderPsiquicoSeleccionado8.getValue());
+				poderesPsiquicosSeleccionados.get(7).setDisciplinaPoderSeleccionado(poderPsiquico.getDisciplina());
+				poderesPsiquicosSeleccionados.get(7).setNivelPoderSeleccionado(String.valueOf(poderPsiquico.getNivel()));
+			}
+		}
+		
+		if (8 < nombreSetPoderPsiquico.size()) {
+			if (nombreSetPoderPsiquico.get(8)!=null) {
+				cPoderPsiquicoSeleccionado9.setValue(nombreSetPoderPsiquico.get(8));
+				PoderPsiquico poderPsiquico = ch.obtenerPoderPsiquicoSeleccionado(sessionFactory, cPoderPsiquicoSeleccionado9.getValue());
+				poderesPsiquicosSeleccionados.get(8).setDisciplinaPoderSeleccionado(poderPsiquico.getDisciplina());
+				poderesPsiquicosSeleccionados.get(8).setNivelPoderSeleccionado(String.valueOf(poderPsiquico.getNivel()));
+			}
+		}
+		
+		if (9 < nombreSetPoderPsiquico.size()) {
+			if (nombreSetPoderPsiquico.get(9)!=null) {
+				cPoderPsiquicoSeleccionado10.setValue(nombreSetPoderPsiquico.get(9));
+				PoderPsiquico poderPsiquico = ch.obtenerPoderPsiquicoSeleccionado(sessionFactory, cPoderPsiquicoSeleccionado10.getValue());
+				poderesPsiquicosSeleccionados.get(9).setDisciplinaPoderSeleccionado(poderPsiquico.getDisciplina());
+				poderesPsiquicosSeleccionados.get(9).setNivelPoderSeleccionado(String.valueOf(poderPsiquico.getNivel()));
+			}
+		}
+		
+		if (10 < nombreSetPoderPsiquico.size()) {
+			if (nombreSetPoderPsiquico.get(10)!=null) {
+				cPoderPsiquicoSeleccionado11.setValue(nombreSetPoderPsiquico.get(10));
+				PoderPsiquico poderPsiquico = ch.obtenerPoderPsiquicoSeleccionado(sessionFactory, cPoderPsiquicoSeleccionado11.getValue());
+				poderesPsiquicosSeleccionados.get(10).setDisciplinaPoderSeleccionado(poderPsiquico.getDisciplina());
+				poderesPsiquicosSeleccionados.get(10).setNivelPoderSeleccionado(String.valueOf(poderPsiquico.getNivel()));
+			}
+		}
+		
+		if (11 < nombreSetPoderPsiquico.size()) {
+			if (nombreSetPoderPsiquico.get(11)!=null) {
+				cPoderPsiquicoSeleccionado12.setValue(nombreSetPoderPsiquico.get(11));
+				PoderPsiquico poderPsiquico = ch.obtenerPoderPsiquicoSeleccionado(sessionFactory, cPoderPsiquicoSeleccionado12.getValue());
+				poderesPsiquicosSeleccionados.get(11).setDisciplinaPoderSeleccionado(poderPsiquico.getDisciplina());
+				poderesPsiquicosSeleccionados.get(11).setNivelPoderSeleccionado(String.valueOf(poderPsiquico.getNivel()));
+			}
+		}
+		
+		if (12 < nombreSetPoderPsiquico.size()) {
+			if (nombreSetPoderPsiquico.get(12)!=null) {
+				cPoderPsiquicoSeleccionado13.setValue(nombreSetPoderPsiquico.get(12));
+				PoderPsiquico poderPsiquico = ch.obtenerPoderPsiquicoSeleccionado(sessionFactory, cPoderPsiquicoSeleccionado13.getValue());
+				poderesPsiquicosSeleccionados.get(12).setDisciplinaPoderSeleccionado(poderPsiquico.getDisciplina());
+				poderesPsiquicosSeleccionados.get(12).setNivelPoderSeleccionado(String.valueOf(poderPsiquico.getNivel()));
+			}
+		}
+		
+		if (13 < nombreSetPoderPsiquico.size()) {
+			if (nombreSetPoderPsiquico.get(13)!=null) {
+				cPoderPsiquicoSeleccionado14.setValue(nombreSetPoderPsiquico.get(13));
+				PoderPsiquico poderPsiquico = ch.obtenerPoderPsiquicoSeleccionado(sessionFactory, cPoderPsiquicoSeleccionado14.getValue());
+				poderesPsiquicosSeleccionados.get(13).setDisciplinaPoderSeleccionado(poderPsiquico.getDisciplina());
+				poderesPsiquicosSeleccionados.get(13).setNivelPoderSeleccionado(String.valueOf(poderPsiquico.getNivel()));
+			}
+		}
+		
+		if (14 < nombreSetPoderPsiquico.size()) {
+			if (nombreSetPoderPsiquico.get(14)!=null) {
+				cPoderPsiquicoSeleccionado15.setValue(nombreSetPoderPsiquico.get(14));
+				PoderPsiquico poderPsiquico = ch.obtenerPoderPsiquicoSeleccionado(sessionFactory, cPoderPsiquicoSeleccionado15.getValue());
+				poderesPsiquicosSeleccionados.get(14).setDisciplinaPoderSeleccionado(poderPsiquico.getDisciplina());
+				poderesPsiquicosSeleccionados.get(14).setNivelPoderSeleccionado(String.valueOf(poderPsiquico.getNivel()));
+			}
+		}
+		
+		if (15 < nombreSetPoderPsiquico.size()) {
+			if (nombreSetPoderPsiquico.get(15)!=null) {
+				cPoderPsiquicoSeleccionado16.setValue(nombreSetPoderPsiquico.get(15));
+				PoderPsiquico poderPsiquico = ch.obtenerPoderPsiquicoSeleccionado(sessionFactory, cPoderPsiquicoSeleccionado16.getValue());
+				poderesPsiquicosSeleccionados.get(15).setDisciplinaPoderSeleccionado(poderPsiquico.getDisciplina());
+				poderesPsiquicosSeleccionados.get(15).setNivelPoderSeleccionado(String.valueOf(poderPsiquico.getNivel()));
+			}
+		}
+		
+		if (16 < nombreSetPoderPsiquico.size()) {
+			if (nombreSetPoderPsiquico.get(16)!=null) {
+				cPoderPsiquicoSeleccionado17.setValue(nombreSetPoderPsiquico.get(16));
+				PoderPsiquico poderPsiquico = ch.obtenerPoderPsiquicoSeleccionado(sessionFactory, cPoderPsiquicoSeleccionado17.getValue());
+				poderesPsiquicosSeleccionados.get(16).setDisciplinaPoderSeleccionado(poderPsiquico.getDisciplina());
+				poderesPsiquicosSeleccionados.get(16).setNivelPoderSeleccionado(String.valueOf(poderPsiquico.getNivel()));
+			}
+		}
+		
+		if (17 < nombreSetPoderPsiquico.size()) {
+			if (nombreSetPoderPsiquico.get(17)!=null) {
+				cPoderPsiquicoSeleccionado18.setValue(nombreSetPoderPsiquico.get(17));
+				PoderPsiquico poderPsiquico = ch.obtenerPoderPsiquicoSeleccionado(sessionFactory, cPoderPsiquicoSeleccionado18.getValue());
+				poderesPsiquicosSeleccionados.get(17).setDisciplinaPoderSeleccionado(poderPsiquico.getDisciplina());
+				poderesPsiquicosSeleccionados.get(17).setNivelPoderSeleccionado(String.valueOf(poderPsiquico.getNivel()));
+			}
+		}
+		
+		if (18 < nombreSetPoderPsiquico.size()) {
+			if (nombreSetPoderPsiquico.get(18)!=null) {
+				cPoderPsiquicoSeleccionado19.setValue(nombreSetPoderPsiquico.get(18));
+				PoderPsiquico poderPsiquico = ch.obtenerPoderPsiquicoSeleccionado(sessionFactory, cPoderPsiquicoSeleccionado19.getValue());
+				poderesPsiquicosSeleccionados.get(18).setDisciplinaPoderSeleccionado(poderPsiquico.getDisciplina());
+				poderesPsiquicosSeleccionados.get(18).setNivelPoderSeleccionado(String.valueOf(poderPsiquico.getNivel()));
+			}
+		}
+		
+		if (19 < nombreSetPoderPsiquico.size()) {
+			if (nombreSetPoderPsiquico.get(19)!=null) {
+				cPoderPsiquicoSeleccionado20.setValue(nombreSetPoderPsiquico.get(19));
+				PoderPsiquico poderPsiquico = ch.obtenerPoderPsiquicoSeleccionado(sessionFactory, cPoderPsiquicoSeleccionado20.getValue());
+				poderesPsiquicosSeleccionados.get(19).setDisciplinaPoderSeleccionado(poderPsiquico.getDisciplina());
+				poderesPsiquicosSeleccionados.get(19).setNivelPoderSeleccionado(String.valueOf(poderPsiquico.getNivel()));
+			}
+		}
+		
 		
 		cPoderPsiquicoSeleccionado1.setOnAction(new EventHandler<ActionEvent>() {
 			
@@ -4210,7 +4918,8 @@ public class PersonajeController {
         File imgFile = fileChooser.showOpenDialog(((Node)ev.getSource()).getScene().getWindow());
 
         if (imgFile != null) {
-            Image image = new Image("file:" + imgFile.getAbsolutePath());
+        	direccionImagen = imgFile.getAbsolutePath();
+            Image image = new Image("file:" + direccionImagen);
             imagenChar.setImage(image);
         }
 	}
@@ -4931,10 +5640,16 @@ public class PersonajeController {
 		Personaje personajeNuevo = new Personaje();
 		
 		personajeNuevo.setNombre(tNombre.getText());
+		personajeNuevo.setImagen(direccionImagen);
 		personajeNuevo.setApariencia(Integer.parseInt(tApariencia.getText()));
 		personajeNuevo.setEdad(Integer.parseInt(tEdad.getText()));
+		personajeNuevo.setOrigen(tRegeneracion.getText());
+		personajeNuevo.setEtnia(tEtniaGeneral.getText());
 		
 		personajeNuevo.setDescripcion(tAreaPersonalidad.getText());
+		personajeNuevo.setParticularidades(tAreaParticularidades.getText());
+		personajeNuevo.setObjetivos(tAreaObjetivos.getText());
+		personajeNuevo.setHistoria(tAreaHistoria.getText());
 		personajeNuevo.setCansancioEspecial(Integer.parseInt(tCansancioEspecial.getText()));
 		personajeNuevo.setTurnoEspecial(Integer.parseInt(tTurnoEspecial.getText()));
 		personajeNuevo.setPvEspecial(Integer.parseInt(tPuntosVidaEspecial.getText()));
@@ -4945,6 +5660,7 @@ public class PersonajeController {
 		personajeNuevo.setEquipoCombate(tAreaEquipoCombate.getText());
 		personajeNuevo.setEquipoVariado(tAreaEquipoVariado.getText());
 		personajeNuevo.setTitulosPosesiones(tAreaTitulosPosesiones.getText());
+		personajeNuevo.setVestimentaAccesorios(tAreaVestimenta.getText());
 		personajeNuevo.setJoyas(tAreaJoyas.getText());
 		personajeNuevo.setMonedasOro(tDineroOro.getText());
 		personajeNuevo.setMonedasPlata(tDineroPlata.getText());
@@ -4961,11 +5677,31 @@ public class PersonajeController {
 		personajeNuevo.setTablaEstilos(tablaEstilos);
 		personajeNuevo.setNivel(Integer.parseInt(tNivelTotal.getText()));
 		
+		if (null==personaje.getNombre()) {
+			int idPersonaje = ch.insertarPersonaje(sessionFactory, personajeNuevo, caracteristicas, pdsPrimariasComunes, pdsPrimariasKi, pdsPrimariasMisticas, pdsPrimariasPsiquicas,
+					pdsSecundariasAtleticas, pdsSecundariasSociales, pdsSecundariasCreativas, pdsSecundariasIntelectuales, pdsSecundariasPerceptivas, pdsSecundariasSubterfugio, 
+					pdsSecundariasVigor, ventajas, desventajas, armas, armaduras, tablaArteMarcial, tablaConjurosLibreAcceso, tablaPoderesPsiquicos, tablaEstilos);
+		} else {
+			int idPersonaje = ch.actualizarPersonaje(sessionFactory, personajeNuevo, caracteristicas, pdsPrimariasComunes, pdsPrimariasKi, pdsPrimariasMisticas, pdsPrimariasPsiquicas,
+					pdsSecundariasAtleticas, pdsSecundariasSociales, pdsSecundariasCreativas, pdsSecundariasIntelectuales, pdsSecundariasPerceptivas, pdsSecundariasSubterfugio, 
+					pdsSecundariasVigor, ventajas, desventajas, armas, armaduras, tablaArteMarcial, tablaConjurosLibreAcceso, tablaPoderesPsiquicos, tablaEstilos);
+		}
 		
-		int idPersonaje = ch.insertarPersonaje(sessionFactory, personajeNuevo, caracteristicas, pdsPrimariasComunes, pdsPrimariasKi, pdsPrimariasMisticas, pdsPrimariasPsiquicas,
-				pdsSecundariasAtleticas, pdsSecundariasSociales, pdsSecundariasCreativas, pdsSecundariasIntelectuales, pdsSecundariasPerceptivas, pdsSecundariasSubterfugio, 
-				pdsSecundariasVigor, ventajas, desventajas, armas, armaduras, tablaArteMarcial, tablaConjurosLibreAcceso, tablaPoderesPsiquicos, tablaEstilos);
-		
+		((Node)ev.getSource()).getScene().getWindow().hide();
+		Stage primaryStage = new Stage();
+		primaryStage = new Stage();
+		PrincipalController inicio = new PrincipalController(sessionFactory);
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Principal.fxml"));
+		loader.setController(inicio);
+		Pane pane = (Pane)loader.load();
+		Scene scene = new Scene(pane,1400,800);
+		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+		primaryStage.setTitle("Anima Sheet Manager");
+		primaryStage.setScene(scene);
+		primaryStage.show();
+	}
+	
+	public void salirPersonaje(ActionEvent ev) throws IOException {
 		((Node)ev.getSource()).getScene().getWindow().hide();
 		Stage primaryStage = new Stage();
 		primaryStage = new Stage();

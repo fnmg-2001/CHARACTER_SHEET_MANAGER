@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.hibernate.SessionFactory;
 
+import com.sun.glass.events.MouseEvent;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -135,6 +137,11 @@ public class PrincipalController {
 			
 		}
 		
+	}
+	
+	public void salirAplicacion(ActionEvent ev) {
+		ch.cerrarSession(sessionFactory);
+		((Node)ev.getSource()).getScene().getWindow().hide();
 	}
 	
 }

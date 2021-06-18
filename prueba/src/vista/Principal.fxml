@@ -4,11 +4,8 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
@@ -16,32 +13,6 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="804.0" prefWidth="1400.0" stylesheets="@../application/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <MenuBar cache="true" layoutX="9.0" layoutY="11.0" prefHeight="48.0" prefWidth="1385.0" styleClass="menuBar">
-         <menus>
-            <Menu mnemonicParsing="false">
-               <graphic>
-                  <Label fx:id="lblPersonajes" alignment="CENTER" prefHeight="260.0" prefWidth="191.0" styleClass="button" text="PERSONAJES">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor></Label>
-               </graphic>
-            </Menu>
-            <Menu mnemonicParsing="false" />
-            <Menu mnemonicParsing="false" />
-            <Menu disable="true" mnemonicParsing="false" text="                                                                                                                                                                                                                                                                                                            " />
-            <Menu mnemonicParsing="false">
-               <graphic>
-                  <Label fx:id="lblSalir" alignment="CENTER" prefHeight="38.0" prefWidth="86.0" styleClass="labelMenu" text="SALIR">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor></Label>
-               </graphic>
-            </Menu>
-         </menus>
-         <effect>
-            <DropShadow />
-         </effect>
-      </MenuBar>
       <Pane fx:id="pPersonajes" layoutX="-2.0" layoutY="59.0" prefHeight="746.0" prefWidth="1400.0">
          <children>
             <ImageView fx:id="imageViewPersonajeSeleccionado" fitHeight="420.0" fitWidth="418.0" layoutX="22.0" layoutY="326.0" pickOnBounds="true" preserveRatio="true">
@@ -95,5 +66,16 @@
             </ImageView>
          </children>
       </Pane>
+      <Label layoutX="8.0" layoutY="14.0" prefHeight="40.0" prefWidth="1379.0" style="-fx-background-color: #800000;" />
+      <Button layoutX="1303.0" layoutY="14.0" mnemonicParsing="false" onAction="#salirAplicacion" text="SALIR">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Label layoutX="14.0" layoutY="17.0" text="PERSONAJES" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="23.0" />
+         </font>
+      </Label>
    </children>
 </Pane>

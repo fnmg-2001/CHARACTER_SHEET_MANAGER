@@ -86,7 +86,7 @@ public class RazaController {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Principal.fxml"));
 		loader.setController(principal);
 		Pane pane = (Pane)loader.load();
-		Scene scene = new Scene(pane,1600,800);
+		Scene scene = new Scene(pane,1400,800);
 		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 		stage.setTitle("Anima Sheet Manager");
 		stage.setScene(scene);

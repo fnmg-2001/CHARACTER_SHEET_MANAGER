@@ -50,14 +50,14 @@
                   <TextArea fx:id="tAreaPersonalidad" layoutX="687.0" layoutY="59.0" prefHeight="140.0" prefWidth="492.0" styleClass="tAreaPersonaje" text=" " wrapText="true" />
                   <Label alignment="CENTER" layoutX="102.0" layoutY="618.0" prefHeight="35.0" prefWidth="160.0" styleClass="labelPersonaje" text="RAZA" />
                   <TextField fx:id="tRazaGeneral" alignment="CENTER" layoutX="102.0" layoutY="654.0" prefHeight="31.0" prefWidth="158.0" />
-                  <Label alignment="CENTER" layoutX="429.0" layoutY="618.0" prefHeight="35.0" prefWidth="156.0" styleClass="labelPersonaje" text="SEXO" />
-                  <TextField fx:id="tSexo" alignment="CENTER" layoutX="429.0" layoutY="654.0" prefHeight="31.0" prefWidth="156.0" text=" " />
-                  <Label alignment="CENTER" layoutX="102.0" layoutY="686.0" prefHeight="35.0" prefWidth="158.0" styleClass="labelPersonaje" text="EDAD" />
-                  <TextField fx:id="tEdad" alignment="CENTER" layoutX="102.0" layoutY="721.0" prefHeight="31.0" prefWidth="158.0" />
-                  <Label alignment="CENTER" layoutX="262.0" layoutY="686.0" prefHeight="35.0" prefWidth="163.0" styleClass="labelPersonaje" text="REGION" />
-                  <TextField fx:id="tRegion" alignment="CENTER" layoutX="263.0" layoutY="721.0" prefHeight="31.0" prefWidth="160.0" text=" " />
-                  <Label alignment="CENTER" layoutX="427.0" layoutY="686.0" prefHeight="35.0" prefWidth="160.0" styleClass="labelPersonaje" text="ETNIA" />
-                  <TextField fx:id="tEtniaGeneral" alignment="CENTER" layoutX="428.0" layoutY="721.0" prefHeight="31.0" prefWidth="158.0" text=" " />
+                  <Label alignment="CENTER" layoutX="429.0" layoutY="618.0" prefHeight="35.0" prefWidth="156.0" styleClass="labelPersonaje" text="SEXO" visible="false" />
+                  <TextField fx:id="tSexo" alignment="CENTER" layoutX="429.0" layoutY="654.0" prefHeight="31.0" prefWidth="156.0" text=" " visible="false" />
+                  <Label alignment="CENTER" layoutX="102.0" layoutY="686.0" prefHeight="35.0" prefWidth="240.0" styleClass="labelPersonaje" text="EDAD" />
+                  <TextField fx:id="tEdad" alignment="CENTER" layoutX="102.0" layoutY="721.0" prefHeight="31.0" prefWidth="240.0" />
+                  <Label alignment="CENTER" layoutX="349.0" layoutY="685.0" prefHeight="35.0" prefWidth="240.0" styleClass="labelPersonaje" text="REGION" />
+                  <TextField fx:id="tRegion" alignment="CENTER" layoutX="350.0" layoutY="720.0" prefHeight="31.0" prefWidth="240.0" text=" " />
+                  <Label alignment="CENTER" layoutX="428.0" layoutY="618.0" prefHeight="35.0" prefWidth="160.0" styleClass="labelPersonaje" text="ETNIA" />
+                  <TextField fx:id="tEtniaGeneral" alignment="CENTER" layoutX="429.0" layoutY="653.0" prefHeight="31.0" prefWidth="158.0" text=" " />
                   <Label alignment="CENTER" layoutX="263.0" layoutY="618.0" prefHeight="35.0" prefWidth="164.0" styleClass="labelPersonaje" text="APARIENCIA" />
                   <TextField fx:id="tApariencia" alignment="CENTER" layoutX="264.0" layoutY="654.0" prefHeight="31.0" prefWidth="162.0" />
                   <Pane fx:id="pPersonajeChar" layoutX="159.0" layoutY="55.0" onMouseClicked="#seleccionarImagenPersonaje" onMouseEntered="#PaneImagenPersonaje" onMouseExited="#sinPaneImagenPersonaje" opacity="0.5" prefHeight="442.0" prefWidth="370.0">
@@ -79,7 +79,7 @@
                      </cursor>
                   </ImageView>
                   <Button layoutX="22.0" layoutY="19.0" mnemonicParsing="false" onAction="#insertarPersonaje" prefHeight="39.0" prefWidth="117.0" text="GUARDAR" />
-                  <Button layoutX="22.0" layoutY="75.0" mnemonicParsing="false" text="CANCELAR" />
+                  <Button layoutX="22.0" layoutY="75.0" mnemonicParsing="false" onAction="#salirPersonaje" text="CANCELAR" />
                </children></AnchorPane>
       </content>
     </Tab>
@@ -218,8 +218,8 @@
                                                 <TableView fx:id="tableViewResumenAtleticas" layoutY="1.0" prefHeight="200.0" prefWidth="647.0">
                                                    <columns>
                                                       <TableColumn fx:id="colNombreSecundariaAtleticas" prefWidth="329.0" text="HABILIDAD" />
-                                                      <TableColumn fx:id="colPenalizadorSecundariaAtleticas" prefWidth="112.0" text="PEN.NATURAL" />
-                                                      <TableColumn fx:id="colTotalSecundariaAtleticas" prefWidth="205.0" text="TOTAL" />
+                                                      <TableColumn fx:id="colPenalizadorSecundariaAtleticas" prefWidth="112.0" text="PEN.NATURAL" visible="false" />
+                                                      <TableColumn fx:id="colTotalSecundariaAtleticas" prefWidth="310.0" text="TOTAL" />
                                                    </columns>
                                                 </TableView>
                                              </children>
@@ -233,8 +233,8 @@
                                                 <TableView fx:id="tableViewResumenSociales" layoutY="1.0" prefHeight="200.0" prefWidth="647.0">
                                                   <columns>
                                                     <TableColumn fx:id="colNombreSecundariaSociales" prefWidth="329.0" text="HABILIDAD" />
-                                                    <TableColumn fx:id="colPenalizadorSecundariaSociales" prefWidth="112.0" text="PEN.NATURAL" />
-                                                      <TableColumn fx:id="colTotalSecundariaSociales" prefWidth="205.0" text="TOTAL" />
+                                                    <TableColumn fx:id="colPenalizadorSecundariaSociales" prefWidth="112.0" text="PEN.NATURAL" visible="false" />
+                                                      <TableColumn fx:id="colTotalSecundariaSociales" prefWidth="310.0" text="TOTAL" />
                                                   </columns>
                                                 </TableView>
                                              </children>
@@ -248,8 +248,8 @@
                                                 <TableView fx:id="tableViewResumenPerceptivas" layoutY="1.0" prefHeight="200.0" prefWidth="647.0">
                                                    <columns>
                                                       <TableColumn fx:id="colNombreSecundariaPerceptivas" prefWidth="329.0" text="HABILIDAD" />
-                                                      <TableColumn fx:id="colPenalizadorSecundariaPerceptivas" prefWidth="112.0" text="PEN.NATURAL" />
-                                                      <TableColumn fx:id="colTotalSecundariaPerceptivas" prefWidth="205.0" text="TOTAL" />
+                                                      <TableColumn fx:id="colPenalizadorSecundariaPerceptivas" prefWidth="310.0" text="PEN.NATURAL" visible="false" />
+                                                      <TableColumn fx:id="colTotalSecundariaPerceptivas" prefWidth="310.0" text="TOTAL" />
                                                    </columns>
                                                 </TableView>
                                              </children>
@@ -263,8 +263,8 @@
                                                 <TableView fx:id="tableViewResumenIntelectuales" layoutY="1.0" prefHeight="200.0" prefWidth="647.0">
                                                    <columns>
                                                       <TableColumn fx:id="colNombreSecundariaIntelectuales" prefWidth="329.0" text="HABILIDAD" />
-                                                      <TableColumn fx:id="colPenalizadorSecundariaIntelectuales" prefWidth="112.0" text="PEN.NATURAL" />
-                                                      <TableColumn fx:id="colTotalSecundariaIntelectuales" prefWidth="205.0" text="TOTAL" />
+                                                      <TableColumn fx:id="colPenalizadorSecundariaIntelectuales" prefWidth="112.0" text="PEN.NATURAL" visible="false" />
+                                                      <TableColumn fx:id="colTotalSecundariaIntelectuales" prefWidth="310.0" text="TOTAL" />
                                                    </columns>
                                                 </TableView>
                                              </children>
@@ -278,8 +278,8 @@
                                                 <TableView fx:id="tableViewResumenVigor" layoutY="1.0" prefHeight="200.0" prefWidth="647.0">
                                                    <columns>
                                                       <TableColumn fx:id="colNombreSecundariaVigor" prefWidth="329.0" text="HABILIDAD" />
-                                                      <TableColumn fx:id="colPenalizadorSecundariaVigor" prefWidth="112.0" text="PEN.NATURAL" />
-                                                      <TableColumn fx:id="colTotalSecundariaVigor" prefWidth="205.0" text="TOTAL" />
+                                                      <TableColumn fx:id="colPenalizadorSecundariaVigor" prefWidth="112.0" text="PEN.NATURAL" visible="false" />
+                                                      <TableColumn fx:id="colTotalSecundariaVigor" prefWidth="310.0" text="TOTAL" />
                                                    </columns>
                                                 </TableView>
                                              </children>
@@ -293,8 +293,8 @@
                                                 <TableView fx:id="tableViewResumenSubterfugio" layoutY="1.0" prefHeight="200.0" prefWidth="647.0">
                                                    <columns>
                                                       <TableColumn fx:id="colNombreSecundariaSubterfugio" prefWidth="329.0" text="HABILIDAD" />
-                                                      <TableColumn fx:id="colPenalizadorSecundariaSubterfugio" prefWidth="112.0" text="PEN.NATURAL" />
-                                                      <TableColumn fx:id="colTotalSecundariaSubterfugio" prefWidth="205.0" text="TOTAL" />
+                                                      <TableColumn fx:id="colPenalizadorSecundariaSubterfugio" prefWidth="310.0" text="PEN.NATURAL" visible="false" />
+                                                      <TableColumn fx:id="colTotalSecundariaSubterfugio" prefWidth="310.0" text="TOTAL" />
                                                    </columns>
                                                 </TableView>
                                              </children>
@@ -308,7 +308,7 @@
                                                 <TableView fx:id="tableViewResumenCreativas" layoutY="1.0" prefHeight="200.0" prefWidth="647.0">
                                                    <columns>
                                                       <TableColumn fx:id="colNombreSecundariaCreativas" prefWidth="329.0" text="HABILIDAD" />
-                                                      <TableColumn fx:id="colPenalizadorSecundariaCreativas" prefWidth="112.0" text="PEN.NATURAL" />
+                                                      <TableColumn fx:id="colPenalizadorSecundariaCreativas" prefWidth="310.0" text="PEN.NATURAL" visible="false" />
                                                       <TableColumn fx:id="colTotalSecundariaCreativas" prefWidth="205.0" text="TOTAL" />
                                                    </columns>
                                                 </TableView>
@@ -323,8 +323,8 @@
                                                 <TableView layoutY="1.0" prefHeight="200.0" prefWidth="647.0">
                                                    <columns>
                                                       <TableColumn prefWidth="329.0" text="HABILIDAD" />
-                                                      <TableColumn prefWidth="112.0" text="PEN.NATURAL" />
-                                                      <TableColumn prefWidth="205.0" text="TOTAL" />
+                                                      <TableColumn prefWidth="112.0" text="PEN.NATURAL" visible="false" />
+                                                      <TableColumn prefWidth="310.0" text="TOTAL" />
                                                    </columns>
                                                 </TableView>
                                              </children>
@@ -490,8 +490,8 @@
                         <TableColumn fx:id="colArmaduraFrio" prefWidth="60.0" text="FRIO" />
                         <TableColumn fx:id="colArmaduraEnergia" text="ENERGIA" />
                         <TableColumn fx:id="colArmaduraEntereza" prefWidth="90.0" text="ENTEREZA" />
-                        <TableColumn fx:id="colArmaduraRequisito" prefWidth="92.0" text="REQUISITO" />
-                        <TableColumn fx:id="colArmaduraPenalizacionNatural" prefWidth="203.0" text="PENALIZADOR NATURAL" />
+                        <TableColumn fx:id="colArmaduraRequisito" prefWidth="295.0" text="REQUISITO" />
+                        <TableColumn fx:id="colArmaduraPenalizacionNatural" prefWidth="203.0" text="PENALIZADOR NATURAL" visible="false" />
                     </columns>
                   </TableView>
                   <Label layoutX="14.0" layoutY="11.0" prefHeight="30.0" prefWidth="1172.0" styleClass="labelPersonaje" text="ARMADURAS" />
@@ -659,8 +659,8 @@
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <Label layoutX="52.0" layoutY="87.0" prefHeight="30.0" prefWidth="394.0" styleClass="labelPersonaje" text="NIVEL DE MAGIA" />
-                  <TableView fx:id="tableViewNivelVia" editable="true" layoutX="52.0" layoutY="117.0" prefHeight="238.0" prefWidth="395.0">
+                  <Label layoutX="52.0" layoutY="87.0" prefHeight="30.0" prefWidth="394.0" styleClass="labelPersonaje" text="NIVEL DE MAGIA" visible="false" />
+                  <TableView fx:id="tableViewNivelVia" editable="true" layoutX="52.0" layoutY="117.0" prefHeight="238.0" prefWidth="395.0" visible="false">
                     <columns>
                       <TableColumn fx:id="colViaNombre" prefWidth="169.0" text="VIA" />
                       <TableColumn fx:id="colNivelViaUsado" onEditCommit="#cambiarNivelesViaUsados" prefWidth="83.0" text="USADO" />
@@ -675,24 +675,24 @@
                         <TableColumn fx:id="colPdsTablasMistico" prefWidth="75.0" text="PDS" />
                     </columns>
                   </TableView>
-                  <Label layoutX="52.0" layoutY="477.0" prefHeight="21.0" prefWidth="394.0" styleClass="labelPersonaje" text="PROYECCION MAGICA" />
-                  <TextField fx:id="tProyeccionMagicaAtaque" alignment="CENTER" editable="false" layoutX="52.0" layoutY="536.0" prefHeight="31.0" prefWidth="170.0" />
-                  <TextField fx:id="tProyeccionMagicaDefensa" alignment="CENTER" editable="false" layoutX="277.0" layoutY="542.0" prefHeight="31.0" prefWidth="170.0" />
-                  <Label layoutX="52.0" layoutY="512.0" prefHeight="30.0" prefWidth="170.0" styleClass="labelSubPersonaje" text="ATAQUE" />
-                  <Label layoutX="277.0" layoutY="512.0" prefHeight="30.0" prefWidth="170.0" styleClass="labelSubPersonaje" text="DEFENSA" />
-                  <Label layoutX="52.0" layoutY="577.0" prefHeight="30.0" prefWidth="239.0" styleClass="labelPersonaje" text="REGENERACION ZEON" />
-                  <Label layoutX="302.0" layoutY="577.0" prefHeight="30.0" prefWidth="144.0" styleClass="labelPersonaje" text="ZEON" />
-                  <TextField fx:id="tPuntosZeon" alignment="CENTER" editable="false" layoutX="302.0" layoutY="607.0" prefHeight="31.0" prefWidth="144.0" />
-                  <TextField fx:id="tAcumulacionTurno" alignment="CENTER" editable="false" layoutX="52.0" layoutY="607.0" prefHeight="31.0" prefWidth="239.0" />
-                  <Label layoutX="600.0" layoutY="14.0" prefHeight="30.0" prefWidth="547.0" styleClass="labelPersonaje" text="CONJUROS DE LIBRE ACCESO" />
+                  <Label layoutX="52.0" layoutY="304.0" prefHeight="21.0" prefWidth="394.0" styleClass="labelPersonaje" text="PROYECCION MAGICA" />
+                  <TextField fx:id="tProyeccionMagicaAtaque" alignment="CENTER" editable="false" layoutX="52.0" layoutY="373.0" prefHeight="31.0" prefWidth="170.0" />
+                  <TextField fx:id="tProyeccionMagicaDefensa" alignment="CENTER" editable="false" layoutX="277.0" layoutY="374.0" prefHeight="31.0" prefWidth="170.0" />
+                  <Label layoutX="52.0" layoutY="342.0" prefHeight="30.0" prefWidth="170.0" styleClass="labelSubPersonaje" text="ATAQUE" />
+                  <Label layoutX="277.0" layoutY="342.0" prefHeight="30.0" prefWidth="170.0" styleClass="labelSubPersonaje" text="DEFENSA" />
+                  <Label layoutX="52.0" layoutY="416.0" prefHeight="30.0" prefWidth="239.0" styleClass="labelPersonaje" text="REGENERACION ZEON" />
+                  <Label layoutX="302.0" layoutY="416.0" prefHeight="30.0" prefWidth="144.0" styleClass="labelPersonaje" text="ZEON" />
+                  <TextField fx:id="tPuntosZeon" alignment="CENTER" editable="false" layoutX="302.0" layoutY="446.0" prefHeight="31.0" prefWidth="144.0" />
+                  <TextField fx:id="tAcumulacionTurno" alignment="CENTER" editable="false" layoutX="52.0" layoutY="446.0" prefHeight="31.0" prefWidth="239.0" />
+                  <Label layoutX="600.0" layoutY="14.0" prefHeight="30.0" prefWidth="547.0" styleClass="labelPersonaje" text="CONJUROS SELECCIONADOS" />
                   <TableView fx:id="tableViewConjurosLibreAcceso" layoutX="600.0" layoutY="44.0" prefHeight="687.0" prefWidth="546.0">
                     <columns>
                       <TableColumn fx:id="colConjurosLibreAccesoNombre" prefWidth="409.0" text="CONJURO" />
-                      <TableColumn fx:id="colConjurosLibreAccesoNivel" prefWidth="131.0" text="NIVEL" />
+                      <TableColumn fx:id="colConjurosLibreAccesoNivel" prefWidth="128.0" text="NIVEL" />
                     </columns>
                   </TableView>
-                  <Label layoutX="53.0" layoutY="386.0" prefHeight="30.0" prefWidth="392.0" styleClass="labelSubPersonaje" text="NIVEL DE MAGIA TOTAL" />
-                  <TextField fx:id="tNivelMagiaTotal" alignment="CENTER" editable="false" layoutX="53.0" layoutY="416.0" prefHeight="31.0" prefWidth="393.0" />
+                  <Label layoutX="53.0" layoutY="229.0" prefHeight="30.0" prefWidth="392.0" styleClass="labelPersonaje" text="NIVEL DE MAGIA TOTAL" />
+                  <TextField fx:id="tNivelMagiaTotal" alignment="CENTER" editable="false" layoutX="53.0" layoutY="259.0" prefHeight="31.0" prefWidth="393.0" />
                </children></AnchorPane>
       </content>
     </Tab>
@@ -700,20 +700,20 @@
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <Label layoutX="43.0" layoutY="58.0" prefHeight="30.0" prefWidth="401.0" styleClass="labelPersonaje" text="CONSUMOS DE VOLUNTAD TOTALES" />
-                  <TextField fx:id="tCvTotales" alignment="CENTER" layoutX="43.0" layoutY="88.0" prefHeight="31.0" prefWidth="401.0" />
-                  <Label layoutX="43.0" layoutY="171.0" prefHeight="30.0" prefWidth="401.0" styleClass="labelPersonaje" text="POTENCIAL PSIQUICO" />
-                  <TextField fx:id="tPotencialTotal" alignment="CENTER" layoutX="43.0" layoutY="240.0" prefHeight="31.0" prefWidth="238.0" text="0" />
-                  <Label layoutX="43.0" layoutY="210.0" prefHeight="30.0" prefWidth="239.0" styleClass="labelSubPersonaje" text="POTENCIAL TOTAL" />
-                  <TextField fx:id="tCvUsado" alignment="CENTER" layoutX="293.0" layoutY="240.0" onKeyReleased="#cambiarValorCvUsado" prefHeight="31.0" prefWidth="150.0" text="0" />
-                  <Label layoutX="293.0" layoutY="210.0" prefHeight="30.0" prefWidth="151.0" styleClass="labelSubPersonaje" text="CV USADO" />
-                  <Label layoutX="50.0" layoutY="334.0" prefHeight="30.0" prefWidth="394.0" styleClass="labelPersonaje" text="PROYECCION PSIQUICA" />
-                  <TextField fx:id="tProyeccionPsiquicaAtaque" alignment="CENTER" editable="false" layoutX="50.0" layoutY="405.0" prefHeight="31.0" prefWidth="170.0" />
-                  <TextField fx:id="tProyeccionPsiquicaDefensa" alignment="CENTER" editable="false" layoutX="273.0" layoutY="406.0" prefHeight="31.0" prefWidth="170.0" />
-                  <Label layoutX="50.0" layoutY="372.0" prefHeight="30.0" prefWidth="170.0" styleClass="labelSubPersonaje" text="ATAQUE" />
-                  <Label layoutX="273.0" layoutY="373.0" prefHeight="30.0" prefWidth="170.0" styleClass="labelSubPersonaje" text="DEFENSA" />
-                  <Label layoutX="50.0" layoutY="464.0" prefHeight="30.0" prefWidth="394.0" styleClass="labelPersonaje" text="CONCENTRACION" />
-                  <TableView fx:id="tableViewConcentracion" layoutX="50.0" layoutY="494.0" prefHeight="200.0" prefWidth="394.0">
+                  <Label layoutX="43.0" layoutY="120.0" prefHeight="30.0" prefWidth="401.0" styleClass="labelPersonaje" text="CONSUMOS DE VOLUNTAD TOTALES" />
+                  <TextField fx:id="tCvTotales" alignment="CENTER" layoutX="43.0" layoutY="150.0" prefHeight="31.0" prefWidth="401.0" />
+                  <Label layoutX="43.0" layoutY="196.0" prefHeight="30.0" prefWidth="401.0" styleClass="labelPersonaje" text="POTENCIAL PSIQUICO" />
+                  <TextField fx:id="tPotencialTotal" alignment="CENTER" layoutX="43.0" layoutY="265.0" prefHeight="31.0" prefWidth="238.0" text="0" />
+                  <Label layoutX="43.0" layoutY="235.0" prefHeight="30.0" prefWidth="239.0" styleClass="labelSubPersonaje" text="POTENCIAL TOTAL" />
+                  <TextField fx:id="tCvUsado" alignment="CENTER" layoutX="293.0" layoutY="265.0" onKeyReleased="#cambiarValorCvUsado" prefHeight="31.0" prefWidth="150.0" text="0" />
+                  <Label layoutX="293.0" layoutY="235.0" prefHeight="30.0" prefWidth="151.0" styleClass="labelSubPersonaje" text="CV USADO" />
+                  <Label layoutX="50.0" layoutY="308.0" prefHeight="30.0" prefWidth="394.0" styleClass="labelPersonaje" text="PROYECCION PSIQUICA" />
+                  <TextField fx:id="tProyeccionPsiquicaAtaque" alignment="CENTER" editable="false" layoutX="50.0" layoutY="379.0" prefHeight="31.0" prefWidth="170.0" />
+                  <TextField fx:id="tProyeccionPsiquicaDefensa" alignment="CENTER" editable="false" layoutX="273.0" layoutY="380.0" prefHeight="31.0" prefWidth="170.0" />
+                  <Label layoutX="50.0" layoutY="346.0" prefHeight="30.0" prefWidth="170.0" styleClass="labelSubPersonaje" text="ATAQUE" />
+                  <Label layoutX="273.0" layoutY="347.0" prefHeight="30.0" prefWidth="170.0" styleClass="labelSubPersonaje" text="DEFENSA" />
+                  <Label layoutX="50.0" layoutY="420.0" prefHeight="30.0" prefWidth="394.0" styleClass="labelPersonaje" text="CONCENTRACION" />
+                  <TableView fx:id="tableViewConcentracion" layoutX="50.0" layoutY="450.0" prefHeight="200.0" prefWidth="394.0">
                     <columns>
                       <TableColumn fx:id="colPreparacionConcentracion" prefWidth="193.0" text="PREPARACION" />
                       <TableColumn fx:id="colBonoPotencialConcentracion" prefWidth="196.0" text="BONO POTENCIAL" />
