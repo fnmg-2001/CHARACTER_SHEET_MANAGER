@@ -466,6 +466,13 @@ public class PersonajeController {
 			tDineroPlata.setText(personaje.getMonedasPlata());
 			tDineroCobre.setText(personaje.getMonedasCobre());
 			tNombre.setEditable(false);
+			
+			tCvUsado.setText(String.valueOf(personaje.getCvInvertido()));
+			tPuntosRegeneracionEspecial.setText(String.valueOf(personaje.getRegeneracionEspecial()));
+			tPuntosVidaEspecial.setText(String.valueOf(personaje.getPvEspecial()));
+			tTurnoEspecial.setText(String.valueOf(personaje.getTurnoEspecial()));
+			tCansancioEspecial.setText(String.valueOf(personaje.getCansancioEspecial()));
+			
 		}
 		
 	}

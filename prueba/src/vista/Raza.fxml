@@ -784,7 +784,7 @@
                               <DropShadow />
                            </effect>
                         </Pane>
-                        <Pane layoutX="804.0" layoutY="1025.0" prefHeight="301.0" prefWidth="375.0" style="-fx-background-color: #D5D5D5;">
+                        <Pane layoutX="804.0" layoutY="1025.0" prefHeight="301.0" prefWidth="375.0" style="-fx-background-color: #D5D5D5;" visible="false">
                            <children>
                               <Circle fill="#9e9e9e" layoutX="188.0" layoutY="124.0" radius="100.0" stroke="BLACK" strokeType="INSIDE" />
                               <ImageView fitHeight="133.0" fitWidth="180.0" layoutX="121.0" layoutY="58.0" pickOnBounds="true" preserveRatio="true">
